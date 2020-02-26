@@ -11,6 +11,11 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/adminuniversitas','AdminunivController@index');
+Route::get('/adminuniversitas/{adminuniv}','AdminunivController@show');
