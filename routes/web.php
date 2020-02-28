@@ -18,4 +18,6 @@ Route::get('/', function () {
 });
 
 Route::get('/adminuniversitas','AdminunivController@index');
+Route::get('/adminuniversitas/create','AdminunivController@create');
 Route::get('/adminuniversitas/{adminuniv}','AdminunivController@show');
+Route::post('/adminuniversitas','AdminunivController@store');

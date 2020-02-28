@@ -27,6 +27,7 @@ class AdminunivController extends Controller
     public function create()
     {
         //
+        return view('pages.admin.univ.create');
     }
 
     /**
@@ -38,6 +39,27 @@ class AdminunivController extends Controller
     public function store(Request $request)
     {
         //
+
+        $adminuniv = new Adminuniv;
+        $request->validate([
+            'nama_penawaran'=>'required',
+            'jml-kuota'=>'required',
+            'tgl-awal-pendaftaran'=>'required',
+            'tgl-akhir-pendaftaran'=>'required',
+            'tgl-awal-penetapan'=>'required',
+            'tgl-akhir-penetapan'=>'required',
+            'tgl-awal-verifikasi'=>'required',
+            'tgl-akhir-verifikasi'=>'required',
+            'tgl-pengumuman'=>'required',
+            'ips'=>'required',
+            'ipk'=>'required',
+            'min-semester'=>'required',
+            'max-semester'=>'required',
+            'max-penghasilan'=>'required'
+         ]);
+        $adminuniv->save();
+        return ($adminuniv);
+
     }
 
     /**
@@ -49,7 +71,7 @@ class AdminunivController extends Controller
     public function show(Adminuniv $adminuniv)
     {
         //
-        return view('pages.admin.univ.detail', compact('adminuniv'));
+        return view('pages.admin.univ.show', compact('adminuniv'));
 
     }
 
