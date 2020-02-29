@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Adminuniv;
 use Illuminate\Http\Request;
+use PDOStatement;
 
 class AdminunivController extends Controller
 {
@@ -39,26 +40,28 @@ class AdminunivController extends Controller
     public function store(Request $request)
     {
         //
-
-        $adminuniv = new Adminuniv;
         $request->validate([
-            'nama_penawaran'=>'required',
-            'jml-kuota'=>'required',
-            'tgl-awal-pendaftaran'=>'required',
-            'tgl-akhir-pendaftaran'=>'required',
-            'tgl-awal-penetapan'=>'required',
-            'tgl-akhir-penetapan'=>'required',
-            'tgl-awal-verifikasi'=>'required',
-            'tgl-akhir-verifikasi'=>'required',
-            'tgl-pengumuman'=>'required',
-            'ips'=>'required',
-            'ipk'=>'required',
-            'min-semester'=>'required',
-            'max-semester'=>'required',
-            'max-penghasilan'=>'required'
-         ]);
-        $adminuniv->save();
-        return ($adminuniv);
+            'nama_penawaran' => 'required|unique:bea_penawaran|max:255',
+            'tgl_awal_penawaran'=>'required|date',
+            'tgl_akhir_penawaran'=>'required|date|after:tgl_awal_penawaran',
+            'tgl_awal_pendaftaran'=>'required|date|after:tgl_awal_penawaran',
+            'tgl_akhir_pendaftaran'=>'required|date|after:tgl_awal_pendaftaran',
+            'tgl_awal_verifikasi'=>'required|date|after:tgl_awal_pendaftaran',
+            'tgl_akhir_verifikasi'=>'required|date|after:tgl_verifikasi_awal',
+            'tgl_awal_penetapan'=>'required|date|after:tgl_akhir_verifikasi',
+            'tgl_akhir_penetapan'=>'required|date|after:tgl_awal_penetapan',
+            'tgl_pengumuman'=>'required|date|after:tgl_akhir_penetapan',
+            'ips'=>'required|min:3|max:4',
+            'ipk'=>'required|min:3|max:4',
+            'min_semester'=>'required|integer|min:1|max:8',
+            'max_semester'=>'required|integer|min:1|max:8|gt:min_semester',
+            'max_penghasilan'=>'required',
+
+
+        ]);
+        Adminuniv::create($request->all());
+
+        return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
 
     }
 

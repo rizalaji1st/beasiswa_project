@@ -36,6 +36,11 @@
                                 s/d {{$adminuniv->tgl_akhir_pendaftaran->format('d M Y')}}</td>
                         </tr>
                         <tr>
+                            <td scope="col">Tanggal Verifikasi</td>
+                            <td scope="col">{{$adminuniv->tgl_awal_verifikasi->format('d')}}
+                                s/d {{$adminuniv->tgl_akhir_verifikasi->format('d M Y')}}</td>
+                        </tr>
+                        <tr>
                             <td scope="col">Tanggal Penetapan</td>
                             <td scope="col">{{$adminuniv->tgl_awal_penetapan->format('d')}}
                                 s/d {{$adminuniv->tgl_akhir_penetapan->format('d M Y')}}</td>

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Traits\Timestamp;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,23 +15,10 @@ class Adminuniv extends Model
                         'tgl_akhir_penawaran',
                         'tgl_awal_pendaftaran',
                         'tgl_akhir_pendaftaran',
+                        'tgl_awal_verifikasi',
+                        'tgl_akhir_verifikasi',
                         'tgl_awal_penetapan',
                         'tgl_akhir_penetapan',
                         'tgl_pengumuman'];
-    // protected $fillable = ['nama_penawaran',
-    //                         'jml-kuota',
-    //                         'tgl-awal-pendaftaran',
-    //                         'tgl-akhir-pendaftaran',
-    //                         'tgl-awal-penetapan',
-    //                         'tgl-akhir-penetapan',
-    //                         'tgl-awal-verifikasi',
-    //                         'tgl-akhir-verifikasi',
-    //                         'tgl-pengumuman',
-    //                         'ips',
-    //                         'ipk',
-    //                         'min-semester',
-    //                         'max-semester',
-    //                         'max-penghasilan'
-    //                     ];
     protected $guarded = [];
 }
