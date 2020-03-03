@@ -3,6 +3,15 @@
 @section('status-dashboard', 'active')
 @section('content')
     <div class="container">
+        {{-- succes --}}
+        <div class="mt-2">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                </div>
+            @endif
+        </div>
         <h3 class="mt-2 mb-2">Informasi Umum</h3>
         <div class="row">
             <div class="col-12">
@@ -15,6 +24,10 @@
                         <tr>
                             <td scope="col">Tahun</td>
                             <td scope="col">{{$adminuniv->tahun}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Kuota</td>
+                            <td scope="col">{{$adminuniv->jml_kuota}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -58,10 +71,7 @@
             <div class="col-12">
                 <table class="table table-bordered table-striped">
                     <tbody>
-                        <tr>
-                            <td scope="col">Kuota</td>
-                            <td scope="col">{{$adminuniv->jml_kuota}}</td>
-                        </tr>
+
                         <tr>
                             <td scope="col">Indek Prestasi Semester</td>
                             <td scope="col">{{$adminuniv->ips}}</td>
@@ -85,9 +95,13 @@
 
         {{-- button --}}
         <a href="/adminuniversitas" class="btn btn-outline-primary">kembali</a>
-        <a href="{{$adminuniv->id_penawaran}}/edit" class="btn btn-primary pull-right" type="submit">Edit</a>
+        <form action="{{$adminuniv->id_penawaran}}" method="POST"class="d-inline">
+            @method('put')
+            @csrf
+            <button type="submit" class="btn btn-primary pull-right d-inline">Edit</button>
+        </form>
         <form action="{{$adminuniv->id_penawaran}}" method="POST" class="d-inline">
-            <button class="btn btn-danger" type="submit" >Delete</button>
+            <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure ?')">Delete</button>
             @method('Delete')
             @csrf
         </form>

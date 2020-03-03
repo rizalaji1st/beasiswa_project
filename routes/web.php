@@ -18,6 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('/adminuniversitas','AdminunivController@index');
+Route::post('/adminuniversitas','AdminunivController@store');
 Route::get('/adminuniversitas/create','AdminunivController@create');
 Route::get('/adminuniversitas/{adminuniv}','AdminunivController@show');
-Route::post('/adminuniversitas','AdminunivController@store');
+Route::patch('/adminuniversitas/{adminuniv}','AdminunivController@update');
+Route::put('/adminuniversitas/{adminuniv}','AdminunivController@edit');
+Route::delete('/adminuniversitas/{adminuniv}','AdminunivController@destroy');

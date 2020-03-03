@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\Adminuniv;
 use Illuminate\Http\Request;
 use PDOStatement;
@@ -41,18 +42,19 @@ class AdminunivController extends Controller
     {
         //
         $request->validate([
-            'nama_penawaran' => 'required|unique:bea_penawaran|max:255',
+            'nama_penawaran' => 'required|max:255',
+            'jml_kuota'=> 'required',
             'tgl_awal_penawaran'=>'required|date',
             'tgl_akhir_penawaran'=>'required|date|after:tgl_awal_penawaran',
             'tgl_awal_pendaftaran'=>'required|date|after:tgl_awal_penawaran',
             'tgl_akhir_pendaftaran'=>'required|date|after:tgl_awal_pendaftaran',
             'tgl_awal_verifikasi'=>'required|date|after:tgl_awal_pendaftaran',
-            'tgl_akhir_verifikasi'=>'required|date|after:tgl_verifikasi_awal',
+            'tgl_akhir_verifikasi'=>'required|date|after:tgl_verifikasi_awal|after:tgl_akhir_pendaftaran',
             'tgl_awal_penetapan'=>'required|date|after:tgl_akhir_verifikasi',
             'tgl_akhir_penetapan'=>'required|date|after:tgl_awal_penetapan',
             'tgl_pengumuman'=>'required|date|after:tgl_akhir_penetapan',
-            'ips'=>'required|min:3|max:4',
-            'ipk'=>'required|min:3|max:4',
+            'ips'=>'required|min:1|max:4',
+            'ipk'=>'required|min:1|max:4',
             'min_semester'=>'required|integer|min:1|max:8',
             'max_semester'=>'required|integer|min:1|max:8|gt:min_semester',
             'max_penghasilan'=>'required',
@@ -60,7 +62,6 @@ class AdminunivController extends Controller
 
         ]);
         Adminuniv::create($request->all());
-
         return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
 
     }
@@ -75,6 +76,7 @@ class AdminunivController extends Controller
     {
         //
         return view('pages.admin.univ.show', compact('adminuniv'));
+        return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
 
     }
 
@@ -87,6 +89,7 @@ class AdminunivController extends Controller
     public function edit(Adminuniv $adminuniv)
     {
         //
+        return view('pages.admin.univ.update', compact('adminuniv'));
     }
 
     /**
@@ -99,6 +102,49 @@ class AdminunivController extends Controller
     public function update(Request $request, Adminuniv $adminuniv)
     {
         //
+
+        //
+        $request->validate([
+            'nama_penawaran' => 'required|max:255',
+            'jml_kuota'=> 'required',
+            'tgl_awal_penawaran'=>'required|date',
+            'tgl_akhir_penawaran'=>'required|date|after:tgl_awal_penawaran',
+            'tgl_awal_pendaftaran'=>'required|date|after:tgl_awal_penawaran',
+            'tgl_akhir_pendaftaran'=>'required|date|after:tgl_awal_pendaftaran',
+            'tgl_awal_verifikasi'=>'required|date|after:tgl_awal_pendaftaran',
+            'tgl_akhir_verifikasi'=>'required|date|after:tgl_verifikasi_awal|after:tgl_akhir_pendaftaran',
+            'tgl_awal_penetapan'=>'required|date|after:tgl_akhir_verifikasi',
+            'tgl_akhir_penetapan'=>'required|date|after:tgl_awal_penetapan',
+            'tgl_pengumuman'=>'required|date|after:tgl_akhir_penetapan',
+            'ips'=>'required|min:1|max:4',
+            'ipk'=>'required|min:1|max:4',
+            'min_semester'=>'required|integer|min:1|max:8',
+            'max_semester'=>'required|integer|min:1|max:8|gt:min_semester',
+            'max_penghasilan'=>'required',
+        ]);
+
+        Adminuniv::where('id_penawaran', $adminuniv->id_penawaran)
+            ->update([
+                    'nama_penawaran'=>$request->nama_penawaran,
+                    'tgl_awal_penawaran'=>$request->tgl_awal_penawaran,
+                    'tgl_akhir_penawaran'=>$request->tgl_akhir_penawaran,
+                    'tgl_awal_pendaftaran'=>$request->tgl_awal_pendaftaran,
+                    'tgl_akhir_pendaftaran'=>$request->tgl_akhir_pendaftaran,
+                    'tgl_awal_verifikasi'=>$request->tgl_awal_verifikasi,
+                    'tgl_akhir_verifikasi'=>$request->tgl_akhir_verifikasi,
+                    'tgl_awal_penetapan'=>$request->tgl_awal_penetapan,
+                    'tgl_akhir_penetapan'=>$request->tgl_akhir_penetapan,
+                    'tgl_pengumuman'=>$request->tgl_pengumuman,
+                    'min_semester'=>$request->min_semester,
+                    'max_semester'=>$request->max_semester,
+                    'max_penghasilan'=>$request->max_penghasilan,
+                    ]);
+        Adminuniv::update($request->all());
+        return redirect('/adminuniversitas/'.$adminuniv->id_penawaran)->with('success', 'Data Penawaran Beasiswa Berhasil Diubah');
+
+
+
+
     }
 
     /**
@@ -110,5 +156,7 @@ class AdminunivController extends Controller
     public function destroy(Adminuniv $adminuniv)
     {
         //
+        Adminuniv::destroy($adminuniv->id_penawaran);
+        return redirect('/adminuniversitas')->with('success','Data berhasil dihapus');
     }
 }
