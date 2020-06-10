@@ -17,10 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/adminuniversitas','AdminunivController@index');
-Route::post('/adminuniversitas','AdminunivController@store');
-Route::get('/adminuniversitas/create','AdminunivController@create');
-Route::get('/adminuniversitas/{adminuniv}','AdminunivController@show');
-Route::patch('/adminuniversitas/{adminuniv}','AdminunivController@update');
-Route::put('/adminuniversitas/{adminuniv}','AdminunivController@edit');
-Route::delete('/adminuniversitas/{adminuniv}','AdminunivController@destroy');
+Route::get('/adminuniversitas', 'AdminunivController@index');
+Route::post('/adminuniversitas', 'AdminunivController@store');
+Route::get('/adminuniversitas/create', 'AdminunivController@create');
+Route::get('/adminuniversitas/{adminuniv}', 'AdminunivController@show');
+Route::patch('/adminuniversitas/{adminuniv}', 'AdminunivController@update');
+Route::put('/adminuniversitas/{adminuniv}', 'AdminunivController@edit');
+Route::delete('/adminuniversitas/{adminuniv}', 'AdminunivController@destroy');
+Route::get('/pendaftaran', 'PendaftaranController@index');
+Route::post('/adminuniversitas', 'AdminunivController@store');
+Route::get('/pendaftaran/{adminuniv}', 'PendaftaranController@create');
