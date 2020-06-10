@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Safario Travel - Home</title>
+<title>Index</title>
   @include('mhstemplate.style')
 
 </head>
@@ -63,8 +63,8 @@
 
       <div class="row align-items-center text-center text-md-left">
         <div class="col-md-6 col-lg-5 mb-5 mb-md-0">
-          <h1>Travel More To Discover Yourself</h1>
-          <p>Air seed winged lights saw kind whales in sixth dont seas dron image so fish all tree meat dont there is seed winged lights saw kind whales in sixth dont seas dron image so fish all tree meat dont there </p>
+          <h1>Selamat Datang Mahasiswa!</h1>
+          <p>"Hambatan tidak bisa menghentikan Anda. Masalah tidak bisa menghentikan Anda. Orang lain tidak bisa menghentikan Anda. Hanya Anda yang bisa menghentikan Anda" – Jeffrey Gitomer</p>
           <a class="button button-hero mt-4" href="#">Get Started</a>
         </div>
         <div class="col-md-6 col-lg-7 col-xl-6 offset-xl-1">
