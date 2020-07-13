@@ -1,5 +1,4 @@
-@include('includes.header')
-
+@include('includes.admin.header')
 
 
 <body id="page-top">
@@ -7,7 +6,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    @include('includes.sidebar')
+    @include('includes.admin.sidebar')
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -15,7 +14,7 @@
       <!-- Main Content -->
       <div id="content">
 
-        @include('includes.topbar')
+        @include('includes.admin.topbar')
 
         @yield('content')
 
@@ -62,7 +61,8 @@
     </div>
   </div>
 
-@include('includes.script')
+@include('includes.admin.script')
+@yield('script')
 </body>
 
 </html>

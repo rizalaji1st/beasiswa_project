@@ -58,6 +58,7 @@ class AdminunivController extends Controller
             'min_semester'=>'required|integer|min:1|max:8',
             'max_semester'=>'required|integer|min:1|max:8|gt:min_semester',
             'max_penghasilan'=>'required',
+            'deskripsi' => 'required'
 
 
         ]);
@@ -123,9 +124,12 @@ class AdminunivController extends Controller
             'max_penghasilan'=>'required',
         ]);
 
+        echo $adminuniv->id_penawaran;
+
         Adminuniv::where('id_penawaran', $adminuniv->id_penawaran)
             ->update([
                     'nama_penawaran'=>$request->nama_penawaran,
+                    'jml_kuota'=>$request->jml_kuota,
                     'tgl_awal_penawaran'=>$request->tgl_awal_penawaran,
                     'tgl_akhir_penawaran'=>$request->tgl_akhir_penawaran,
                     'tgl_awal_pendaftaran'=>$request->tgl_awal_pendaftaran,
@@ -138,8 +142,10 @@ class AdminunivController extends Controller
                     'min_semester'=>$request->min_semester,
                     'max_semester'=>$request->max_semester,
                     'max_penghasilan'=>$request->max_penghasilan,
+                    'ips' => $request->ips,
+                    'ipk' => $request->ipk,
+                    'deskripsi' => $request->deskripsi
                     ]);
-        Adminuniv::update($request->all());
         return redirect('/adminuniversitas/'.$adminuniv->id_penawaran)->with('success', 'Data Penawaran Beasiswa Berhasil Diubah');
 
 

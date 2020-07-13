@@ -2,7 +2,7 @@
 @section('title', 'Detail Beasiswa')
 @section('status-dashboard', 'active')
 @section('content')
-    <div class="container">
+    <div class="container my-3">
         {{-- succes --}}
         <div class="mt-2">
             @if (session('success'))
@@ -23,11 +23,11 @@
                         </tr>
                         <tr>
                             <td scope="col">Tahun</td>
-                            <td scope="col">{{$adminuniv->tahun}}</td>
+                            <td scope="col">{{$adminuniv->tahun->format('Y')}}</td>
                         </tr>
                         <tr>
                             <td scope="col">Kuota</td>
-                            <td scope="col">{{$adminuniv->jml_kuota}}</td>
+                            <td scope="col">{{$adminuniv->jml_kuota}} Penerima</td>
                         </tr>
                     </tbody>
                 </table>
@@ -82,11 +82,23 @@
                         </tr>
                         <tr>
                             <td scope="col">Semester</td>
-                            <td scope="col">{{$adminuniv->min_semester}} s/d {{$adminuniv->min_semester}}</td>
+                            <td scope="col">{{$adminuniv->min_semester}} s/d {{$adminuniv->max_semester}}</td>
                         </tr>
                         <tr>
                             <td scope="col">Maksimal Penghasilan</td>
-                            <td scope="col">{{$adminuniv->max_penghasilan}}</td>
+                            <td scope="col">Rp. {{$adminuniv->max_penghasilan}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h3 class="mt-4 mb-2">Deskripsi</h3>
+        <div class="row mb-3">
+            <div class="col-12">
+                <table class=" stable-striped">
+                    <tbody>
+                        <tr>
+                        <td scope="col">{{$adminuniv->deskripsi}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -94,7 +106,7 @@
         </div>
 
         {{-- button --}}
-        <a href="/adminuniversitas" class="btn btn-outline-primary">kembali</a>
+        
         <form action="{{$adminuniv->id_penawaran}}" method="POST"class="d-inline">
             @method('put')
             @csrf
@@ -105,5 +117,6 @@
             @method('Delete')
             @csrf
         </form>
+        <a href="/adminuniversitas" class="btn btn-outline-warning">kembali</a>
     </div>
 @endsection

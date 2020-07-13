@@ -17,7 +17,7 @@ class PendaftaranController extends Controller
     public function index()
     {
         $beasiswas = Adminuniv::all();
-        return view('pages.pendaftaran.index2', ['beasiswas' => $beasiswas]);
+        return view('pages.pendaftaran.home', ['beasiswas' => $beasiswas]);
     }
 
     /**

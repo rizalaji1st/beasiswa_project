@@ -15,15 +15,42 @@
             @endif
         </div>
         <a href="{{url('/adminuniversitas/create')}}" class="btn btn-primary mt-4 mb-2">Tambahkan Penawaran</a>
-        @foreach ($beasiswas as $beasiswa)
-        <ul class="list-group mt-2">
+        
+        {{-- <ul class="list-group mt-2">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 {{$beasiswa->nama_penawaran}}
                 <a href="/adminuniversitas/{{$beasiswa->id_penawaran}}" class="badge badge-info badge-pill">detail</a>
             </li>
-        </ul>
-        @endforeach
+        </ul> --}}
+        <table class="table table-striped table-bordered" id="beasiswa">
+            <thead class="bg-primary text-white" >
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nama Beasiswa</th>
+                <th scope="col">Kuota</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @foreach ($beasiswas as $beasiswa)
+              <tr>
+              <th scope="row">{{$loop->iteration}}</th>
+                <td scope="col" >{{$beasiswa->nama_penawaran}}</td>
+                <td scope="col" >{{$beasiswa->jml_kuota}}</td>
+                <td scope="col" ><a href="/adminuniversitas/{{$beasiswa->id_penawaran}}" class="badge badge-info badge-pill">detail</a></td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
     </div>
 
+@endsection
 
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('#beasiswa').DataTable();
+        } );
+  </script>
 @endsection
