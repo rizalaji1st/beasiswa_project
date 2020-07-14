@@ -27,14 +27,14 @@
         </li>
 
          {{-- Penetapan --}}
-      {{-- <li class="nav-item dropdown ">
+      <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{url('/adminuniversitas')}}" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-gavel"></i>Penetapan</a>
     <div class="dropdown-menu">
     <h6>
       <li class="nav-item"><a class="dropdown-item" href="{{ url ('/nrangkings') }}">Nominasi Rangking</a>
       <a class="dropdown-item" href="{{url('/adminuniversitas/penetapan/pnominasi_index')}}">Pengusulan Nominasi</a>
-      <a class="dropdown-item" href="{{url('/adminuniversitas/penetapan/alternatif')}}">Penetapan Lolos</a> --}}
-   
+      <a class="dropdown-item" href="{{url('/adminuniversitas/penetapan/alternatif')}}">Penetapan Lolos</a>
+
 
 
         </h6>
@@ -53,4 +53,4 @@
       </ul>
       <!-- End of Sidebar -->
 
-      
+
