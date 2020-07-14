@@ -26,12 +26,21 @@
             <span>Verifikasi</span></a>
         </li>
 
-        {{-- penetapan --}}
-        <li class="nav-item @yield('status-penetapan')">
-          <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-gavel"></i>
-            <span>Penetapan</span></a>
-        </li>
+         {{-- Penetapan --}}
+      {{-- <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{url('/adminuniversitas')}}" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-gavel"></i>Penetapan</a>
+    <div class="dropdown-menu">
+    <h6>
+      <li class="nav-item"><a class="dropdown-item" href="{{ url ('/nrangkings') }}">Nominasi Rangking</a>
+      <a class="dropdown-item" href="{{url('/adminuniversitas/penetapan/pnominasi_index')}}">Pengusulan Nominasi</a>
+      <a class="dropdown-item" href="{{url('/adminuniversitas/penetapan/alternatif')}}">Penetapan Lolos</a> --}}
+   
+
+
+        </h6>
+    </div>
+  </li>
+
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -43,3 +52,5 @@
 
       </ul>
       <!-- End of Sidebar -->
+
+      

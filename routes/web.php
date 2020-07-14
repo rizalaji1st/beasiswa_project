@@ -18,12 +18,20 @@ Route::get('/', function () {
 });
 
 Route::get('/adminuniversitas', 'AdminunivController@index');
+//Route::get('/adminuniversitas', 'AdminunivPNominasiController@index');
 Route::post('/adminuniversitas', 'AdminunivController@store');
+//Route::get('/adminuniversitas/penetapan/kriteria','AdminunivpenetapanController@index');
 Route::get('/adminuniversitas/create', 'AdminunivController@create');
 Route::get('/adminuniversitas/{adminuniv}', 'AdminunivController@show');
 Route::patch('/adminuniversitas/{adminuniv}', 'AdminunivController@update');
 Route::put('/adminuniversitas/{adminuniv}', 'AdminunivController@edit');
 Route::delete('/adminuniversitas/{adminuniv}', 'AdminunivController@destroy');
+Route::get('/adminuniversitas/penetapan/pnominasi_index','AdminunivPNominasiController@index');
 Route::get('/pendaftaran', 'PendaftaranController@index');
 Route::post('/adminuniversitas', 'AdminunivController@store');
 Route::get('/pendaftaran/{adminuniv}', 'PendaftaranController@create');
+
+
+
+//nominasi ranking 
+Route::resource('nrangkings', 'NrangkingsController');
