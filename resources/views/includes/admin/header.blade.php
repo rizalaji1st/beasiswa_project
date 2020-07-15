@@ -10,6 +10,6 @@
 
     <title>@yield('title')</title>
 
-    @include('includes.style')
+    @include('includes.admin.style')
 
   </head>

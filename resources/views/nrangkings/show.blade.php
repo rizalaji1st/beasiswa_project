@@ -9,7 +9,7 @@
 @section('content')
 	<div class="container">
 		<div class="row">
-			<div class="col-6"> 
+			<div class="col-6">
 				 <h1 class="mt-2">Detail Nominasi Rangking</h1>
 
 				<div class="card">
@@ -26,11 +26,11 @@
 		    	@csrf
 		    	<button type="submit" class="btn btn-danger">Delete</button>
 			</form>
-		  
+
 		    <a href="/nrangkings" class="card-link">Kembali</a>
 		  </div>
 		</div>
-			
+
 			</div>
 		</div>
 	</div>

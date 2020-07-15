@@ -19,6 +19,13 @@ class Adminuniv extends Model
                         'tgl_akhir_verifikasi',
                         'tgl_awal_penetapan',
                         'tgl_akhir_penetapan',
-                        'tgl_pengumuman'];
+                        'tgl_pengumuman',
+                        'tahun'
+                    ];
     protected $guarded = [];
+
+    public function pendaftaran(){
+        return $this->hasMany('App\Pendaftaran');
+    }
 }
+

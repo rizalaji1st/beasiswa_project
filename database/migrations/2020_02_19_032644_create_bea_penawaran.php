@@ -33,8 +33,8 @@ class CreateBeaPenawaran extends Migration
             $table->integer('max_penghasilan');
             $table->integer('min_semester');
             $table->integer('max_semester');
+            $table->string('deskripsi', 1000);
             $table->softDeletes();
-
             $table->timestamps();
         });
     }

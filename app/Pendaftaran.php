@@ -20,4 +20,7 @@ class Pendaftaran extends Model
     //     'tgl_pengumuman'
     // ];
     // protected $guarded = [];
+    public function adminuniv(){
+        return $this->belongsTo('App\Adminuniv');
+    }
 }

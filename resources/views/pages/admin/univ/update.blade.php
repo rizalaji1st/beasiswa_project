@@ -1,4 +1,4 @@
-@extends('layouts.create')
+@extends('layouts.adminuniv')
 @section('title', 'Ubah Penawaran')
 @section('content')
     <div class="container col-6 mb-5 mt-5">
@@ -27,14 +27,14 @@
                 @enderror
             </div>
 
-            {{-- id jenis penawaran beasiswa --}}
+            {{-- id jenis penawaran beasiswa
             <div class="form-group">
                 <label for="id_jenis_beasiswa">Id Jenis beasiswa</label>
                 <input type="number" class="form-control @error('id_jenis_beasiswa') is-invalid @enderror" id="id_jenis_beasiswa" name="id_jenis_beasiswa" value="{{$adminuniv->id_jenis_beasiswa}}">
                 @error('id_jenis_penawaran')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
-            </div>
+            </div> --}}
 
             <h3 class="mt-5 mb-4">Timeline</h3>
             {{-- Penawaran --}}
@@ -183,7 +183,15 @@
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <a href="/adminuniversitas/{{$adminuniv->id_penawaran}}" class="btn btn-danger">Batal</a>
+            {{-- deskripsi --}}
+            <div class="form-group">
+                <label for="deskripsi">Deskripsi</label>
+            <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" placeholder="Tulis Deskripsi Beasiswa" rows="5" name="deskripsi" >{{$adminuniv->deskripsi}}</textarea>
+                @error('deskripsi')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
+            </div>
+            <a href="/adminuniversitas/{{$adminuniv->id_penawaran}}" class="btn btn-outline-warning">Batal</a>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
     </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Nrangking;
+use App\Adminuniv;
+
 use Illuminate\Http\Request;
 
 class NrangkingsController extends Controller
@@ -12,12 +14,18 @@ class NrangkingsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $nrangkings = Nrangking::all();
-        return view('nrangkings.index', compact('nrangkings'));
+    //public function index()
+    // {
+    //     $nrangkings = Nrangking::all();
+    //     return view('pages.admin.univ.dashboard_nrangking', ['nrangkings'=>$nrangkings]);
 
-    }
+        public function index(){
+        $adminuniv = Adminuniv::all();
+         return view('pages.admin.univ.dashboard_nrangking',['dashboard_nrangking' => $adminuniv]);
+   }
+         //  $artikel = Adminuniv::all();
+         // return view('adminuniv',['adminuniv' => $adminuniv]);
+    //}
 
     /**
      * Show the form for creating a new resource.
@@ -59,7 +67,12 @@ class NrangkingsController extends Controller
      */
     public function show(Nrangking $nrangking)
     {
-        return view('nrangkings.show', compact('nrangking'));
+        return view('pages.admin.univ.show_nrangking', compact('nrangking'));
+
+        //  return view('pages.admin.univ.show', compact('adminuniv'));
+        // return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
+
+        //return view('nrangkings.show', compact('nrangking'));
     }
 
     /**

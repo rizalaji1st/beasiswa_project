@@ -10,7 +10,7 @@
 @section('content')
 	<div class="container">
 		<div class="row">
-			<div class="col-8"> 
+			<div class="col-8">
 				 <h1 class="mt-2">Form Ubah Data Nominasi Rangking</h1>
 
 					<form method="post" action="/nrangkings/{{ $nrangking->id }}">
@@ -48,7 +48,7 @@
 					  <button type="submit" class="btn btn-primary">Ubah Data</button>
 					</form>
 
-		
+
 			</div>
 		</div>
 	</div>
