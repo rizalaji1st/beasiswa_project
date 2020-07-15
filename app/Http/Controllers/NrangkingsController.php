@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Nrangking;
-use App\Adminuniv;
-
+use App\{Nrangking,Adminuniv,Pendaftaran};
 use Illuminate\Http\Request;
 
 class NrangkingsController extends Controller
@@ -20,7 +18,7 @@ class NrangkingsController extends Controller
     //     return view('pages.admin.univ.dashboard_nrangking', ['nrangkings'=>$nrangkings]);
 
         public function index(){
-        $adminuniv = Adminuniv::all();
+        $adminuniv = Adminuniv::orderBy('ips', 'desc')->paginate(8);
          return view('pages.admin.univ.dashboard_nrangking',['dashboard_nrangking' => $adminuniv]);
    }
          //  $artikel = Adminuniv::all();
@@ -65,9 +63,10 @@ class NrangkingsController extends Controller
      * @param  \App\Nrangking  $nrangking
      * @return \Illuminate\Http\Response
      */
-    public function show(Nrangking $nrangking)
+    public function show($nrangking)
     {
-        return view('pages.admin.univ.show_nrangking', compact('nrangking'));
+        $nrangking = Pendaftaran::where('id_penawaran', $nrangking)->get();
+        return view('pages.admin.univ.show_nrangking')->with('nrank', $nrangking);
 
         //  return view('pages.admin.univ.show', compact('adminuniv'));
         // return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');

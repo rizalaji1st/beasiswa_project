@@ -10,7 +10,6 @@
           <h1>Selamat Datang Mahasiswa!</h1>
           <p>”Engkau berpikir tentang dirimu sebagai seonggok materi semata, padahal di dalam dirimu tersimpan kekuatan tak terbatas”</p>
           <p>Ali bin Abi-Thalib</p>
-          <a class="button button-hero mt-4" href="#">Get Started</a>
         </div>
         <div class="col-md-6 col-lg-7 col-xl-6 offset-xl-1">
         <img class="img-fluid" src="{{'frontend/img/home/exam.svg'}}" alt="">
@@ -40,13 +39,11 @@
                 <h4>{{$beasiswa->nama_penawaran}}</h4>
               </a>
               <ul class="card-blog-info">
-                <li><a href="#"><span class="align-middle"><i class="ti-notepad"></i></span>Mulai Pendaftaran:  {{$beasiswa->tgl_awal_pendaftaran->format('d M Y')}}</a></li>
-                <li><a href="#"><span class="align-middle"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>Kuota : {{$beasiswa->jml_kuota}} Penerima</a></li>
+                <li><a><span class="align-middle"><i class="ti-unlock"></i></span>Mulai Pendaftaran:  {{$beasiswa->tgl_awal_pendaftaran->format('d M Y')}}</a></li>
+                <li><a><span class="align-middle"><i class="ti-lock"></i></span><b>Pendaftaran Terakhir:  {{$beasiswa->tgl_akhir_pendaftaran->format('d M Y')}}</b></a></li>
+                <li><a><span class="align-middle"><i class="ti-package" aria-hidden="true"></i></span>Kuota : {{$beasiswa->jml_kuota}} Penerima</a></li>
               </ul>
-            <div class="module">
-              <p>{{$beasiswa->deskripsi}}</p>
-            </div>
-              <button class="button button-success mt-4">Selengkapnya</button>
+              <a href="/detail/{{$beasiswa->id_penawaran}}" class="button button-success mt-4">Selengkapnya</a>
             </div>
           </div>
         </div>

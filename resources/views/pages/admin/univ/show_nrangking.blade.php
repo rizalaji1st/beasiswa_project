@@ -26,16 +26,19 @@
                             <td scope="col">Penghasilan</td>
                             <td scope="col">Semester</td>
                             </tr>
-                                                    
+                             
+ 
+                              @foreach($nrank as $nrangking)                      
                         <tr>
-                            <td scope="col">{{$nrangking->id_pendaftar}}</td>
-                            <td scope="col">{{$nrangking->id_penawaran}}</td>
-                            <td scope="col">{{$nrangking->nim}}</td>
-                            <td scope="col">{{$nrangking->ips}}</td>
-                            <td scope="col">{{$nrangking->ipk}}</td>
-                            <td scope="col">{{$nrangking->penghasilan}}</td>
-                            <td scope="col">{{$nrangking->semester}}</td>
+                            <td scope="col">{{$nrangking['id_pendaftar']}}</td>
+                            <td scope="col">{{$nrangking['id_penawaran']}}</td>
+                            <td scope="col">{{$nrangking['nim']}}</td>
+                            <td scope="col">{{$nrangking['ips']}}</td>
+                            <td scope="col">{{$nrangking['ipk']}}</td>
+                            <td scope="col">{{$nrangking['penghasilan']}}</td>
+                            <td scope="col">{{$nrangking['semester']}}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

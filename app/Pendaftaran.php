@@ -6,21 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pendaftaran extends Model
 {
-    // protected $table = 'bea_penawaran';
-    // protected $primaryKey = 'id_penawaran';
-    // protected $dates = [
-    //     'tgl_awal_penawaran',
-    //     'tgl_akhir_penawaran',
-    //     'tgl_awal_pendaftaran',
-    //     'tgl_akhir_pendaftaran',
-    //     'tgl_awal_verifikasi',
-    //     'tgl_akhir_verifikasi',
-    //     'tgl_awal_penetapan',
-    //     'tgl_akhir_penetapan',
-    //     'tgl_pengumuman'
-    // ];
-    // protected $guarded = [];
-    public function adminuniv(){
-        return $this->belongsTo('App\Adminuniv');
+
+    protected $table = 'bea_pendaftar_penawaran';
+    protected $fillable = ['id_pendaftar', 'id_penawaran', 'nim', 'ips', 'ipk', 'penghasilan', 'semester'];
+    
+    public function adminuniv()
+    {
+        return $this->belongsTo(Adminuniv::class);
     }
 }

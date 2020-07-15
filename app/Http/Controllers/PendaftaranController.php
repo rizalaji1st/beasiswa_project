@@ -9,17 +9,14 @@ use App\Adminuniv;
 
 class PendaftaranController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $beasiswas = Adminuniv::all();
         return view('pages.pendaftaran.home', ['beasiswas' => $beasiswas]);
     }
 
+<<<<<<< HEAD
     public function article(){
         return $this->belongsTo('App\Adminuniv');
     }
@@ -64,27 +61,16 @@ class PendaftaranController extends Controller
     {
         //
     }
+=======
+>>>>>>> 4f039c7b3216c1156f01aefa295900ddc35a36b1
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Pendaftaran  $pendaftaran
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pendaftaran $pendaftaran)
+    public function detail(Adminuniv $adminuniv)
     {
-        //
+        return view('pages.pendaftaran.detail', compact('adminuniv'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Pendaftaran  $pendaftaran
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Pendaftaran $pendaftaran)
+    public function daftar(Adminuniv $adminuniv)
     {
-        //
+        return view('pages.pendaftaran.daftar', compact('adminuniv'));
     }
 }

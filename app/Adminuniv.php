@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Adminuniv extends Model
 {
-    //
     protected $table = 'bea_penawaran';
     protected $primaryKey = 'id_penawaran';
     protected $dates = ['tgl_awal_penawaran',
@@ -25,7 +24,7 @@ class Adminuniv extends Model
     protected $guarded = [];
 
     public function pendaftaran(){
-        return $this->hasMany('App\Pendaftaran');
+        return $this->hasMany(Pendaftaran::class);
     }
 }
 
