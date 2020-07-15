@@ -27,5 +27,5 @@ Route::delete('/adminuniversitas/{adminuniv}', 'AdminunivController@destroy');
 Route::post('/adminuniversitas', 'AdminunivController@store');
 
 Route::get('/', 'PendaftaranController@index');
-Route::get('/{adminuniv}', 'PendaftaranController@create');
-    
+Route::get('/detail/{adminuniv}', 'PendaftaranController@detail');
+Route::get('/daftar/{adminuniv}', 'PendaftaranController@daftar');
