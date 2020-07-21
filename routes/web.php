@@ -26,8 +26,6 @@ Route::get('/adminuniversitas/{adminuniv}', 'AdminunivController@show');
 Route::patch('/adminuniversitas/{adminuniv}', 'AdminunivController@update');
 Route::put('/adminuniversitas/{adminuniv}', 'AdminunivController@edit');
 Route::delete('/adminuniversitas/{adminuniv}', 'AdminunivController@destroy');
-<<<<<<< HEAD
-=======
 
 //Route::get('/adminuniversitas/penetapan/pnominasi_index','AdminunivPNominasiController@index');
 Route::get('/pendaftaran', 'PendaftaranController@index');
@@ -44,7 +42,6 @@ Route::get('/nrangking/{nrangking}', 'NrangkingsController@show');
 //Route::get('/article', 'WebController@index');
 
 Route::post('/adminuniversitas', 'AdminunivController@store');
->>>>>>> 5bff68317663f6d369d2557e5fa84c02f3fdea3d
 
 Route::get('/', 'PendaftaranController@index');
 

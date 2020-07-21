@@ -8,11 +8,7 @@
   <link rel="stylesheet" href="{{url('frontend/vendors/owl-carousel/owl.carousel.min.css')}}">
   <link rel="stylesheet" href="{{url('frontend/vendors/flat-icon/font/flaticon.css')}}">
   <link rel="stylesheet" href="{{url('frontend/vendors/nice-select/nice-select.css')}}">
-<<<<<<< HEAD
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css'>
-  <link rel="stylesheet" href="{{url('frontend/css/style.css')}}">
-=======
-
   <link rel="stylesheet" href="{{url('frontend/css/style.css')}}">
 
   <link href="{{url('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -23,4 +19,3 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
->>>>>>> 5bff68317663f6d369d2557e5fa84c02f3fdea3d

@@ -47,6 +47,7 @@ class Adminuniv extends Model
     
     public function penawaranUpload(){
         return $this->hasMany(PenawaranUpload::class, 'id_penawaran', 'id_penawaran');
+    }
     
     protected $guarded = [];
 
