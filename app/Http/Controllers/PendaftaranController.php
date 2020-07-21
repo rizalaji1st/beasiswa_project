@@ -16,6 +16,56 @@ class PendaftaranController extends Controller
         return view('pages.pendaftaran.home', ['beasiswas' => $beasiswas]);
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public function article(){
+        return $this->belongsTo('App\Adminuniv');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        // return view('pages.pendaftaran.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Pendaftaran  $pendaftaran
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Pendaftaran $pendaftaran)
+    {
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Pendaftaran  $pendaftaran
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Pendaftaran $pendaftaran)
+    {
+        //
+    }
+=======
+>>>>>>> 4f039c7b3216c1156f01aefa295900ddc35a36b1
+>>>>>>> 66080e53f2a28a645e28cc2cfbb6bfd37a4a3bf8
 
     public function detail(Adminuniv $adminuniv)
     {
