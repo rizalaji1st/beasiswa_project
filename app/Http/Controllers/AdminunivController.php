@@ -23,6 +23,12 @@ class AdminunivController extends Controller
         return view('pages.admin.univ.dashboard', ['beasiswas'=>$beasiswas]);
     }
 
+//one to many Penawaran -> post
+    public function post()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

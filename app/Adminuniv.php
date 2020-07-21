@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Adminuniv extends Model
 {
+
     use SoftDeletes;
     //
     protected $table = 'bea_penawaran';
@@ -24,6 +25,7 @@ class Adminuniv extends Model
                         'tgl_pengumuman',
                         'tahun',
                     ];
+
     protected $fillable = ['nama_penawaran',
                             'jml_kuota',
                             'tgl_awal_penawaran', 
@@ -43,8 +45,13 @@ class Adminuniv extends Model
                             'deskripsi',
                             'tahun'];
     
-    public function penawaranUpload()
-    {
+    public function penawaranUpload(){
         return $this->hasMany(PenawaranUpload::class, 'id_penawaran', 'id_penawaran');
+    
+    protected $guarded = [];
+
+    public function pendaftaran(){
+        return $this->hasMany(Pendaftaran::class);
     }
 }
+
