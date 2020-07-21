@@ -8,5 +8,5 @@
   <link rel="stylesheet" href="{{url('frontend/vendors/owl-carousel/owl.carousel.min.css')}}">
   <link rel="stylesheet" href="{{url('frontend/vendors/flat-icon/font/flaticon.css')}}">
   <link rel="stylesheet" href="{{url('frontend/vendors/nice-select/nice-select.css')}}">
-
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css'>
   <link rel="stylesheet" href="{{url('frontend/css/style.css')}}">

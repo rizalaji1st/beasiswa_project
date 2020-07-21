@@ -27,7 +27,7 @@ class PendaftaranController extends Controller
      */
     public function create()
     {
-        return view('pages.pendaftaran.create');
+        // return view('pages.pendaftaran.create');
     }
 
     /**

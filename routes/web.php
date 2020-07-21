@@ -24,8 +24,8 @@ Route::get('/adminuniversitas/{adminuniv}', 'AdminunivController@show');
 Route::patch('/adminuniversitas/{adminuniv}', 'AdminunivController@update');
 Route::put('/adminuniversitas/{adminuniv}', 'AdminunivController@edit');
 Route::delete('/adminuniversitas/{adminuniv}', 'AdminunivController@destroy');
-Route::post('/adminuniversitas', 'AdminunivController@store');
 
 Route::get('/', 'PendaftaranController@index');
+
 Route::get('/{adminuniv}', 'PendaftaranController@create');
     

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\Adminuniv;
+use App\PenawaranUpload;
+use App\Http\Requests\PenawaranRequest;
 use Illuminate\Http\Request;
 use PDOStatement;
 
@@ -40,29 +42,28 @@ class AdminunivController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $request->validate([
-            'nama_penawaran' => 'required|max:255',
-            'jml_kuota'=> 'required',
-            'tgl_awal_penawaran'=>'required|date',
-            'tgl_akhir_penawaran'=>'required|date|after:tgl_awal_penawaran',
-            'tgl_awal_pendaftaran'=>'required|date|after:tgl_awal_penawaran',
-            'tgl_akhir_pendaftaran'=>'required|date|after:tgl_awal_pendaftaran',
-            'tgl_awal_verifikasi'=>'required|date|after:tgl_awal_pendaftaran',
-            'tgl_akhir_verifikasi'=>'required|date|after:tgl_verifikasi_awal|after:tgl_akhir_pendaftaran',
-            'tgl_awal_penetapan'=>'required|date|after:tgl_akhir_verifikasi',
-            'tgl_akhir_penetapan'=>'required|date|after:tgl_awal_penetapan',
-            'tgl_pengumuman'=>'required|date|after:tgl_akhir_penetapan',
-            'ips'=>'required|min:1|max:4',
-            'ipk'=>'required|min:1|max:4',
-            'min_semester'=>'required|integer|min:1|max:8',
-            'max_semester'=>'required|integer|min:1|max:8|gt:min_semester',
-            'max_penghasilan'=>'required',
-            'deskripsi' => 'required'
+        
+        
+        $penawaran = $request->all();
 
+        $penawaran['tahun'] = $request->tgl_awal_penawaran;
+        $penawaranCreate = Adminuniv::create($penawaran);
+        
+        if($request->myCount != null) {
+            $lampiran = $request->myCount;
+            $lampiranArr = explode(",",$lampiran);
+            
+            foreach ($lampiranArr as $lamp) {
 
-        ]);
-        Adminuniv::create($request->all());
+                if ($lamp != null) {
+                    $penawaranCreate->penawaranUpload()->create([
+                        'id_jenis_file' => '12',
+                        'nama_upload' => $request->$lamp
+                    ]);
+                }
+            };   
+        };
+        
         return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
 
     }
@@ -100,56 +101,58 @@ class AdminunivController extends Controller
      * @param  \App\Adminuniv  $adminuniv
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Adminuniv $adminuniv)
+    public function update(PenawaranRequest $request, Adminuniv $adminuniv)
     {
-        //
 
-        //
-        $request->validate([
-            'nama_penawaran' => 'required|max:255',
-            'jml_kuota'=> 'required',
-            'tgl_awal_penawaran'=>'required|date',
-            'tgl_akhir_penawaran'=>'required|date|after:tgl_awal_penawaran',
-            'tgl_awal_pendaftaran'=>'required|date|after:tgl_awal_penawaran',
-            'tgl_akhir_pendaftaran'=>'required|date|after:tgl_awal_pendaftaran',
-            'tgl_awal_verifikasi'=>'required|date|after:tgl_awal_pendaftaran',
-            'tgl_akhir_verifikasi'=>'required|date|after:tgl_verifikasi_awal|after:tgl_akhir_pendaftaran',
-            'tgl_awal_penetapan'=>'required|date|after:tgl_akhir_verifikasi',
-            'tgl_akhir_penetapan'=>'required|date|after:tgl_awal_penetapan',
-            'tgl_pengumuman'=>'required|date|after:tgl_akhir_penetapan',
-            'ips'=>'required|min:1|max:4',
-            'ipk'=>'required|min:1|max:4',
-            'min_semester'=>'required|integer|min:1|max:8',
-            'max_semester'=>'required|integer|min:1|max:8|gt:min_semester',
-            'max_penghasilan'=>'required',
-        ]);
+        $penawaran = $request->all();
+        $penawaran['tahun'] = $request->tgl_awal_penawaran;
 
-        echo $adminuniv->id_penawaran;
+        //update penawaran
+        $penawaranUpdate = Adminuniv::findOrFail($adminuniv->id_penawaran);
+        $penawaranUpdate->update($penawaran);
 
-        Adminuniv::where('id_penawaran', $adminuniv->id_penawaran)
-            ->update([
-                    'nama_penawaran'=>$request->nama_penawaran,
-                    'jml_kuota'=>$request->jml_kuota,
-                    'tgl_awal_penawaran'=>$request->tgl_awal_penawaran,
-                    'tgl_akhir_penawaran'=>$request->tgl_akhir_penawaran,
-                    'tgl_awal_pendaftaran'=>$request->tgl_awal_pendaftaran,
-                    'tgl_akhir_pendaftaran'=>$request->tgl_akhir_pendaftaran,
-                    'tgl_awal_verifikasi'=>$request->tgl_awal_verifikasi,
-                    'tgl_akhir_verifikasi'=>$request->tgl_akhir_verifikasi,
-                    'tgl_awal_penetapan'=>$request->tgl_awal_penetapan,
-                    'tgl_akhir_penetapan'=>$request->tgl_akhir_penetapan,
-                    'tgl_pengumuman'=>$request->tgl_pengumuman,
-                    'min_semester'=>$request->min_semester,
-                    'max_semester'=>$request->max_semester,
-                    'max_penghasilan'=>$request->max_penghasilan,
-                    'ips' => $request->ips,
-                    'ipk' => $request->ipk,
-                    'deskripsi' => $request->deskripsi
+        $hasil = [];
+        $dlampiran = $request->dmyCount;
+        $i = 1;
+        $dlampiran+=1;
+
+        //update lampiran yang sudah ada
+        foreach ($adminuniv->penawaranUpload as $item) {
+            $nama = "dlampiran". $i;
+            $hasil[$item->id_penawaran_upload] = $request->$nama;
+            
+
+            if($hasil[$item->id_penawaran_upload] == null) {
+                PenawaranUpload::destroy($item->id_penawaran_upload);
+            }
+            else if ($hasil[$item->id_penawaran_upload] != $item->nama_upload){
+                PenawaranUpload::where('id_penawaran_upload', $item->id_penawaran_upload )
+                    ->update([
+                        'nama_upload'=> $hasil[$item->id_penawaran_upload]
                     ]);
+            }
+
+            $i+=1;
+        }
+        
+        if($request->myCount != null) {
+            $lampiran = $request->myCount;
+            $lampiranArr = explode(",",$lampiran);
+            
+            //menambahkan lampiran baru
+            foreach ($lampiranArr as $lamp) {
+                if ($lamp != null) {
+                    $penawaranUpdate->penawaranUpload()->create([
+                        'id_jenis_file' => '12',
+                        'nama_upload' => $request->$lamp
+                    ]);
+                }
+            };
+        };
+
         return redirect('/adminuniversitas/'.$adminuniv->id_penawaran)->with('success', 'Data Penawaran Beasiswa Berhasil Diubah');
 
-
-
+            
 
     }
 
