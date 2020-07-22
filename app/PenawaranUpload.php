@@ -13,4 +13,8 @@ class PenawaranUpload extends Model
     protected $fillable = [
         'id_penawaran_upload', 'id_jenis_file', 'id_penawaran', 'nama_upload'
     ];
+
+    public function penawaranUpload() {
+        $this->belongsTo(Adminuniv::class, 'id_penawaran', 'id_penawaran');
+    }
 }

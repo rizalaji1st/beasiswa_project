@@ -26,8 +26,7 @@ class Adminuniv extends Model
         'tgl_pengumuman',
         'tahun',
     ];
-
-<<<<<<< HEAD
+    
     protected $fillable = ['nama_penawaran',
                             'jml_kuota',
                             'tgl_awal_penawaran', 
@@ -45,7 +44,8 @@ class Adminuniv extends Model
                             'max_semester', 
                             'max_penghasilan', 
                             'deskripsi',
-                            'tahun'];
+                            'tahun'
+        ];
     
     public function penawaranUpload(){
         return $this->hasMany(PenawaranUpload::class, 'id_penawaran', 'id_penawaran');
@@ -60,26 +60,4 @@ class Adminuniv extends Model
     public function getKuotaFakultas(){
         return $this->hasMany(PenawaranKuotaFakultas::class, 'id_penawaran', 'id_penawaran');
     }
-=======
-    protected $fillable = [
-        'nama_penawaran',
-        'jml_kuota',
-        'tgl_awal_penawaran',
-        'tgl_akhir_penawaran',
-        'tgl_awal_pendaftaran',
-        'tgl_akhir_pendaftaran',
-        'tgl_awal_verifikasi',
-        'tgl_akhir_verifikasi',
-        'tgl_awal_penetapan',
-        'tgl_akhir_penetapan',
-        'tgl_pengumuman',
-        'ips',
-        'ipk',
-        'min_semester',
-        'max_semester',
-        'max_penghasilan',
-        'deskripsi',
-        'tahun'
-    ];
->>>>>>> 95df9b0f7bb26ebe978daa994dc9e03a91f318fb
 }
