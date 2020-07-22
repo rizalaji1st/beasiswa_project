@@ -199,12 +199,9 @@
                 @enderror
             </div>
 
-<<<<<<< HEAD
             <div class="form-group form" id="form-lampiran">
-=======
             {{-- lampiran --}}
             {{-- <div class="form-group form">
->>>>>>> 5bff68317663f6d369d2557e5fa84c02f3fdea3d
                 <label for="lampiran">Lampiran</label>
                 
             </div>
@@ -213,7 +210,6 @@
             <div class="form-group">
                 <input type="text" name="myCount" id="myCount" hidden>
             </div>
-<<<<<<< HEAD
             
             <br>
             <br>
@@ -221,7 +217,6 @@
 
             <button type="submit" class="btn btn-primary">Tambah Data</button>
             <a href="/adminuniversitas" class="btn btn-outline-warning">Batal</a>
-=======
 
             <button  type="button" class="btn btn-primary click">Tambah Lampiran</button> --}}
 
@@ -229,7 +224,6 @@
             <a href="/adminuniversitas" class="btn btn-outline-warning">Batal</a>
 
 
->>>>>>> 5bff68317663f6d369d2557e5fa84c02f3fdea3d
         </form>
     </div>
 @endsection
@@ -240,7 +234,6 @@
         var count = 0;
         var myName = [];
 
-<<<<<<< HEAD
         //memnghapus lampiran
         function removeData(){
             var att = this.id;
@@ -248,7 +241,6 @@
             removeA(myName, att);
             document.getElementById("myCount").value = myName;
             $(ids).remove();
-=======
 @section('script')
     <script type="text/javascript">
         function CheckValue(val){
@@ -257,7 +249,6 @@
             element.style.display='block';
         else
             element.style.display='none';
->>>>>>> 5bff68317663f6d369d2557e5fa84c02f3fdea3d
         }
 
         //menambahkan lampiran
