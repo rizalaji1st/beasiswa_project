@@ -51,26 +51,29 @@ class AdminunivController extends Controller
         
         
         $penawaran = $request->all();
+        return $penawaran;
 
-        $penawaran['tahun'] = $request->tgl_awal_penawaran;
-        $penawaranCreate = Adminuniv::create($penawaran);
+        // $penawaran['tahun'] = $request->tgl_awal_penawaran;
+        // $penawaranCreate = Adminuniv::create($penawaran);
         
-        if($request->myCount != null) {
-            $lampiran = $request->myCount;
-            $lampiranArr = explode(",",$lampiran);
+        // if($request->myCount != null) {
+        //     $lampiran = $request->myCount;
+        //     $lampiranArr = explode(",",$lampiran);
             
-            foreach ($lampiranArr as $lamp) {
+        //     foreach ($lampiranArr as $lamp) {
 
-                if ($lamp != null) {
-                    $penawaranCreate->penawaranUpload()->create([
-                        'id_jenis_file' => '12',
-                        'nama_upload' => $request->$lamp
-                    ]);
-                }
-            };   
-        };
+        //         if ($lamp != null) {
+        //             $penawaranCreate->penawaranUpload()->create([
+        //                 'id_jenis_file' => '12',
+        //                 'nama_upload' => $request->$lamp
+        //             ]);
+        //         }
+        //     };   
+        // };
+
         
-        return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
+        
+        // return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
 
     }
 

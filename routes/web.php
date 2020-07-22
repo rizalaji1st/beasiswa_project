@@ -18,10 +18,11 @@ Route::get('/', function () {
 });
 
 Route::get('/adminuniversitas', 'AdminunivController@index');
+Route::get('/adminuniversitas/create', 'AdminunivController@create');
 //Route::get('/adminuniversitas', 'AdminunivPNominasiController@index');
 Route::post('/adminuniversitas', 'AdminunivController@store');
 //Route::get('/adminuniversitas/penetapan/kriteria','AdminunivpenetapanController@index');
-Route::get('/adminuniversitas/create', 'AdminunivController@create');
+
 Route::get('/adminuniversitas/{adminuniv}', 'AdminunivController@show');
 Route::patch('/adminuniversitas/{adminuniv}', 'AdminunivController@update');
 Route::put('/adminuniversitas/{adminuniv}', 'AdminunivController@edit');

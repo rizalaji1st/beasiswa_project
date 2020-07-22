@@ -54,5 +54,9 @@ class Adminuniv extends Model
     public function pendaftaran(){
         return $this->hasMany(Pendaftaran::class);
     }
+    
+    public function getKuotaFakultas(){
+        return $this->hasMany(PenawaranKuotaFakultas::class, 'id_penawaran', 'id_penawaran');
+    }
 }
 

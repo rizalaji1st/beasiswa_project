@@ -19,10 +19,94 @@
             {{-- kuota --}}
             <div class="form-group">
                 <label for="jml_kuota">Kuota</label>
-                <input type="number" class="form-control @error('jml_kuota') is-invalid @enderror" id="jml_kuota" name="jml_kuota"  placeholder="masukan jumlah kuota" value="{{old('jml_kuota')}}">
+                <input type="number" class="form-control @error('jml_kuota') is-invalid @enderror" id="jml_kuota" name="jml_kuota"  placeholder="masukan jumlah kuota penerima" value="{{old('jml_kuota')}}">
                 @error('jml_kuota')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
+            </div>
+
+            {{-- konfigurasi kuota --}}
+            <div class="form-group">
+                <label for="kuota_fakultas">Konfigurasi Kuota Fakultas</label>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="value1" name="customRadio" class="custom-control-input" checked="checked">
+                    <label class="custom-control-label" for="value1" value="value1">Abaikan Asal Fakultas</label>
+                    <p style="color: #bdbdbd">Asal fakultas tidak akan berpengaruh terhadap Ketentuan seleksi</p>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="value2" name="customRadio" class="custom-control-input">
+                    <label class="custom-control-label" for="value2" value="value2">Tentukan kuota Perfakultas</label>
+                    <p style="color: #bdbdbd">Jumlah pendaftar yang diterima berdasarkan kuota masing-masing fakultas</p>
+                </div>
+                <br>
+                <div class="form-group fakultas" id="fakultas" style="display: none">
+                    <div class="form-group row">
+                        <label for="fkip" class="col-sm-6 col-form-label">Fakultas Keguruan dan Ilmu Pendidikan</label>
+                        <div class="col-sm-6">
+                            <input name="fkip" type="number" placeholder="masukkan kuota" class="form-control" id="fkip">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fmipa" class="col-sm-6 col-form-label">Fakultas Matematika dan Ilmu Alam</label>
+                        <div class="col-sm-6">
+                            <input name="fmipa" type="number" placeholder="masukkan kuota" class="form-control" id="fmipa">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fk" class="col-sm-6 col-form-label">Fakultas Kedokteran</label>
+                        <div class="col-sm-6">
+                            <input name="fk" type="number" placeholder="masukkan kuota" class="form-control" id="fk">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fp" class="col-sm-6 col-form-label">Fakultas Pertanian</label>
+                        <div class="col-sm-6">
+                            <input name="fp" type="number" placeholder="masukkan kuota" class="form-control" id="fp">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="ft" class="col-sm-6 col-form-label">Fakultas Teknik</label>
+                        <div class="col-sm-6">
+                            <input name="ft" type="number" placeholder="masukkan kuota" class="form-control" id="ft">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fib" class="col-sm-6 col-form-label">Fakultas Ilmu Budaya</label>
+                        <div class="col-sm-6">
+                            <input name="fib" type="number" placeholder="masukkan kuota" class="form-control" id="fib">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="feb" class="col-sm-6 col-form-label">Fakultas Ekonomi Bisnis</label>
+                        <div class="col-sm-6">
+                            <input name="feb" type="number" placeholder="masukkan kuota" class="form-control" id="feb">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fh" class="col-sm-6 col-form-label">Fakultas Hukum</label>
+                        <div class="col-sm-6">
+                            <input name="fh" type="number" placeholder="masukkan kuota" class="form-control" id="fh">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fsrd" class="col-sm-6 col-form-label">Fakultas Seni Rupa dan Desain</label>
+                        <div class="col-sm-6">
+                            <input name="fsrd" type="number" placeholder="masukkan kuota" class="form-control" id="fsrd">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fisip" class="col-sm-6 col-form-label">Fakultas Ilmu Sosial dan Politik</label>
+                        <div class="col-sm-6">
+                            <input name="fisip" type="number" placeholder="masukkan kuota" class="form-control" id="fisip">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fkor" class="col-sm-6 col-form-label">Fakultas Keolahragaan</label>
+                        <div class="col-sm-6">
+                            <input name="fkor" type="number" placeholder="masukkan kuota" class="form-control" id="fkor">
+                        </div>
+                    </div>
+                </div>  
             </div>
 
             {{-- id jenis penawaran beasiswa --}}
@@ -199,12 +283,11 @@
                 @enderror
             </div>
 
-            <div class="form-group form" id="form-lampiran">
             {{-- lampiran --}}
-            {{-- <div class="form-group form">
+            <div class="form-group form" id="form-lampiran">
                 <label for="lampiran">Lampiran</label>
-                
             </div>
+            
             
             <button  type="button" class="btn btn-secondary click"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
             <div class="form-group">
@@ -214,11 +297,6 @@
             <br>
             <br>
             <br>
-
-            <button type="submit" class="btn btn-primary">Tambah Data</button>
-            <a href="/adminuniversitas" class="btn btn-outline-warning">Batal</a>
-
-            <button  type="button" class="btn btn-primary click">Tambah Lampiran</button> --}}
 
             <button type="submit" class="btn btn-primary">Tambah Data</button>
             <a href="/adminuniversitas" class="btn btn-outline-warning">Batal</a>
@@ -241,14 +319,6 @@
             removeA(myName, att);
             document.getElementById("myCount").value = myName;
             $(ids).remove();
-@section('script')
-    <script type="text/javascript">
-        function CheckValue(val){
-        var element=document.getElementById('color');
-        if(val=='pick a color'||val=='others')
-            element.style.display='block';
-        else
-            element.style.display='none';
         }
 
         //menambahkan lampiran
@@ -284,7 +354,7 @@
             document.getElementById("form-lampiran").appendChild(x);
             myName.push(cls);
             document.getElementById("myCount").value = myName;
-
+            console.log(myName);
             $( ".delete" ).on( "click", removeData );
         }
     
@@ -304,5 +374,23 @@
             return arr;
         }
         
+    </script>
+@endpush
+
+@push('addon-script')
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            $("#value1").click(function(){
+                $("#fakultas").hide();
+            });
+        });
+
+        $(document).ready(function(){
+            $("#value2").click(function(){
+                $("#fakultas").show();
+            });
+        });
+    
     </script>
 @endpush
