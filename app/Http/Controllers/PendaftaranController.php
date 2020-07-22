@@ -15,7 +15,7 @@ class PendaftaranController extends Controller
         $beasiswas = Adminuniv::all();
         return view('pages.pendaftaran.home', ['beasiswas' => $beasiswas]);
     }
-
+    
     public function article(){
         return $this->belongsTo('App\Adminuniv');
     }
@@ -69,5 +69,20 @@ class PendaftaranController extends Controller
     public function daftar(Adminuniv $adminuniv)
     {
         return view('pages.pendaftaran.daftar', compact('adminuniv'));
+    }
+
+    public function tambah(Request $request)
+    {
+        $request->validate([
+            'id_penawaran' => 'required',
+            'id_pendaftar' => 'required',
+            'nim' => 'required',
+            'ips' => 'required|min:1|max:4',
+            'ipk' => 'required|min:1|max:4',
+            'semester' => 'required',
+            'penghasilan' => 'required',
+        ]);
+        Pendaftaran::create($request->all());
+        return redirect('/');
     }
 }

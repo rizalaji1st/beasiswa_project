@@ -3,9 +3,7 @@
 @section('status-dashboard', 'active')
 @section('content')
 
-<h1>kanaJKDN</h1>
-
- <!-- <div class="container">
+ <div class="container">
         <h1>Daftar Pengusulan Nominasi</h1>
         {{-- succes --}}
         <div class="mt-2">
@@ -21,17 +19,17 @@
             <thead class="bg-primary text-white" >
             	<form action="/upload/proses" method="POST" enctype="multipart/form-data">
 					{{ csrf_field() }}
- 
+
 					<div class="form-group" >
 						<b>File Gambar</b><br/>
 						<input type="file" name="file" class="form-group">
 					</div>
- 
+
 					<div class="form-group">
 						<b>Keterangan</b>
 						<textarea class="form-control" name="keterangan"></textarea>
 					</div>
- 
+
 					<input type="submit" value="Upload" class="btn btn-primary">
 				</form>
 
@@ -58,13 +56,13 @@
                 </table>
             </div>
         </div>
-     -->
-        
+
+
 @section('script')
-    <!-- <script>
+    <script>
         $(document).ready(function() {
             $('#beasiswa').DataTable();
         } );
   </script>
-  </div> -->
+  </div>
 @endsection

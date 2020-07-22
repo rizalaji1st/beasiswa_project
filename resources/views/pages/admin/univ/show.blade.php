@@ -40,22 +40,22 @@
                     <tbody>
                         <tr>
                             <td scope="col">Tanggal Penawaran</td>
-                            <td scope="col">{{$adminuniv->tgl_awal_penawaran->format('d')}}
+                            <td scope="col">{{$adminuniv->tgl_awal_penawaran->format('d M Y')}}
                             s/d {{$adminuniv->tgl_akhir_penawaran->format('d M Y')}}</td>
                         </tr>
                         <tr>
                             <td scope="col">Tanggal Pendaftaran</td>
-                            <td scope="col">{{$adminuniv->tgl_awal_pendaftaran->format('d')}}
+                            <td scope="col">{{$adminuniv->tgl_awal_pendaftaran->format('d M Y')}}
                                 s/d {{$adminuniv->tgl_akhir_pendaftaran->format('d M Y')}}</td>
                         </tr>
                         <tr>
                             <td scope="col">Tanggal Verifikasi</td>
-                            <td scope="col">{{$adminuniv->tgl_awal_verifikasi->format('d')}}
+                            <td scope="col">{{$adminuniv->tgl_awal_verifikasi->format('d M Y')}}
                                 s/d {{$adminuniv->tgl_akhir_verifikasi->format('d M Y')}}</td>
                         </tr>
                         <tr>
                             <td scope="col">Tanggal Penetapan</td>
-                            <td scope="col">{{$adminuniv->tgl_awal_penetapan->format('d')}}
+                            <td scope="col">{{$adminuniv->tgl_awal_penetapan->format('d M Y')}}
                                 s/d {{$adminuniv->tgl_akhir_penetapan->format('d M Y')}}</td>
                         </tr>
                         <tr>
@@ -88,6 +88,21 @@
                             <td scope="col">Maksimal Penghasilan</td>
                             <td scope="col">Rp. {{$adminuniv->max_penghasilan}}</td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h3 class="mt-4 mb-2">Lampiran</h3>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+
+                        @foreach ($adminuniv->penawaranUpload as $lampiran)
+                            <tr>
+                                <td scope="col">{{$lampiran->nama_upload}}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
