@@ -32,7 +32,7 @@
     <div class="dropdown-menu">
     <h6>
       <li class="nav-item"><a class="dropdown-item" href="{{ url ('/nrangkings') }}">Nominasi Rangking</a>
-      <a class="dropdown-item" href="{{url('/adminuniversitas/penetapan/pnominasi_index')}}">Pengusulan Nominasi</a>
+      <a class="dropdown-item" href="{{ url ('/upload') }}">Pengusulan Nominasi</a>
       <a class="dropdown-item" href="{{url('/adminuniversitas/penetapan/alternatif')}}">Penetapan Lolos</a>
 
 

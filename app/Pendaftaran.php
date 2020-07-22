@@ -9,9 +9,4 @@ class Pendaftaran extends Model
 
     protected $table = 'bea_pendaftar_penawaran';
     protected $fillable = ['id_pendaftar', 'id_penawaran', 'nim', 'ips', 'ipk', 'penghasilan', 'semester'];
-    
-    public function adminuniv()
-    {
-        return $this->belongsTo(Adminuniv::class);
-    }
 }

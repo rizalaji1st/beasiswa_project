@@ -16,7 +16,6 @@ class PendaftaranController extends Controller
         return view('pages.pendaftaran.home', ['beasiswas' => $beasiswas]);
     }
 
-<<<<<<< HEAD
     public function article(){
         return $this->belongsTo('App\Adminuniv');
     }
@@ -61,8 +60,6 @@ class PendaftaranController extends Controller
     {
         //
     }
-=======
->>>>>>> 4f039c7b3216c1156f01aefa295900ddc35a36b1
 
     public function detail(Adminuniv $adminuniv)
     {
