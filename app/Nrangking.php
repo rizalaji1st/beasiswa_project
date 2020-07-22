@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Nrangking extends Model
 {
+    
     protected $table = 'bea_pendaftar_penawaran';
     protected $primaryKey = 'id_pendaftar';
     protected $integer = ['id_penawaran',
@@ -17,6 +18,8 @@ class Nrangking extends Model
                         ('ipk, 8, 2')
                     ];
     protected $guarded = [];
+
+
 }
 
 // {

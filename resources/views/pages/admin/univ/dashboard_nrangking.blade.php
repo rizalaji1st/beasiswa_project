@@ -3,7 +3,7 @@
 @section('status-dashboard', 'active')
 @section('content')
 
-    <div class="container">
+  <div class="container">
         <h1>Daftar Nominasi Rangking</h1>
         {{-- succes --}}
         <div class="mt-2">

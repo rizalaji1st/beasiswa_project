@@ -18,6 +18,7 @@
                 <table class="table table-bordered table-striped">
                     <tbody>
                         <tr>
+                            <th scope="col">No</th>
                             <td scope="col">Id Pendaftar</td>
                             <td scope="col">Id Penawaran</td>
                             <td scope="col">NIM</td>
@@ -30,6 +31,7 @@
  
                               @foreach($nrank as $nrangking)                      
                         <tr>
+                            <th scope="row">{{$loop->iteration}}</th>
                             <td scope="col">{{$nrangking['id_pendaftar']}}</td>
                             <td scope="col">{{$nrangking['id_penawaran']}}</td>
                             <td scope="col">{{$nrangking['nim']}}</td>
@@ -37,8 +39,11 @@
                             <td scope="col">{{$nrangking['ipk']}}</td>
                             <td scope="col">{{$nrangking['penghasilan']}}</td>
                             <td scope="col">{{$nrangking['semester']}}</td>
+    
                         </tr>
+
                         @endforeach
+
                     </tbody>
                 </table>
             </div>
@@ -46,17 +51,14 @@
         
 
         {{-- button --}}
+
         
-        <form action="{{$nrangking}}" method="POST"class="d-inline">
-            @method('put')
-            @csrf
-            <button type="submit" class="btn btn-primary pull-right d-inline">Edit</button>
-        </form>
-        <form action="{{$nrangking}}" method="POST" class="d-inline">
-            <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure ?')">Delete</button>
-            @method('Delete')
+
+        <form action="{{$excel}" method="POST" class="d-inline">
+            <a href="/nrangkings/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
+            
             @csrf
         </form>
-        <a href="/adminuniversitas" class="btn btn-outline-warning">kembali</a>
+        <a href="/nrangkings" class="btn btn-outline-warning">kembali</a>
     </div>
 @endsection
