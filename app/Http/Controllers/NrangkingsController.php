@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class NrangkingsController extends Controller
+class NRangkingsController extends Controller
 {
 
         public function index(){
@@ -39,7 +39,7 @@ class NrangkingsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Nrangking  $nrangking
+     * @param  \App\NRangking  $nrangking
      * @return \Illuminate\Http\Response
      */
     public function show($nrangking)
