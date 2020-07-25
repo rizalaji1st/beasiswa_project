@@ -16,9 +16,9 @@ class PendaftaranController extends Controller
         return view('pages.pendaftaran.home', ['beasiswas' => $beasiswas]);
     }
     
-    public function article(){
-        return $this->belongsTo('App\Adminuniv');
-    }
+    // public function article(){
+    //     return $this->belongsTo('App\Adminuniv');
+    // }
 
     /**
      * Show the form for creating a new resource.

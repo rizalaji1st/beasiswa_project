@@ -14,8 +14,8 @@
                 </div>
             @endif
         </div>
-        
-        
+
+
         {{-- <ul class="list-group mt-2">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 {{$beasiswa->nama_penawaran}}
@@ -47,10 +47,10 @@
 
 @endsection
 
-@section('script')
+@push('addon-script')
     <script>
         $(document).ready(function() {
             $('#beasiswa').DataTable();
         } );
-  </script>
-@endsection
+    </script>
+@endpush

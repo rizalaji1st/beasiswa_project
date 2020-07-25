@@ -2,8 +2,8 @@
 
 namespace App\Imports;
 
-use App\PNominasi;
-use Maatwebsite\Excel\Concerns\ToModel;
+use App\NRangking; 
+use Maatwebsite\Excel\Concerns\{ToModel, WithHeadingRow};
 
 class AdminUnivImport implements ToModel
 {
@@ -12,16 +12,20 @@ class AdminUnivImport implements ToModel
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+
     public function model(array $row)
     {
-        return new PNominasi([
-            'id_pendaftar' => $row[1],
-            'id_penawaran' => $row[2], 
-            'nim' => $row[3],
-            'ips' => $row[4],
-            'ipk' => $row[5],
-            'penghasilan' => $row[6],
-            'semester' => $row[7],
+        return new NRangking([
+
+            'id_pendaftar' => $row[0],
+            'id_penawaran' => $row[1],
+            'nim' => $row[2],
+            'ips' => $row[3],
+            'ipk' => $row[4],
+            'penghasilan' => $row[5],
+            'semester' => $row[6],
         ]);
     }
 }
+
+

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Nrangking extends Model
+class NRangking extends Model
 {
     
     protected $table = 'bea_pendaftar_penawaran';
@@ -21,7 +21,3 @@ class Nrangking extends Model
 
 
 }
-
-// {
-//     protected $fillable = ['id_pendaftar', 'id_penawaran', 'nim', 'ips', 'ipk', 'penghasilan', 'semester'];
-// }
