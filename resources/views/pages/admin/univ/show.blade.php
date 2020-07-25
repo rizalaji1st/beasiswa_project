@@ -33,6 +33,25 @@
                 </table>
             </div>
         </div>
+        
+            <h3 class="mt-2 mb-2">Detail Kuota</h3>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            @forelse ($adminuniv->getKuotaFakultas as $item)
+                            <tr>
+                                <td scope="col">{{$item->id_fakultas}}</td>
+                                <td scope="col">{{$item->jml_kuota}}</td>
+                            </tr>
+                            @empty
+                                <h5 style="color: #bdbdbd">*Data Tidak Tersedia</h5>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
         <h3 class="mt-4 mb-2">Timeline</h3>
         <div class="row">
             <div class="col-12">
@@ -98,11 +117,14 @@
                 <table class="table table-bordered table-striped">
                     <tbody>
 
-                        @foreach ($adminuniv->penawaranUpload as $lampiran)
+                        @forelse ($adminuniv->penawaranUpload as $lampiran)
                             <tr>
                                 <td scope="col">{{$lampiran->nama_upload}}</td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <h5 style="color: #bdbdbd">*Data Tidak Tersedia</h5>
+                        @endforelse
+
                     </tbody>
                 </table>
             </div>
@@ -113,7 +135,7 @@
                 <table class=" stable-striped">
                     <tbody>
                         <tr>
-                        <td scope="col">{{$adminuniv->deskripsi}}</td>
+                        <td scope="col">{!! $adminuniv->deskripsi !!}</td>
                         </tr>
                     </tbody>
                 </table>

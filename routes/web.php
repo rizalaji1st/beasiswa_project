@@ -13,10 +13,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/adminuniversitas', 'AdminunivController@index');
 Route::get('/adminuniversitas/create', 'AdminunivController@create');
 //Route::get('/adminuniversitas', 'AdminunivPNominasiController@index');

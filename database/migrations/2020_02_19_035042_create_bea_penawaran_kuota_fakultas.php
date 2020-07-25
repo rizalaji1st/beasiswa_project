@@ -15,10 +15,12 @@ class CreateBeaPenawaranKuotaFakultas extends Migration
     {
         Schema::create('bea_penawaran_kuota_fakultas', function (Blueprint $table) {
             $table->bigIncrements('id_penawaran_kuota_fakultas');
-            $table->integer('id_penawaran');
+            $table->unsignedBigInteger('id_penawaran');
+            $table->foreign('id_penawaran')->references('id_penawaran')->on('bea_penawaran')->onDelete('cascade');
             $table->integer('id_fakultas');
             $table->integer('jml_kuota');
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
