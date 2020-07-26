@@ -15,7 +15,8 @@ class CreateBeaPendaftarPenawaran extends Migration
     {
         Schema::create('bea_pendaftar_penawaran', function (Blueprint $table) {
             $table->bigIncrements('id_pendaftar');
-            $table->integer('id_penawaran');
+            $table->unsignedBigInteger('id_penawaran');
+            $table->foreign('id_penawaran')->references('id_penawaran')->on('bea_penawaran')->onDelete('cascade');
             $table->integer('nim');
             $table->float('ips');
             $table->float('ipk');

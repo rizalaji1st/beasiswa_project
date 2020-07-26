@@ -8,11 +8,11 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class NrangkingsController extends Controller
+class NRangkingsController extends Controller
 {
 
         public function index(){
-         //$adminuniv = DB::table('bea_pendaftar_penawaran')->orderBy('ips', 'DESC');      
+         //$adminuniv = DB::table('bea_pendaftar_penawaran')->orderBy('ips', 'DESC');
         $adminuniv = Adminuniv::all();
          return view('pages.admin.univ.dashboard_nrangking',['dashboard_nrangking' => $adminuniv]);
    }
@@ -39,12 +39,12 @@ class NrangkingsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Nrangking  $nrangking
+     * @param  \App\NRangking  $nrangking
      * @return \Illuminate\Http\Response
      */
     public function show($nrangking)
     {
-        $nrangking = Pendaftaran::where('id_penawaran', $nrangking)->orderBy('ips','desc')->get(); 
+        $nrangking = Pendaftaran::where('id_penawaran', $nrangking)->orderBy('ips','desc')->get();
 
         return view('pages.admin.univ.show_nrangking')->with('nrank', $nrangking);
     }
@@ -52,14 +52,14 @@ class NrangkingsController extends Controller
 
         public function export_excel()
     {
-        //$nrangking = Pendaftaran::where('id_penawaran', $nrangking);
-        return Excel::download(new AdminUnivExport, 'Nominasi_Rangking_Univ.xlsx');
+        //return Excel::download(new AdminUnivExport, 'Nominasi_Rangking_Univ.xlsx');
+        return Excel::download(new AdminUnivExport(1), 'tes.xlsx');
     }
 
 
     public function edit(Nrangking $nrangking)
     {
-        
+
     }
 
     /**
@@ -71,7 +71,7 @@ class NrangkingsController extends Controller
      */
     public function update(Request $request, Nrangking $nrangking)
     {
-        
+
     }
 
     /**
@@ -82,6 +82,6 @@ class NrangkingsController extends Controller
      */
     public function destroy()
     {
-       
+
     }
 }

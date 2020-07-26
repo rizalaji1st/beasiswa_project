@@ -16,27 +16,28 @@
 
             </div>
 
-            {{-- kuota --}}
-            <div class="form-group">
-                <label for="jml_kuota">Kuota</label>
-                <input type="number" class="form-control @error('jml_kuota') is-invalid @enderror" id="jml_kuota" name="jml_kuota"  placeholder="masukan jumlah kuota penerima" value="{{old('jml_kuota')}}">
-                @error('jml_kuota')
-                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+            
 
             {{-- konfigurasi kuota --}}
             <div class="form-group">
-                <label for="kuota_fakultas">Konfigurasi Kuota Fakultas</label>
+                <label for="kuota_fakultas">Konfigurasi Kuota Penerima Beasiswa</label>
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="value1" name="customRadio" class="custom-control-input" checked="checked">
+                    <input type="radio" id="value1" name="customRadio" class="custom-control-input">
                     <label class="custom-control-label" for="value1" value="value1">Abaikan Asal Fakultas</label>
-                    <p style="color: #bdbdbd">Asal fakultas tidak akan berpengaruh terhadap Ketentuan seleksi</p>
+                    <p style="color: #bdbdbd; font-size:14px;">Asal fakultas tidak akan berpengaruh terhadap Ketentuan seleksi</p>
+                </div>
+
+                {{-- kuota Total --}}
+                <div class="form-group kuota-total" id="kuota-total" style="display: none">
+                    <input type="number" class="form-control @error('jml_kuota') is-invalid @enderror" id="jml_kuota" name="jml_kuota"  placeholder="masukan jumlah kuota penerima" value="{{old('jml_kuota')}}">
+                    @error('jml_kuota')
+                        <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="custom-control custom-radio">
                     <input type="radio" id="value2" name="customRadio" class="custom-control-input">
                     <label class="custom-control-label" for="value2" value="value2">Tentukan kuota Perfakultas</label>
-                    <p style="color: #bdbdbd">Jumlah pendaftar yang diterima berdasarkan kuota masing-masing fakultas</p>
+                    <p style="color: #bdbdbd; font-size:14px;">Jumlah pendaftar yang diterima berdasarkan kuota masing-masing fakultas</p>
                 </div>
                 <br>
                 <div class="form-group fakultas" id="fakultas" style="display: none">
@@ -277,7 +278,7 @@
             {{-- deskripsi --}}
             <div class="form-group">
                 <label for="deskripsi">Deskripsi</label>
-                <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" placeholder="Tulis Deskripsi Beasiswa" rows="5" name="deskripsi"  required>{{old('deskripsi')}}</textarea>
+                <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" placeholder="Tulis Deskripsi Beasiswa" rows="5" name="deskripsi">{{old('deskripsi')}}</textarea>
                 @error('deskripsi')
                     <div class="invalid-feedback">{{$message}}</div>
                 @enderror
@@ -354,7 +355,6 @@
             document.getElementById("form-lampiran").appendChild(x);
             myName.push(cls);
             document.getElementById("myCount").value = myName;
-            console.log(myName);
             $( ".delete" ).on( "click", removeData );
         }
     
@@ -383,14 +383,37 @@
         $(document).ready(function(){
             $("#value1").click(function(){
                 $("#fakultas").hide();
+                $("#kuota-total").show();
+                $("#fkip").val(0);
+                $("#fmipa").val(0);
+                $("#fk").val(0);
+                $("#fp").val(0);
+                $("#ft").val(0);
+                $("#fib").val(0);
+                $("#feb").val(0);
+                $("#fh").val(0);
+                $("#fisip").val(0);
+                $("#fsrd").val(0);
+                $("#fkor").val(0);
             });
         });
 
         $(document).ready(function(){
             $("#value2").click(function(){
                 $("#fakultas").show();
+                $("#kuota-total").hide();
+                $("#jml_kuota").val(0);
             });
         });
     
     </script>
+@endpush
+@push('addon-script')
+    <script src='https://cdn.tiny.cloud/1/0uwdgf525pyf04gsx5l2p31w2vgbln2vgbmacloluf1pwt79/tinymce/5/tinymce.min.js' referrerpolicy="origin">
+  </script>
+  <script>
+    tinymce.init({
+      selector: '#deskripsi'
+    });
+  </script>
 @endpush

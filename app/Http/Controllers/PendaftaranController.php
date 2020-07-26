@@ -25,6 +25,10 @@ class PendaftaranController extends Controller
         return $this->belongsTo('App\Adminuniv');
     }
 
+    // public function article(){
+    //     return $this->belongsTo('App\Adminuniv');
+    // }
+
     public function post()
     {
         return $this->hasMany(Post::class);
