@@ -60,6 +60,14 @@
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            @foreach ($adminuniv->penawaranUpload as $lamp)
+                <div class="custom-file mb-3">
+                <input type="file" name="file" class="custom-file-input" id="file" required>
+                    <label class="custom-file-label" for="file">Upload {{$lamp->nama_upload}}...</label>
+                    <div class="invalid-feedback">Example invalid custom file feedback</div>
+                </div>
+            @endforeach
+            
             <button type="submit" class="button mt-2 mb-2">Daftar</a>
         </form>
         </div>

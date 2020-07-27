@@ -20,6 +20,9 @@
                 <li><a><span class="align-middle"><i class="ti-calendar"></i></span> Maksimal Semester:  {{$adminuniv->max_semester}}</a></li>
                 <li><a><span class="align-middle"><i class="ti-package"></i></span> Kuota : {{$adminuniv->jml_kuota}} Penerima</a></li>
                 <li><a><span class="align-middle"><i class="ti-package"></i></span> Penghasilan Orang Tua : {{$adminuniv->Penghasilan}}</a></li>
+                @foreach ($adminuniv->penawaranUpload as $lampiran)
+                           <li><a><span class="align-middle"><i class="ti-package"></i></span> Syarat berkas : {{$lampiran->nama_upload}}</a></li>
+                @endforeach
               </ul>
               <a href="/daftar/{{$adminuniv->id_penawaran}}" class="button button-success mt-4">Selengkapnya</a>
             </div>

@@ -39,8 +39,8 @@
                 <h4>{{$beasiswa->nama_penawaran}}</h4>
               </a>
               <ul class="card-blog-info">
-                <li><a><span class="align-middle"><i class="ti-unlock"></i></span>Mulai Pendaftaran:  {{$beasiswa->tgl_awal_pendaftaran->format('d M Y')}}</a></li>
-                <li><a><span class="align-middle"><i class="ti-lock"></i></span><b>Pendaftaran Terakhir:  {{$beasiswa->tgl_akhir_pendaftaran->format('d M Y')}}</b></a></li>
+                <li><a><span class="align-middle"><i class="ti-unlock"></i></span>Mulai Pendaftaran:  {{Carbon\Carbon::parse($beasiswa->tgl_awal_pendaftaran)->format('d M Y')}}</a></li>
+                <li><a><span class="align-middle"><i class="ti-lock"></i></span><b>Pendaftaran Terakhir:  {{Carbon\Carbon::parse($beasiswa->tgl_akhir_pendaftaran)->format('d M Y')}}</b></a></li>
                 <li><a><span class="align-middle"><i class="ti-package" aria-hidden="true"></i></span>Kuota : {{$beasiswa->jml_kuota}} Penerima</a></li>
               </ul>
               <a href="/detail/{{$beasiswa->id_penawaran}}" class="button button-success mt-4">Selengkapnya</a>

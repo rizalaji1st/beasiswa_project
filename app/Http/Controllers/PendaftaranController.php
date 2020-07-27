@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Pendaftaran;
-use Illuminate\Http\Request;
+use App\PenawaranUpload;
 use App\Adminuniv;
+use App\Http\Requests\PenawaranRequest;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+
 
 
 class PendaftaranController extends Controller
@@ -15,10 +19,20 @@ class PendaftaranController extends Controller
         $beasiswas = Adminuniv::all();
         return view('pages.pendaftaran.home', ['beasiswas' => $beasiswas]);
     }
-    
+
+    public function article()
+    {
+        return $this->belongsTo('App\Adminuniv');
+    }
+
     // public function article(){
     //     return $this->belongsTo('App\Adminuniv');
     // }
+
+    public function post()
+    {
+        return $this->hasMany(Post::class);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -74,6 +88,7 @@ class PendaftaranController extends Controller
     public function tambah(Request $request)
     {
         $request->validate([
+            'file' => 'required',
             'id_penawaran' => 'required',
             'id_pendaftar' => 'required',
             'nim' => 'required',
@@ -82,6 +97,7 @@ class PendaftaranController extends Controller
             'semester' => 'required',
             'penghasilan' => 'required',
         ]);
+
         Pendaftaran::create($request->all());
         return redirect('/');
     }

@@ -21,9 +21,19 @@ class AdminunivController extends Controller
     {
         //
         $beasiswas = Adminuniv::all();
-        return view('pages.admin.univ.dashboard', ['beasiswas'=>$beasiswas]);
+
+        return view('pages.admin.univ.dashboard', ['beasiswas' => $beasiswas]);
     }
 
+<<<<<<< HEAD
+=======
+    //one to many Penawaran -> post
+    public function post()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+>>>>>>> 0a79cd845a759b833c63153841f6aba83b7afff0
     /**
      * Show the form for creating a new resource.
      *
@@ -43,6 +53,16 @@ class AdminunivController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
+
+
+        $penawaran = $request->all();
+
+        $penawaran['tahun'] = $request->tgl_awal_penawaran;
+        $penawaranCreate = Adminuniv::create($penawaran);
+
+        if ($request->myCount != null) {
+=======
         //mengambil semua data
         $penawaran = $request->all();
         $penawaran['tahun'] = $request->tgl_awal_penawaran;
@@ -89,9 +109,10 @@ class AdminunivController extends Controller
 
         //menambahkan lampiran
         if($request->myCount != null) {
+>>>>>>> a678f4f4d1f23b37e250c96e96851f8b0df54002
             $lampiran = $request->myCount;
-            $lampiranArr = explode(",",$lampiran);
-            
+            $lampiranArr = explode(",", $lampiran);
+
             foreach ($lampiranArr as $lamp) {
 
                 if ($lamp != null) {
@@ -100,11 +121,17 @@ class AdminunivController extends Controller
                         'nama_upload' => $request->$lamp
                     ]);
                 }
-            };   
+            };
         };
+<<<<<<< HEAD
+
+=======
         
         return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
+>>>>>>> a678f4f4d1f23b37e250c96e96851f8b0df54002
 
+
+        return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
     }
 
     /**
@@ -118,7 +145,6 @@ class AdminunivController extends Controller
         //
         return view('pages.admin.univ.show', compact('adminuniv'));
         return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
-
     }
 
     /**
@@ -153,31 +179,30 @@ class AdminunivController extends Controller
         $hasil = [];
         $dlampiran = $request->dmyCount;
         $i = 1;
-        $dlampiran+=1;
+        $dlampiran += 1;
 
         //update lampiran yang sudah ada
         foreach ($adminuniv->penawaranUpload as $item) {
-            $nama = "dlampiran". $i;
+            $nama = "dlampiran" . $i;
             $hasil[$item->id_penawaran_upload] = $request->$nama;
-            
 
-            if($hasil[$item->id_penawaran_upload] == null) {
+
+            if ($hasil[$item->id_penawaran_upload] == null) {
                 PenawaranUpload::destroy($item->id_penawaran_upload);
-            }
-            else if ($hasil[$item->id_penawaran_upload] != $item->nama_upload){
-                PenawaranUpload::where('id_penawaran_upload', $item->id_penawaran_upload )
+            } else if ($hasil[$item->id_penawaran_upload] != $item->nama_upload) {
+                PenawaranUpload::where('id_penawaran_upload', $item->id_penawaran_upload)
                     ->update([
-                        'nama_upload'=> $hasil[$item->id_penawaran_upload]
+                        'nama_upload' => $hasil[$item->id_penawaran_upload]
                     ]);
             }
 
-            $i+=1;
+            $i += 1;
         }
-        
-        if($request->myCount != null) {
+
+        if ($request->myCount != null) {
             $lampiran = $request->myCount;
-            $lampiranArr = explode(",",$lampiran);
-            
+            $lampiranArr = explode(",", $lampiran);
+
             //menambahkan lampiran baru
             foreach ($lampiranArr as $lamp) {
                 if ($lamp != null) {
@@ -189,6 +214,9 @@ class AdminunivController extends Controller
             };
         };
 
+<<<<<<< HEAD
+        return redirect('/adminuniversitas/' . $adminuniv->id_penawaran)->with('success', 'Data Penawaran Beasiswa Berhasil Diubah');
+=======
         //mengubah kuota fakultas ke kuota fakultas
         if ($request->fakultas1 != null) {
             $i=1;
@@ -269,6 +297,7 @@ class AdminunivController extends Controller
 
         return redirect('/adminuniversitas/'.$adminuniv->id_penawaran)->with('success', 'Data Penawaran Beasiswa Berhasil Diubah');
 
+>>>>>>> a678f4f4d1f23b37e250c96e96851f8b0df54002
     }
 
     /**
@@ -281,6 +310,9 @@ class AdminunivController extends Controller
     {
         //
         Adminuniv::destroy($adminuniv->id_penawaran);
+<<<<<<< HEAD
+        return redirect('/adminuniversitas')->with('success', 'Data berhasil dihapus');
+=======
         foreach ($adminuniv->penawaranUpload as $item) {
             PenawaranUpload::destroy($item->id_penawaran_upload);
         }
@@ -289,5 +321,6 @@ class AdminunivController extends Controller
             PenawaranKuotaFakultas::destroy($item->id_penawaran_kuota_fakultas);
         }
         return redirect('/adminuniversitas')->with('success','Data berhasil dihapus');
+>>>>>>> a678f4f4d1f23b37e250c96e96851f8b0df54002
     }
 }
