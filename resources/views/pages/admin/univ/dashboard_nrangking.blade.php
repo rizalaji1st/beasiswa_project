@@ -4,7 +4,7 @@
 @section('content')
 
   <div class="container">
-        <h1>Daftar Nominasi Rangking</h1>
+        <h1>Daftar Pendaftar Beasiswa</h1>
         {{-- succes --}}
         <div class="mt-2">
             @if (session('success'))
@@ -27,8 +27,8 @@
               <tr>
                 <th scope="col">No</th>
                 <th scope="col">Daftar Beasiswa</th>
-                <th scope="col">Kuota</th>
-                <th scope="col">Action</th>
+                <th scope="col">Penetapan Oleh Sistem</th>
+                <th scope="col">Penetapan Lolos</th>
               </tr>
             </thead>
 
@@ -37,8 +37,39 @@
               <tr>
               <th scope="row">{{$loop->iteration}}</th>
                 <td scope="col" >{{$nrangking->nama_penawaran}}</td>
-                <td scope="col" >{{$nrangking->jml_kuota}}</td>
-                <td scope="col" ><a href="/nrangking/{{$nrangking->id_penawaran}}" class="badge badge-info badge-pill">detail</a></td>
+                <td scope="col" ><a href="/nrangkings/export_excel" class="btn btn-success my-3" target="_blank">EXPORT</a>
+
+                  <td></br><button type="button" class="btn btn-primary mr-5" data-toggle="modal" data-target="#importExcel">
+                    IMPORT EXCEL
+                </button>
+                  <!-- Import Excel -->
+                <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <form method="post" action="/pnominasis/import_excel" enctype="multipart/form-data">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5></br>
+                                </div>
+                                <div class="modal-body">
+
+                                    {{ csrf_field() }}
+
+                                    <label>Pilih file excel</label>
+                                    <div class="form-group">
+                                        <input type="file" name="file" required="required">
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Import</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+</td>
+                <!-- <td scope="col" ><a href="/nrangking/{{$nrangking->id_penawaran}}" class="badge badge-info badge-pill">detail</a></td> -->
               </tr>
               @endforeach
             </tbody>
