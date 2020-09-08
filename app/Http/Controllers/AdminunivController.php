@@ -55,6 +55,7 @@ class AdminunivController extends Controller
         $penawaran['tahun'] = $request->tgl_awal_penawaran;
         
         //jika memilih custom kuota fakultas
+        
         if($request->jml_kuota == 0 || $request->jml_kuota == null){
             $fakultas = [
                 "01"=>$request->fkip,

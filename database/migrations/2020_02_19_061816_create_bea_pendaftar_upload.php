@@ -15,8 +15,17 @@ class CreateBeaPendaftarUpload extends Migration
     {
         Schema::create('bea_pendaftar_upload', function (Blueprint $table) {
             $table->bigIncrements('id_pendaftar_upload');
-            $table->integer('id_pendaftar');
-            $table->integer('id_jenis_file');
+            $table->unsignedBigInteger('id_pendaftar');
+            $table->foreign('id_pendaftar')->references('id_pendaftar')->on('bea_pendaftar_penawaran')->onDelete('cascade');
+            $table->unsignedBigInteger('id_jenis_file');
+            $table->foreign('id_jenis_file')->references('id_jenis_file')->on('bea_ref_jenis_file')->onDelete('cascade');
+            $table->unsignedBigInteger('id_upload_file');
+            $table->foreign('id_upload_file')->references('id_upload_file')->on('bea_upload_file')->onDelete('cascade');
+            $table->string('nama_file');
+            $table->string('path_file');
+            $table->string('deskripsi');
+            $table->string('ektensi');
+            $table->integer('size');
             $table->timestamps();
         });
     }
