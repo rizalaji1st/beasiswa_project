@@ -38,7 +38,7 @@ class CreateBeaPenawaran extends Migration
             $table->dateTime('tgl_finalisasi');
             $table->integer('min_semester');
             $table->integer('max_semester');
-            $table->longText('deskripsi')->change();
+            $table->longText('deskripsi');
             $table->integer('id_user_finalisasi');
             $table->integer('id_user_pembuat');
             $table->softDeletes();

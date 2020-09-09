@@ -293,19 +293,6 @@
             <div class="form-group">
                 <input type="text" name="myCount" id="myCount" hidden>
             </div>
-            
-            <div class="row">
-                <div class="col-6 input-group">
-                    <select name="lampiran1" id="lampiran1" class="fstdropdown-select">
-                        <option value="surat">Surat Keputusan Beasiswa</option>
-                        <option value="format">Format Surat</option>
-                        <option value="pengumuman">Pengumuman</option>
-                    </select>
-                </div>
-                <div class="col-6 input-group">
-                    <input type="file" name="lamp1" placeholder="upload lampiran" class="form-control">
-                </div>
-            </div>
 
             <br>
             <br>

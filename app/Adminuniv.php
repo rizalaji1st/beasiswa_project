@@ -60,4 +60,8 @@ class Adminuniv extends Model
     public function getKuotaFakultas(){
         return $this->hasMany(PenawaranKuotaFakultas::class, 'id_penawaran', 'id_penawaran');
     }
+
+    public function refFakultas(){
+        return $this->hasManyThrough('App\References\RefFakultas','App\PenawaranKuotaFakultas', 'id_penawaran','id_fakultas','id_penawaran','id_fakultas');
+    }
 }

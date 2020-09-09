@@ -7,6 +7,7 @@ use App\Adminuniv;
 use App\PenawaranUpload;
 use App\PenawaranKuotaFakultas;
 use App\Http\Requests\PenawaranRequest;
+use App\References\RefFakultas;
 use Illuminate\Http\Request;
 use PDOStatement;
 
@@ -124,9 +125,9 @@ class AdminunivController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Adminuniv $adminuniv)
-    {
-        //
-        return view('pages.admin.univ.show', compact('adminuniv'));
+    {  
+        $fakultas = PenawaranKuotaFakultas::with('refFakultas')->where('id_penawaran',$adminuniv->id_penawaran)->get();
+        return view('pages.admin.univ.show', compact('adminuniv','fakultas'));
         return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
     }
 

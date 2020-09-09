@@ -38,10 +38,16 @@
             <div class="row">
                 <div class="col-12">
                     <table class="table table-bordered table-striped">
-                        <tbody>
-                            @forelse ($adminuniv->getKuotaFakultas as $item)
+                        <thead class="thead-dark">
                             <tr>
-                                <td scope="col">{{$item->id_fakultas}}</td>
+                                <th scope="col">Nama Fakultas</th>
+                                <th scope="col">Jumlah Kuota</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($fakultas as $item)
+                            <tr>
+                                <td scope="col">{{$item->refFakultas->nama_fakultas}}</td>
                                 <td scope="col">{{$item->jml_kuota}}</td>
                             </tr>
                             @empty

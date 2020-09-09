@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\References\RefFakultas;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class PenawaranKuotaFakultas extends Model
 {
@@ -20,7 +22,11 @@ class PenawaranKuotaFakultas extends Model
     protected $guarded = [];
 
     public function kuotaFakultas() {
-        $this->belongsTo(Adminuniv::class, 'id_penawaran', 'id_penawaran');
+        return $this->belongsToMany(Adminuniv::class, 'id_penawaran', 'id_penawaran');
+    }
+
+    public function refFakultas() {
+        return $this->belongsTo('App\References\RefFakultas', 'id_fakultas', 'id_fakultas');
     }
 
 }
