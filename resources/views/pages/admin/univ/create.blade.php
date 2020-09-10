@@ -108,14 +108,16 @@
                 </div>  
             </div>
 
-            {{-- id jenis penawaran beasiswa --}}
-            {{-- <div class="form-group">
-                <label for="id_jenis_beasiswa">Id Jenis beasiswa</label>
-                <input type="number" class="form-control @error('id_jenis_beasiswa') is-invalid @enderror" id="id_jenis_beasiswa" name="id_jenis_beasiswa" value="{{old('id_jenis_beasiswa')}}">
-                @error('id_jenis_penawaran')
-                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div> --}}
+            {{-- jenis penawaran beasiswa --}}
+            <div class="form-group">
+                <label for="jenis_beasiswa">Jenis Beasiswa</label>
+                <select class="custom-select fstdropdown-select" name="id_jenis_beasiswa" id="id_jenis_beasiswa" value="{{old('id_jenis_beasiswa')}}" required>
+                    <option value="" disabled selected>Pilih salah satu</option>
+                    @foreach ($jenisBeasiswa as $item)
+                    <option value="{{$item->id_jenis_beasiswa}}">{{$item->nama_beasiswa}}</option>
+                    @endforeach
+                </select>
+            </div>
 
             <h3 class="mt-5 mb-4">Timeline</h3>
             {{-- Penawaran --}}

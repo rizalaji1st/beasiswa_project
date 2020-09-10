@@ -18,8 +18,12 @@
                 <table class="table table-bordered table-striped">
                     <tbody>
                         <tr>
-                            <td scope="col">nama Beasiswa</td>
+                            <td scope="col">Nama Penawaran</td>
                             <td scope="col">{{$adminuniv->nama_penawaran}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Jenis Beasiswa</td>
+                            <td scope="col">{{$adminuniv->refJenisPenawaran->nama_beasiswa}}</td>
                         </tr>
                         <tr>
                             <td scope="col">Tahun</td>
@@ -38,12 +42,6 @@
             <div class="row">
                 <div class="col-12">
                     <table class="table table-bordered table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Nama Fakultas</th>
-                                <th scope="col">Jumlah Kuota</th>
-                            </tr>
-                        </thead>
                         <tbody>
                             @forelse ($fakultas as $item)
                             <tr>

@@ -7,7 +7,7 @@ use App\Adminuniv;
 use App\PenawaranUpload;
 use App\PenawaranKuotaFakultas;
 use App\Http\Requests\PenawaranRequest;
-use App\References\RefFakultas;
+use App\References\RefJenisBeasiswa;
 use Illuminate\Http\Request;
 use PDOStatement;
 
@@ -40,7 +40,8 @@ class AdminunivController extends Controller
     public function create()
     {
         //
-        return view('pages.admin.univ.create');
+        $jenisBeasiswa = RefJenisBeasiswa::get();
+        return view('pages.admin.univ.create', compact('jenisBeasiswa'));
     }
 
     /**
@@ -56,7 +57,6 @@ class AdminunivController extends Controller
         $penawaran['tahun'] = $request->tgl_awal_penawaran;
         
         //jika memilih custom kuota fakultas
-        
         if($request->jml_kuota == 0 || $request->jml_kuota == null){
             $fakultas = [
                 "01"=>$request->fkip,
@@ -94,8 +94,6 @@ class AdminunivController extends Controller
             $penawaranCreate = Adminuniv::create($penawaran);
         }
 
-        
-
         //menambahkan lampiran
         if($request->myCount != null) {
             $lampiran = $request->myCount;
@@ -113,9 +111,6 @@ class AdminunivController extends Controller
         };
         
         return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
-
-
-        return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
     }
 
     /**
@@ -126,6 +121,7 @@ class AdminunivController extends Controller
      */
     public function show(Adminuniv $adminuniv)
     {  
+        
         $fakultas = PenawaranKuotaFakultas::with('refFakultas')->where('id_penawaran',$adminuniv->id_penawaran)->get();
         return view('pages.admin.univ.show', compact('adminuniv','fakultas'));
         return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
@@ -140,7 +136,8 @@ class AdminunivController extends Controller
     public function edit(Adminuniv $adminuniv)
     {
         //
-        return view('pages.admin.univ.update', compact('adminuniv'));
+        $jenisBeasiswa = RefJenisBeasiswa::get();
+        return view('pages.admin.univ.update', compact('adminuniv','jenisBeasiswa'));
     }
 
     /**
