@@ -50,63 +50,51 @@ class AdminunivController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
-
-
-        $penawaran = $request->all();
-
-        $penawaran['tahun'] = $request->tgl_awal_penawaran;
-        $penawaranCreate = Adminuniv::create($penawaran);
-
-        if ($request->myCount != null) {
-=======
         //mengambil semua data
         $penawaran = $request->all();
         $penawaran['tahun'] = $request->tgl_awal_penawaran;
-        
+
         //jika memilih custom kuota fakultas
-        if($request->jml_kuota == 0 || $request->jml_kuota == null){
+        if ($request->jml_kuota == 0 || $request->jml_kuota == null) {
             $fakultas = [
-                "01"=>$request->fkip,
-                "02"=>$request->fk,
-                "03"=>$request->fmipa,
-                "04"=>$request->fp,
-                "05"=>$request->ft,
-                "06"=>$request->fib,
-                "07"=>$request->feb,
-                "08"=>$request->fh,
-                "09"=>$request->fsrd,
-                "010"=>$request->fisip,
-                "011"=>$request->fkor
+                "01" => $request->fkip,
+                "02" => $request->fk,
+                "03" => $request->fmipa,
+                "04" => $request->fp,
+                "05" => $request->ft,
+                "06" => $request->fib,
+                "07" => $request->feb,
+                "08" => $request->fh,
+                "09" => $request->fsrd,
+                "010" => $request->fisip,
+                "011" => $request->fkor
             ];
-        
+
             $jml_kuota = 0;
-            foreach ($fakultas as $item=>$value) {
-                if($item !=0) {
+            foreach ($fakultas as $item => $value) {
+                if ($item != 0) {
                     $jml_kuota += $value;
                 }
             }
             $penawaran['jml_kuota'] = $jml_kuota;
-            
+
             //insert data ke bea_penawaran
             $penawaranCreate = Adminuniv::create($penawaran);
 
-            foreach ($fakultas as $item=>$value) {
+            foreach ($fakultas as $item => $value) {
                 $penawaranCreate->getKuotaFakultas()->create([
                     'id_fakultas' => $item,
                     'jml_kuota' => $value
                 ]);
             }
-        }
-        else {
+        } else {
             $penawaranCreate = Adminuniv::create($penawaran);
         }
 
-        
+
 
         //menambahkan lampiran
-        if($request->myCount != null) {
->>>>>>> a678f4f4d1f23b37e250c96e96851f8b0df54002
+        if ($request->myCount != null) {
             $lampiran = $request->myCount;
             $lampiranArr = explode(",", $lampiran);
 
@@ -120,12 +108,8 @@ class AdminunivController extends Controller
                 }
             };
         };
-<<<<<<< HEAD
 
-=======
-        
         return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
->>>>>>> a678f4f4d1f23b37e250c96e96851f8b0df54002
 
 
         return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
@@ -211,35 +195,31 @@ class AdminunivController extends Controller
             };
         };
 
-<<<<<<< HEAD
-        return redirect('/adminuniversitas/' . $adminuniv->id_penawaran)->with('success', 'Data Penawaran Beasiswa Berhasil Diubah');
-=======
         //mengubah kuota fakultas ke kuota fakultas
         if ($request->fakultas1 != null) {
-            $i=1;
+            $i = 1;
             $jml_kuota = 0;
             foreach ($adminuniv->getKuotaFakultas as $item) {
-                $name = "fakultas".$i;
-                if($request->$name == null){
-                    PenawaranKuotaFakultas::where('id_penawaran_kuota_fakultas', $item->id_penawaran_kuota_fakultas )
+                $name = "fakultas" . $i;
+                if ($request->$name == null) {
+                    PenawaranKuotaFakultas::where('id_penawaran_kuota_fakultas', $item->id_penawaran_kuota_fakultas)
                         ->update([
-                            'jml_kuota'=> 0
+                            'jml_kuota' => 0
                         ]);
-                }
-                else {
-                    PenawaranKuotaFakultas::where('id_penawaran_kuota_fakultas', $item->id_penawaran_kuota_fakultas )
+                } else {
+                    PenawaranKuotaFakultas::where('id_penawaran_kuota_fakultas', $item->id_penawaran_kuota_fakultas)
                         ->update([
-                            'jml_kuota'=> $request->$name
+                            'jml_kuota' => $request->$name
                         ]);
                     $jml_kuota += $request->$name;
                 }
-                $i+=1;
+                $i += 1;
             }
             $penawaranUpdate->update([
                 'jml_kuota' => $jml_kuota
             ]);
 
-            if($request->is_total == "true"){
+            if ($request->is_total == "true") {
                 //mengubah dari kuota fakultas ke kuota umum
                 foreach ($penawaranUpdate->getKuotaFakultas as $item) {
                     PenawaranKuotaFakultas::destroy($item->id_penawaran_kuota_fakultas);
@@ -249,52 +229,50 @@ class AdminunivController extends Controller
                 }
             }
         }
-        
+
         //mengubah dari kuota umum ke kuota fakultas
-        if($request->is_fakultas == "true"){ //error here
+        if ($request->is_fakultas == "true") { //error here
             $fakultas = [
-                "01"=>$request->fkip,
-                "02"=>$request->fk,
-                "03"=>$request->fmipa,
-                "04"=>$request->fp,
-                "05"=>$request->ft,
-                "06"=>$request->fib,
-                "07"=>$request->feb,
-                "08"=>$request->fh,
-                "09"=>$request->fsrd,
-                "010"=>$request->fisip,
-                "011"=>$request->fkor
+                "01" => $request->fkip,
+                "02" => $request->fk,
+                "03" => $request->fmipa,
+                "04" => $request->fp,
+                "05" => $request->ft,
+                "06" => $request->fib,
+                "07" => $request->feb,
+                "08" => $request->fh,
+                "09" => $request->fsrd,
+                "010" => $request->fisip,
+                "011" => $request->fkor
             ];
-        
+
             $jml_kuota = 0;
-            foreach ($fakultas as $item=>$value) {
-                if($item !=0) {
+            foreach ($fakultas as $item => $value) {
+                if ($item != 0) {
                     $jml_kuota += $value;
                 }
             }
 
             $penawaranUpdate->update([
                 'jml_kuota' => $jml_kuota
-                ]);
+            ]);
 
-            foreach ($fakultas as $item=>$value) {
+            foreach ($fakultas as $item => $value) {
                 if ($value == null) {
                     $penawaranUpdate->getKuotaFakultas()->create([
-                    'id_fakultas' => $item,
-                    'jml_kuota' => 0
-                ]);
+                        'id_fakultas' => $item,
+                        'jml_kuota' => 0
+                    ]);
                 } else {
                     $penawaranUpdate->getKuotaFakultas()->create([
-                    'id_fakultas' => $item,
-                    'jml_kuota' => $value
-                ]);
+                        'id_fakultas' => $item,
+                        'jml_kuota' => $value
+                    ]);
                 }
             }
         }
 
-        return redirect('/adminuniversitas/'.$adminuniv->id_penawaran)->with('success', 'Data Penawaran Beasiswa Berhasil Diubah');
-
->>>>>>> a678f4f4d1f23b37e250c96e96851f8b0df54002
+        return redirect('/adminuniversitas/' . $adminuniv->id_penawaran)->with('success', 'Data Penawaran Beasiswa Berhasil Diubah');
     }
 
     /**
@@ -307,9 +285,6 @@ class AdminunivController extends Controller
     {
         //
         Adminuniv::destroy($adminuniv->id_penawaran);
-<<<<<<< HEAD
-        return redirect('/adminuniversitas')->with('success', 'Data berhasil dihapus');
-=======
         foreach ($adminuniv->penawaranUpload as $item) {
             PenawaranUpload::destroy($item->id_penawaran_upload);
         }
@@ -317,7 +292,6 @@ class AdminunivController extends Controller
         foreach ($adminuniv->getKuotaFakultas as $item) {
             PenawaranKuotaFakultas::destroy($item->id_penawaran_kuota_fakultas);
         }
-        return redirect('/adminuniversitas')->with('success','Data berhasil dihapus');
->>>>>>> a678f4f4d1f23b37e250c96e96851f8b0df54002
+        return redirect('/adminuniversitas')->with('success', 'Data berhasil dihapus');
     }
 }

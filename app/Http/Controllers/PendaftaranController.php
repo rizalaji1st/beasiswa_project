@@ -50,9 +50,7 @@ class PendaftaranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-    }
+
 
     /**
      * Display the specified resource.
@@ -85,10 +83,10 @@ class PendaftaranController extends Controller
         return view('pages.pendaftaran.daftar', compact('adminuniv'));
     }
 
-    public function tambah(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'file' => 'required',
+            'files.*' => 'required|file|max:2000',
             'id_penawaran' => 'required',
             'id_pendaftar' => 'required',
             'nim' => 'required',
@@ -97,6 +95,25 @@ class PendaftaranController extends Controller
             'semester' => 'required',
             'penghasilan' => 'required',
         ]);
+
+        // $files = [];
+        // foreach ($request->file('files') as $file) {
+        //     if ($file->isValid()) {
+        //         $path = $file->store('public/files');
+
+        //         // save information to variable
+        //         // next will be saved to database
+        //         $files[] = [
+        //             'id_jenis_file' => $request->id_jenis_file,
+        //             'nama_file' => $file->getClientOriginalName(),
+        //             // 'filename' => $request->nim,
+        //             'created_at' => $now = Carbon::now()->format('Y-m-d H:i:s'),
+        //             'updated_at' => $now,
+        //         ];
+        //     }
+        // }
+
+        // bea_ref_jenis_file::insert($files);
 
         Pendaftaran::create($request->all());
         return redirect('/');
