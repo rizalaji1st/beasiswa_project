@@ -16,6 +16,17 @@ class PNominasisController extends Controller
     public function index()
     {
 
+        // $bppdata = ["id_pendaftar", "id_penawaran", "nim", "ips", "ipk", "penghasilan", "semester"];
+        // $idbpp = [$bppdata, 0];
+
+        // foreach ($idbpp[0] as $bppdata) {
+        //     $user = Users::find($bppdata);
+            
+        //     $user ->prodi = $key[1];
+        //     $user ->fakultas = $key[2];  
+        // }
+        // return view('pages.admin.univ.dashboard_pnominasi',['dashboard_pnominasi' => $nrangking]);
+
         $nrangking = NRangking::all();
          return view('pages.admin.univ.dashboard_pnominasi',['dashboard_pnominasi' => $nrangking]);
     }
@@ -46,8 +57,8 @@ class PNominasisController extends Controller
         // $data = Excel::import(new AdminUnivImport, public_path('/file_pnominasi/'.$nama_file));
 
         $data = Excel::toArray(new AdminUnivImport, $request->file('file'));
-        // print_r($data);
-        // print_r($data[0]);
+        print_r($data);
+        print_r($data[0]);
 
          foreach($data[0] as $key) {
             $nrangking = Nrangking::find($key[0]);
@@ -57,7 +68,9 @@ class PNominasisController extends Controller
             $nrangking->ipk = $key[4];
             $nrangking->penghasilan = $key[5];
             $nrangking->semester = $key[6];
+
              $nrangking->save();
+
         }
 
     // alihkan halaman kembali
@@ -65,4 +78,3 @@ class PNominasisController extends Controller
     }
 
 }
-

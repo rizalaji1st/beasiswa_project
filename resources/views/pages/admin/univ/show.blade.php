@@ -18,8 +18,12 @@
                 <table class="table table-bordered table-striped">
                     <tbody>
                         <tr>
-                            <td scope="col">nama Beasiswa</td>
+                            <td scope="col">Nama Penawaran</td>
                             <td scope="col">{{$adminuniv->nama_penawaran}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Jenis Beasiswa</td>
+                            <td scope="col">{{$adminuniv->refJenisPenawaran->nama_beasiswa}}</td>
                         </tr>
                         <tr>
                             <td scope="col">Tahun</td>
@@ -39,9 +43,9 @@
                 <div class="col-12">
                     <table class="table table-bordered table-striped">
                         <tbody>
-                            @forelse ($adminuniv->getKuotaFakultas as $item)
+                            @forelse ($fakultas as $item)
                             <tr>
-                                <td scope="col">{{$item->id_fakultas}}</td>
+                                <td scope="col">{{$item->refFakultas->nama_fakultas}}</td>
                                 <td scope="col">{{$item->jml_kuota}}</td>
                             </tr>
                             @empty

@@ -16,7 +16,17 @@
                 @enderror
 
             </div>
-
+            {{-- jenis penawaran beasiswa --}}
+            <div class="form-group">
+                <label for="jenis_beasiswa">Jenis Beasiswa</label>
+                <select class="custom-select fstdropdown-select" name="id_jenis_beasiswa" id="id_jenis_beasiswa">
+                    @foreach ($jenisBeasiswa as $item)
+                    <option value="{{$item->id_jenis_beasiswa}}" 
+                        {{$item->id_jenis_beasiswa == $adminuniv->refJenisPenawaran->id_jenis_beasiswa ? 'selected' : ''}}
+                        >{{$item->nama_beasiswa}}</option>
+                    @endforeach
+                </select>
+            </div>
             {{-- konfigurasi kuota --}}
             <div class="form-group">
                 <label for="kuota_fakultas">Konfigurasi Kuota Penerima Beasiswa</label>

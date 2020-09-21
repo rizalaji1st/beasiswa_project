@@ -16,8 +16,6 @@
 
             </div>
 
-            
-
             {{-- konfigurasi kuota --}}
             <div class="form-group">
                 <label for="kuota_fakultas">Konfigurasi Kuota Penerima Beasiswa</label>
@@ -110,14 +108,16 @@
                 </div>  
             </div>
 
-            {{-- id jenis penawaran beasiswa --}}
-            {{-- <div class="form-group">
-                <label for="id_jenis_beasiswa">Id Jenis beasiswa</label>
-                <input type="number" class="form-control @error('id_jenis_beasiswa') is-invalid @enderror" id="id_jenis_beasiswa" name="id_jenis_beasiswa" value="{{old('id_jenis_beasiswa')}}">
-                @error('id_jenis_penawaran')
-                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div> --}}
+            {{-- jenis penawaran beasiswa --}}
+            <div class="form-group">
+                <label for="jenis_beasiswa">Jenis Beasiswa</label>
+                <select class="custom-select fstdropdown-select" name="id_jenis_beasiswa" id="id_jenis_beasiswa" value="{{old('id_jenis_beasiswa')}}" required>
+                    <option value="" disabled selected>Pilih salah satu</option>
+                    @foreach ($jenisBeasiswa as $item)
+                    <option value="{{$item->id_jenis_beasiswa}}">{{$item->nama_beasiswa}}</option>
+                    @endforeach
+                </select>
+            </div>
 
             <h3 class="mt-5 mb-4">Timeline</h3>
             {{-- Penawaran --}}
@@ -287,6 +287,7 @@
             {{-- lampiran --}}
             <div class="form-group form" id="form-lampiran">
                 <label for="lampiran">Lampiran</label>
+                <p style="color:#969393">*Masukkan lampiran penawaran beasiswa</p>
             </div>
             
             
@@ -294,7 +295,7 @@
             <div class="form-group">
                 <input type="text" name="myCount" id="myCount" hidden>
             </div>
-            
+
             <br>
             <br>
             <br>
@@ -316,50 +317,87 @@
         //memnghapus lampiran
         function removeData(){
             var att = this.id;
+            console.log(att);
             var ids = "#"+att;
             removeA(myName, att);
             document.getElementById("myCount").value = myName;
             $(ids).remove();
         }
 
-        //menambahkan lampiran
-        function addData(){
-            count++;
-            var cls = "lampiran"+count;
-
-            var x = document.createElement("div");
-            x.setAttribute("class", "input-group mb-3 lampiran");
-            x.setAttribute("id",cls);
+        function addLampiran(){
             
-            var y = document.createElement("INPUT");
-            y.setAttribute("class","form-control @error('lampiran') is-invalid @enderror");
-            y.setAttribute("id",cls);
-            y.setAttribute("type","text");
-            y.setAttribute("name",cls);
-            y.setAttribute("placeholder", "tambahkan nama lampiran");
-            y.setAttribute('required',true);
-            // y.setAttribute("required");
-            x.appendChild(y);
+            count++;
+            var clsSelect = "lampiran"+count;
+            var clsUpload = "lamp"+count;
+            var clsDiv = "row mb-3 div" +count;
 
+            // DIV 1------------------------------------------------------------------------------
+            var option0 = document.createElement("option");
+            option0.setAttribute
+            option0.innerHTML="Pilih salah satu";
+
+            var option1 = document.createElement("option");
+            option1.setAttribute("value", "Surat Keputusan");
+            option1.innerHTML="Surat Keputusan Beasiswa";
+            
+            var option2 = document.createElement("option");
+            option2.setAttribute("value", "Format Surat");
+            option2.innerHTML="Format Lampiran";
+
+            var select = document.createElement("select");
+            select.setAttribute("class","custom-select fstdropdown-select");
+            select.setAttribute("name", clsSelect);
+            select.setAttribute("id", clsSelect);
+            select.appendChild(option0);
+            select.appendChild(option1);
+            select.appendChild(option2);
+
+            var divcol1 = document.createElement("div");
+            divcol1.setAttribute("class","col-5 input-group");
+            divcol1.appendChild(select);
+
+            // DIV 2------------------------------------------------------------------------------
+            var upload = document.createElement("input");
+            upload.setAttribute("type","file");
+            upload.setAttribute("name",clsUpload);
+            upload.setAttribute("id",clsUpload);
+            upload.setAttribute("placeholder","upload lampiran");
+            upload.setAttribute("class","form-control");
+            
+            var divcol2 = document.createElement("div");
+            divcol2.setAttribute("class","col-5 input-group");
+            divcol2.appendChild(upload);
+            
+            // DIV 3------------------------------------------------------------------------------
             var z = document.createElement("button");
             z.setAttribute("class", "btn delete");
             z.setAttribute("type","button");
-            z.setAttribute("id",cls)
-            x.appendChild(z);
+            z.setAttribute("id",clsSelect)
 
             var i = document.createElement("i");
             i.setAttribute("class","fa fa-minus-circle");
-            i.setAttribute("id",cls);
+            i.setAttribute("id",clsSelect);
             z.appendChild(i);
+            
+            var divx = document.createElement("div");
+            divx.setAttribute("class","col-2")
+            divx.appendChild(z);
+            
+            //div paling dasar
+            var divr = document.createElement("div");
+            divr.setAttribute("class",clsDiv);
+            divr.setAttribute("id",clsSelect);
+            divr.appendChild(divcol1);
+            divr.appendChild(divcol2);
+            divr.appendChild(divx);
 
-            document.getElementById("form-lampiran").appendChild(x);
-            myName.push(cls);
+            document.getElementById("form-lampiran").appendChild(divr);
+            myName.push(clsSelect);
             document.getElementById("myCount").value = myName;
             $( ".delete" ).on( "click", removeData );
         }
     
-        $( ".click" ).on( "click", addData );
-        $( ".delete" ).on( "click", removeData );
+        $( ".click" ).on( "click", addLampiran );
         
 
         //function remove element by value

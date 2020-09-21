@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeBeaPenawaranColumn extends Migration
+class CreateBeaRefJenisFile extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class ChangeBeaPenawaranColumn extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('bea_penawaran', function(Blueprint $table){
-            $table->longText('deskripsi')->change();
+        Schema::create('bea_ref_jenis_file', function (Blueprint $table) {
+            $table->bigIncrements('id_jenis_file');
+            $table->string('nama_jenis_file');
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -26,6 +28,6 @@ class ChangeBeaPenawaranColumn extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('bea_ref_jenis_file');
     }
 }

@@ -35,13 +35,15 @@ Route::get('/pendaftaran/{adminuniv}', 'PendaftaranController@create');
 
 Route::get('/nrangkings', 'NrangkingsController@index');
 Route::get('/pnominasis', 'PNominasisController@index');
+Route::get('/pengusulans', 'PengusulansController@index');
+
 Route::get('/nrangking/{nrangking}', 'NrangkingsController@show');
 //Route::get('/nrangkings', 'NrangkingsController@index');
 Route::get('/nrangkings/export_excel', 'NrangkingsController@export_excel');
 Route::post('/pnominasis/import_excel', 'PNominasisController@import_excel');
 
-// Route::get('/upload', 'UploadController@upload');
-// Route::post('/upload/proses', 'UploadController@proses_upload');
+
+//route pengusulna nominasi rev
 
 
 //Route::get('/article', 'WebController@index');

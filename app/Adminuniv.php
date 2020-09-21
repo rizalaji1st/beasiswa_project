@@ -29,6 +29,7 @@ class Adminuniv extends Model
     
     protected $fillable = ['nama_penawaran',
                             'jml_kuota',
+                            'id_jenis_beasiswa',
                             'tgl_awal_penawaran', 
                             'tgl_akhir_penawaran',
                             'tgl_awal_pendaftaran', 
@@ -59,5 +60,13 @@ class Adminuniv extends Model
     
     public function getKuotaFakultas(){
         return $this->hasMany(PenawaranKuotaFakultas::class, 'id_penawaran', 'id_penawaran');
+    }
+
+    public function refFakultas(){
+        return $this->hasManyThrough('App\References\RefFakultas','App\PenawaranKuotaFakultas', 'id_penawaran','id_fakultas','id_penawaran','id_fakultas');
+    }
+
+    public function refJenisPenawaran(){
+        return $this->hasOne('App\References\RefJenisBeasiswa','id_jenis_beasiswa','id_jenis_beasiswa');
     }
 }

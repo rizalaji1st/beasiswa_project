@@ -21,6 +21,14 @@ class CreateBeaPendaftarPenawaran extends Migration
             $table->float('ips');
             $table->float('ipk');
             $table->integer('penghasilan');
+            $table->string('status_ayah'); //hidup, bercerai, wafat
+            $table->string('status_ibu'); //hidup, bercerai, wafat
+            $table->string('status_rumah'); //sendiri, menumpang, menumpang tanpa izin, sewa tahunan, sewa bulanan, tidak memiliki
+            $table->string('pendidikan_ayah'); //Tidak Sekolah, SD/MI / Sederajat, SMP/MTs / Sederajat, SMA/MA / Sederajat, D1 / Sederajat, D2 / Sederajat, D3 / Sederajat, D4/S1 / Sederajat, S2/Sp1 / Sederajat
+            $table->string('pendidikan_ibu'); //Tidak Sekolah, SD/MI / Sederajat, SMP/MTs / Sederajat, SMA/MA / Sederajat, D1 / Sederajat, D2 / Sederajat, D3 / Sederajat, D4/S1 / Sederajat, S2/Sp1 / Sederajat
+            $table->string('pekerjaan_ayah');//TIDAK BEKERJA, Lainnya, Petani, Wirausaha, Peg. Swasta, PNS, TNI / POLRI
+            $table->string('pekerjaan_ibu');//TIDAK BEKERJA, Lainnya, Petani, Wirausaha, Peg. Swasta, PNS, TNI / POLRI
+            $table->integer('jumlah_tanggungan');
             $table->integer('semester');
             $table->boolean('is_finalisasi');
             $table->string('create_at');
@@ -28,7 +36,7 @@ class CreateBeaPendaftarPenawaran extends Migration
             $table->string('finalized_at');
             $table->string('finalized_by');
             $table->string('printed_at');
-            $table->string('is_nominate');
+            $table->string('is_nominates');
             $table->string('nominated_at');
             $table->string('nominated_by');
             $table->boolean('is_accepted');

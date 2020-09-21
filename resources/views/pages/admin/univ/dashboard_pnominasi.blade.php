@@ -40,11 +40,11 @@
                 </div>
                 @endif
 
-            </br><button type="button" class="btn btn-primary mr-5" data-toggle="modal" data-target="#importExcel">
+       <!--      </br><button type="button" class="btn btn-primary mr-5" data-toggle="modal" data-target="#importExcel">
                     IMPORT EXCEL
                 </button>
 
-                <!-- Import Excel -->
+                 Import Excel -->
                 <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <form method="post" action="/pnominasis/import_excel" enctype="multipart/form-data">
@@ -82,6 +82,8 @@
                             <th scope="col">IPK</th>
                             <th scope="col">Penghasilan</th>
                             <th scope="col">Semester</th>
+<!--                             <th scope="col">Prodi</th>
+                            <th scope="col">Fakultas</th> -->
                         </tr>
                     </thead>
 
@@ -97,6 +99,8 @@
                             <td>{{$pn->ipk}}</td>
                             <td>{{$pn->penghasilan}}</td>
                             <td>{{$pn->semester}}</td>
+    <!--                         <td>{{$pn->prodi}}</td>
+                            <td>{{$pn->fakultas}}</td> -->
                         </tr>
                         @endforeach
                     </tbody>
