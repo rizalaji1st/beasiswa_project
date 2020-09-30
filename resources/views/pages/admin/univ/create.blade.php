@@ -4,7 +4,7 @@
     <div class="container col-10 mb-5 mt-5">
         <h1>Tambah Penawaran Beasiswa</h1>
         <h3 class="mt-5 mb-3">Informasi Umum</h3>
-        <form method="post" action="/adminuniversitas">
+        <form method="post" action="/adminuniversitas" enctype="multipart/form-data">
             @csrf
             {{-- nama penawaran --}}
             <div class="form-group">
@@ -112,7 +112,7 @@
             <div class="form-group">
                 <label for="jenis_beasiswa">Jenis Beasiswa</label>
                 <select class="custom-select fstdropdown-select" name="id_jenis_beasiswa" id="id_jenis_beasiswa" value="{{old('id_jenis_beasiswa')}}" required>
-                    <option value="" disabled selected>Pilih salah satu</option>
+                    <option value="" disabled selected>--Pilih salah satu--</option>
                     @foreach ($jenisBeasiswa as $item)
                     <option value="{{$item->id_jenis_beasiswa}}">{{$item->nama_beasiswa}}</option>
                     @endforeach
@@ -366,9 +366,9 @@
         function addLampiran(){
             count++;
             var clsSelect = "lampiran"+count;
-            var clsUpload = "lamp"+count;
-            var clsName = "lampName"+count;
-            var clsDeskripsi = "lampDeskripsi"+count;
+            var clsUpload = "lampiran"+count+"Upload";
+            var clsName = "lampiran"+count+"Name";
+            var clsDeskripsi = "lampiran"+count+"Deskripsi";
             
             //title-------------------------------------------
             var judul = document.createElement("h6");
@@ -427,10 +427,11 @@
             var upload = document.createElement("input");
             upload.setAttribute("type","file");
             upload.setAttribute("name",clsUpload);
+            console.log(clsUpload);
             upload.setAttribute("id",clsUpload);
             upload.setAttribute("required","");
             upload.setAttribute("placeholder","upload lampiran");
-            upload.setAttribute("class","form-control-file");
+            upload.setAttribute("class","form-control-file @error('".clsUpload."') is-invalid @enderror");
 
             var labelUpload = document.createElement("label");
             labelUpload.innerHTML="pilih file";

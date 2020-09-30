@@ -18,7 +18,7 @@ class PenawaranUpload extends Model
         'path_file',
         'nama_file',
         'deskripsi',
-        'ektensi',
+        'ekstensi',
         'size'
     ];
 

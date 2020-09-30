@@ -10,6 +10,7 @@ use App\Http\Requests\PenawaranRequest;
 use App\References\RefJenisBeasiswa;
 use App\References\RefJenisFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use PDOStatement;
 
 class AdminunivController extends Controller
@@ -101,24 +102,34 @@ class AdminunivController extends Controller
             $lampiranArr = explode(",", $lampiran);
             $coba =[];
             foreach ($lampiranArr as $lamp) {
-
+                $upload = $lamp."Upload";
+                $nama = $lamp."Name";
+                $deskripsi = $lamp."Deskripsi";
                 if ($lamp != null) {
-                    // $penawaranCreate->penawaranUpload()->create([
-                    //     'id_jenis_file' => $request->$lamp,
-                    //     'id_penawaran' => $penawaranCreate->id_penawaran,
-                    //     'nama_upload' =>
-                    // ]);
-                    array_push($coba,$request->$lamp);
+
+                    //upload file
+                    $extension = $request->file($upload)->extension();
+                    $size = $request->file($upload)->getSize();
+                    $filename = date('dmyHis').'.'.$extension;
+                    $this->validate($request, [$upload=>'required|file|max:5000']);
+                    $path = Storage::putFileAs('public/data_file/penawaran_upload',$request->file($upload), $filename);
+                    $penawaranCreate->penawaranUpload()->create([
+                          'id_jenis_file' => $request->$lamp,
+                          'id_penawaran' => $penawaranCreate->id_penawaran,
+                          'deskripsi' =>$request->$deskripsi,
+                          'path_file' => $path,
+                          'nama_file' => $filename,
+                          'ekstensi' => $extension,
+                          'size' => $size,
+                          'nama_upload' =>$request->$nama,
+                      ]);
                 }
                 
             };
             
         };
-
-        //mengambil 
-        
-        return $coba;
-        // return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
+        // return $extension;
+        return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
     }
 
     /**
