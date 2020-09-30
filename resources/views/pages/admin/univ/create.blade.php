@@ -285,9 +285,8 @@
             </div>
 
             {{-- lampiran --}}
-            <div class="form-group form" id="form-lampiran">
-                <label for="lampiran">Lampiran</label>
-                <p style="color:#969393">*Masukkan lampiran penawaran beasiswa</p>
+            <div class="form-group" id="form-lampiran">
+                <label for="jenis_beasiswa">Lampiran</label>
             </div>
             
             
@@ -307,113 +306,6 @@
         </form>
     </div>
 @endsection
-
-@push('addon-script')
-        <script type="text/javascript">
-
-        var count = 0;
-        var myName = [];
-
-        //memnghapus lampiran
-        function removeData(){
-            var att = this.id;
-            console.log(att);
-            var ids = "#"+att;
-            removeA(myName, att);
-            document.getElementById("myCount").value = myName;
-            $(ids).remove();
-        }
-
-        function addLampiran(){
-            
-            count++;
-            var clsSelect = "lampiran"+count;
-            var clsUpload = "lamp"+count;
-            var clsDiv = "row mb-3 div" +count;
-
-            // DIV 1------------------------------------------------------------------------------
-            var option0 = document.createElement("option");
-            option0.setAttribute
-            option0.innerHTML="Pilih salah satu";
-
-            var option1 = document.createElement("option");
-            option1.setAttribute("value", "Surat Keputusan");
-            option1.innerHTML="Surat Keputusan Beasiswa";
-            
-            var option2 = document.createElement("option");
-            option2.setAttribute("value", "Format Surat");
-            option2.innerHTML="Format Lampiran";
-
-            var select = document.createElement("select");
-            select.setAttribute("class","custom-select fstdropdown-select");
-            select.setAttribute("name", clsSelect);
-            select.setAttribute("id", clsSelect);
-            select.appendChild(option0);
-            select.appendChild(option1);
-            select.appendChild(option2);
-
-            var divcol1 = document.createElement("div");
-            divcol1.setAttribute("class","col-5 input-group");
-            divcol1.appendChild(select);
-
-            // DIV 2------------------------------------------------------------------------------
-            var upload = document.createElement("input");
-            upload.setAttribute("type","file");
-            upload.setAttribute("name",clsUpload);
-            upload.setAttribute("id",clsUpload);
-            upload.setAttribute("placeholder","upload lampiran");
-            upload.setAttribute("class","form-control");
-            
-            var divcol2 = document.createElement("div");
-            divcol2.setAttribute("class","col-5 input-group");
-            divcol2.appendChild(upload);
-            
-            // DIV 3------------------------------------------------------------------------------
-            var z = document.createElement("button");
-            z.setAttribute("class", "btn delete");
-            z.setAttribute("type","button");
-            z.setAttribute("id",clsSelect)
-
-            var i = document.createElement("i");
-            i.setAttribute("class","fa fa-minus-circle");
-            i.setAttribute("id",clsSelect);
-            z.appendChild(i);
-            
-            var divx = document.createElement("div");
-            divx.setAttribute("class","col-2")
-            divx.appendChild(z);
-            
-            //div paling dasar
-            var divr = document.createElement("div");
-            divr.setAttribute("class",clsDiv);
-            divr.setAttribute("id",clsSelect);
-            divr.appendChild(divcol1);
-            divr.appendChild(divcol2);
-            divr.appendChild(divx);
-
-            document.getElementById("form-lampiran").appendChild(divr);
-            myName.push(clsSelect);
-            document.getElementById("myCount").value = myName;
-            $( ".delete" ).on( "click", removeData );
-        }
-    
-        $( ".click" ).on( "click", addLampiran );
-        
-
-        //function remove element by value
-        function removeA(arr) {
-            var what, a = arguments, L = a.length, ax;
-            while (L > 1 && arr.length) {
-                what = a[--L];
-                while ((ax= arr.indexOf(what)) !== -1) {
-                    arr.splice(ax, 1);
-                }
-            }
-            return arr;
-        }
-        
-    </script>
-@endpush
 
 @push('addon-script')
     <script type="text/javascript">
@@ -455,3 +347,194 @@
     });
   </script>
 @endpush
+@push('addon-script')
+        <script type="text/javascript">
+
+        var count = 0;
+        var myName = [];
+
+        //menghapus lampiran
+        function removeData(){
+            var att = this.id;
+            console.log(att);
+            var ids = "#"+att;
+            removeA(myName, att);
+            document.getElementById("myCount").value = myName;
+            $(ids).remove();
+        }
+
+        function addLampiran(){
+            count++;
+            var clsSelect = "lampiran"+count;
+            var clsUpload = "lamp"+count;
+            var clsName = "lampName"+count;
+            var clsDeskripsi = "lampDeskripsi"+count;
+            
+            //title-------------------------------------------
+            var judul = document.createElement("h6");
+            judul.innerHTML="Masukkan lampiran"
+
+            var span = document.createElement("span");
+            span.setAttribute("aria-hidden","true");
+            span.innerHTML="&times;";
+
+            var button = document.createElement("button");
+            button.setAttribute("class","close delete");
+            button.setAttribute("type","button");
+            button.setAttribute("id",clsSelect);
+            button.appendChild(span);
+
+            var colButton = document.createElement("div");
+            colButton.setAttribute("class","col-1");
+            colButton.appendChild(button);
+
+            var colJudul = document.createElement("div");
+            colJudul.setAttribute("class","col");
+            colJudul.appendChild(judul);
+
+            var row1 = document.createElement("div");
+            row1.setAttribute("class","row");
+            row1.appendChild(colJudul);
+            row1.appendChild(colButton);
+
+
+            //nama lampiran------------------------------------------------------------------------------
+            var labelOption = document.createElement("label");
+            labelOption.setAttribute("for",clsSelect);
+            labelOption.innerHTML="Nama lampiran";
+
+            var option = document.createElement("option");
+            option.innerHTML="pilih salah satu";
+
+            var select = document.createElement("select");
+            select.setAttribute("class","form-control custom-select fstdropdown");
+            select.setAttribute("name", clsSelect);
+            select.setAttribute("id", clsSelect);
+            select.setAttribute("required","");
+            select.appendChild(option);
+            reference(select);
+
+            var divcol1 = document.createElement("div");
+            divcol1.setAttribute("class","col form-group");
+            divcol1.appendChild(labelOption);
+            divcol1.appendChild(select);
+
+            var row2 = document.createElement("div");
+            row2.setAttribute("class","row");
+            row2.appendChild(divcol1);
+
+            // upload file------------------------------------------------------------------------------
+            var upload = document.createElement("input");
+            upload.setAttribute("type","file");
+            upload.setAttribute("name",clsUpload);
+            upload.setAttribute("id",clsUpload);
+            upload.setAttribute("required","");
+            upload.setAttribute("placeholder","upload lampiran");
+            upload.setAttribute("class","form-control-file");
+
+            var labelUpload = document.createElement("label");
+            labelUpload.innerHTML="pilih file";
+            
+            var divcol2 = document.createElement("div");
+            divcol2.setAttribute("class","col form-group");
+            divcol2.appendChild(labelUpload);
+            divcol2.appendChild(upload);
+
+            var row3 = document.createElement("row");
+            row3.setAttribute("class","row");
+            row3.appendChild(divcol2);
+            
+            // upload sebagai------------------------------------------------------------------------------
+            var labelNama = document.createElement("label");
+            labelNama.setAttribute("for",clsName);
+            labelNama.innerHTML="upload sebagai";
+
+            var inputNama = document.createElement("input");
+            inputNama.setAttribute("class","form-control");
+            inputNama.setAttribute("type","text");
+            inputNama.setAttribute("placeholder","nama file");
+            inputNama.setAttribute("name",clsName);
+            inputNama.setAttribute("required","");
+
+            var colNama = document.createElement("div");
+            colNama.setAttribute("class","col");
+            colNama.appendChild(labelNama);
+            colNama.appendChild(inputNama);
+
+            var row4 = document.createElement("div");
+            row4.setAttribute("class","row");
+            row4.appendChild(colNama);
+
+            //deskripsi------------------------------------------
+            var labelDeskripsi = document.createElement("label");
+            labelDeskripsi.setAttribute("for","deskripsi");
+            labelDeskripsi.innerHTML="Deskripsi";
+
+            var textDeskripsi = document.createElement("textarea");
+            textDeskripsi.setAttribute("type","text");
+            textDeskripsi.setAttribute("class","form-control");
+            textDeskripsi.setAttribute("placeholder","Tulis deskripsi file");
+            textDeskripsi.setAttribute("rows","5");
+            textDeskripsi.setAttribute("name",clsDeskripsi);
+            textDeskripsi.setAttribute("required","");
+
+            var colDeskripsi = document.createElement("div");
+            colDeskripsi.setAttribute("class","col");
+            colDeskripsi.appendChild(labelDeskripsi);
+            colDeskripsi.appendChild(textDeskripsi);
+
+            var row5 = document.createElement("div");
+            row5.setAttribute("class","row");
+            row5.appendChild(colDeskripsi);
+            
+            var garis = document.createElement("hr");
+            
+            //container
+            var divr = document.createElement("div");
+            divr.setAttribute("class","container card p-3 mb-3");
+            divr.setAttribute("id",clsSelect);
+            divr.appendChild(row1);
+            divr.appendChild(garis);
+            divr.appendChild(row2);
+            divr.appendChild(row3);
+            divr.appendChild(row4);
+            divr.appendChild(row5);
+
+            document.getElementById("form-lampiran").appendChild(divr);
+            myName.push(clsSelect);
+            document.getElementById("myCount").value = myName;
+            $( ".delete" ).on( "click", removeData );
+        }
+        
+
+        
+    
+        $( ".click" ).on( "click", addLampiran);
+        
+
+        //function remove element by value
+        function removeA(arr) {
+            var what, a = arguments, L = a.length, ax;
+            while (L > 1 && arr.length) {
+                what = a[--L];
+                while ((ax= arr.indexOf(what)) !== -1) {
+                    arr.splice(ax, 1);
+                }
+            }
+            return arr;
+        }
+
+        function reference(select){
+            var i = 0;
+            var reflampiran = <?php echo json_encode($lampiran); ?>;
+            for(; i < reflampiran.length ; i++){
+                var option = document.createElement("option");
+                option.setAttribute("value", reflampiran[i]['id_jenis_file']);
+                option.innerHTML=reflampiran[i]['nama_jenis_file'];
+                select.appendChild(option);
+            }
+        }
+        
+    </script>
+@endpush
+

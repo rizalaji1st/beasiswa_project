@@ -8,6 +8,7 @@ use App\PenawaranUpload;
 use App\PenawaranKuotaFakultas;
 use App\Http\Requests\PenawaranRequest;
 use App\References\RefJenisBeasiswa;
+use App\References\RefJenisFile;
 use Illuminate\Http\Request;
 use PDOStatement;
 
@@ -22,7 +23,6 @@ class AdminunivController extends Controller
     {
         //
         $beasiswas = Adminuniv::all();
-
         return view('pages.admin.univ.dashboard', ['beasiswas' => $beasiswas]);
     }
 
@@ -41,7 +41,8 @@ class AdminunivController extends Controller
     {
         //
         $jenisBeasiswa = RefJenisBeasiswa::get();
-        return view('pages.admin.univ.create', compact('jenisBeasiswa'));
+        $lampiran = RefJenisFile::get();
+        return view('pages.admin.univ.create', compact('jenisBeasiswa','lampiran'));
     }
 
     /**
@@ -80,7 +81,7 @@ class AdminunivController extends Controller
             }
             $penawaran['jml_kuota'] = $jml_kuota;
             
-            //insert data ke bea_penawaran
+            //insert data ke bea_penawaran 
             $penawaranCreate = Adminuniv::create($penawaran);
 
             foreach ($fakultas as $item=>$value) {
@@ -94,23 +95,30 @@ class AdminunivController extends Controller
             $penawaranCreate = Adminuniv::create($penawaran);
         }
 
-        //menambahkan lampiran
+        // // menambahkan lampiran
         if($request->myCount != null) {
             $lampiran = $request->myCount;
             $lampiranArr = explode(",", $lampiran);
-
+            $coba =[];
             foreach ($lampiranArr as $lamp) {
 
                 if ($lamp != null) {
-                    $penawaranCreate->penawaranUpload()->create([
-                        'id_jenis_file' => '12',
-                        'nama_upload' => $request->$lamp
-                    ]);
+                    // $penawaranCreate->penawaranUpload()->create([
+                    //     'id_jenis_file' => $request->$lamp,
+                    //     'id_penawaran' => $penawaranCreate->id_penawaran,
+                    //     'nama_upload' =>
+                    // ]);
+                    array_push($coba,$request->$lamp);
                 }
+                
             };
+            
         };
+
+        //mengambil 
         
-        return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
+        return $coba;
+        // return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
     }
 
     /**
