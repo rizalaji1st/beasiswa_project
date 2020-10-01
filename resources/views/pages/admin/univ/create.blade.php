@@ -404,7 +404,7 @@
             labelOption.innerHTML="Nama lampiran";
 
             var option = document.createElement("option");
-            option.innerHTML="pilih salah satu";
+            option.innerHTML="--pilih salah satu--";
 
             var select = document.createElement("select");
             select.setAttribute("class","form-control custom-select fstdropdown");
@@ -458,7 +458,7 @@
             inputNama.setAttribute("required","");
 
             var colNama = document.createElement("div");
-            colNama.setAttribute("class","col");
+            colNama.setAttribute("class","col form-group");
             colNama.appendChild(labelNama);
             colNama.appendChild(inputNama);
 
@@ -480,7 +480,7 @@
             textDeskripsi.setAttribute("required","");
 
             var colDeskripsi = document.createElement("div");
-            colDeskripsi.setAttribute("class","col");
+            colDeskripsi.setAttribute("class","col form-group");
             colDeskripsi.appendChild(labelDeskripsi);
             colDeskripsi.appendChild(textDeskripsi);
 

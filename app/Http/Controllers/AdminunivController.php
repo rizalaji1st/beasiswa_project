@@ -7,10 +7,12 @@ use App\Adminuniv;
 use App\PenawaranUpload;
 use App\PenawaranKuotaFakultas;
 use App\Http\Requests\PenawaranRequest;
+use App\References\RefFakultas;
 use App\References\RefJenisBeasiswa;
 use App\References\RefJenisFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use PDOStatement;
 
 class AdminunivController extends Controller
@@ -156,7 +158,11 @@ class AdminunivController extends Controller
     {
         //
         $jenisBeasiswa = RefJenisBeasiswa::get();
-        return view('pages.admin.univ.update', compact('adminuniv','jenisBeasiswa'));
+        $refJenisFile = RefJenisFile::get();
+        $refFakultas = RefFakultas::get();
+        return view('pages.admin.univ.update', compact('adminuniv','jenisBeasiswa','refJenisFile','refFakultas'));
+        
+
     }
 
     /**
@@ -183,35 +189,88 @@ class AdminunivController extends Controller
 
         //update lampiran yang sudah ada
         foreach ($adminuniv->penawaranUpload as $item) {
-            $nama = "dlampiran" . $i;
-            $hasil[$item->id_penawaran_upload] = $request->$nama;
+            $nama = "lampiran" . $i;
+            $uploadSebagai = "lampiran" . $i ."Name";
+            $deskripsi = "lampiran" . $i . "Deskripsi";
+            $upload = "lampiran".$i."Upload";
+
+            $hasil[$item->id_jenis_file] = $request->$nama;
+            $hasil[$item->nama_upload] = $request->$uploadSebagai;
+            $hasil[$item->deskripsi] = $request->$deskripsi;
 
 
-            if ($hasil[$item->id_penawaran_upload] == null) {
+            if ($hasil[$item->id_jenis_file] == null) {
                 PenawaranUpload::destroy($item->id_penawaran_upload);
-            } else if ($hasil[$item->id_penawaran_upload] != $item->nama_upload) {
-                PenawaranUpload::where('id_penawaran_upload', $item->id_penawaran_upload)
-                    ->update([
-                        'nama_upload' => $hasil[$item->id_penawaran_upload]
-                    ]);
+            } else {
+                if ($hasil[$item->id_jenis_file] != $item->id_jenis_file) {
+                    //upload file
+                    PenawaranUpload::where('id_penawaran_upload', $item->id_penawaran_upload)
+                        ->update([
+                            'id_jenis_file' => $hasil[$item->id_jenis_file],
+                        ]);
+                }
+                if($item->nama_upload != $hasil[$item->nama_upload]){
+                    PenawaranUpload::where('id_penawaran_upload', $item->id_penawaran_upload)
+                        ->update([
+                            'nama_upload' => $hasil[$item->nama_upload],
+                        ]);
+                }
+                if($item->deskripsi != $hasil[$item->deskripsi]){
+                    PenawaranUpload::where('id_penawaran_upload', $item->id_penawaran_upload)
+                        ->update([
+                            'deskripsi' => $hasil[$item->deskripsi],
+                        ]);
+                }
+                if($request->$upload != null){
+                    //upload file
+                    File::delete($item->path_file);
+                    $extension = $request->file($upload)->extension();
+                    $size = $request->file($upload)->getSize();
+                    $filename = date('dmyHis').'.'.$extension;
+                    $this->validate($request, [$upload=>'required|file|max:5000']);
+                    $path = Storage::putFileAs('public/data_file/penawaran_upload',$request->file($upload), $filename);
+                    $penawaranUpdate->penawaranUpload()->update([
+                          'path_file' => $path,
+                          'nama_file' => $filename,
+                          'ekstensi' => $extension,
+                          'size' => $size,
+                      ]);  
+                }
+                
             }
 
             $i += 1;
         }
 
-        if ($request->myCount != null) {
+        if($request->myCount != null) {
             $lampiran = $request->myCount;
             $lampiranArr = explode(",", $lampiran);
-
-            //menambahkan lampiran baru
             foreach ($lampiranArr as $lamp) {
+                $upload = $lamp."Upload";
+                $nama = $lamp."Name";
+                $deskripsi = $lamp."Deskripsi";
                 if ($lamp != null) {
+
+                    //upload file
+                    $extension = $request->file($upload)->extension();
+                    $size = $request->file($upload)->getSize();
+                    $filename = date('dmyHis').'.'.$extension;
+                    $this->validate($request, [$upload=>'required|file|max:5000']);
+                    $path = Storage::putFileAs('public/data_file/penawaran_upload',$request->file($upload), $filename);
                     $penawaranUpdate->penawaranUpload()->create([
-                        'id_jenis_file' => '12',
-                        'nama_upload' => $request->$lamp
-                    ]);
+                          'id_jenis_file' => $request->$lamp,
+                          'id_penawaran' => $penawaranUpdate->id_penawaran,
+                          'deskripsi' =>$request->$deskripsi,
+                          'path_file' => $path,
+                          'nama_file' => $filename,
+                          'ekstensi' => $extension,
+                          'size' => $size,
+                          'nama_upload' =>$request->$nama,
+                      ]);
                 }
+                
             };
+            
         };
 
         //mengubah kuota fakultas ke kuota fakultas
