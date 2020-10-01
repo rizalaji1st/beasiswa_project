@@ -454,7 +454,7 @@
             labelOption.innerHTML="Nama lampiran";
 
             var option = document.createElement("option");
-            option.innerHTML="pilih salah satu";
+            option.innerHTML="--pilih salah satu--";
 
             var select = document.createElement("select");
             select.setAttribute("class","form-control custom-select fstdropdown");
@@ -575,7 +575,7 @@
 
         function reference(select){
             var i = 0;
-            var reflampiran = <?php echo json_encode($lampiran); ?>;
+            var reflampiran = <?php echo json_encode($refJenisFile); ?>;
             for(; i < reflampiran.length ; i++){
                 var option = document.createElement("option");
                 option.setAttribute("value", reflampiran[i]['id_jenis_file']);

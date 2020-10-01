@@ -13,6 +13,7 @@ use App\References\RefJenisFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use PDOStatement;
 
 class AdminunivController extends Controller
@@ -102,7 +103,6 @@ class AdminunivController extends Controller
         if($request->myCount != null) {
             $lampiran = $request->myCount;
             $lampiranArr = explode(",", $lampiran);
-            $coba =[];
             foreach ($lampiranArr as $lamp) {
                 $upload = $lamp."Upload";
                 $nama = $lamp."Name";
@@ -112,7 +112,7 @@ class AdminunivController extends Controller
                     //upload file
                     $extension = $request->file($upload)->extension();
                     $size = $request->file($upload)->getSize();
-                    $filename = date('dmyHis').'.'.$extension;
+                    $filename = date('dmyHis').Str::random(4).'.'.$extension;
                     $this->validate($request, [$upload=>'required|file|max:5000']);
                     $path = Storage::putFileAs('public/data_file/penawaran_upload',$request->file($upload), $filename);
                     $penawaranCreate->penawaranUpload()->create([
@@ -223,10 +223,10 @@ class AdminunivController extends Controller
                 }
                 if($request->$upload != null){
                     //upload file
-                    File::delete($item->path_file);
+                    Storage::delete($item->path_file);
                     $extension = $request->file($upload)->extension();
                     $size = $request->file($upload)->getSize();
-                    $filename = date('dmyHis').'.'.$extension;
+                    $filename = date('dmyHis').Str::random(4).'.'.$extension;
                     $this->validate($request, [$upload=>'required|file|max:5000']);
                     $path = Storage::putFileAs('public/data_file/penawaran_upload',$request->file($upload), $filename);
                     $penawaranUpdate->penawaranUpload()->update([
@@ -238,7 +238,6 @@ class AdminunivController extends Controller
                 }
                 
             }
-
             $i += 1;
         }
 
@@ -367,6 +366,9 @@ class AdminunivController extends Controller
         Adminuniv::destroy($adminuniv->id_penawaran);
         foreach ($adminuniv->penawaranUpload as $item) {
             PenawaranUpload::destroy($item->id_penawaran_upload);
+            
+            //untuk delete file jika dihapus
+            // Storage::delete($item->path_file);
         }
 
         foreach ($adminuniv->getKuotaFakultas as $item) {
