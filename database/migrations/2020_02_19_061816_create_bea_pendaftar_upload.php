@@ -26,6 +26,7 @@ class CreateBeaPendaftarUpload extends Migration
             $table->string('deskripsi');
             $table->string('ektensi');
             $table->integer('size');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

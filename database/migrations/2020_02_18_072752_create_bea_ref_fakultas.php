@@ -16,6 +16,7 @@ class CreateBeaRefFakultas extends Migration
         Schema::create('bea_ref_fakultas', function (Blueprint $table) {
             $table->bigIncrements('id_fakultas');
             $table->string('nama_fakultas');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

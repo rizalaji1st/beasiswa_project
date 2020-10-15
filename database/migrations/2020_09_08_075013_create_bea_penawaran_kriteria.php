@@ -19,6 +19,7 @@ class CreateBeaPenawaranKriteria extends Migration
             $table->foreign('id_penawaran')->references('id_penawaran')->on('bea_penawaran')->onDelete('cascade');
             $table->string('nama_kriteria');
             $table->integer('bobot');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

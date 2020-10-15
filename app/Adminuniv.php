@@ -69,4 +69,8 @@ class Adminuniv extends Model
     public function refJenisPenawaran(){
         return $this->hasOne('App\References\RefJenisBeasiswa','id_jenis_beasiswa','id_jenis_beasiswa');
     }
+
+    public function lampiranPendaftar(){
+        return $this->hasMany(UploadFile::class, 'id_penawaran','id_penawaran');
+    }
 }

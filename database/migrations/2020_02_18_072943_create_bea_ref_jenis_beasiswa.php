@@ -16,6 +16,7 @@ class CreateBeaRefJenisBeasiswa extends Migration
         Schema::create('bea_ref_jenis_beasiswa', function (Blueprint $table) {
             $table->bigIncrements('id_jenis_beasiswa');
             $table->string('nama_beasiswa');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

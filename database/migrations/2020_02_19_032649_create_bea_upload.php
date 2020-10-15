@@ -19,6 +19,7 @@ class CreateBeaUpload extends Migration
             $table->foreign('id_penawaran')->references('id_penawaran')->on('bea_penawaran')->onDelete('cascade');
             $table->unsignedBigInteger('id_jenis_file');
             $table->foreign('id_jenis_file')->references('id_jenis_file')->on('bea_ref_jenis_file')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
