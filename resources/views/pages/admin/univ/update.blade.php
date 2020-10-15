@@ -16,17 +16,7 @@
                 @enderror
 
             </div>
-            {{-- jenis penawaran beasiswa --}}
-            <div class="form-group">
-                <label for="jenis_beasiswa">Jenis Beasiswa</label>
-                <select class="custom-select fstdropdown-select" name="id_jenis_beasiswa" id="id_jenis_beasiswa">
-                    @foreach ($jenisBeasiswa as $item)
-                    <option value="{{$item->id_jenis_beasiswa}}" 
-                        {{$item->id_jenis_beasiswa == $adminuniv->refJenisPenawaran->id_jenis_beasiswa ? 'selected' : ''}}
-                        >{{$item->nama_beasiswa}}</option>
-                    @endforeach
-                </select>
-            </div>
+            
             {{-- konfigurasi kuota --}}
             <div class="form-group">
                 <label for="kuota_fakultas">Konfigurasi Kuota Penerima Beasiswa</label>
@@ -133,7 +123,18 @@
                     @endforelse
                 </div>  
             </div>
-
+            
+            {{-- jenis penawaran beasiswa --}}
+            <div class="form-group">
+                <label for="jenis_beasiswa">Jenis Beasiswa</label>
+                <select class="custom-select fstdropdown-select" name="id_jenis_beasiswa" id="id_jenis_beasiswa">
+                    @foreach ($jenisBeasiswa as $item)
+                    <option value="{{$item->id_jenis_beasiswa}}" 
+                        {{$item->id_jenis_beasiswa == $adminuniv->refJenisPenawaran->id_jenis_beasiswa ? 'selected' : ''}}
+                        >{{$item->nama_beasiswa}}</option>
+                    @endforeach
+                </select>
+            </div>
             <h3 class="mt-5 mb-4">Timeline</h3>
             {{-- Penawaran --}}
             <div class="form-group">
@@ -293,8 +294,9 @@
             </div>
 
             {{-- lampiran --}}
+            <h3 class="mt-5">Masukkan lampiran yang dibutuhkan</h3>
             <div class="form-group" id="form-lampiran">
-                <label for="lampiran">Lampiran</label>
+                <label for="lampiran">Lampiran Penawaran</label>
                 @foreach ($adminuniv->penawaranUpload as $lampiran)
                 <div class="container card p-3 mb-3" id="lampiran{{$loop->iteration}}">
                     <div class="row">
@@ -347,9 +349,48 @@
             </div>
 
             <button  type="button" class="btn btn-secondary click"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
+
+            <div class="form-group" id="lampiran-pendaftar">
+                <label for="lampiran">Lampiran Pendaftar</label>
+                @foreach ($adminuniv->lampiranPendaftar as $lampiranPendaftar)
+                <div class="container card p-3 mb-3" id="lampiranPendaftar{{$loop->iteration}}">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Masukkan Lampiran</h6>
+                        </div>
+                        <div class="col-1">
+                            <button class="close delete" type="button" id="lampiranPendaftar{{$loop->iteration}}">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col form-group">
+                            <select name="lampiranPendaftar{{$loop->iteration}}" id="" class="form-control custom-select fstdropdown">
+                                <option value="">--pilih salah satu--</option>
+                                @foreach ($refJenisFile as $item)
+                                    <option value="{{$item->id_jenis_file}}" 
+                                        {{$item->id_jenis_file == $lampiran->id_jenis_file ? 'selected' : ''}}
+                                        >{{$item->nama_jenis_file}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <input type="text" name="dmyCountPendaftar" id="dmyCountPendaftar"  value="{{$loop->iteration}}" hidden>
+                @endforeach
+            </div>
+
+            <button  type="button" class="btn btn-secondary tambah-lampiran-pendaftar"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
             
             <div class="form-group">
                 <input type="text" name="myCount" id="myCount" hidden>
+            </div>
+            <div class="form-group">
+                <input type="text" name="myCountPendaftar" id="myCountPendaftar" hidden>
             </div>
             
             <a href="/adminuniversitas/{{$adminuniv->id_penawaran}}" class="btn btn-outline-warning">Batal</a>
@@ -402,6 +443,19 @@
 
         var count = 0;
         var myName = [];
+        
+        //pendaftar upload
+        var countPendaftar = 0;
+        var myNamePendaftar = [];
+        
+        //menghapus lampiran pendaftar
+        function removeDataPendaftar(){
+            var att = this.id;
+            var ids = "#"+att;
+            removeA(myNamePendaftar, att);
+            document.getElementById("myCountPendaftar").value = myNamePendaftar;
+            $(ids).remove();
+        }
 
         //memnghapus lampiran
         function removeData(){
@@ -410,6 +464,71 @@
             removeA(myName, att);
             document.getElementById("myCount").value = myName;
             $(ids).remove();
+        }
+
+        //untuk menampilkan lampiran yang dibutuhkan pendaftar
+        function addLampiranPendaftar(){
+            countPendaftar++
+            var cls = "lampiranPendaftar"+countPendaftar;
+            
+            //title-------------------------------------------
+            var judul = document.createElement("h6");
+            judul.innerHTML="Masukkan lampiran"
+
+            var span = document.createElement("span");
+            span.setAttribute("aria-hidden","true");
+            span.innerHTML="&times;";
+
+            var button = document.createElement("button");
+            button.setAttribute("class","close hapus");
+            button.setAttribute("type","button");
+            button.setAttribute("id",cls);
+            button.appendChild(span);
+
+            var colButton = document.createElement("div");
+            colButton.setAttribute("class","col-1");
+            colButton.appendChild(button);
+
+            var colJudul = document.createElement("div");
+            colJudul.setAttribute("class","col");
+            colJudul.appendChild(judul);
+
+            var row1 = document.createElement("div");
+            row1.setAttribute("class","row");
+            row1.appendChild(colJudul);
+            row1.appendChild(colButton);
+
+            //nama lampiran------------------------------------------------------------------------------
+
+            var option = document.createElement("option");
+            option.innerHTML="--pilih salah satu--";
+
+            var select = document.createElement("select");
+            select.setAttribute("class","form-control custom-select fstdropdown");
+            select.setAttribute("name", cls);
+            select.setAttribute("id", cls);
+            select.setAttribute("required","");
+            select.appendChild(option);
+            reference(select);
+
+            var divcol1 = document.createElement("div");
+            divcol1.setAttribute("class","col form-group");
+            divcol1.appendChild(select);
+
+            var row2 = document.createElement("div");
+            row2.setAttribute("class","row");
+            row2.appendChild(divcol1);
+
+            var divr = document.createElement("div");
+            divr.setAttribute("class","container card p-3 mb-3");
+            divr.setAttribute("id",cls);
+            divr.appendChild(row1);
+            divr.appendChild(row2);
+
+            document.getElementById("lampiran-pendaftar").appendChild(divr);
+            myName.push(cls);
+            document.getElementById("myCountPendaftar").value = myName;
+            $( ".hapus" ).on( "click", removeDataPendaftar );
         }
 
         //menambahkan lampiran
@@ -477,7 +596,7 @@
             var upload = document.createElement("input");
             upload.setAttribute("type","file");
             upload.setAttribute("name",clsUpload);
-            console.log(clsUpload);
+            
             upload.setAttribute("id",clsUpload);
             upload.setAttribute("required","");
             upload.setAttribute("placeholder","upload lampiran");
@@ -558,7 +677,9 @@
         }
     
         $( ".click" ).on( "click", addLampiran );
+        $( ".tambah-lampiran-pendaftar" ).on( "click", addLampiranPendaftar);
         $( ".delete" ).on( "click", removeData );
+        $( ".hapus" ).on( "click", removeDataPendaftar );
         
 
         //function remove element by value

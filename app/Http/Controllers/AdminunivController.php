@@ -10,6 +10,7 @@ use App\Http\Requests\PenawaranRequest;
 use App\References\RefFakultas;
 use App\References\RefJenisBeasiswa;
 use App\References\RefJenisFile;
+use App\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -55,7 +56,7 @@ class AdminunivController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PenawaranRequest $request)
     {
         //mengambil semua data
         $penawaran = $request->all();
@@ -98,7 +99,21 @@ class AdminunivController extends Controller
             $penawaranCreate = Adminuniv::create($penawaran);
         }
 
-        // // menambahkan lampiran
+        //menambahkan lampiran pendaftar
+        if ($request->myCountPendaftar != null) {
+            $lampiran = $request->myCountPendaftar;
+            $lampiranArr = explode(",", $lampiran);
+            foreach ($lampiranArr as $lamp) {
+                if ($lamp != null) {
+                    $penawaranCreate->lampiranPendaftar()->create([
+                        'id_penawaran' => $penawaranCreate->id_penawaran,
+                        'id_jenis_file' => $request->$lamp
+                    ]);
+                }
+            }
+        }
+
+        // menambahkan lampiran penawaran
         if ($request->myCount != null) {
             $lampiran = $request->myCount;
             $lampiranArr = explode(",", $lampiran);
@@ -178,9 +193,29 @@ class AdminunivController extends Controller
         $penawaranUpdate->update($penawaran);
 
         $hasil = [];
+        $hasilPendaftar = [];
         $dlampiran = $request->dmyCount;
+        $dLampiranPendaftar = $request->dmyCountPendaftar;
         $i = 1;
+        $iPendaftar = 1;
+        $dLampiranPendaftar += 1;
         $dlampiran += 1;
+
+        //update lampiran pendaftar yang sudah ada
+        foreach ($adminuniv->lampiranPendaftar as $item) {
+            $nama = "lampiranPendaftar" . $iPendaftar;
+            $hasilPendaftar[$item->id_jenis_file] = $request->$nama;
+            if ($hasilPendaftar[$item->id_jenis_file] == null) {
+                UploadFile::destroy($item->id_upload_file);
+            } else {
+                if ($hasilPendaftar[$item->id_jenis_file] != $item->id_jenis_file) {
+                    UploadFile::where('id_upload_file', $item->id_upload_file)
+                        ->update([
+                            'id_jenis_file' => $hasilPendaftar[$item->id_jenis_file]
+                        ]);
+                }
+            }
+        }
 
         //update lampiran yang sudah ada
         foreach ($adminuniv->penawaranUpload as $item) {
@@ -235,6 +270,21 @@ class AdminunivController extends Controller
             $i += 1;
         }
 
+        //menambahkan lampiran pendaftar
+        if ($request->myCountPendaftar != null) {
+            $lampiran = $request->myCountPendaftar;
+            $lampiranArr = explode(",", $lampiran);
+            foreach ($lampiranArr as $lamp) {
+                if ($lamp != null) {
+                    $penawaranUpdate->lampiranPendaftar()->create([
+                        'id_penawaran' => $penawaranUpdate->id_penawaran,
+                        'id_jenis_file' => $request->$lamp
+                    ]);
+                }
+            }
+        }
+
+        //menambah lampiran baru
         if ($request->myCount != null) {
             $lampiran = $request->myCount;
             $lampiranArr = explode(",", $lampiran);

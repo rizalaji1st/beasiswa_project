@@ -9,11 +9,11 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
-        <!-- Nav Item - Dashboard -->
+        <!-- Nav Item - Penawaran -->
         <li class="nav-item @yield('status-dashboard')">
           <a class="nav-link" href="{{url('/adminuniversitas')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>Penawaran</span></a>
         </li>
 
         <!-- Divider -->

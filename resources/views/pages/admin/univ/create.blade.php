@@ -20,21 +20,21 @@
             <div class="form-group">
                 <label for="kuota_fakultas">Konfigurasi Kuota Penerima Beasiswa</label>
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="value1" name="customRadio" class="custom-control-input">
-                    <label class="custom-control-label" for="value1" value="value1">Abaikan Asal Fakultas</label>
+                    <input type="radio" id="value1" name="pilihKuota" value="value1" class="custom-control-input" {{old("pilihKuota") == "value1" ? 'checked':''}}>
+                    <label class="custom-control-label" for="value1">Abaikan Asal Fakultas</label>
                     <p style="color: #bdbdbd; font-size:14px;">Asal fakultas tidak akan berpengaruh terhadap Ketentuan seleksi</p>
                 </div>
 
                 {{-- kuota Total --}}
-                <div class="form-group kuota-total" id="kuota-total" style="display: none">
+                <div class="form-group kuota-total" id="kuota-total" class="custom-control-input" style="display: none" >
                     <input type="number" class="form-control @error('jml_kuota') is-invalid @enderror" id="jml_kuota" name="jml_kuota"  placeholder="masukan jumlah kuota penerima" value="{{old('jml_kuota')}}">
                     @error('jml_kuota')
                         <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="value2" name="customRadio" class="custom-control-input">
-                    <label class="custom-control-label" for="value2" value="value2">Tentukan kuota Perfakultas</label>
+                    <input type="radio" id="value2" value="value2" name="pilihKuota" class="custom-control-input" {{old("pilihKuota") == "value2" ? 'checked':''}}>
+                    <label class="custom-control-label" for="value2">Tentukan kuota Perfakultas</label>
                     <p style="color: #bdbdbd; font-size:14px;">Jumlah pendaftar yang diterima berdasarkan kuota masing-masing fakultas</p>
                 </div>
                 <br>
@@ -42,67 +42,67 @@
                     <div class="form-group row">
                         <label for="fkip" class="col-sm-6 col-form-label">Fakultas Keguruan dan Ilmu Pendidikan</label>
                         <div class="col-sm-6">
-                            <input name="fkip" type="number" placeholder="masukkan kuota" class="form-control" id="fkip">
+                            <input name="fkip" type="number" placeholder="masukkan kuota" class="form-control" id="fkip" value="{{old('fkip')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="fmipa" class="col-sm-6 col-form-label">Fakultas Matematika dan Ilmu Alam</label>
                         <div class="col-sm-6">
-                            <input name="fmipa" type="number" placeholder="masukkan kuota" class="form-control" id="fmipa">
+                            <input name="fmipa" type="number" placeholder="masukkan kuota" class="form-control" id="fmipa" value="{{old('fmipa')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="fk" class="col-sm-6 col-form-label">Fakultas Kedokteran</label>
                         <div class="col-sm-6">
-                            <input name="fk" type="number" placeholder="masukkan kuota" class="form-control" id="fk">
+                            <input name="fk" type="number" placeholder="masukkan kuota" class="form-control" id="fk" value="{{old('fk')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="fp" class="col-sm-6 col-form-label">Fakultas Pertanian</label>
                         <div class="col-sm-6">
-                            <input name="fp" type="number" placeholder="masukkan kuota" class="form-control" id="fp">
+                            <input name="fp" type="number" placeholder="masukkan kuota" class="form-control" id="fp" value="{{old('fp')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="ft" class="col-sm-6 col-form-label">Fakultas Teknik</label>
                         <div class="col-sm-6">
-                            <input name="ft" type="number" placeholder="masukkan kuota" class="form-control" id="ft">
+                            <input name="ft" type="number" placeholder="masukkan kuota" class="form-control" id="ft" value="{{old('ft')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="fib" class="col-sm-6 col-form-label">Fakultas Ilmu Budaya</label>
                         <div class="col-sm-6">
-                            <input name="fib" type="number" placeholder="masukkan kuota" class="form-control" id="fib">
+                            <input name="fib" type="number" placeholder="masukkan kuota" class="form-control" id="fib" value="{{old('fib')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="feb" class="col-sm-6 col-form-label">Fakultas Ekonomi Bisnis</label>
                         <div class="col-sm-6">
-                            <input name="feb" type="number" placeholder="masukkan kuota" class="form-control" id="feb">
+                            <input name="feb" type="number" placeholder="masukkan kuota" class="form-control" id="feb" value="{{old('feb')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="fh" class="col-sm-6 col-form-label">Fakultas Hukum</label>
                         <div class="col-sm-6">
-                            <input name="fh" type="number" placeholder="masukkan kuota" class="form-control" id="fh">
+                            <input name="fh" type="number" placeholder="masukkan kuota" class="form-control" id="fh" value="{{old('fh')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="fsrd" class="col-sm-6 col-form-label">Fakultas Seni Rupa dan Desain</label>
                         <div class="col-sm-6">
-                            <input name="fsrd" type="number" placeholder="masukkan kuota" class="form-control" id="fsrd">
+                            <input name="fsrd" type="number" placeholder="masukkan kuota" class="form-control" id="fsrd" value="{{old('fsrd')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="fisip" class="col-sm-6 col-form-label">Fakultas Ilmu Sosial dan Politik</label>
                         <div class="col-sm-6">
-                            <input name="fisip" type="number" placeholder="masukkan kuota" class="form-control" id="fisip">
+                            <input name="fisip" type="number" placeholder="masukkan kuota" class="form-control" id="fisip" value="{{old('fisip')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="fkor" class="col-sm-6 col-form-label">Fakultas Keolahragaan</label>
                         <div class="col-sm-6">
-                            <input name="fkor" type="number" placeholder="masukkan kuota" class="form-control" id="fkor">
+                            <input name="fkor" type="number" placeholder="masukkan kuota" class="form-control" id="fkor" value="{{old('fkor')}}">
                         </div>
                     </div>
                 </div>  
@@ -110,11 +110,11 @@
 
             {{-- jenis penawaran beasiswa --}}
             <div class="form-group">
-                <label for="jenis_beasiswa">Jenis Beasiswa</label>
+                <label for="id_jenis_beasiswa">Jenis Beasiswa</label>
                 <select class="custom-select fstdropdown-select" name="id_jenis_beasiswa" id="id_jenis_beasiswa" value="{{old('id_jenis_beasiswa')}}" required>
                     <option value="" disabled selected>--Pilih salah satu--</option>
                     @foreach ($jenisBeasiswa as $item)
-                    <option value="{{$item->id_jenis_beasiswa}}">{{$item->nama_beasiswa}}</option>
+                    <option value="{{$item->id_jenis_beasiswa}}" {{old("id_jenis_beasiswa") == $item->id_jenis_beasiswa ? "selected":"" }}>{{$item->nama_beasiswa}}</option>
                     @endforeach
                 </select>
             </div>
@@ -285,8 +285,9 @@
             </div>
 
             {{-- lampiran --}}
+            <h3 class="mt-5">Masukkan lampiran yang dibutuhkan</h3>
             <div class="form-group" id="form-lampiran">
-                <label for="jenis_beasiswa">Lampiran</label>
+                <label for="jenis_beasiswa">Lampiran Penawaran</label>
             </div>
             
             
@@ -294,6 +295,14 @@
             <div class="form-group">
                 <input type="text" name="myCount" id="myCount" hidden>
             </div>
+            <div class="form-group">
+                <input type="text" name="myCountPendaftar" id="myCountPendaftar" hidden>
+            </div>
+
+            <div class="from-group" id="lampiran-pendaftar">
+                <label for="lampiran_pendaftar">Lampiran Pendaftar</label>
+            </div>
+            <button  type="button" class="btn btn-secondary tambah-lampiran-pendaftar"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
 
             <br>
             <br>
@@ -350,18 +359,95 @@
 @push('addon-script')
         <script type="text/javascript">
 
+        //penawaran upload
         var count = 0;
         var myName = [];
+
+        //pendaftar upload
+        var countPendaftar = 0;
+        var myNamePendaftar = [];
+        
+        //menghapus lampiran pendaftar
+        function removeDataPendaftar(){
+            var att = this.id;
+            var ids = "#"+att;
+            removeA(myNamePendaftar, att);
+            document.getElementById("myCountPendaftar").value = myNamePendaftar;
+            $(ids).remove();
+        }
 
         //menghapus lampiran
         function removeData(){
             var att = this.id;
-            console.log(att);
             var ids = "#"+att;
             removeA(myName, att);
             document.getElementById("myCount").value = myName;
             $(ids).remove();
         }
+        
+        //untuk menampilkan lampiran yang dibutuhkan pendaftar
+        function addLampiranPendaftar(){
+            countPendaftar++
+            var cls = "lampiranPendaftar"+countPendaftar;
+            //title-------------------------------------------
+            var judul = document.createElement("h6");
+            judul.innerHTML="Masukkan lampiran"
+
+            var span = document.createElement("span");
+            span.setAttribute("aria-hidden","true");
+            span.innerHTML="&times;";
+
+            var button = document.createElement("button");
+            button.setAttribute("class","close hapus");
+            button.setAttribute("type","button");
+            button.setAttribute("id",cls);
+            button.appendChild(span);
+
+            var colButton = document.createElement("div");
+            colButton.setAttribute("class","col-1");
+            colButton.appendChild(button);
+
+            var colJudul = document.createElement("div");
+            colJudul.setAttribute("class","col");
+            colJudul.appendChild(judul);
+
+            var row1 = document.createElement("div");
+            row1.setAttribute("class","row");
+            row1.appendChild(colJudul);
+            row1.appendChild(colButton);
+
+            //nama lampiran------------------------------------------------------------------------------
+
+            var option = document.createElement("option");
+            option.innerHTML="--pilih salah satu--";
+
+            var select = document.createElement("select");
+            select.setAttribute("class","form-control custom-select fstdropdown");
+            select.setAttribute("name", cls);
+            select.setAttribute("id", cls);
+            select.setAttribute("required","");
+            select.appendChild(option);
+            reference(select);
+
+            var divcol1 = document.createElement("div");
+            divcol1.setAttribute("class","col form-group");
+            divcol1.appendChild(select);
+
+            var row2 = document.createElement("div");
+            row2.setAttribute("class","row");
+            row2.appendChild(divcol1);
+
+            var divr = document.createElement("div");
+            divr.setAttribute("class","container card p-3 mb-3");
+            divr.setAttribute("id",cls);
+            divr.appendChild(row1);
+            divr.appendChild(row2);
+
+            document.getElementById("lampiran-pendaftar").appendChild(divr);
+            myName.push(cls);
+            document.getElementById("myCountPendaftar").value = myName;
+            $( ".hapus" ).on( "click", removeDataPendaftar );
+        }   
 
         function addLampiran(){
             count++;
@@ -427,7 +513,6 @@
             var upload = document.createElement("input");
             upload.setAttribute("type","file");
             upload.setAttribute("name",clsUpload);
-            console.log(clsUpload);
             upload.setAttribute("id",clsUpload);
             upload.setAttribute("required","");
             upload.setAttribute("placeholder","upload lampiran");
@@ -506,11 +591,9 @@
             document.getElementById("myCount").value = myName;
             $( ".delete" ).on( "click", removeData );
         }
-        
-
-        
     
         $( ".click" ).on( "click", addLampiran);
+        $( ".tambah-lampiran-pendaftar" ).on( "click", addLampiranPendaftar);
         
 
         //function remove element by value
@@ -524,6 +607,8 @@
             }
             return arr;
         }
+
+        
 
         function reference(select){
             var i = 0;

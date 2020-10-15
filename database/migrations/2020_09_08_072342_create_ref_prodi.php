@@ -18,6 +18,7 @@ class CreateRefProdi extends Migration
             $table->unsignedBigInteger('id_fakultas');
             $table->foreign('id_fakultas')->references('id_fakultas')->on('bea_ref_fakultas')->onDelete('cascade');
             $table->string('nama_prodi');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
