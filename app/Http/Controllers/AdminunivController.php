@@ -262,7 +262,7 @@ class AdminunivController extends Controller
                     $penawaranUpdate->penawaranUpload()->update([
                         'path_file' => $path,
                         'nama_file' => $filename,
-                        'ekstensi' => $extension,
+                        'ektensi' => $extension,
                         'size' => $size,
                     ]);
                 }
