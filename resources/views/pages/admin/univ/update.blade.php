@@ -1,10 +1,10 @@
 @extends('layouts.adminuniv')
 @section('title', 'Ubah Penawaran')
 @section('content')
-    <div class="container col-6 mb-5 mt-5">
+    <div class="container col-10 mb-5 mt-5">
         <h1>Ubah Penawaran Beasiswa</h1>
         <h3 class="mt-5 mb-3">Informasi Umum</h3>
-        <form method="post" action="/adminuniversitas/{{$adminuniv->id_penawaran}}">
+        <form method="post" action="/adminuniversitas/{{$adminuniv->id_penawaran}}" enctype="multipart/form-data">
             @method('patch')
             @csrf
             {{-- nama penawaran --}}
@@ -53,7 +53,7 @@
                 <div class="form-group fakultas" id="fakultas" style="display: none">
                     @forelse ($adminuniv->getKuotaFakultas as $item)
                         <div class="form-group row">
-                            <label for="{{$item->id_fakultas}}" class="col-sm-6 col-form-label">Fakultas dengan ID {{$item->id_fakultas}}</label>
+                            <label for="{{$item->id_fakultas}}" class="col-sm-6 col-form-label">Fakultas {{$item->refFakultas->nama_fakultas}}</label>
                             <div class="col-sm-6">
                                 <input name="fakultas{{$item->id_fakultas}}" type="number" placeholder="masukkan kuota" class="form-control" id="{{$item->id_fakultas}}" value="{{$item->jml_kuota}}">
                             </div>
@@ -133,15 +133,6 @@
                     @endforelse
                 </div>  
             </div>
-
-            {{-- id jenis penawaran beasiswa
-            <div class="form-group">
-                <label for="id_jenis_beasiswa">Id Jenis beasiswa</label>
-                <input type="number" class="form-control @error('id_jenis_beasiswa') is-invalid @enderror" id="id_jenis_beasiswa" name="id_jenis_beasiswa" value="{{$adminuniv->id_jenis_beasiswa}}">
-                @error('id_jenis_penawaran')
-                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div> --}}
 
             <h3 class="mt-5 mb-4">Timeline</h3>
             {{-- Penawaran --}}
@@ -305,21 +296,52 @@
             <div class="form-group" id="form-lampiran">
                 <label for="lampiran">Lampiran</label>
                 @foreach ($adminuniv->penawaranUpload as $lampiran)
-                <div class="input-group mb-3 lampiran" id="dlampiran{{$loop->iteration}}">
-                        <input class="form-control" 
-                                id="dlampiran{{$loop->iteration}}"
-                                type="text"
-                                name="dlampiran{{$loop->iteration}}"
-                                placeholder="tambahkan nama lampiran"
-                                required
-                                value="{{$lampiran->nama_upload}}">
-                        <button class="btn delete"
-                                type="button"
-                                id="dlampiran{{$loop->iteration}}">
-                                <i class="fa fa-minus-circle" id="dlampiran{{$loop->iteration}}"></i>
-                        </button>
-                        
+                <div class="container card p-3 mb-3" id="lampiran{{$loop->iteration}}">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Masukkan Lampiran</h6>
+                        </div>
+                        <div class="col-1">
+                            <button class="close delete" type="button" id="lampiran{{$loop->iteration}}">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col form-group">
+                            <label for="lampiran{{$loop->iteration}}">Nama Lampiran</label>
+                            <select name="lampiran{{$loop->iteration}}" id="" class="form-control custom-select fstdropdown">
+                                <option value="">--pilih salah satu--</option>
+                                @foreach ($refJenisFile as $item)
+                                    <option value="{{$item->id_jenis_file}}" 
+                                        {{$item->id_jenis_file == $lampiran->id_jenis_file ? 'selected' : ''}}
+                                        >{{$item->nama_jenis_file}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col form-group">
+                            <label>Pilih File</label>
+                            <input type="file" name="lampiran{{$loop->iteration}}Upload" id="lampiran{{$loop->iteration}}Upload" class="form-control-file" value="{{$lampiran->path_file}}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col form-group">
+                            <label for="lampiran{{$loop->iteration}}Name">Upload sebagai</label>
+                            <input type="text" class="form-control" placeholder="nama file" name="lampiran{{$loop->iteration}}Name" required value="{{$lampiran->nama_upload}}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col form-group">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea class="form-control" name="lampiran{{$loop->iteration}}Deskripsi" rows="5" required placeholder="tulis deskripsi file">{{$lampiran->deskripsi}}</textarea>
+                        </div>
+                    </div>
                 </div>
+
+                
                 <input type="text" name="dmyCount" id="dmyCount"  value="{{$loop->iteration}}" hidden>
                 @endforeach
             </div>
@@ -336,76 +358,7 @@
     </div>
 
 @endsection
-@push('addon-script')
-        <script type="text/javascript">
 
-        var count = 0;
-        var myName = [];
-
-        //memnghapus lampiran
-        function removeData(){
-            var att = this.id;
-            var ids = "#"+att;
-            removeA(myName, att);
-            document.getElementById("myCount").value = myName;
-            $(ids).remove();
-        }
-
-        //menambahkan lampiran
-        function addData(){
-            count++;
-            var cls = "lampiran"+count;
-
-            var x = document.createElement("div");
-            x.setAttribute("class", "input-group mb-3 lampiran");
-            x.setAttribute("id",cls);
-            
-            var y = document.createElement("INPUT");
-            y.setAttribute("class","form-control @error('lampiran') is-invalid @enderror");
-            y.setAttribute("id",cls);
-            y.setAttribute("type","text");
-            y.setAttribute("name",cls);
-            y.setAttribute("placeholder", "tambahkan nama lampiran");
-            y.setAttribute('required',true);
-            // y.setAttribute("required");
-            x.appendChild(y);
-
-            var z = document.createElement("button");
-            z.setAttribute("class", "btn delete");
-            z.setAttribute("type","button");
-            z.setAttribute("id",cls)
-            x.appendChild(z);
-
-            var i = document.createElement("i");
-            i.setAttribute("class","fa fa-minus-circle");
-            i.setAttribute("id",cls);
-            z.appendChild(i);
-
-            document.getElementById("form-lampiran").appendChild(x);
-            myName.push(cls);
-            document.getElementById("myCount").value = myName;
-            console.log(myName);
-            $( ".delete" ).on( "click", removeData );
-        }
-    
-        $( ".click" ).on( "click", addData );
-        $( ".delete" ).on( "click", removeData );
-        
-
-        //function remove element by value
-        function removeA(arr) {
-            var what, a = arguments, L = a.length, ax;
-            while (L > 1 && arr.length) {
-                what = a[--L];
-                while ((ax= arr.indexOf(what)) !== -1) {
-                    arr.splice(ax, 1);
-                }
-            }
-            return arr;
-        }
-        
-    </script>
-@endpush
 @push('addon-script')
     <script type="text/javascript">
         
@@ -443,4 +396,193 @@
       selector: '#deskripsi'
     });
   </script>
+@endpush
+@push('addon-script')
+        <script type="text/javascript">
+
+        var count = 0;
+        var myName = [];
+
+        //memnghapus lampiran
+        function removeData(){
+            var att = this.id;
+            var ids = "#"+att;
+            removeA(myName, att);
+            document.getElementById("myCount").value = myName;
+            $(ids).remove();
+        }
+
+        //menambahkan lampiran
+        function addLampiran(){
+            count++;
+            var clsSelect = "lampiran"+count;
+            var clsUpload = "lampiran"+count+"Upload";
+            var clsName = "lampiran"+count+"Name";
+            var clsDeskripsi = "lampiran"+count+"Deskripsi";
+            
+            //title-------------------------------------------
+            var judul = document.createElement("h6");
+            judul.innerHTML="Masukkan lampiran"
+
+            var span = document.createElement("span");
+            span.setAttribute("aria-hidden","true");
+            span.innerHTML="&times;";
+
+            var button = document.createElement("button");
+            button.setAttribute("class","close delete");
+            button.setAttribute("type","button");
+            button.setAttribute("id",clsSelect);
+            button.appendChild(span);
+
+            var colButton = document.createElement("div");
+            colButton.setAttribute("class","col-1");
+            colButton.appendChild(button);
+
+            var colJudul = document.createElement("div");
+            colJudul.setAttribute("class","col");
+            colJudul.appendChild(judul);
+
+            var row1 = document.createElement("div");
+            row1.setAttribute("class","row");
+            row1.appendChild(colJudul);
+            row1.appendChild(colButton);
+
+
+            //nama lampiran------------------------------------------------------------------------------
+            var labelOption = document.createElement("label");
+            labelOption.setAttribute("for",clsSelect);
+            labelOption.innerHTML="Nama lampiran";
+
+            var option = document.createElement("option");
+            option.innerHTML="--pilih salah satu--";
+
+            var select = document.createElement("select");
+            select.setAttribute("class","form-control custom-select fstdropdown");
+            select.setAttribute("name", clsSelect);
+            select.setAttribute("id", clsSelect);
+            select.setAttribute("required","");
+            select.appendChild(option);
+            reference(select);
+
+            var divcol1 = document.createElement("div");
+            divcol1.setAttribute("class","col form-group");
+            divcol1.appendChild(labelOption);
+            divcol1.appendChild(select);
+
+            var row2 = document.createElement("div");
+            row2.setAttribute("class","row");
+            row2.appendChild(divcol1);
+
+            // upload file------------------------------------------------------------------------------
+            var upload = document.createElement("input");
+            upload.setAttribute("type","file");
+            upload.setAttribute("name",clsUpload);
+            console.log(clsUpload);
+            upload.setAttribute("id",clsUpload);
+            upload.setAttribute("required","");
+            upload.setAttribute("placeholder","upload lampiran");
+            upload.setAttribute("class","form-control-file @error('".clsUpload."') is-invalid @enderror");
+
+            var labelUpload = document.createElement("label");
+            labelUpload.innerHTML="pilih file";
+            
+            var divcol2 = document.createElement("div");
+            divcol2.setAttribute("class","col form-group");
+            divcol2.appendChild(labelUpload);
+            divcol2.appendChild(upload);
+
+            var row3 = document.createElement("row");
+            row3.setAttribute("class","row");
+            row3.appendChild(divcol2);
+            
+            // upload sebagai------------------------------------------------------------------------------
+            var labelNama = document.createElement("label");
+            labelNama.setAttribute("for",clsName);
+            labelNama.innerHTML="upload sebagai";
+
+            var inputNama = document.createElement("input");
+            inputNama.setAttribute("class","form-control");
+            inputNama.setAttribute("type","text");
+            inputNama.setAttribute("placeholder","nama file");
+            inputNama.setAttribute("name",clsName);
+            inputNama.setAttribute("required","");
+
+            var colNama = document.createElement("div");
+            colNama.setAttribute("class","col form-group");
+            colNama.appendChild(labelNama);
+            colNama.appendChild(inputNama);
+
+            var row4 = document.createElement("div");
+            row4.setAttribute("class","row");
+            row4.appendChild(colNama);
+
+            //deskripsi------------------------------------------
+            var labelDeskripsi = document.createElement("label");
+            labelDeskripsi.setAttribute("for","deskripsi");
+            labelDeskripsi.innerHTML="Deskripsi";
+
+            var textDeskripsi = document.createElement("textarea");
+            textDeskripsi.setAttribute("type","text");
+            textDeskripsi.setAttribute("class","form-control");
+            textDeskripsi.setAttribute("placeholder","Tulis deskripsi file");
+            textDeskripsi.setAttribute("rows","5");
+            textDeskripsi.setAttribute("name",clsDeskripsi);
+            textDeskripsi.setAttribute("required","");
+
+            var colDeskripsi = document.createElement("div");
+            colDeskripsi.setAttribute("class","col form-group");
+            colDeskripsi.appendChild(labelDeskripsi);
+            colDeskripsi.appendChild(textDeskripsi);
+
+            var row5 = document.createElement("div");
+            row5.setAttribute("class","row");
+            row5.appendChild(colDeskripsi);
+            
+            var garis = document.createElement("hr");
+            
+            //container
+            var divr = document.createElement("div");
+            divr.setAttribute("class","container card p-3 mb-3");
+            divr.setAttribute("id",clsSelect);
+            divr.appendChild(row1);
+            divr.appendChild(garis);
+            divr.appendChild(row2);
+            divr.appendChild(row3);
+            divr.appendChild(row4);
+            divr.appendChild(row5);
+
+            document.getElementById("form-lampiran").appendChild(divr);
+            myName.push(clsSelect);
+            document.getElementById("myCount").value = myName;
+            $( ".delete" ).on( "click", removeData );
+        }
+    
+        $( ".click" ).on( "click", addLampiran );
+        $( ".delete" ).on( "click", removeData );
+        
+
+        //function remove element by value
+        function removeA(arr) {
+            var what, a = arguments, L = a.length, ax;
+            while (L > 1 && arr.length) {
+                what = a[--L];
+                while ((ax= arr.indexOf(what)) !== -1) {
+                    arr.splice(ax, 1);
+                }
+            }
+            return arr;
+        }
+
+        function reference(select){
+            var i = 0;
+            var reflampiran = <?php echo json_encode($refJenisFile); ?>;
+            for(; i < reflampiran.length ; i++){
+                var option = document.createElement("option");
+                option.setAttribute("value", reflampiran[i]['id_jenis_file']);
+                option.innerHTML=reflampiran[i]['nama_jenis_file'];
+                select.appendChild(option);
+            }
+        }   
+        
+    </script>
 @endpush

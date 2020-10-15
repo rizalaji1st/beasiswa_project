@@ -27,15 +27,15 @@ class TableRefFakultasSeeder extends Seeder
             'Fakultas Keolahragaan'
         );
         $i = 1;
-        foreach ($fakultas as $fak){
+        foreach ($fakultas as $fak) {
 
             DB::table('bea_ref_fakultas')->insert([
-                'id_fakultas'=>$i,
-                'nama_fakultas'=>$fak,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
+                'id_fakultas' => $i,
+                'nama_fakultas' => $fak,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
             $i++;
-        }   
+        }
     }
 }

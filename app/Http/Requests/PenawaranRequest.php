@@ -40,7 +40,8 @@ class PenawaranRequest extends FormRequest
             'min_semester'=>'required|integer|min:1|max:8',
             'max_semester'=>'required|integer|min:1|max:8|gt:min_semester',
             'max_penghasilan'=>'required',
-            'deskripsi' => 'required'
+            'deskripsi' => 'required',
+            'id_jenis_beasiswa'=>"required|not_in:0"
         ];
     }
 }
