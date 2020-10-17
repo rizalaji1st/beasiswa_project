@@ -414,7 +414,6 @@ class AdminunivController extends Controller
         foreach ($adminuniv->getKuotaFakultas as $item) {
             PenawaranKuotaFakultas::destroy($item->id_penawaran_kuota_fakultas);
         }
-<<<<<<< HEAD
 
         //hapus lampiran pendaftar
         foreach ($adminuniv->lampiranPendaftar as $item) {
@@ -422,8 +421,5 @@ class AdminunivController extends Controller
         }
 
         return redirect('/adminuniversitas')->with('success','Data berhasil dihapus');
-=======
-        return redirect('/adminuniversitas')->with('success', 'Data berhasil dihapus');
->>>>>>> 2348695d3b4cd4255087d5443af2995a4df9c901
     }
 }
