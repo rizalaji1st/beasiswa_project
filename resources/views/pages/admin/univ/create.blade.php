@@ -4,7 +4,7 @@
     <div class="container col-10 mb-5 mt-5">
         <h1>Tambah Penawaran Beasiswa</h1>
         <h3 class="mt-5 mb-3">Informasi Umum</h3>
-        <form method="post" action="/adminuniversitas" enctype="multipart/form-data">
+        <form method="post" action="/adminuniversitas" enctype="multipart/form-data" data-parsley-validate id="form-penawaran">
             @csrf
             {{-- nama penawaran --}}
             <div class="form-group">
@@ -317,6 +317,11 @@
 @endsection
 
 @push('addon-script')
+    <script>
+        $('#form-penawaran').parsley();
+    </script>
+@endpush
+@push('addon-script')
     <script type="text/javascript">
 
         $(document).ready(function(){
@@ -372,6 +377,7 @@
             var att = this.id;
             var ids = "#"+att;
             removeA(myNamePendaftar, att);
+            console.log(myNamePendaftar);
             document.getElementById("myCountPendaftar").value = myNamePendaftar;
             $(ids).remove();
         }
@@ -387,11 +393,11 @@
         
         //untuk menampilkan lampiran yang dibutuhkan pendaftar
         function addLampiranPendaftar(){
-            countPendaftar++
+            countPendaftar++;
             var cls = "lampiranPendaftar"+countPendaftar;
             //title-------------------------------------------
             var judul = document.createElement("h6");
-            judul.innerHTML="Masukkan lampiran"
+            judul.innerHTML="Masukkan lampiran";
 
             var span = document.createElement("span");
             span.setAttribute("aria-hidden","true");
@@ -444,8 +450,9 @@
             divr.appendChild(row2);
 
             document.getElementById("lampiran-pendaftar").appendChild(divr);
-            myName.push(cls);
-            document.getElementById("myCountPendaftar").value = myName;
+            myNamePendaftar.push(cls);
+            console.log(myNamePendaftar);
+            document.getElementById("myCountPendaftar").value = myNamePendaftar;
             $( ".hapus" ).on( "click", removeDataPendaftar );
         }   
 

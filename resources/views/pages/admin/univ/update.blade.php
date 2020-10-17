@@ -298,13 +298,13 @@
             <div class="form-group" id="form-lampiran">
                 <label for="lampiran">Lampiran Penawaran</label>
                 @foreach ($adminuniv->penawaranUpload as $lampiran)
-                <div class="container card p-3 mb-3" id="lampiran{{$loop->iteration}}">
+                <div class="container card p-3 mb-3" id="lampiranAda{{$loop->iteration}}">
                     <div class="row">
                         <div class="col">
                             <h6>Masukkan Lampiran</h6>
                         </div>
                         <div class="col-1">
-                            <button class="close delete" type="button" id="lampiran{{$loop->iteration}}">
+                            <button class="close delete" type="button" id="lampiranAda{{$loop->iteration}}">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -312,8 +312,8 @@
                     <hr>
                     <div class="row">
                         <div class="col form-group">
-                            <label for="lampiran{{$loop->iteration}}">Nama Lampiran</label>
-                            <select name="lampiran{{$loop->iteration}}" id="" class="form-control custom-select fstdropdown">
+                            <label for="lampiranAda{{$loop->iteration}}">Nama Lampiran</label>
+                            <select name="lampiranAda{{$loop->iteration}}" id="" class="form-control custom-select fstdropdown">
                                 <option value="">--pilih salah satu--</option>
                                 @foreach ($refJenisFile as $item)
                                     <option value="{{$item->id_jenis_file}}" 
@@ -326,19 +326,19 @@
                     <div class="row">
                         <div class="col form-group">
                             <label>Pilih File</label>
-                            <input type="file" name="lampiran{{$loop->iteration}}Upload" id="lampiran{{$loop->iteration}}Upload" class="form-control-file" value="{{$lampiran->path_file}}">
+                            <input type="file" name="lampiranAda{{$loop->iteration}}Upload" id="lampiranAda{{$loop->iteration}}Upload" class="form-control-file" value="{{$lampiran->path_file}}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col form-group">
-                            <label for="lampiran{{$loop->iteration}}Name">Upload sebagai</label>
-                            <input type="text" class="form-control" placeholder="nama file" name="lampiran{{$loop->iteration}}Name" required value="{{$lampiran->nama_upload}}">
+                            <label for="lampiranAda{{$loop->iteration}}Name">Upload sebagai</label>
+                            <input type="text" class="form-control" placeholder="nama file" name="lampiranAda{{$loop->iteration}}Name" required value="{{$lampiran->nama_upload}}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col form-group">
-                            <label for="deskripsi">Deskripsi</label>
-                            <textarea class="form-control" name="lampiran{{$loop->iteration}}Deskripsi" rows="5" required placeholder="tulis deskripsi file">{{$lampiran->deskripsi}}</textarea>
+                            <label for="lampiranAda{{$loop->iteration}}Deskripsi">Deskripsi</label>
+                            <textarea class="form-control" name="lampiranAda{{$loop->iteration}}Deskripsi" rows="5" required placeholder="tulis deskripsi file">{{$lampiran->deskripsi}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -353,13 +353,13 @@
             <div class="form-group" id="lampiran-pendaftar">
                 <label for="lampiran">Lampiran Pendaftar</label>
                 @foreach ($adminuniv->lampiranPendaftar as $lampiranPendaftar)
-                <div class="container card p-3 mb-3" id="lampiranPendaftar{{$loop->iteration}}">
+                <div class="container card p-3 mb-3" id="lampiranPendaftarAda{{$loop->iteration}}">
                     <div class="row">
                         <div class="col">
                             <h6>Masukkan Lampiran</h6>
                         </div>
                         <div class="col-1">
-                            <button class="close delete" type="button" id="lampiranPendaftar{{$loop->iteration}}">
+                            <button class="close delete" type="button" id="lampiranPendaftarAda{{$loop->iteration}}">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -367,11 +367,11 @@
                     <hr>
                     <div class="row">
                         <div class="col form-group">
-                            <select name="lampiranPendaftar{{$loop->iteration}}" id="" class="form-control custom-select fstdropdown">
+                            <select name="lampiranPendaftarAda{{$loop->iteration}}" id="" class="form-control custom-select fstdropdown">
                                 <option value="">--pilih salah satu--</option>
                                 @foreach ($refJenisFile as $item)
                                     <option value="{{$item->id_jenis_file}}" 
-                                        {{$item->id_jenis_file == $lampiran->id_jenis_file ? 'selected' : ''}}
+                                        {{$item->id_jenis_file == $lampiranPendaftar->id_jenis_file ? 'selected' : ''}}
                                         >{{$item->nama_jenis_file}}</option>
                                 @endforeach
                             </select>
@@ -453,27 +453,18 @@
             var att = this.id;
             var ids = "#"+att;
             removeA(myNamePendaftar, att);
+            console.log(myNamePendaftar);
             document.getElementById("myCountPendaftar").value = myNamePendaftar;
-            $(ids).remove();
-        }
-
-        //memnghapus lampiran
-        function removeData(){
-            var att = this.id;
-            var ids = "#"+att;
-            removeA(myName, att);
-            document.getElementById("myCount").value = myName;
             $(ids).remove();
         }
 
         //untuk menampilkan lampiran yang dibutuhkan pendaftar
         function addLampiranPendaftar(){
-            countPendaftar++
+            countPendaftar++;
             var cls = "lampiranPendaftar"+countPendaftar;
-            
             //title-------------------------------------------
             var judul = document.createElement("h6");
-            judul.innerHTML="Masukkan lampiran"
+            judul.innerHTML="Masukkan lampiran";
 
             var span = document.createElement("span");
             span.setAttribute("aria-hidden","true");
@@ -526,9 +517,19 @@
             divr.appendChild(row2);
 
             document.getElementById("lampiran-pendaftar").appendChild(divr);
-            myName.push(cls);
-            document.getElementById("myCountPendaftar").value = myName;
+            myNamePendaftar.push(cls);
+            console.log(myNamePendaftar);
+            document.getElementById("myCountPendaftar").value = myNamePendaftar;
             $( ".hapus" ).on( "click", removeDataPendaftar );
+        }  
+
+        //memnghapus lampiran
+        function removeData(){
+            var att = this.id;
+            var ids = "#"+att;
+            removeA(myName, att);
+            document.getElementById("myCount").value = myName;
+            $(ids).remove();
         }
 
         //menambahkan lampiran

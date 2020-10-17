@@ -126,15 +126,26 @@
                                 <td scope="col">{{$lampiran->nama_upload}}</td>
                                 <td scope="col">{{$lampiran->path_file}}</td>
                             </tr>
-                            <tr>
-                                <td scope="col">
-                                    <object data="data_file/penawaran_upload/121020032138B1xi.jpeg" width="400" height="600"></object>
-                                </td>
-                            </tr>
                         @empty
                             <h5 style="color: #bdbdbd">*Data Tidak Tersedia</h5>
                         @endforelse
 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h3 class="mt-4 mb-2">Lampiran Pendaftar</h3>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        @forelse ($lampiranPendaftar as $item)
+                            <tr>
+                                <td scope="col">{{$item->refJenisFile->nama_jenis_file}}</td>
+                            </tr>
+                        @empty
+                            
+                        @endforelse
                     </tbody>
                 </table>
             </div>

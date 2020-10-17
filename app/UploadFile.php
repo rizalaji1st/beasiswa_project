@@ -16,7 +16,11 @@ class UploadFile extends Model
     ];
 
     public function uploadFile() {
-        $this->belongsTo(Adminuniv::class, 'id_penawaran', 'id_penawaran');
+        return $this->belongsTo(Adminuniv::class, 'id_penawaran', 'id_penawaran');
+    }
+
+    public function refJenisFile(){
+        return $this->belongsTo('App\References\RefJenisFile', 'id_jenis_file','id_jenis_file');
     }
 
 

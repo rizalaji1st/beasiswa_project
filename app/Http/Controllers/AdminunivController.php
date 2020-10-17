@@ -101,11 +101,11 @@ class AdminunivController extends Controller
         }
 
         //menambahkan lampiran pendaftar
-        if($request->myCountPendaftar !=null){
+        if ($request->myCountPendaftar != null) {
             $lampiran = $request->myCountPendaftar;
             $lampiranArr = explode(",", $lampiran);
-            foreach($lampiranArr as $lamp){
-                if($lamp !=null){
+            foreach ($lampiranArr as $lamp) {
+                if ($lamp != null) {
                     $penawaranCreate->lampiranPendaftar()->create([
                         'id_penawaran' => $penawaranCreate->id_penawaran,
                         'id_jenis_file' => $request->$lamp
@@ -145,7 +145,6 @@ class AdminunivController extends Controller
             };
             
         };
-        // return $extension;
         return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
     }
 
@@ -159,7 +158,8 @@ class AdminunivController extends Controller
     {  
         
         $fakultas = PenawaranKuotaFakultas::with('refFakultas')->where('id_penawaran',$adminuniv->id_penawaran)->get();
-        return view('pages.admin.univ.show', compact('adminuniv','fakultas'));
+        $lampiranPendaftar = UploadFile::with('refJenisFile')->where('id_penawaran',$adminuniv->id_penawaran)->get();
+        return view('pages.admin.univ.show', compact('adminuniv','fakultas','lampiranPendaftar'));
         return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
     }
 
@@ -208,8 +208,9 @@ class AdminunivController extends Controller
 
         //update lampiran pendaftar yang sudah ada
         foreach($adminuniv->lampiranPendaftar as $item){
-            $nama = "lampiranPendaftar" . $iPendaftar;
+            $nama = "lampiranPendaftarAda" . $iPendaftar;
             $hasilPendaftar[$item->id_jenis_file] = $request->$nama;
+
             if($hasilPendaftar[$item->id_jenis_file] == null){
                 UploadFile::destroy($item->id_upload_file);
             } else {
@@ -220,15 +221,16 @@ class AdminunivController extends Controller
                     ]);
                 }
             }
+            $iPendaftar += 1;
 
         }
 
         //update lampiran yang sudah ada
         foreach ($adminuniv->penawaranUpload as $item) {
-            $nama = "lampiran" . $i;
-            $uploadSebagai = "lampiran" . $i ."Name";
-            $deskripsi = "lampiran" . $i . "Deskripsi";
-            $upload = "lampiran".$i."Upload";
+            $nama = "lampiranAda" . $i;
+            $uploadSebagai = "lampiranAda" . $i ."Name";
+            $deskripsi = "lampiranAda" . $i . "Deskripsi";
+            $upload = "lampiranAda".$i."Upload";
 
             $hasil[$item->id_jenis_file] = $request->$nama;
             $hasil[$item->nama_upload] = $request->$uploadSebagai;
@@ -241,21 +243,15 @@ class AdminunivController extends Controller
                 if ($hasil[$item->id_jenis_file] != $item->id_jenis_file) {
                     //upload file
                     PenawaranUpload::where('id_penawaran_upload', $item->id_penawaran_upload)
-                        ->update([
-                            'id_jenis_file' => $hasil[$item->id_jenis_file],
-                        ]);
+                        ->update(array('id_jenis_file' => $hasil[$item->id_jenis_file]));
                 }
                 if($item->nama_upload != $hasil[$item->nama_upload]){
                     PenawaranUpload::where('id_penawaran_upload', $item->id_penawaran_upload)
-                        ->update([
-                            'nama_upload' => $hasil[$item->nama_upload],
-                        ]);
+                        ->update(array('nama_upload' => $hasil[$item->nama_upload]));
                 }
                 if($item->deskripsi != $hasil[$item->deskripsi]){
                     PenawaranUpload::where('id_penawaran_upload', $item->id_penawaran_upload)
-                        ->update([
-                            'deskripsi' => $hasil[$item->deskripsi],
-                        ]);
+                        ->update(array('deskripsi' => $hasil[$item->deskripsi]));
                 }
                 if($request->$upload != null){
                     //upload file
@@ -265,7 +261,7 @@ class AdminunivController extends Controller
                     $filename = date('dmyHis').Str::random(4).'.'.$extension;
                     $this->validate($request, [$upload=>'required|file|max:5000']);
                     $path = Storage::putFileAs('public/data_file/penawaran_upload',$request->file($upload), $filename);
-                    $penawaranUpdate->penawaranUpload()->update([
+                    PenawaranUpload::where('id_penawaran_upload', $item->id_penawaran_upload)->update([
                           'path_file' => $path,
                           'nama_file' => $filename,
                           'ekstensi' => $extension,
@@ -413,18 +409,27 @@ class AdminunivController extends Controller
      */
     public function destroy(Adminuniv $adminuniv)
     {
-        //
+        //hapus penawaran
         Adminuniv::destroy($adminuniv->id_penawaran);
+        
+        //hapus penawaran upload
         foreach ($adminuniv->penawaranUpload as $item) {
             PenawaranUpload::destroy($item->id_penawaran_upload);
-            
+
             //untuk delete file jika dihapus
             // Storage::delete($item->path_file);
         }
 
+        // hapus kuota fakultas
         foreach ($adminuniv->getKuotaFakultas as $item) {
             PenawaranKuotaFakultas::destroy($item->id_penawaran_kuota_fakultas);
         }
+
+        //hapus lampiran pendaftar
+        foreach ($adminuniv->lampiranPendaftar as $item) {
+            UploadFile::destroy($item->id_upload_file);
+        }
+
         return redirect('/adminuniversitas')->with('success','Data berhasil dihapus');
     }
 }
