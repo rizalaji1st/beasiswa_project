@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin;
 use App\Adminuniv;
 use App\PenawaranUpload;
 use App\PenawaranKuotaFakultas;
@@ -11,11 +10,9 @@ use App\References\RefFakultas;
 use App\References\RefJenisBeasiswa;
 use App\References\RefJenisFile;
 use App\UploadFile;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use PDOStatement;
+use Illuminate\Support\Carbon;
 
 class AdminunivController extends Controller
 {
@@ -47,7 +44,8 @@ class AdminunivController extends Controller
         //
         $jenisBeasiswa = RefJenisBeasiswa::get();
         $lampiran = RefJenisFile::get();
-        return view('pages.admin.univ.create', compact('jenisBeasiswa', 'lampiran'));
+        $years = range(Carbon::now()->year-5,Carbon::now()->year+4);
+        return view('pages.admin.univ.create', compact('jenisBeasiswa', 'lampiran','years'));
     }
 
     /**
@@ -61,6 +59,11 @@ class AdminunivController extends Controller
         //mengambil semua data
         $penawaran = $request->all();
         $penawaran['tahun'] = $request->tgl_awal_penawaran;
+        if($request->is_double == null){
+            $penawaran['is_double']='false';
+        }else {
+            $penawaran['is_double']=$request->is_double;
+        }
 
         //jika memilih custom kuota fakultas
         if ($request->jml_kuota == 0 || $request->jml_kuota == null) {
@@ -172,7 +175,8 @@ class AdminunivController extends Controller
         $jenisBeasiswa = RefJenisBeasiswa::get();
         $refJenisFile = RefJenisFile::get();
         $refFakultas = RefFakultas::get();
-        return view('pages.admin.univ.update', compact('adminuniv', 'jenisBeasiswa', 'refJenisFile', 'refFakultas'));
+        $years = range(Carbon::now()->year-5,Carbon::now()->year+4);
+        return view('pages.admin.univ.update', compact('adminuniv', 'jenisBeasiswa', 'refJenisFile', 'refFakultas','years'));
     }
 
     /**
@@ -187,6 +191,11 @@ class AdminunivController extends Controller
 
         $penawaran = $request->all();
         $penawaran['tahun'] = $request->tgl_awal_penawaran;
+        if($request->is_double == null){
+            $penawaran['is_double']='false';
+        }else {
+            $penawaran['is_double']=$request->is_double;
+        }
 
         //update penawaran
         $penawaranUpdate = Adminuniv::findOrFail($adminuniv->id_penawaran);

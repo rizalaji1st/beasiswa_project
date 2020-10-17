@@ -13,12 +13,39 @@
                 @error('nama_penawaran')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
+            </div>
 
+            {{-- jenis penawaran beasiswa --}}
+            <div class="form-group">
+                <label for="id_jenis_beasiswa">Jenis Beasiswa</label>
+                <select class="custom-select fstdropdown-select" name="id_jenis_beasiswa" id="id_jenis_beasiswa" value="{{old('id_jenis_beasiswa')}}" required>
+                    <option value="" disabled selected>--Pilih salah satu--</option>
+                    @foreach ($jenisBeasiswa as $item)
+                    <option value="{{$item->id_jenis_beasiswa}}" {{old("id_jenis_beasiswa") == $item->id_jenis_beasiswa ? "selected":"" }}>{{$item->nama_beasiswa}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- tahun dasar akademik --}}
+            <div class="form-group">
+                <label for="tahun_dasar_akademik">Tahun Dasar Akademik</label>
+                <select class="custom-select fstdropdown-select" name="tahun_dasar_akademik" id="tahun_dasar_akademik" value="{{old('tahun_dasar_akademik')}}" required>
+                    <option value="" disabled selected>--Pilih tahun akademik--</option>
+                    @foreach ($years as $item)
+                        <option value="{{$item}}/{{$item+1}}">{{$item}}/{{$item+1}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- is double --}}
+            <div class="form-group">
+                <input  type="checkbox" name="is_double" value="true" id="is_double" {{old('is_double') ? 'checked' : ''}}>
+                <label for="is_double">Centang Jika Penerima Beasiswa Ini dapat Menerima Beasiswa Lain</label>
             </div>
 
             {{-- konfigurasi kuota --}}
+            <h3 class="mt-5 mb-4">Konfigurasi Kuota</h3>
             <div class="form-group">
-                <label for="kuota_fakultas">Konfigurasi Kuota Penerima Beasiswa</label>
                 <div class="custom-control custom-radio">
                     <input type="radio" id="value1" name="pilihKuota" value="value1" class="custom-control-input" {{old("pilihKuota") == "value1" ? 'checked':''}}>
                     <label class="custom-control-label" for="value1">Abaikan Asal Fakultas</label>
@@ -108,18 +135,7 @@
                 </div>  
             </div>
 
-            {{-- jenis penawaran beasiswa --}}
-            <div class="form-group">
-                <label for="id_jenis_beasiswa">Jenis Beasiswa</label>
-                <select class="custom-select fstdropdown-select" name="id_jenis_beasiswa" id="id_jenis_beasiswa" value="{{old('id_jenis_beasiswa')}}" required>
-                    <option value="" disabled selected>--Pilih salah satu--</option>
-                    @foreach ($jenisBeasiswa as $item)
-                    <option value="{{$item->id_jenis_beasiswa}}" {{old("id_jenis_beasiswa") == $item->id_jenis_beasiswa ? "selected":"" }}>{{$item->nama_beasiswa}}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <h3 class="mt-5 mb-4">Timeline</h3>
+            <h3 class="mt-4 mb-3">Timeline</h3>
             {{-- Penawaran --}}
             <div class="form-group">
                 <div class="row">
@@ -285,13 +301,12 @@
             </div>
 
             {{-- lampiran --}}
-            <h3 class="mt-5">Masukkan lampiran yang dibutuhkan</h3>
+            <h3 class="mt-5 mb-4">Lampiran</h3>
             <div class="form-group" id="form-lampiran">
-                <label for="jenis_beasiswa">Lampiran Penawaran</label>
+                <label for="lampiran">Lampiran Penawaran</label>
             </div>
             
-            
-            <button  type="button" class="btn btn-secondary click"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
+            <button  type="button" class="btn btn-secondary click mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
             <div class="form-group">
                 <input type="text" name="myCount" id="myCount" hidden>
             </div>
@@ -302,8 +317,9 @@
             <div class="from-group" id="lampiran-pendaftar">
                 <label for="lampiran_pendaftar">Lampiran Pendaftar</label>
             </div>
-            <button  type="button" class="btn btn-secondary tambah-lampiran-pendaftar"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
+            <button  type="button" class="btn btn-secondary tambah-lampiran-pendaftar mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
 
+            
             <br>
             <br>
             <br>

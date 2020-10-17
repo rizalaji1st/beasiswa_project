@@ -12,7 +12,7 @@
                 </div>
             @endif
         </div>
-        <h3 class="mt-2 mb-2">Informasi Umum</h3>
+        <h3 class="mt-4 mb-3">Informasi Umum</h3>
         <div class="row">
             <div class="col-12">
                 <table class="table table-bordered table-striped">
@@ -30,6 +30,14 @@
                             <td scope="col">{{$adminuniv->tahun->format('Y')}}</td>
                         </tr>
                         <tr>
+                            <td scope="col">Tahun Dasar Akademik</td>
+                            <td scope="col">{{$adminuniv->tahun_dasar_akademik}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Penerima boleh Menerima beasiswa lain</td>
+                            <td scope="col">{{$adminuniv->is_double == true ? 'boleh' : 'tidak boleh'}}</td>
+                        </tr>
+                        <tr>
                             <td scope="col">Kuota</td>
                             <td scope="col">{{$adminuniv->jml_kuota}} Penerima</td>
                         </tr>
@@ -38,25 +46,25 @@
             </div>
         </div>
         
-            <h3 class="mt-2 mb-2">Detail Kuota</h3>
-            <div class="row">
-                <div class="col-12">
-                    <table class="table table-bordered table-striped">
-                        <tbody>
-                            @forelse ($fakultas as $item)
-                            <tr>
-                                <td scope="col">{{$item->refFakultas->nama_fakultas}}</td>
-                                <td scope="col">{{$item->jml_kuota}}</td>
-                            </tr>
-                            @empty
-                                <h5 style="color: #bdbdbd">*Data Tidak Tersedia</h5>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+        <h3 class="mt-4 mb-3">Detail Kuota Fakultas</h3>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        @forelse ($fakultas as $item)
+                        <tr>
+                            <td scope="col">{{$item->refFakultas->nama_fakultas}}</td>
+                            <td scope="col">{{$item->jml_kuota}}</td>
+                        </tr>
+                        @empty
+                            <h5 style="color: #bdbdbd">Tidak ada kuota fakultas</h5>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
+        </div>
         
-        <h3 class="mt-4 mb-2">Timeline</h3>
+        <h3 class="mt-4 mb-3">Timeline</h3>
         <div class="row">
             <div class="col-12">
                 <table class="table table-bordered table-striped">
@@ -89,7 +97,7 @@
                 </table>
             </div>
         </div>
-        <h3 class="mt-4 mb-2">Ketentuan</h3>
+        <h3 class="mt-4 mb-3">Ketentuan</h3>
         <div class="row">
             <div class="col-12">
                 <table class="table table-bordered table-striped">
@@ -115,7 +123,7 @@
                 </table>
             </div>
         </div>
-        <h3 class="mt-4 mb-2">Lampiran</h3>
+        <h3 class="mt-4 mb-3">Lampiran</h3>
         <div class="row">
             <div class="col-12">
                 @forelse ($adminuniv->penawaranUpload as $lampiran)
@@ -143,7 +151,7 @@
                 @endforelse
             </div>
         </div>
-        <h3 class="mt-4 mb-2">Lampiran Pendaftar</h3>
+        <h3 class="mt-4 mb-3">Lampiran Pendaftar</h3>
         <div class="row">
             <div class="col-12">
                 <table class="table table-bordered table-striped">
@@ -159,7 +167,7 @@
                 </table>
             </div>
         </div>
-        <h3 class="mt-4 mb-2">Deskripsi</h3>
+        <h3 class="mt-4 mb-3">Deskripsi</h3>
         <div class="row mb-3">
             <div class="col-12">
                 <table class=" stable-striped">

@@ -17,9 +17,38 @@
 
             </div>
             
-            {{-- konfigurasi kuota --}}
+            {{-- jenis penawaran beasiswa --}}
             <div class="form-group">
-                <label for="kuota_fakultas">Konfigurasi Kuota Penerima Beasiswa</label>
+                <label for="jenis_beasiswa">Jenis Beasiswa</label>
+                <select class="custom-select fstdropdown-select" name="id_jenis_beasiswa" id="id_jenis_beasiswa">
+                    @foreach ($jenisBeasiswa as $item)
+                    <option value="{{$item->id_jenis_beasiswa}}" 
+                        {{$item->id_jenis_beasiswa == $adminuniv->refJenisPenawaran->id_jenis_beasiswa ? 'selected' : ''}}
+                        >{{$item->nama_beasiswa}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- tahun dasar akademik --}}
+            <div class="form-group">
+                <label for="tahun_dasar_akademik">Tahun Dasar Akademik</label>
+                <select class="custom-select fstdropdown-select" name="tahun_dasar_akademik" id="tahun_dasar_akademik" value="{{old('tahun_dasar_akademik')}}" required>
+                    <option value="{{$adminuniv->tahun_dasar_akademik}}" selected>{{$adminuniv->tahun_dasar_akademik}}</option>
+                    @foreach ($years as $item)
+                        <option value="{{$item}}/{{$item+1}}">{{$item}}/{{$item+1}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- is double --}}
+            <div class="form-group">
+                <input  type="checkbox" name="is_double" value="true" id="is_double" {{$adminuniv->is_double == 'true' ? 'checked' : ''}}>
+                <label for="is_double">Centang Jika Penerima Beasiswa Ini dapat Menerima Beasiswa Lain</label>
+            </div>
+
+            {{-- konfigurasi kuota --}}
+            <h3 class="mt-5 mb-4">Konfigurasi Kuota</h3>
+            <div class="form-group">
                 <div class="custom-control custom-radio">
                     <input type="radio" id="value1" name="customRadio" class="custom-control-input">
                     <label class="custom-control-label" for="value1" value="value1">Abaikan Asal Fakultas</label>
@@ -124,17 +153,6 @@
                 </div>  
             </div>
             
-            {{-- jenis penawaran beasiswa --}}
-            <div class="form-group">
-                <label for="jenis_beasiswa">Jenis Beasiswa</label>
-                <select class="custom-select fstdropdown-select" name="id_jenis_beasiswa" id="id_jenis_beasiswa">
-                    @foreach ($jenisBeasiswa as $item)
-                    <option value="{{$item->id_jenis_beasiswa}}" 
-                        {{$item->id_jenis_beasiswa == $adminuniv->refJenisPenawaran->id_jenis_beasiswa ? 'selected' : ''}}
-                        >{{$item->nama_beasiswa}}</option>
-                    @endforeach
-                </select>
-            </div>
             <h3 class="mt-5 mb-4">Timeline</h3>
             {{-- Penawaran --}}
             <div class="form-group">
@@ -294,7 +312,7 @@
             </div>
 
             {{-- lampiran --}}
-            <h3 class="mt-5">Masukkan lampiran yang dibutuhkan</h3>
+            <h3 class="mt-5 mb-4">Lampiran</h3>
             <div class="form-group" id="form-lampiran">
                 <label for="lampiran">Lampiran Penawaran</label>
                 @foreach ($adminuniv->penawaranUpload as $lampiran)

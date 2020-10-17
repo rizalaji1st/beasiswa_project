@@ -45,7 +45,9 @@ class Adminuniv extends Model
                             'max_semester', 
                             'max_penghasilan', 
                             'deskripsi',
-                            'tahun'
+                            'tahun',
+                            'is_double',
+                            'tahun_dasar_akademik'
         ];
     
     public function penawaranUpload(){
