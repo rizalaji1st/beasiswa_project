@@ -30,12 +30,12 @@ class RefJenisFile extends Seeder
             'Curriculum Vitae',
             'Surat Keterangan aktif kuliah'
         );
-        foreach($beasiswa as $item){
+        foreach ($beasiswa as $item) {
             DB::table('bea_ref_jenis_file')->insert([
-                'nama_jenis_file'=>$item,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()    
-            ]);  
+                'nama_jenis_file' => $item,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
         }
     }
 }
