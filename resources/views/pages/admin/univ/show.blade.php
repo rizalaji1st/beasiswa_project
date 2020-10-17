@@ -118,20 +118,29 @@
         <h3 class="mt-4 mb-2">Lampiran</h3>
         <div class="row">
             <div class="col-12">
+                @forelse ($adminuniv->penawaranUpload as $lampiran)
                 <table class="table table-bordered table-striped">
                     <tbody>
-
-                        @forelse ($adminuniv->penawaranUpload as $lampiran)
-                            <tr>
-                                <td scope="col">{{$lampiran->nama_upload}}</td>
-                                <td scope="col">{{$lampiran->path_file}}</td>
-                            </tr>
-                        @empty
-                            <h5 style="color: #bdbdbd">*Data Tidak Tersedia</h5>
-                        @endforelse
-
+                        <tr>
+                            <th colspan="2">Lampiran  {{$loop->iteration}}</th>
+                        </tr>
+                        <tr>
+                            <td scope="col">Nama Upload</td>
+                            <td scope="col">{{$lampiran->nama_upload}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Nama File</td>
+                            <td scope="col">{{$lampiran->nama_file}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Deskripsi</td>
+                            <td scope="col">{{$lampiran->deskripsi}}</td>
+                        </tr>
                     </tbody>
                 </table>
+                @empty
+                    <h5 style="color: #bdbdbd">*Data Tidak Tersedia</h5>
+                @endforelse
             </div>
         </div>
         <h3 class="mt-4 mb-2">Lampiran Pendaftar</h3>

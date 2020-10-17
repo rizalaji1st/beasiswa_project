@@ -348,7 +348,8 @@
                 @endforeach
             </div>
 
-            <button  type="button" class="btn btn-secondary click"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
+            <button  type="button" class="btn btn-secondary click mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
+
 
             <div class="form-group" id="lampiran-pendaftar">
                 <label for="lampiran">Lampiran Pendaftar</label>
@@ -384,7 +385,7 @@
                 @endforeach
             </div>
 
-            <button  type="button" class="btn btn-secondary tambah-lampiran-pendaftar"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
+            <button  type="button" class="btn btn-secondary tambah-lampiran-pendaftar mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
             
             <div class="form-group">
                 <input type="text" name="myCount" id="myCount" hidden>
