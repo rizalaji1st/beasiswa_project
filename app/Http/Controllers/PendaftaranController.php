@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pendaftaran;
+use App\UploadFile;
 use App\PenawaranUpload;
 use App\Adminuniv;
 use App\Http\Requests\PenawaranRequest;
@@ -16,8 +17,9 @@ class PendaftaranController extends Controller
 
     public function index()
     {
-        $beasiswas = Adminuniv::all();
-        return view('pages.pendaftaran.home', ['beasiswas' => $beasiswas]);
+        $data = Adminuniv::all();
+        // $data['file'] = UploadFile::all();
+        return view('pages.pendaftaran.home', ['data' => $data]);
     }
 
     public function article()

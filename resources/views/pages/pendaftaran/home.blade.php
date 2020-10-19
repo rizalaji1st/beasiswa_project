@@ -19,7 +19,6 @@
   </section>
   <!--================Hero Banner Area End =================-->
 
-
   <!--================Service Area Start =================-->
   <section class="section-margin generic-margin">
     <div class="container">
@@ -30,7 +29,7 @@
       </div>
 
       <div class="row">
-          @foreach ($beasiswas as $beasiswa)
+          @foreach ($data as $beasiswa)
         <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
           <div class="card-blog">
             <img class="card-img rounded-0" src="img/blog/blog-1.png" alt="">

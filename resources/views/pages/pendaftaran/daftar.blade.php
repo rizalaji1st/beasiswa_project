@@ -60,10 +60,10 @@
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            @foreach ($adminuniv->penawaranUpload as $lamp)
+            @foreach ($adminuniv->lampiranPendaftar as $lamp)
                 <div class="custom-file mb-3">
                 <input type="file" name="files[]" class="custom-file-input" id="file" required>
-                    <label class="custom-file-label" for="file">Upload {{$lamp->nama_upload}}...</label>
+                    <label class="custom-file-label" for="file">Upload {{$lamp->nama_jenis_file}}...</label>
                     <div class="invalid-feedback">Example invalid custom file feedback</div>
                 </div>
             @endforeach
