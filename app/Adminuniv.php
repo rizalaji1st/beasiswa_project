@@ -75,4 +75,7 @@ class Adminuniv extends Model
     public function lampiranPendaftar(){
         return $this->hasMany(UploadFile::class, 'id_penawaran','id_penawaran');
     }
+    public function kriteriaPenilaian(){
+        return $this->hasMany(BeaPenawaranKriteria::class, 'id_penawaran','id_penawaran');
+    }
 }

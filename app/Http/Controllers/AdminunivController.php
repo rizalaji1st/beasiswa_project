@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Adminuniv;
+use App\BeaPenawaranKriteria;
 use App\PenawaranUpload;
 use App\PenawaranKuotaFakultas;
 use App\Http\Requests\PenawaranRequest;
@@ -13,6 +14,7 @@ use App\UploadFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use App\References\RefKriteria;
 
 class AdminunivController extends Controller
 {
@@ -44,8 +46,9 @@ class AdminunivController extends Controller
         //
         $jenisBeasiswa = RefJenisBeasiswa::get();
         $lampiran = RefJenisFile::get();
+        $kriteria = RefKriteria::get();
         $years = range(Carbon::now()->year-5,Carbon::now()->year+4);
-        return view('pages.admin.univ.create', compact('jenisBeasiswa', 'lampiran','years'));
+        return view('pages.admin.univ.create', compact('jenisBeasiswa', 'lampiran','kriteria','years'));
     }
 
     /**
@@ -116,6 +119,22 @@ class AdminunivController extends Controller
             }
         }
 
+        //menambahkan bobot penilaian
+        if ($request->myCountPenilaian != null) {
+            $kriteria = $request->myCountPenilaian;
+            $kriteriaArr = explode(",", $kriteria);
+            foreach ($kriteriaArr as $kriteria) {
+                $bobot = $kriteria . "Bobot";
+                if ($kriteria != null) {
+                    $penawaranCreate->kriteriaPenilaian()->create([
+                        'id_penawaran' => $penawaranCreate->id_penawaran,
+                        'nama_kriteria' => $request->$kriteria,
+                        'bobot' => $request->$bobot,
+                    ]);
+                }
+            }
+        }
+
         // menambahkan lampiran penawaran
         if ($request->myCount != null) {
             $lampiran = $request->myCount;
@@ -129,7 +148,8 @@ class AdminunivController extends Controller
                     //upload file
                     $extension = $request->file($upload)->extension();
                     $size = $request->file($upload)->getSize();
-                    $filename = date('dmyHis') . Str::random(4) . '.' . $extension;
+                    $filenameWithExt = $request->file($upload)->getClientOriginalName();
+                    $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME).'_'.date('dmyHis') . '.' . $extension;
                     $this->validate($request, [$upload => 'required|file|max:5000']);
                     $path = Storage::putFileAs('public/data_file/penawaran_upload', $request->file($upload), $filename);
                     $penawaranCreate->penawaranUpload()->create([
@@ -174,9 +194,10 @@ class AdminunivController extends Controller
         //
         $jenisBeasiswa = RefJenisBeasiswa::get();
         $refJenisFile = RefJenisFile::get();
+        $kriteria = RefKriteria::get();
         $refFakultas = RefFakultas::get();
         $years = range(Carbon::now()->year-5,Carbon::now()->year+4);
-        return view('pages.admin.univ.update', compact('adminuniv', 'jenisBeasiswa', 'refJenisFile', 'refFakultas','years'));
+        return view('pages.admin.univ.update', compact('adminuniv', 'jenisBeasiswa', 'refJenisFile', 'refFakultas','kriteria','years'));
     }
 
     /**
@@ -203,11 +224,15 @@ class AdminunivController extends Controller
 
         $hasil = [];
         $hasilPendaftar = [];
+        $hasilPenilaian = [];
         $dlampiran = $request->dmyCount;
         $dLampiranPendaftar = $request->dmyCountPendaftar;
+        $dLampiranPenilaian = $request->dmyCountPenilaian;
         $i = 1;
         $iPendaftar = 1;
+        $iPenilaian = 1;
         $dLampiranPendaftar += 1;
+        $dLampiranPenilaian += 1;
         $dlampiran += 1;
 
         //update lampiran pendaftar yang sudah ada
@@ -320,6 +345,45 @@ class AdminunivController extends Controller
             };
         };
 
+        //update penilaian yang sudah ada
+        foreach($adminuniv->kriteriaPenilaian as $item){
+            $nama = "penilaianAda".$iPenilaian;
+            $bobot = "penilaianAda".$iPenilaian."Bobot";
+            $hasilPenilaian[$item->nama_kriteria] = $request->$nama;
+            $hasilPenilaian[$item->bobot] = $request->$bobot;
+
+            if($hasilPenilaian[$item->nama_kriteria] == null){
+                BeaPenawaranKriteria::destroy($item->id_kriteria);
+            }
+            else {
+                if($hasilPenilaian[$item->nama_kriteria] != $item->nama_kriteria){
+                    BeaPenawaranKriteria::where('id_kriteria', $item->id_kriteria)
+                    ->update(array('nama_kriteria' => $hasilPenilaian[$item->nama_kriteria]));
+                }
+                if($hasilPenilaian[$item->bobot] != $item->bobot){
+                    BeaPenawaranKriteria::where('id_kriteria', $item->id_kriteria)
+                    ->update(array('bobot' => $hasilPenilaian[$item->bobot]));
+                }
+            }
+            $iPenilaian++;
+        }
+
+        //menambahkan bobot penilaian
+        if ($request->myCountPenilaian != null) {
+            $kriteria = $request->myCountPenilaian;
+            $kriteriaArr = explode(",", $kriteria);
+            foreach ($kriteriaArr as $kriteria) {
+                $bobot = $kriteria . "Bobot";
+                if ($kriteria != null) {
+                    $penawaranUpdate->kriteriaPenilaian()->create([
+                        'id_penawaran' => $penawaranUpdate->id_penawaran,
+                        'nama_kriteria' => $request->$kriteria,
+                        'bobot' => $request->$bobot,
+                    ]);
+                }
+            }
+        }
+
         //mengubah kuota fakultas ke kuota fakultas
         if ($request->fakultas1 != null) {
             $i = 1;
@@ -427,6 +491,10 @@ class AdminunivController extends Controller
         //hapus lampiran pendaftar
         foreach ($adminuniv->lampiranPendaftar as $item) {
             UploadFile::destroy($item->id_upload_file);
+        }
+        //hapus lampiran pendaftar
+        foreach ($adminuniv->kriteriaPenilaian as $item) {
+            BeaPenawaranKriteria::destroy($item->id_kriteria);
         }
 
         return redirect('/adminuniversitas')->with('success','Data berhasil dihapus');
