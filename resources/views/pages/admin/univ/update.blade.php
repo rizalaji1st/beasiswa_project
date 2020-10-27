@@ -4,7 +4,7 @@
     <div class="container col-10 mb-5 mt-5">
         <h1>Edit {{$adminuniv->nama_penawaran}}</h1>
         <h3 class="mt-5 mb-3">Informasi Umum</h3>
-        <form method="post" action="/adminuniversitas/{{$adminuniv->id_penawaran}}" enctype="multipart/form-data">
+        <form method="post" action="/adminunivs/{{$adminuniv->id_penawaran}}" enctype="multipart/form-data">
             @method('patch')
             @csrf
             {{-- nama penawaran --}}
@@ -456,8 +456,8 @@
                 <input type="text" name="myCountPendaftar" id="myCountPendaftar" hidden>
             </div>
             
-            <a href="/adminuniversitas/{{$adminuniv->id_penawaran}}" class="btn btn-outline-warning">Batal</a>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+            <a href="/adminunivs/{{$adminuniv->id_penawaran}}" class="btn btn-outline-warning">Batal</a>
         </form>
     </div>
 

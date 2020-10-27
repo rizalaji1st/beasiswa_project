@@ -18,6 +18,10 @@ use App\References\RefKriteria;
 
 class AdminunivController extends Controller
 {
+    public function __construct()
+    {
+        return $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -165,7 +169,7 @@ class AdminunivController extends Controller
                 }
             };
         };
-        return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
+        return redirect('/adminunivs')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
     }
 
     /**
@@ -180,7 +184,7 @@ class AdminunivController extends Controller
         $fakultas = PenawaranKuotaFakultas::with('refFakultas')->where('id_penawaran',$adminuniv->id_penawaran)->get();
         $lampiranPendaftar = UploadFile::with('refJenisFile')->where('id_penawaran',$adminuniv->id_penawaran)->get();
         return view('pages.admin.univ.show', compact('adminuniv','fakultas','lampiranPendaftar'));
-        return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
+        return redirect('/adminunivs')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
     }
 
     /**
@@ -461,7 +465,7 @@ class AdminunivController extends Controller
             }
         }
 
-        return redirect('/adminuniversitas/' . $adminuniv->id_penawaran)->with('success', 'Data Penawaran Beasiswa Berhasil Diubah');
+        return redirect('/adminunivs/' . $adminuniv->id_penawaran)->with('success', 'Data Penawaran Beasiswa Berhasil Diubah');
     }
 
     /**
@@ -497,6 +501,6 @@ class AdminunivController extends Controller
             BeaPenawaranKriteria::destroy($item->id_kriteria);
         }
 
-        return redirect('/adminuniversitas')->with('success','Data berhasil dihapus');
+        return redirect('/adminunivs')->with('success','Data berhasil dihapus');
     }
 }

@@ -203,16 +203,16 @@
 
         {{-- button --}}
         
-        <form action="{{$adminuniv->id_penawaran}}" method="POST"class="d-inline">
-            @method('put')
+        <form action="{{$adminuniv->id_penawaran}}/edit" method="GET"class="d-inline">
+            {{-- @method('put') --}}
             @csrf
-            <button type="submit" class="btn btn-primary pull-right d-inline">Edit</button>
+            <button type="submit" class="btn btn-primary pull-right d-inline"><i class="fas fa-pencil-alt    "></i> Edit</button>
         </form>
         <form action="{{$adminuniv->id_penawaran}}" method="POST" class="d-inline">
-            <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure ?')">Delete</button>
+            <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure ?')"><i class="fas fa-trash-alt    "></i> Delete</button>
             @method('Delete')
             @csrf
         </form>
-        <a href="/adminuniversitas" class="btn btn-outline-warning">kembali</a>
+        <a href="/adminunivs" class="btn btn-outline-warning">kembali</a>
     </div>
 @endsection

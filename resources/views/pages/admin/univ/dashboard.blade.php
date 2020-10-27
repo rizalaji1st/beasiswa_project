@@ -1,6 +1,6 @@
 @extends('layouts.adminuniv')
 @section('title', 'Admin Universitas')
-@section('status-dashboard', 'active')
+@section('status-penawaran', 'active')
 @section('content')
 
     <div class="container">
@@ -14,31 +14,32 @@
                 </div>
             @endif
         </div>
-        <a href="{{url('/adminuniversitas/create')}}" class="btn btn-primary mt-4 mb-2"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambahkan Penawaran</a>
-
-        {{-- <ul class="list-group mt-2">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{$beasiswa->nama_penawaran}}
-                <a href="/adminuniversitas/{{$beasiswa->id_penawaran}}" class="badge badge-info badge-pill">detail</a>
-            </li>
-        </ul> --}}
+        <a href="{{url('/adminunivs/create')}}" class="btn btn-primary mt-4 mb-2"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambahkan Penawaran</a>
         <table class="table table-striped table-bordered" id="beasiswa">
             <thead class="bg-primary text-white" >
               <tr>
-                <th scope="col">No</th>
-                <th scope="col">Nama Beasiswa</th>
-                <th scope="col">Kuota</th>
-                <th scope="col">Action</th>
+                <th scope="col" class="text-center">No</th>
+                <th scope="col" class="text-center">Nama Beasiswa</th>
+                <th scope="col" class="text-center">Kuota</th>
+                <th scope="col" class="text-center">Action</th>
               </tr>
             </thead>
 
             <tbody>
               @foreach ($beasiswas as $beasiswa)
               <tr>
-              <th scope="row">{{$loop->iteration}}</th>
+              <th scope="row" class="text-center">{{$loop->iteration}}</th>
                 <td scope="col" >{{$beasiswa->nama_penawaran}}</td>
-                <td scope="col" >{{$beasiswa->jml_kuota}}</td>
-                <td scope="col" ><a href="/adminuniversitas/{{$beasiswa->id_penawaran}}" class="badge badge-info badge-pill">detail</a></td>
+                <td scope="col" class="text-center">{{$beasiswa->jml_kuota}} Penerima</td>
+                <td scope="col" class="text-center">
+                  <a href="{{route('adminunivs.show',$beasiswa->id_penawaran)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                  <a href="{{route('adminunivs.edit',$beasiswa->id_penawaran)}}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                  <form action="{{route('adminunivs.destroy',$beasiswa->id_penawaran)}}" method="POST" class="d-inline">
+                    @method('Delete')
+                    @csrf
+                    <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure ?')"><i class="fas fa-trash-alt"></i></button>
+                  </form>
+                </td>
               </tr>
               @endforeach
             </tbody>
