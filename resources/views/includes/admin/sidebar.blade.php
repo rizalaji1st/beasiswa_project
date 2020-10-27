@@ -10,9 +10,29 @@
         <hr class="sidebar-divider my-0">
         <!-- Nav Item - Hak akses -->
         <li class="nav-item @yield('status-akses')">
-          <a class="nav-link" href="{{route('admin.users.index')}}">
-            <i class="fas fa-shield-alt    "></i>
-            <span>Daftar Hak Akses</span></a>
+          <a class="nav-link" href="{{url('/adminunivs')}}" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <i class="fas fa-shield-alt"></i>
+            <span>Daftar Hak Akses</span>
+          </a>
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              @can('manage-users')
+                <a class="collapse-item" href="{{route('admin.users.index')}}">Manage Users</a>
+              @endcan
+              <h6 class="collapse-header">Akes Aktif:</h6>
+              @can('edit-users')
+                <div class="collapse-item" href="">Super User <span class="badge badge-primary">Aktif</span></div>
+              @endcan
+              @can('adminuniversitas-users')
+                <div class="collapse-item" href="">Admin Universitas <span class="badge badge-primary">Aktif</span></div>
+              @endcan
+              @can('adminfakultas-users')
+                <div class="collapse-item" href="">Admin Fakultas <span class="badge badge-primary">Aktif</span></div>
+              @endcan
+                <div class="collapse-item" href="">General Users <span class="badge badge-primary">Aktif</span></div>
+
+            </div>
+          </div>
         </li>
 
         
@@ -28,7 +48,8 @@
         <li class="nav-item @yield('status-penawaran')">
           <a class="nav-link" href="{{url('/adminunivs')}}">
             <i class="fa fa-list-alt" aria-hidden="true"></i>
-            <span>Penawaran</span></a>
+            <span>Penawaran</span>
+          </a>
         </li>
 
         {{-- verifikasi --}}

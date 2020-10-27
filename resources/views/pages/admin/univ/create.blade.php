@@ -413,7 +413,6 @@
             var att = this.id;
             var ids = "#"+att;
             removeA(myNamePenilaian, att);
-            console.log(myNamePenilaian);
             document.getElementById("myCountPenilaian").value = myNamePenilaian;
             $(ids).remove();
         }
@@ -501,7 +500,6 @@
 
             document.getElementById("form-penilaian").appendChild(divr);
             myNamePenilaian.push(cls);
-            console.log(myNamePenilaian);
             document.getElementById("myCountPenilaian").value = myNamePenilaian;
             $( ".hapus-penilaian" ).on( "click", removeDataPenilaian );
         }
@@ -549,7 +547,6 @@
         var att = this.id;
         var ids = "#"+att;
         removeA(myNamePendaftar, att);
-        console.log(myNamePendaftar);
         document.getElementById("myCountPendaftar").value = myNamePendaftar;
         $(ids).remove();
     }
@@ -623,7 +620,6 @@
 
         document.getElementById("lampiran-pendaftar").appendChild(divr);
         myNamePendaftar.push(cls);
-        console.log(myNamePendaftar);
         document.getElementById("myCountPendaftar").value = myNamePendaftar;
         $( ".hapus" ).on( "click", removeDataPendaftar );
     }   

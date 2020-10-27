@@ -30,12 +30,16 @@
                         <td scope="col">{{$user->email}}</td>
                         <td scope="col">{{implode(', ',$user->roless()->get()->pluck('name')->toArray())}}</td>
                         <td scope="col" class="text-center">
-                            <a href="{{route('admin.users.edit', $user->id)}}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                            <form action="{{route('admin.users.destroy',$user)}}" method="POST" class="d-inline">
-                                @method('Delete')
-                                @csrf
-                                <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure ?')"><i class="fas fa-trash-alt"></i></button>
-                            </form>
+                            @can('edit-users')
+                                <a href="{{route('admin.users.edit', $user->id)}}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                            @endcan
+                            @can('delete-users')    
+                                <form action="{{route('admin.users.destroy',$user)}}" method="POST" class="d-inline">
+                                    @method('Delete')
+                                    @csrf
+                                    <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure ?')"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

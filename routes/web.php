@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::resource('/adminunivs', 'AdminunivController');
-Route::namespace('adminmanagement')->prefix('admin')->name('admin.')->group(function(){
+Route::namespace('adminmanagement')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/users', 'UserController', ['except' => ['store','show', 'create']]);
 });
 
