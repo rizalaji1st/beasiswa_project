@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/adminunivs';
+    protected $redirectTo = '/admin/penawarans';
 
     /**
      * Create a new controller instance.
@@ -41,7 +41,7 @@ class LoginController extends Controller
 
     public function redirectTo(){
         if(Auth::user()->hasAnyRoles(['admin','adminuniversitas'])){
-                $this->redirectTo = '/adminunivs';
+                $this->redirectTo = route('admin.penawarans.index');
                 return $this->redirectTo;
         }
         $this->redirectTo = '/';

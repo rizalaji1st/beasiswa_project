@@ -2,15 +2,15 @@
 @section('title', 'Ubah Penawaran')
 @section('content')
     <div class="container col-10 mb-5 mt-5">
-        <h1>Edit {{$adminuniv->nama_penawaran}}</h1>
+        <h1>Edit {{$penawaran->nama_penawaran}}</h1>
         <h3 class="mt-5 mb-3">Informasi Umum</h3>
-        <form method="post" action="/adminunivs/{{$adminuniv->id_penawaran}}" enctype="multipart/form-data">
+        <form method="post" action="{{route('admin.penawarans.update',$penawaran->id_penawaran)}}" enctype="multipart/form-data">
             @method('patch')
             @csrf
             {{-- nama penawaran --}}
             <div class="form-group">
                 <label for="nama_penawaran">Nama Penawaran</label>
-                <input type="nama_penawaran" class="form-control @error('nama_penawaran') is-invalid @enderror" id="nama_penawaran" name="nama_penawaran" placeholder="masukkan nama penawaran" value="{{$adminuniv->nama_penawaran}}">
+                <input type="nama_penawaran" class="form-control @error('nama_penawaran') is-invalid @enderror" id="nama_penawaran" name="nama_penawaran" placeholder="masukkan nama penawaran" value="{{$penawaran->nama_penawaran}}">
                 @error('nama_penawaran')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -23,7 +23,7 @@
                 <select class="custom-select fstdropdown-select" name="id_jenis_beasiswa" id="id_jenis_beasiswa">
                     @foreach ($jenisBeasiswa as $item)
                     <option value="{{$item->id_jenis_beasiswa}}" 
-                        {{$item->id_jenis_beasiswa == $adminuniv->refJenisPenawaran->id_jenis_beasiswa ? 'selected' : ''}}
+                        {{$item->id_jenis_beasiswa == $penawaran->refJenisPenawaran->id_jenis_beasiswa ? 'selected' : ''}}
                         >{{$item->nama_beasiswa}}</option>
                     @endforeach
                 </select>
@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label for="tahun_dasar_akademik">Tahun Dasar Akademik</label>
                 <select class="custom-select fstdropdown-select" name="tahun_dasar_akademik" id="tahun_dasar_akademik" value="{{old('tahun_dasar_akademik')}}" required>
-                    <option value="{{$adminuniv->tahun_dasar_akademik}}" selected>{{$adminuniv->tahun_dasar_akademik}}</option>
+                    <option value="{{$penawaran->tahun_dasar_akademik}}" selected>{{$penawaran->tahun_dasar_akademik}}</option>
                     @foreach ($years as $item)
                         <option value="{{$item}}/{{$item+1}}">{{$item}}/{{$item+1}}</option>
                     @endforeach
@@ -42,7 +42,7 @@
 
             {{-- is double --}}
             <div class="form-group">
-                <input  type="checkbox" name="is_double" value="true" id="is_double" {{$adminuniv->is_double == 'true' ? 'checked' : ''}}>
+                <input  type="checkbox" name="is_double" value="true" id="is_double" {{$penawaran->is_double == 'true' ? 'checked' : ''}}>
                 <label for="is_double">Centang Jika Penerima Beasiswa Ini dapat Menerima Beasiswa Lain</label>
             </div>
 
@@ -57,7 +57,7 @@
 
                 {{-- kuota Total --}}
                 <div class="form-group kuota-total" id="kuota-total" style="display: none">
-                    <input type="number" class="form-control @error('jml_kuota') is-invalid @enderror" id="jml_kuota" name="jml_kuota"  placeholder="masukkan jumlah kuota penerima" value="{{$adminuniv->jml_kuota}}">
+                    <input type="number" class="form-control @error('jml_kuota') is-invalid @enderror" id="jml_kuota" name="jml_kuota"  placeholder="masukkan jumlah kuota penerima" value="{{$penawaran->jml_kuota}}">
                     <input type="text" class="form-control" id="is_total" name="is_total" hidden>
                     @error('jml_kuota')
                         <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
@@ -70,7 +70,7 @@
                 </div>
                 <br>
                 <div class="form-group fakultas" id="fakultas" style="display: none">
-                    @forelse ($adminuniv->getKuotaFakultas as $item)
+                    @forelse ($penawaran->getKuotaFakultas as $item)
                         <div class="form-group row">
                             <label for="{{$item->id_fakultas}}" class="col-sm-6 col-form-label">Fakultas {{$item->refFakultas->nama_fakultas}}</label>
                             <div class="col-sm-6">
@@ -160,7 +160,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="tgl_awal_penawaran">Awal Penawaran</label>
-                        <input type="date" class="form-control @error('tgl_awal_penawaran') is-invalid @enderror" id="tgl_awal_penawaran" name="tgl_awal_penawaran" value="{{$adminuniv->tgl_awal_penawaran->format('Y-m-d')}}">
+                        <input type="date" class="form-control @error('tgl_awal_penawaran') is-invalid @enderror" id="tgl_awal_penawaran" name="tgl_awal_penawaran" value="{{$penawaran->tgl_awal_penawaran->format('Y-m-d')}}">
                             @error('tgl_awal_penawaran')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -169,7 +169,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="tgl_akhir_penawaran">Akhir Penawaran</label>
-                            <input type="date" class="form-control @error('tgl_akhir_penawaran') is-invalid @enderror" id="tgl_akhir_penawaran" name="tgl_akhir_penawaran" value="{{$adminuniv->tgl_akhir_penawaran->format('Y-m-d')}}">
+                            <input type="date" class="form-control @error('tgl_akhir_penawaran') is-invalid @enderror" id="tgl_akhir_penawaran" name="tgl_akhir_penawaran" value="{{$penawaran->tgl_akhir_penawaran->format('Y-m-d')}}">
                             @error('tgl_akhir_penawaran')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -183,7 +183,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="tgl_awal_pendaftaran">Awal Pendaftaran</label>
-                            <input type="date" class="form-control @error('tgl_awal_pendaftaran') is-invalid @enderror" id="tgl_awal_pendaftaran" name="tgl_awal_pendaftaran" value="{{$adminuniv->tgl_awal_pendaftaran->format('Y-m-d')}}">
+                            <input type="date" class="form-control @error('tgl_awal_pendaftaran') is-invalid @enderror" id="tgl_awal_pendaftaran" name="tgl_awal_pendaftaran" value="{{$penawaran->tgl_awal_pendaftaran->format('Y-m-d')}}">
                             @error('tgl_awal_pendaftaran')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -192,7 +192,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="tgl_akhir_pendaftaran">Akhir Pendaftaran</label>
-                            <input type="date" class="form-control @error('tgl_akhir_pendaftaran') is-invalid @enderror" id="tgl_akhir_pendaftaran" name="tgl_akhir_pendaftaran" value="{{$adminuniv->tgl_akhir_pendaftaran->format('Y-m-d')}}">
+                            <input type="date" class="form-control @error('tgl_akhir_pendaftaran') is-invalid @enderror" id="tgl_akhir_pendaftaran" name="tgl_akhir_pendaftaran" value="{{$penawaran->tgl_akhir_pendaftaran->format('Y-m-d')}}">
                             @error('tgl_akhir_pendaftaran')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -207,7 +207,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="tgl_awal_verifikasi">Awal Verifikasi</label>
-                            <input type="date" class="form-control @error('tgl_awal_verifikasi') is-invalid @enderror" id="tgl_awal_verifikasi" name="tgl_awal_verifikasi" value="{{$adminuniv->tgl_awal_verifikasi->format('Y-m-d')}}">
+                            <input type="date" class="form-control @error('tgl_awal_verifikasi') is-invalid @enderror" id="tgl_awal_verifikasi" name="tgl_awal_verifikasi" value="{{$penawaran->tgl_awal_verifikasi->format('Y-m-d')}}">
                             @error('tgl_awal_verifikasi')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -216,7 +216,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="tgl_akhir_verifikasi">Akhir Verifikasi</label>
-                            <input type="date" class="form-control @error('tgl_akhir_verifikasi') is-invalid @enderror" id="tgl_akhir_verifikasi" name="tgl_akhir_verifikasi" value="{{$adminuniv->tgl_akhir_verifikasi->format('Y-m-d')}}">
+                            <input type="date" class="form-control @error('tgl_akhir_verifikasi') is-invalid @enderror" id="tgl_akhir_verifikasi" name="tgl_akhir_verifikasi" value="{{$penawaran->tgl_akhir_verifikasi->format('Y-m-d')}}">
                             @error('tgl_akhir_verifikasi')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -230,7 +230,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="tgl_awal_penetapan">Awal penetapan</label>
-                            <input type="date" class="form-control @error('tgl_awal_penetapan') is-invalid @enderror" id="tgl_awal_penetapan" name="tgl_awal_penetapan" value="{{$adminuniv->tgl_awal_penetapan->format('Y-m-d')}}">
+                            <input type="date" class="form-control @error('tgl_awal_penetapan') is-invalid @enderror" id="tgl_awal_penetapan" name="tgl_awal_penetapan" value="{{$penawaran->tgl_awal_penetapan->format('Y-m-d')}}">
                             @error('tgl_awal_penetapan')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -239,7 +239,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="tgl_akhir_penetapan">Akhir Penetapan</label>
-                            <input type="date" class="form-control @error('tgl_akhir_penetapan') is-invalid @enderror" id="tgl_akhir_penetapan" name="tgl_akhir_penetapan" value="{{$adminuniv->tgl_akhir_penetapan->format('Y-m-d')}}">
+                            <input type="date" class="form-control @error('tgl_akhir_penetapan') is-invalid @enderror" id="tgl_akhir_penetapan" name="tgl_akhir_penetapan" value="{{$penawaran->tgl_akhir_penetapan->format('Y-m-d')}}">
                             @error('tgl_akhir_penetapan')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -250,7 +250,7 @@
             {{-- pengumuman --}}
             <div class="form-group">
                 <label for="tgl_pengumuman">Tanggal Pengumuman</label>
-                <input type="date" class="form-control @error('tgl_pengumuman') is-invalid @enderror" id="tgl_pengumuman" name="tgl_pengumuman" value="{{$adminuniv->tgl_pengumuman->format('Y-m-d')}}">
+                <input type="date" class="form-control @error('tgl_pengumuman') is-invalid @enderror" id="tgl_pengumuman" name="tgl_pengumuman" value="{{$penawaran->tgl_pengumuman->format('Y-m-d')}}">
                 @error('tgl_pengumuman')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -259,7 +259,7 @@
             {{-- deskripsi --}}
             <h4 class="mt-5 mb-3">Deskripsi</h4>
             <div class="form-group">
-            <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" placeholder="Tulis Deskripsi Beasiswa" rows="5" name="deskripsi" required>{{$adminuniv->deskripsi}}</textarea>
+            <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" placeholder="Tulis Deskripsi Beasiswa" rows="5" name="deskripsi" required>{{$penawaran->deskripsi}}</textarea>
                 @error('deskripsi')
                     <div class="invalid-feedback">{{$message}}</div>
                 @enderror
@@ -267,14 +267,14 @@
             <h4 class="mt-5 mb-3">Ketentuan</h4>
             <div class="form-group">
                 <label for="ips">Indek Prestasi Semester</label>
-                <input type="number" step="0.01" class="form-control @error('ips') is-invalid @enderror" placeholder="masukkan ips" id="ips" name="ips" value="{{$adminuniv->ips}}">
+                <input type="number" step="0.01" class="form-control @error('ips') is-invalid @enderror" placeholder="masukkan ips" id="ips" name="ips" value="{{$penawaran->ips}}">
                 @error('ips')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
                 <label for="ipk">Indek Prestasi Komulatif</label>
-                <input type="number" step="0.01" class="form-control @error('ipk') is-invalid @enderror" placeholder="masukkan ipk" id="ipk" name="ipk" value="{{$adminuniv->ipk}}">
+                <input type="number" step="0.01" class="form-control @error('ipk') is-invalid @enderror" placeholder="masukkan ipk" id="ipk" name="ipk" value="{{$penawaran->ipk}}">
                 @error('ipk')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -285,7 +285,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="min_semester">Minimal Semester</label>
-                            <input type="number" class="form-control @error('min_semester') is-invalid @enderror" placeholder="masukkan minimal semester" id="min_semester" name="min_semester" value="{{$adminuniv->min_semester}}">
+                            <input type="number" class="form-control @error('min_semester') is-invalid @enderror" placeholder="masukkan minimal semester" id="min_semester" name="min_semester" value="{{$penawaran->min_semester}}">
                             @error('min_semester')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -294,7 +294,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="max_semester">Maksimal Semester</label>
-                            <input type="number" class="form-control @error('max_semester') is-invalid @enderror" placeholder="masukkan maksimal semester" id="max_semester" name="max_semester" value="{{$adminuniv->max_semester}}">
+                            <input type="number" class="form-control @error('max_semester') is-invalid @enderror" placeholder="masukkan maksimal semester" id="max_semester" name="max_semester" value="{{$penawaran->max_semester}}">
                             @error('max_semester')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -306,7 +306,7 @@
             {{-- maksimal penghasilan --}}
             <div class="form-group">
                 <label for="max_penghasilan">Maksimal Penghasilan</label>
-                <input type="number" step="0.01" class="form-control @error('max_penghasilan') is-invalid @enderror" id="max_penghasilan" placeholder="masukkan maksimal penghasilan" name="max_penghasilan" value="{{$adminuniv->max_penghasilan}}" >
+                <input type="number" step="0.01" class="form-control @error('max_penghasilan') is-invalid @enderror" id="max_penghasilan" placeholder="masukkan maksimal penghasilan" name="max_penghasilan" value="{{$penawaran->max_penghasilan}}" >
                 @error('max_penghasilan')
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -317,7 +317,7 @@
             <h3 class="mt-5 mb-4">Bobot Penilaian</h3>
             <div class="form-group" id="form-penilaian">
                 <label for="penilaian">Masukkan Bobot Penilaian</label>
-                @foreach ($adminuniv->KriteriaPenilaian as $item)
+                @foreach ($penawaran->KriteriaPenilaian as $item)
                     <div class="container card p-3 mb-3" id="penilaianAda{{$loop->iteration}}">
                         <div class="row">
                             <div class="col">
@@ -359,7 +359,7 @@
             <h3 class="mt-5 mb-4">Lampiran</h3>
             <div class="form-group" id="form-lampiran">
                 <label for="lampiran">Lampiran Penawaran</label>
-                @foreach ($adminuniv->penawaranUpload as $lampiran)
+                @foreach ($penawaran->penawaranUpload as $lampiran)
                 <div class="container card p-3 mb-3" id="lampiranAda{{$loop->iteration}}">
                     <div class="row">
                         <div class="col">
@@ -415,7 +415,7 @@
 
             <div class="form-group" id="lampiran-pendaftar">
                 <label for="lampiran">Lampiran Pendaftar</label>
-                @foreach ($adminuniv->lampiranPendaftar as $lampiranPendaftar)
+                @foreach ($penawaran->lampiranPendaftar as $lampiranPendaftar)
                 <div class="container card p-3 mb-3" id="lampiranPendaftarAda{{$loop->iteration}}">
                     <div class="row">
                         <div class="col">
@@ -457,7 +457,7 @@
             </div>
             
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
-            <a href="/adminunivs/{{$adminuniv->id_penawaran}}" class="btn btn-outline-warning">Batal</a>
+            <a href="{{route('admin.penawarans.show',$penawaran)}}" class="btn btn-outline-warning">Batal</a>
         </form>
     </div>
 

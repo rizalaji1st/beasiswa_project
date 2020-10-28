@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{Nrangking,Adminuniv,Pendaftaran};
+use App\{Nrangking,Penawaran,Pendaftaran};
 use App\Exports\AdminUnivExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
@@ -12,9 +12,9 @@ class NRangkingsController extends Controller
 {
 
         public function index(){
-         //$adminuniv = DB::table('bea_pendaftar_penawaran')->orderBy('ips', 'DESC');
-        $adminuniv = Adminuniv::all();
-         return view('pages.admin.univ.dashboard_nrangking',['dashboard_nrangking' => $adminuniv]);
+         //$penawaran = DB::table('bea_pendaftar_penawaran')->orderBy('ips', 'DESC');
+        $penawaran = Penawaran::all();
+         return view('pages.admin.universitas.dashboard_nrangking',['dashboard_nrangking' => $penawaran]);
    }
 
 
@@ -46,7 +46,7 @@ class NRangkingsController extends Controller
     {
         $nrangking = Pendaftaran::where('id_penawaran', $nrangking)->orderBy('ips','desc')->get();
 
-        return view('pages.admin.univ.show_nrangking')->with('nrank', $nrangking);
+        return view('pages.admin.universitas.show_nrangking')->with('nrank', $nrangking);
     }
 
 

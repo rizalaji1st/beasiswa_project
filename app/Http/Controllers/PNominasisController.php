@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Session;
-use App\{NRangking,Adminuniv,Pendaftaran};
+use App\{NRangking,Penawaran,Pendaftaran};
 use App\Exports\AdminUnivExport;
 use App\Imports\AdminUnivImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -25,10 +25,10 @@ class PNominasisController extends Controller
         //     $user ->prodi = $key[1];
         //     $user ->fakultas = $key[2];  
         // }
-        // return view('pages.admin.univ.dashboard_pnominasi',['dashboard_pnominasi' => $nrangking]);
+        // return view('pages.admin.universitas.dashboard_pnominasi',['dashboard_pnominasi' => $nrangking]);
 
         $nrangking = NRangking::all();
-         return view('pages.admin.univ.dashboard_pnominasi',['dashboard_pnominasi' => $nrangking]);
+         return view('pages.admin.universitas.dashboard_pnominasi',['dashboard_pnominasi' => $nrangking]);
     }
 
 

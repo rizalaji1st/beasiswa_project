@@ -19,27 +19,27 @@
                     <tbody>
                         <tr class="d-flex">
                             <td scope="col" class="col">Nama Penawaran</td>
-                            <td scope="col" class="col">{{$adminuniv->nama_penawaran}}</td>
+                            <td scope="col" class="col">{{$penawaran->nama_penawaran}}</td>
                         </tr>
                         <tr class="d-flex">
                             <td scope="col" class="col">Jenis Beasiswa</td>
-                            <td scope="col" class="col">{{$adminuniv->refJenisPenawaran->nama_beasiswa}}</td>
+                            <td scope="col" class="col">{{$penawaran->refJenisPenawaran->nama_beasiswa}}</td>
                         </tr>
                         <tr class="d-flex">
                             <td scope="col" class="col">Tahun</td>
-                            <td scope="col" class="col">{{$adminuniv->tahun->format('Y')}}</td>
+                            <td scope="col" class="col">{{$penawaran->tahun->format('Y')}}</td>
                         </tr>
                         <tr class="d-flex">
                             <td scope="col" class="col">Tahun Dasar Akademik</td>
-                            <td scope="col" class="col">{{$adminuniv->tahun_dasar_akademik}}</td>
+                            <td scope="col" class="col">{{$penawaran->tahun_dasar_akademik}}</td>
                         </tr>
                         <tr class="d-flex">
                             <td scope="col" class="col">Penerima boleh Menerima beasiswa lain</td>
-                            <td scope="col" class="col">{{$adminuniv->is_double == true ? 'boleh' : 'tidak boleh'}}</td>
+                            <td scope="col" class="col">{{$penawaran->is_double == true ? 'boleh' : 'tidak boleh'}}</td>
                         </tr>
                         <tr class="d-flex">
                             <td scope="col" class="col">Kuota</td>
-                            <td scope="col" class="col">{{$adminuniv->jml_kuota}} Penerima</td>
+                            <td scope="col" class="col">{{$penawaran->jml_kuota}} Penerima</td>
                         </tr>
                     </tbody>
                 </table>
@@ -71,27 +71,27 @@
                     <tbody>
                         <tr class="d-flex">
                             <td scope="col" class="col">Tanggal Penawaran</td>
-                            <td scope="col" class="col">{{$adminuniv->tgl_awal_penawaran->format('d M Y')}}
-                            s/d {{$adminuniv->tgl_akhir_penawaran->format('d M Y')}}</td>
+                            <td scope="col" class="col">{{$penawaran->tgl_awal_penawaran->format('d M Y')}}
+                            s/d {{$penawaran->tgl_akhir_penawaran->format('d M Y')}}</td>
                         </tr>
                         <tr class="d-flex">
                             <td scope="col" class="col">Tanggal Pendaftaran</td>
-                            <td scope="col" class="col">{{$adminuniv->tgl_awal_pendaftaran->format('d M Y')}}
-                                s/d {{$adminuniv->tgl_akhir_pendaftaran->format('d M Y')}}</td>
+                            <td scope="col" class="col">{{$penawaran->tgl_awal_pendaftaran->format('d M Y')}}
+                                s/d {{$penawaran->tgl_akhir_pendaftaran->format('d M Y')}}</td>
                         </tr>
                         <tr class="d-flex">
                             <td scope="col" class="col">Tanggal Verifikasi</td>
-                            <td scope="col" class="col">{{$adminuniv->tgl_awal_verifikasi->format('d M Y')}}
-                                s/d {{$adminuniv->tgl_akhir_verifikasi->format('d M Y')}}</td>
+                            <td scope="col" class="col">{{$penawaran->tgl_awal_verifikasi->format('d M Y')}}
+                                s/d {{$penawaran->tgl_akhir_verifikasi->format('d M Y')}}</td>
                         </tr>
                         <tr class="d-flex">
                             <td scope="col" class="col">Tanggal Penetapan</td>
-                            <td scope="col" class="col">{{$adminuniv->tgl_awal_penetapan->format('d M Y')}}
-                                s/d {{$adminuniv->tgl_akhir_penetapan->format('d M Y')}}</td>
+                            <td scope="col" class="col">{{$penawaran->tgl_awal_penetapan->format('d M Y')}}
+                                s/d {{$penawaran->tgl_akhir_penetapan->format('d M Y')}}</td>
                         </tr>
                         <tr class="d-flex">
                             <td scope="col" class="col">Tanggal Pengumuman</td>
-                            <td scope="col" class="col">{{$adminuniv->tgl_pengumuman->format('d M Y')}}</td>
+                            <td scope="col" class="col">{{$penawaran->tgl_pengumuman->format('d M Y')}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -105,19 +105,19 @@
 
                         <tr class="d-flex">
                             <td scope="col" class="col">Indek Prestasi Semester</td>
-                            <td scope="col" class="col">{{$adminuniv->ips}}</td>
+                            <td scope="col" class="col">{{$penawaran->ips}}</td>
                         </tr>
                         <tr class="d-flex">
                             <td scope="col" class="col">Indek Prestasi Komulatif</td>
-                            <td scope="col" class="col">{{$adminuniv->ipk}}</td>
+                            <td scope="col" class="col">{{$penawaran->ipk}}</td>
                         </tr>
                         <tr class="d-flex">
                             <td scope="col" class="col">Semester</td>
-                            <td scope="col" class="col">{{$adminuniv->min_semester}} s/d {{$adminuniv->max_semester}}</td>
+                            <td scope="col" class="col">{{$penawaran->min_semester}} s/d {{$penawaran->max_semester}}</td>
                         </tr>
                         <tr class="d-flex">
                             <td scope="col" class="col">Maksimal Penghasilan</td>
-                            <td scope="col" class="col">Rp. {{$adminuniv->max_penghasilan}}</td>
+                            <td scope="col" class="col">Rp. {{$penawaran->max_penghasilan}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -134,7 +134,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach ($adminuniv->kriteriaPenilaian as $item)
+                    @foreach ($penawaran->kriteriaPenilaian as $item)
                         <tr class="d-flex">
                             <td scope="col" class="col">{{$item->nama_kriteria}}</td>
                             <td scope="col" class="col">{{$item->bobot}} poin</td>
@@ -147,7 +147,7 @@
         <h3 class="mt-4 mb-3">Lampiran</h3>
         <div class="row">
             <div class="col-12">
-                @forelse ($adminuniv->penawaranUpload as $lampiran)
+                @forelse ($penawaran->penawaranUpload as $lampiran)
                 <table class="table table-bordered table-striped">
                     <tbody>
                         <tr class="d-flex">
@@ -194,7 +194,7 @@
                 <table class=" stable-striped">
                     <tbody>
                         <tr class="d-flex">
-                            <td scope="col" class="col">{!! $adminuniv->deskripsi !!}</td>
+                            <td scope="col" class="col">{!! $penawaran->deskripsi !!}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -203,16 +203,16 @@
 
         {{-- button --}}
         
-        <form action="{{$adminuniv->id_penawaran}}/edit" method="GET"class="d-inline">
+        <form action="{{route('admin.penawarans.edit',$penawaran)}}" method="GET"class="d-inline">
             {{-- @method('put') --}}
             @csrf
             <button type="submit" class="btn btn-primary pull-right d-inline"><i class="fas fa-pencil-alt    "></i> Edit</button>
         </form>
-        <form action="{{$adminuniv->id_penawaran}}" method="POST" class="d-inline">
+        <form action="{{route('admin.penawarans.destroy', $penawaran)}}" method="POST" class="d-inline">
             <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure ?')"><i class="fas fa-trash-alt    "></i> Delete</button>
             @method('Delete')
             @csrf
         </form>
-        <a href="/adminunivs" class="btn btn-outline-warning">kembali</a>
+        <a href="{{route('admin.penawarans.index')}}" class="btn btn-outline-warning">kembali</a>
     </div>
 @endsection

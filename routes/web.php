@@ -14,11 +14,18 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
 Auth::routes();
-Route::resource('/adminunivs', 'AdminunivController');
-Route::namespace('adminmanagement')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
-    Route::resource('/users', 'UserController', ['except' => ['store','show', 'create']]);
+Route::namespace('Admin')
+        ->prefix('admin')
+        ->name('admin.')
+        ->middleware('can:manage-users')
+        ->group(function(){
+            Route::resource('/users', 'UserController', ['except' => ['store','show', 'create']]);
+            Route::resource('/penawarans', 'Adminuniversitas\PenawaranController');
+            
 });
+
 
 //Route::get('/adminuniversitas/penetapan/pnominasi_index','AdminunivPNominasiController@index');
 Route::get('/pendaftaran', 'PendaftaranController@index');

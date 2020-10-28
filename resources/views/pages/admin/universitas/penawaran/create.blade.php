@@ -4,7 +4,7 @@
     <div class="container col-10 mb-5 mt-5">
         <h1>Tambah Penawaran Beasiswa</h1>
         <h3 class="mt-5 mb-3">Informasi Umum</h3>
-        <form method="post" action="/adminunivs" enctype="multipart/form-data" data-parsley-validate id="form-penawaran">
+        <form method="post" action="{{route('admin.penawarans.index')}}" enctype="multipart/form-data" data-parsley-validate id="form-penawaran">
             @csrf
             {{-- nama penawaran --}}
             <div class="form-group">
@@ -351,7 +351,7 @@
             <br>
 
             <button type="submit" class="btn btn-primary"><i class="fas fa-save    "></i> Simpan</button>
-            <a href="/adminunivs" class="btn btn-outline-warning">Batal</a>
+            <a href="route('admin.penawarans.index')" class="btn btn-outline-warning">Batal</a>
 
 
         </form>

@@ -11,6 +11,6 @@ class RefJenisBeasiswa extends Model
     protected $primaryKey = 'id_jenis_beasiswa';
 
     public function penawaran(){
-        return $this->belongsTo('App\Adminuniv','id_jenis_beasiswa','id_jenis_beasiswa');
+        return $this->belongsTo('App\Penawaran','id_jenis_beasiswa','id_jenis_beasiswa');
     }
 }

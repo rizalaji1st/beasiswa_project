@@ -6,7 +6,7 @@
     <div class="container">
         <h1>Daftar Beasiswa Aktif</h1>
         @include('includes.flashmessage')
-        <a href="{{url('/adminunivs/create')}}" class="btn btn-primary mt-4 mb-2"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambahkan Penawaran</a>
+        <a href="{{route('admin.penawarans.create')}}" class="btn btn-primary mt-4 mb-2"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambahkan Penawaran</a>
         <table class="table table-striped table-bordered" id="beasiswa">
             <thead class="bg-primary text-white" >
               <tr>
@@ -24,9 +24,9 @@
                 <td scope="col" >{{$beasiswa->nama_penawaran}}</td>
                 <td scope="col" class="text-center">{{$beasiswa->jml_kuota}} Penerima</td>
                 <td scope="col" class="text-center">
-                  <a href="{{route('adminunivs.show',$beasiswa->id_penawaran)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                  <a href="{{route('adminunivs.edit',$beasiswa->id_penawaran)}}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                  <form action="{{route('adminunivs.destroy',$beasiswa->id_penawaran)}}" method="POST" class="d-inline">
+                  <a href="{{route('admin.penawarans.show',$beasiswa->id_penawaran)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                  <a href="{{route('admin.penawarans.edit',$beasiswa->id_penawaran)}}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                  <form action="{{route('admin.penawarans.destroy',$beasiswa->id_penawaran)}}" method="POST" class="d-inline">
                     @method('Delete')
                     @csrf
                     <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure ?')"><i class="fas fa-trash-alt"></i></button>

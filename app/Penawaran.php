@@ -2,12 +2,10 @@
 
 namespace App;
 
-use Carbon\Traits\Timestamp;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Adminuniv extends Model
+class Penawaran extends Model
 {
 
     use SoftDeletes;
@@ -47,7 +45,8 @@ class Adminuniv extends Model
                             'deskripsi',
                             'tahun',
                             'is_double',
-                            'tahun_dasar_akademik'
+                            'tahun_dasar_akademik',
+                            'id_user_pembuat',
         ];
     
     public function penawaranUpload(){
