@@ -19,4 +19,6 @@ class Users extends Model
                   ];
   protected $guarded = [];
   protected $fillable = ['prodi', 'fakultas'];
+
+  
  }

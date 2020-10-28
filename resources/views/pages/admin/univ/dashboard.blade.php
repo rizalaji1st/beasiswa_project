@@ -5,15 +5,7 @@
 
     <div class="container">
         <h1>Daftar Beasiswa Aktif</h1>
-        {{-- succes --}}
-        <div class="mt-2">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                </div>
-            @endif
-        </div>
+        @include('includes.flashmessage')
         <a href="{{url('/adminunivs/create')}}" class="btn btn-primary mt-4 mb-2"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambahkan Penawaran</a>
         <table class="table table-striped table-bordered" id="beasiswa">
             <thead class="bg-primary text-white" >

@@ -3,14 +3,7 @@
 @section('status-akses', 'active')
 @section('content')
     <div class="container">
-        <div class="mt-2">
-            @if (session('danger'))
-                <div class="alert alert-danger">
-                    {{ session('danger') }}
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                </div>
-            @endif
-        </div>
+        @include('includes.flashmessage')
         <h1>Daftar User</h1>
         <table class="table table-bordered table-striped" id="user-table">
             <thead class="bg-primary text-white">

@@ -53,7 +53,10 @@ class UserController extends Controller
     {
         //
         $user->roless()->sync($request->roles);
-        return redirect()->route('admin.users.index');
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+        return redirect()->route('admin.users.index')->with('success', $user->name . ' berhasil diupdate');
     }
 
     /**
@@ -66,7 +69,7 @@ class UserController extends Controller
     {
         //
         if(Gate::denies('delete-users')){
-            return redirect(route('admin.users.index'))->with('danger', 'Anda tidak diperbolehkan menghapus user!');;
+            return redirect(route('admin.users.index'))->with('error', 'Anda tidak diperbolehkan menghapus user!');;
         }
 
         $user->roless()->detach();
