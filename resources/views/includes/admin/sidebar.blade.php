@@ -26,21 +26,33 @@
             <span>Verifikasi</span></a>
         </li>
 
-         {{-- Penetapan --}}
-      <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{url('/adminuniversitas')}}" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-gavel"></i>Penetapan</a>
-    <div class="dropdown-menu">
-    <h6>
-      <li class="nav-item"><a class="dropdown-item" href="{{ url ('/nrangkings') }}">Nominasi Rangking</a>
-      <a class="dropdown-item" href="{{ url ('/pnominasis') }}">Penetapan Lolos</a>
-      <!-- <a class="dropdown-item" href="{{ url ('/pengusulans') }}">Pengusulan Nominasi</a> -->
+        
 
+         <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-gavel"></i>
+          <span>Monitoring</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{url('/dashboard')}}">
+              <i class="nav-icon far fa-eye"></i>
+                Data Mahasiswa
+            </a>
+            <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{url('/hasil_mhs')}}">
+            <i class="nav-icon fas fa-th-list"></i>
+                Hasil_ex
+            </a>
+         
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{url('/dashboard_hasil')}}">
+            <i class="nav-icon fas fa-th-list"></i>
+                Hasil
+            </a>
+      </li>
 
-
-
-        </h6>
-    </div>
-  </li>
 
 
         <!-- Divider -->

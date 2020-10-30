@@ -2,17 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\{Nrangking,Adminuniv,Pendaftaran};
+namespace App\Http\Controllers;
+use App\References\RefFakultas;
+use App\PenawaranKuotaFakultas;
+use App\{PendaftarPenawaran, Nrangking,Adminuniv,Pendaftaran, Mahasiswa, Prodi, Penawaran};
 use App\Exports\AdminUnivExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
+use \PDF;
+use DB;
 
-class NRangkingsController extends Controller
+class DataController extends Controller
 {
+    public function dashboard(){
 
-        public function index(){
-         $nrangking = DB::table('bea_pendaftar_penawaran')
+         $adminuniv = Adminuniv::all();
+         return view('pages.admin.univ.dashboard_monitoring',['dashboard_nrangking' => $adminuniv]);
+    }
+        public function index($nrangking){
+          $nrangking = DB::table('bea_pendaftar_penawaran')->where('id_penawaran', $nrangking)
             ->join('bea_mahasiswa', 'bea_mahasiswa.nim', '=', 'bea_pendaftar_penawaran.nim')
             ->join('bea_ref_prodi', 'bea_ref_prodi.id_prodi', '=', 'bea_mahasiswa.id_prodi')
             ->join('bea_ref_fakultas', 'bea_ref_fakultas.id_fakultas', '=', 'bea_ref_prodi.id_fakultas')
@@ -20,8 +32,15 @@ class NRangkingsController extends Controller
             ->get();
 
             return view('pages.admin.univ.dashboard_datamhs')->with('nrank', $nrangking);
-   }
+    }
 
+    public function cetak_pdf()
+    {
+         
+        $nrangking = Mahasiswa::all();
+        $pdf = PDF::loadview('pages.admin.univ.calon_pdf',['nrank'=>$nrangking]);
+        return $pdf->download('daftar-calon-beasiswa.pdf');
+    }
 
     public function create()
     {
@@ -47,11 +66,10 @@ class NRangkingsController extends Controller
      * @param  \App\NRangking  $nrangking
      * @return \Illuminate\Http\Response
      */
-    public function show($nrangking)
+    public function show()
     {
-        $nrangking = Pendaftaran::where('id_penawaran', $nrangking)->orderBy('ips','desc')->get();
-
-        return view('pages.admin.univ.show_nrangking')->with('nrank', $nrangking);
+        $jenisPenawaran = Penawaran::get();
+        return view('pages.admin.univ.show_hasil', compact('jenisPenawaran'));
     }
 
 
@@ -61,6 +79,12 @@ class NRangkingsController extends Controller
         return Excel::download(new AdminUnivExport(1), 'tes.xlsx');
     }
 
+
+    public function dashboard_hasil(){
+
+         $adminuniv = Adminuniv::all();
+         return view('pages.admin.univ.dashboard_hasil',['dashboard_nrangking' => $adminuniv]);
+    }
 
     public function edit(Nrangking $nrangking)
     {

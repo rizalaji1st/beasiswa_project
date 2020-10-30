@@ -27,19 +27,15 @@ Route::get('/pendaftaran', 'PendaftaranController@index');
 Route::post('/adminuniversitas', 'AdminunivController@store');
 Route::get('/pendaftaran/{adminuniv}', 'PendaftaranController@create');
 
-//nominasi ranking
-
-Route::get('/nrangkings', 'NrangkingsController@index');
-Route::get('/pnominasis', 'PNominasisController@index');
-Route::get('/pengusulans', 'PengusulansController@index');
-
-Route::get('/nrangking/{nrangking}', 'NrangkingsController@show');
-//Route::get('/nrangkings', 'NrangkingsController@index');
-Route::get('/nrangkings/export_excel', 'NrangkingsController@export_excel');
-Route::post('/pnominasis/import_excel', 'PNominasisController@import_excel');
+//monitoring
+Route::get('/dashboard', 'DataController@dashboard');
+Route::get('/data_mhs/{nrangking}', 'DataController@index');
+Route::get('/nrangking/cetak_pdf', 'DataController@cetak_pdf');
+Route::get('/hasil_mhs', 'DataController@show');
+Route::get('/dashboard_hasil', 'DataController@dashboard_hasil');
 
 
-//route pengusulna nominasi rev
+
 
 
 //Route::get('/article', 'WebController@index');
