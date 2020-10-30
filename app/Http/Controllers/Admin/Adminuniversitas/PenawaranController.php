@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use App\References\RefKriteria;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PenawaranController extends Controller
