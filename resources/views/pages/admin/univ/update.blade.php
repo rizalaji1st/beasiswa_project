@@ -2,7 +2,7 @@
 @section('title', 'Ubah Penawaran')
 @section('content')
     <div class="container col-10 mb-5 mt-5">
-        <h1>Ubah Penawaran Beasiswa</h1>
+        <h1>Edit {{$adminuniv->nama_penawaran}}</h1>
         <h3 class="mt-5 mb-3">Informasi Umum</h3>
         <form method="post" action="/adminuniversitas/{{$adminuniv->id_penawaran}}" enctype="multipart/form-data">
             @method('patch')
@@ -57,7 +57,7 @@
 
                 {{-- kuota Total --}}
                 <div class="form-group kuota-total" id="kuota-total" style="display: none">
-                    <input type="number" class="form-control @error('jml_kuota') is-invalid @enderror" id="jml_kuota" name="jml_kuota"  placeholder="masukan jumlah kuota penerima" value="{{$adminuniv->jml_kuota}}">
+                    <input type="number" class="form-control @error('jml_kuota') is-invalid @enderror" id="jml_kuota" name="jml_kuota"  placeholder="masukkan jumlah kuota penerima" value="{{$adminuniv->jml_kuota}}">
                     <input type="text" class="form-control" id="is_total" name="is_total" hidden>
                     @error('jml_kuota')
                         <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
@@ -255,6 +255,15 @@
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <br>
+            {{-- deskripsi --}}
+            <h4 class="mt-5 mb-3">Deskripsi</h4>
+            <div class="form-group">
+            <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" placeholder="Tulis Deskripsi Beasiswa" rows="5" name="deskripsi" required>{{$adminuniv->deskripsi}}</textarea>
+                @error('deskripsi')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
+            </div>
             <h4 class="mt-5 mb-3">Ketentuan</h4>
             <div class="form-group">
                 <label for="ips">Indek Prestasi Semester</label>
@@ -302,13 +311,48 @@
                     <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            {{-- deskripsi --}}
+            
+            {{-- Penilaian --}}
+            {{-- bobot penilaian --}}
+            <h3 class="mt-5 mb-4">Bobot Penilaian</h3>
+            <div class="form-group" id="form-penilaian">
+                <label for="penilaian">Masukkan Bobot Penilaian</label>
+                @foreach ($adminuniv->KriteriaPenilaian as $item)
+                    <div class="container card p-3 mb-3" id="penilaianAda{{$loop->iteration}}">
+                        <div class="row">
+                            <div class="col">
+                                <h6>Masukkan Kriteria</h6>
+                            </div>
+                            <div class="col-1">
+                                <button class="close hapus-penilaian" type="button" id="penilaianAda{{$loop->iteration}}">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col form-group">
+                                <select name="penilaianAda{{$loop->iteration}}" id="" class="form-control custom-select fstdropdown">
+                                    <option value="">--pilih salah satu--</option>
+                                    @foreach ($kriteria as $itemKriteria)
+                                        <option value="{{$itemKriteria->nama_kriteria}}" 
+                                            {{$itemKriteria->nama_kriteria ==  $item->nama_kriteria? 'selected' : ''}}
+                                            >{{$itemKriteria->nama_kriteria}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col form-group">
+                                <label for="penilaianAda{{$loop->iteration}}Bobot">Masukkan bobot</label>
+                                <input type="number" class="form-control" placeholder="masukkan bobot nilai 1-100" name="penilaianAda{{$loop->iteration}}Bobot" value="{{$item->bobot}}" required >
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <button  type="button" class="btn btn-secondary btn-penilaian mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
             <div class="form-group">
-                <label for="deskripsi">Deskripsi</label>
-            <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" placeholder="Tulis Deskripsi Beasiswa" rows="5" name="deskripsi" >{{$adminuniv->deskripsi}}</textarea>
-                @error('deskripsi')
-                    <div class="invalid-feedback">{{$message}}</div>
-                @enderror
+                <input type="text" name="myCountPenilaian" id="myCountPenilaian" hidden>
             </div>
 
             {{-- lampiran --}}
@@ -356,7 +400,7 @@
                     <div class="row">
                         <div class="col form-group">
                             <label for="lampiranAda{{$loop->iteration}}Deskripsi">Deskripsi</label>
-                            <textarea class="form-control" name="lampiranAda{{$loop->iteration}}Deskripsi" rows="5" required placeholder="tulis deskripsi file">{{$lampiran->deskripsi}}</textarea>
+                            <textarea class="form-control" name="lampiranAda{{$loop->iteration}}Deskripsi" rows="5" placeholder="tulis deskripsi file">{{$lampiran->deskripsi}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -456,6 +500,137 @@
       selector: '#deskripsi'
     });
   </script>
+@endpush
+@push('addon-script')
+    <script type="text/javascript">
+        var countPenilaian = 0;
+        var myNamePenilaian = [];
+
+        //menghapus penilaian
+        function removeDataPenilaian(){
+            var att = this.id;
+            var ids = "#"+att;
+            removeA(myNamePenilaian, att);
+            console.log(myNamePenilaian);
+            document.getElementById("myCountPenilaian").value = myNamePenilaian;
+            $(ids).remove();
+        }
+        
+        //untuk menampilkan bobot menilaian
+        function addPenilaian(){
+            countPenilaian++;
+            var cls = "penilaian"+countPenilaian;
+            var clsName = "penilaian"+countPenilaian+"Bobot";
+            //title-------------------------------------------
+            var judul = document.createElement("h6");
+            judul.innerHTML="Masukkan Kriteria";
+
+            var span = document.createElement("span");
+            span.setAttribute("aria-hidden","true");
+            span.innerHTML="&times;";
+
+            var button = document.createElement("button");
+            button.setAttribute("class","close hapus-penilaian");
+            button.setAttribute("type","button");
+            button.setAttribute("id",cls);
+            button.appendChild(span);
+
+            var colButton = document.createElement("div");
+            colButton.setAttribute("class","col-1");
+            colButton.appendChild(button);
+
+            var colJudul = document.createElement("div");
+            colJudul.setAttribute("class","col");
+            colJudul.appendChild(judul);
+
+            var row1 = document.createElement("div");
+            row1.setAttribute("class","row");
+            row1.appendChild(colJudul);
+            row1.appendChild(colButton);
+
+            //nama krteria------------------------------------------------------------------------------
+
+            var option = document.createElement("option");
+            option.innerHTML="--pilih salah satu--";
+
+            var select = document.createElement("select");
+            select.setAttribute("class","form-control custom-select fstdropdown");
+            select.setAttribute("name", cls);
+            select.setAttribute("id", cls);
+            select.setAttribute("required","");
+            select.appendChild(option);
+            kriteria(select);
+
+            var divcol1 = document.createElement("div");
+            divcol1.setAttribute("class","col form-group");
+            divcol1.appendChild(select);
+
+            var row2 = document.createElement("div");
+            row2.setAttribute("class","row");
+            row2.appendChild(divcol1);
+
+            // masukkan bobot------------------------------------------------------------------------------
+            var labelNama = document.createElement("label");
+            labelNama.setAttribute("for",clsName);
+            labelNama.innerHTML="Masukkan Bobot";
+
+            var inputNama = document.createElement("input");
+            inputNama.setAttribute("class","form-control");
+            inputNama.setAttribute("type","number");
+            inputNama.setAttribute("placeholder","masukkan bobot nilai 0-100");
+            inputNama.setAttribute("name",clsName);
+            inputNama.setAttribute("required","");
+
+            var colNama = document.createElement("div");
+            colNama.setAttribute("class","col form-group");
+            colNama.appendChild(labelNama);
+            colNama.appendChild(inputNama);
+
+            var row3 = document.createElement("div");
+            row3.setAttribute("class","row");
+            row3.appendChild(colNama);
+            
+            var divr = document.createElement("div");
+            divr.setAttribute("class","container card p-3 mb-3");
+            divr.setAttribute("id",cls);
+            divr.appendChild(row1);
+            divr.appendChild(row2);
+            divr.appendChild(row3);
+
+            document.getElementById("form-penilaian").appendChild(divr);
+            myNamePenilaian.push(cls);
+            console.log(myNamePenilaian);
+            document.getElementById("myCountPenilaian").value = myNamePenilaian;
+            $( ".hapus-penilaian" ).on( "click", removeDataPenilaian );
+        }
+
+        $( ".btn-penilaian" ).on( "click", addPenilaian);
+        $( ".hapus-penilaian" ).on( "click", removeDataPenilaian );
+        
+
+        //function remove element by value
+        function removeA(arr) {
+            var what, a = arguments, L = a.length, ax;
+            while (L > 1 && arr.length) {
+                what = a[--L];
+                while ((ax= arr.indexOf(what)) !== -1) {
+                    arr.splice(ax, 1);
+                }
+            }
+            return arr;
+        }
+
+        function kriteria(select){
+            var i = 0;
+            var refkriteria = <?php echo json_encode($kriteria); ?>;
+            for(; i < refkriteria.length ; i++){
+                var option = document.createElement("option");
+                option.setAttribute("value", refkriteria[i]['nama_kriteria']);
+                option.innerHTML=refkriteria[i]['nama_kriteria'];
+                select.appendChild(option);
+            }
+        }
+    </script>
 @endpush
 @push('addon-script')
         <script type="text/javascript">
@@ -666,7 +841,6 @@
             textDeskripsi.setAttribute("placeholder","Tulis deskripsi file");
             textDeskripsi.setAttribute("rows","5");
             textDeskripsi.setAttribute("name",clsDeskripsi);
-            textDeskripsi.setAttribute("required","");
 
             var colDeskripsi = document.createElement("div");
             colDeskripsi.setAttribute("class","col form-group");

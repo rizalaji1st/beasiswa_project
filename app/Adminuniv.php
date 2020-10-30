@@ -87,4 +87,8 @@ class Adminuniv extends Model
     {
         return $this->hasMany('App\References\RefJenisFile', 'id_jenis_file', 'id_jenis_file');
     }
+    public function kriteriaPenilaian()
+    {
+        return $this->hasMany(BeaPenawaranKriteria::class, 'id_penawaran', 'id_penawaran');
+    }
 }

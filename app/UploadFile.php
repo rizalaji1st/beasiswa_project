@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UploadFile extends Model
 {
     //
+    use SoftDeletes;
     protected $table = "bea_upload_file";
     protected $primaryKey = "id_upload_file";
 

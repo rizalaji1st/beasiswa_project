@@ -9,5 +9,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css'>
-<link rel="stylesheet" href="{{url('backend/vendor/fstdropdown/css/fstdropdown.min.css')}}">
+<link rel="stylesheet" href="{{url('backend/vendor/parsley/parsley.css')}}">
+{{-- <link rel="stylesheet" href="{{url('backend/vendor/fstdropdown/css/fstdropdown.min.css')}}"> --}}
 <link rel="stylesheet" href="{{url('frontend/admin/style.css')}}">

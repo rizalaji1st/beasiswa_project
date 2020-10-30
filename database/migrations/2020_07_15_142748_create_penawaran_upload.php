@@ -23,7 +23,7 @@ class CreatePenawaranUpload extends Migration
             $table->string('nama_upload');
             $table->string('path_file');
             $table->string('nama_file');
-            $table->string('deskripsi');
+            $table->string('deskripsi')->nullable();
             $table->string('ekstensi');
             $table->integer('size');
             $table->softDeletes();
