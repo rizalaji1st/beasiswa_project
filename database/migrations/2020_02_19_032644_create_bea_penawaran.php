@@ -32,9 +32,9 @@ class CreateBeaPenawaran extends Migration
             $table->float('ips');
             $table->float('ipk');
             $table->integer('max_penghasilan');
-            $table->integer('tahun_dasar_akademik');
+            $table->string('tahun_dasar_akademik');
             $table->boolean('is_double');
-            $table->boolean('is_finalisasi');
+            $table->boolean('is_finalisasi')->default(false);
             $table->dateTime('tgl_finalisasi');
             $table->integer('min_semester');
             $table->integer('max_semester');

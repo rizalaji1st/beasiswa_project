@@ -24,7 +24,7 @@ class CreatePenawaranUpload extends Migration
             $table->string('path_file');
             $table->string('nama_file');
             $table->string('deskripsi');
-            $table->string('ektensi');
+            $table->string('ekstensi');
             $table->integer('size');
             $table->softDeletes();
             $table->timestamps();

@@ -10,8 +10,8 @@ class RefJenisFile extends Model
     protected $table = 'bea_ref_jenis_file';
     protected $primaryKey = 'id_jenis_file';
 
-    public function uploadFile()
+    public function refJenisFile()
     {
-        $this->belongsTo(Adminuniv::class, 'id_jenis_file', 'id_jenis_file');
+        return $this->hasMany('App\UploadFile', 'id_jenis_file', 'id_jenis_file');
     }
 }
