@@ -52,29 +52,40 @@ class Penawaran extends Model
     public function penawaranUpload(){
         return $this->hasMany(PenawaranUpload::class, 'id_penawaran', 'id_penawaran');
     }
-    
+
     protected $guarded = [];
 
-    public function pendaftaran(){
+    public function pendaftaran()
+    {
         return $this->hasMany(Pendaftaran::class);
     }
-    
-    public function getKuotaFakultas(){
+
+    public function getKuotaFakultas()
+    {
         return $this->hasMany(PenawaranKuotaFakultas::class, 'id_penawaran', 'id_penawaran');
     }
 
-    public function refFakultas(){
-        return $this->hasManyThrough('App\References\RefFakultas','App\PenawaranKuotaFakultas', 'id_penawaran','id_fakultas','id_penawaran','id_fakultas');
+    public function refFakultas()
+    {
+        return $this->hasManyThrough('App\References\RefFakultas', 'App\PenawaranKuotaFakultas', 'id_penawaran', 'id_fakultas', 'id_penawaran', 'id_fakultas');
     }
 
-    public function refJenisPenawaran(){
-        return $this->hasOne('App\References\RefJenisBeasiswa','id_jenis_beasiswa','id_jenis_beasiswa');
+    public function refJenisPenawaran()
+    {
+        return $this->hasOne('App\References\RefJenisBeasiswa', 'id_jenis_beasiswa', 'id_jenis_beasiswa');
     }
 
-    public function lampiranPendaftar(){
-        return $this->hasMany(UploadFile::class, 'id_penawaran','id_penawaran');
+    public function lampiranPendaftar()
+    {
+        return $this->hasMany(UploadFile::class, 'id_penawaran', 'id_penawaran');
     }
-    public function kriteriaPenilaian(){
-        return $this->hasMany(BeaPenawaranKriteria::class, 'id_penawaran','id_penawaran');
+
+    public function uploadFile()
+    {
+        return $this->hasMany('App\References\RefJenisFile', 'id_jenis_file', 'id_jenis_file');
+    }
+    public function kriteriaPenilaian()
+    {
+        return $this->hasMany(BeaPenawaranKriteria::class, 'id_penawaran', 'id_penawaran');
     }
 }

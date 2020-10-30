@@ -2,7 +2,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/adminuniversitas">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.penawarans.index')}}">
           <div class="sidebar-brand-text mx-3">Admin Beasiswa</sup></div>
         </a>
 

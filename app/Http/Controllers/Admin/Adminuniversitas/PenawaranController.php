@@ -151,7 +151,7 @@ class PenawaranController extends Controller
                     $extension = $request->file($upload)->extension();
                     $size = $request->file($upload)->getSize();
                     $filenameWithExt = $request->file($upload)->getClientOriginalName();
-                    $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME).'_'.date('dmyHis') . '.' . $extension;
+                    $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME) . '_' . date('dmyHis') . '.' . $extension;
                     $this->validate($request, [$upload => 'required|file|max:5000']);
                     $path = Storage::putFileAs('public/data_file/penawaran_upload', $request->file($upload), $filename);
                     $penawaranCreate->penawaranUpload()->create([
@@ -241,7 +241,7 @@ class PenawaranController extends Controller
             $nama = "lampiranPendaftarAda" . $iPendaftar;
             $hasilPendaftar[$item->id_jenis_file] = $request->$nama;
 
-            if($hasilPendaftar[$item->id_jenis_file] == null){
+            if ($hasilPendaftar[$item->id_jenis_file] == null) {
                 UploadFile::destroy($item->id_upload_file);
             } else {
                 if ($hasilPendaftar[$item->id_jenis_file] != $item->id_jenis_file) {
@@ -252,15 +252,14 @@ class PenawaranController extends Controller
                 }
             }
             $iPendaftar += 1;
-
         }
 
         //update lampiran yang sudah ada
         foreach ($penawaran->penawaranUpload as $item) {
             $nama = "lampiranAda" . $i;
-            $uploadSebagai = "lampiranAda" . $i ."Name";
+            $uploadSebagai = "lampiranAda" . $i . "Name";
             $deskripsi = "lampiranAda" . $i . "Deskripsi";
-            $upload = "lampiranAda".$i."Upload";
+            $upload = "lampiranAda" . $i . "Upload";
 
             $hasil[$item->id_jenis_file] = $request->$nama;
             $hasil[$item->nama_upload] = $request->$uploadSebagai;
@@ -288,15 +287,15 @@ class PenawaranController extends Controller
                     Storage::delete($item->path_file);
                     $extension = $request->file($upload)->extension();
                     $size = $request->file($upload)->getSize();
-                    $filename = date('dmyHis').Str::random(4).'.'.$extension;
-                    $this->validate($request, [$upload=>'required|file|max:5000']);
-                    $path = Storage::putFileAs('public/data_file/penawaran_upload',$request->file($upload), $filename);
+                    $filename = date('dmyHis') . Str::random(4) . '.' . $extension;
+                    $this->validate($request, [$upload => 'required|file|max:5000']);
+                    $path = Storage::putFileAs('public/data_file/penawaran_upload', $request->file($upload), $filename);
                     PenawaranUpload::where('id_penawaran_upload', $item->id_penawaran_upload)->update([
-                          'path_file' => $path,
-                          'nama_file' => $filename,
-                          'ekstensi' => $extension,
-                          'size' => $size,
-                      ]);  
+                        'path_file' => $path,
+                        'nama_file' => $filename,
+                        'ekstensi' => $extension,
+                        'size' => $size,
+                    ]);
                 }
             }
             $i += 1;
@@ -353,17 +352,16 @@ class PenawaranController extends Controller
             $hasilPenilaian[$item->nama_kriteria] = $request->$nama;
             $hasilPenilaian[$item->bobot] = $request->$bobot;
 
-            if($hasilPenilaian[$item->nama_kriteria] == null){
+            if ($hasilPenilaian[$item->nama_kriteria] == null) {
                 BeaPenawaranKriteria::destroy($item->id_kriteria);
-            }
-            else {
-                if($hasilPenilaian[$item->nama_kriteria] != $item->nama_kriteria){
+            } else {
+                if ($hasilPenilaian[$item->nama_kriteria] != $item->nama_kriteria) {
                     BeaPenawaranKriteria::where('id_kriteria', $item->id_kriteria)
-                    ->update(array('nama_kriteria' => $hasilPenilaian[$item->nama_kriteria]));
+                        ->update(array('nama_kriteria' => $hasilPenilaian[$item->nama_kriteria]));
                 }
-                if($hasilPenilaian[$item->bobot] != $item->bobot){
+                if ($hasilPenilaian[$item->bobot] != $item->bobot) {
                     BeaPenawaranKriteria::where('id_kriteria', $item->id_kriteria)
-                    ->update(array('bobot' => $hasilPenilaian[$item->bobot]));
+                        ->update(array('bobot' => $hasilPenilaian[$item->bobot]));
                 }
             }
             $iPenilaian++;
