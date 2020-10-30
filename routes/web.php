@@ -46,5 +46,5 @@ Route::get('/', 'PendaftaranController@index');
 
 Route::get('/{adminuniv}', 'PendaftaranController@create');
 Route::post('/', 'PendaftaranController@store');
-Route::get('/detail/{adminuniv}', 'PendaftaranController@detail');
-Route::get('/daftar/{adminuniv}', 'PendaftaranController@daftar');
+Route::get('/detail/{adminuniv}/', 'PendaftaranController@detail');
+Route::get('/daftar/{adminuniv}/', 'PendaftaranController@daftar');
