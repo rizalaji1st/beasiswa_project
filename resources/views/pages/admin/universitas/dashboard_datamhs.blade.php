@@ -12,7 +12,7 @@
                 </div>
             @endif
         </div>
-<h3 class="mt-2 mb-2">DAFTAR MAHASISWA LOLOS BEASISWA</h3>
+<h3 class="mt-2 mb-2">DAFTAR CALON MAHASISWA PENERIMA BEASISWA</h3>
 <a href="/nrangking/cetak_pdf" class="btn btn-primary" target="_blank">CETAK PDF</a>
         <table class='table table-bordered'>
         <div class="row">
@@ -65,4 +65,3 @@
         } );
     </script>
 @endpush
-

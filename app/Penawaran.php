@@ -88,4 +88,12 @@ class Penawaran extends Model
     {
         return $this->hasMany(BeaPenawaranKriteria::class, 'id_penawaran', 'id_penawaran');
     }
+
+    public function pendaftarPenawaran(){
+        return $this->hasMany(PendaftarPenawaran::class, 'id_penawaran', 'id_penawaran');
+    }
+
+    public function beaMahasiswa(){
+        return $this->belongsTo(Mahasiswa::class, 'nim', 'nim');
+    }
 }
