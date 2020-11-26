@@ -1,23 +1,30 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Adminuniversitas;
 
-use App\Adminuniv;
+use App\Http\Controllers\Controller;
+use App\Penawaran;
 use App\BeaPenawaranKriteria;
 use App\PenawaranUpload;
 use App\PenawaranKuotaFakultas;
 use App\Http\Requests\PenawaranRequest;
 use App\References\RefFakultas;
 use App\References\RefJenisBeasiswa;
-use App\References\RefJenisFile;
+use App\References\RefJenisFile; 
 use App\UploadFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use App\References\RefKriteria;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class AdminunivController extends Controller
+class PenawaranController extends Controller
 {
+    public function __construct()
+    {
+        return $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,14 +33,8 @@ class AdminunivController extends Controller
     public function index()
     {
         //
-        $beasiswas = Adminuniv::all();
-        return view('pages.admin.univ.dashboard', ['beasiswas' => $beasiswas]);
-    }
-
-
-    public function post()
-    {
-        return $this->hasMany(Post::class);
+        $beasiswas = Penawaran::all();
+        return view('pages.admin.universitas.penawaran.index', ['beasiswas' => $beasiswas]);
     }
 
     /**
@@ -47,8 +48,8 @@ class AdminunivController extends Controller
         $jenisBeasiswa = RefJenisBeasiswa::get();
         $lampiran = RefJenisFile::get();
         $kriteria = RefKriteria::get();
-        $years = range(Carbon::now()->year - 5, Carbon::now()->year + 4);
-        return view('pages.admin.univ.create', compact('jenisBeasiswa', 'lampiran', 'kriteria', 'years'));
+        $years = range(Carbon::now()->year-5,Carbon::now()->year+4);
+        return view('pages.admin.universitas.penawaran.create', compact('jenisBeasiswa', 'lampiran','kriteria','years'));
     }
 
     /**
@@ -62,10 +63,11 @@ class AdminunivController extends Controller
         //mengambil semua data
         $penawaran = $request->all();
         $penawaran['tahun'] = $request->tgl_awal_penawaran;
-        if ($request->is_double == null) {
-            $penawaran['is_double'] = 'false';
-        } else {
-            $penawaran['is_double'] = $request->is_double;
+        $penawaran['id_user_pembuat'] = Auth::user()->id; 
+        if($request->is_double == null){
+            $penawaran['is_double']='false';
+        }else {
+            $penawaran['is_double']=$request->is_double;
         }
 
         //jika memilih custom kuota fakultas
@@ -93,7 +95,7 @@ class AdminunivController extends Controller
             $penawaran['jml_kuota'] = $jml_kuota;
 
             //insert data ke bea_penawaran 
-            $penawaranCreate = Adminuniv::create($penawaran);
+            $penawaranCreate = Penawaran::create($penawaran);
 
             foreach ($fakultas as $item => $value) {
                 $penawaranCreate->getKuotaFakultas()->create([
@@ -102,7 +104,7 @@ class AdminunivController extends Controller
                 ]);
             }
         } else {
-            $penawaranCreate = Adminuniv::create($penawaran);
+            $penawaranCreate = Penawaran::create($penawaran);
         }
 
         //menambahkan lampiran pendaftar
@@ -165,62 +167,61 @@ class AdminunivController extends Controller
                 }
             };
         };
-        return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
+        return redirect('/admin/penawarans')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Adminuniv  $adminuniv
+     * @param  \App\Penawaran  $penawaran
      * @return \Illuminate\Http\Response
      */
-    public function show(Adminuniv $adminuniv)
-    {
-
-        $fakultas = PenawaranKuotaFakultas::with('refFakultas')->where('id_penawaran', $adminuniv->id_penawaran)->get();
-        $lampiranPendaftar = UploadFile::with('refJenisFile')->where('id_penawaran', $adminuniv->id_penawaran)->get();
-        return view('pages.admin.univ.show', compact('adminuniv', 'fakultas', 'lampiranPendaftar'));
-        return redirect('/adminuniversitas')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
+    public function show(Penawaran $penawaran)
+    {  
+        $fakultas = PenawaranKuotaFakultas::with('refFakultas')->where('id_penawaran',$penawaran->id_penawaran)->get();
+        $lampiranPendaftar = UploadFile::with('refJenisFile')->where('id_penawaran',$penawaran->id_penawaran)->get();
+        return view('pages.admin.universitas.penawaran.show', compact('penawaran','fakultas','lampiranPendaftar'));
+        return redirect('/admin/penawarans')->with('success', 'Data Penawaran Beasiswa Berhasil Ditambahkan');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Adminuniv  $adminuniv
+     * @param  \App\Penawaran  $penawaran
      * @return \Illuminate\Http\Response
      */
-    public function edit(Adminuniv $adminuniv)
+    public function edit(Penawaran $penawaran)
     {
         //
         $jenisBeasiswa = RefJenisBeasiswa::get();
         $refJenisFile = RefJenisFile::get();
         $kriteria = RefKriteria::get();
         $refFakultas = RefFakultas::get();
-        $years = range(Carbon::now()->year - 5, Carbon::now()->year + 4);
-        return view('pages.admin.univ.update', compact('adminuniv', 'jenisBeasiswa', 'refJenisFile', 'refFakultas', 'kriteria', 'years'));
+        $years = range(Carbon::now()->year-5,Carbon::now()->year+4);
+        return view('pages.admin.universitas.penawaran.update', compact('penawaran', 'jenisBeasiswa', 'refJenisFile', 'refFakultas','kriteria','years'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Adminuniv  $adminuniv
+     * @param  \App\Penawaran  $penawaran
      * @return \Illuminate\Http\Response
      */
-    public function update(PenawaranRequest $request, Adminuniv $adminuniv)
+    public function update(PenawaranRequest $request, Penawaran $penawaran)
     {
 
-        $penawaran = $request->all();
-        $penawaran['tahun'] = $request->tgl_awal_penawaran;
-        if ($request->is_double == null) {
-            $penawaran['is_double'] = 'false';
-        } else {
-            $penawaran['is_double'] = $request->is_double;
+        $penawaran2 = $request->all();
+        $penawaran2['tahun'] = $request->tgl_awal_penawaran;
+        if($request->is_double == null){
+            $penawaran2['is_double']='false';
+        }else {
+            $penawaran2['is_double']=$request->is_double;
         }
 
         //update penawaran
-        $penawaranUpdate = Adminuniv::findOrFail($adminuniv->id_penawaran);
-        $penawaranUpdate->update($penawaran);
+        $penawaranUpdate = Penawaran::findOrFail($penawaran->id_penawaran);
+        $penawaranUpdate->update($penawaran2);
 
         $hasil = [];
         $hasilPendaftar = [];
@@ -236,7 +237,7 @@ class AdminunivController extends Controller
         $dlampiran += 1;
 
         //update lampiran pendaftar yang sudah ada
-        foreach ($adminuniv->lampiranPendaftar as $item) {
+        foreach($penawaran->lampiranPendaftar as $item){
             $nama = "lampiranPendaftarAda" . $iPendaftar;
             $hasilPendaftar[$item->id_jenis_file] = $request->$nama;
 
@@ -254,7 +255,7 @@ class AdminunivController extends Controller
         }
 
         //update lampiran yang sudah ada
-        foreach ($adminuniv->penawaranUpload as $item) {
+        foreach ($penawaran->penawaranUpload as $item) {
             $nama = "lampiranAda" . $i;
             $uploadSebagai = "lampiranAda" . $i . "Name";
             $deskripsi = "lampiranAda" . $i . "Deskripsi";
@@ -345,9 +346,9 @@ class AdminunivController extends Controller
         };
 
         //update penilaian yang sudah ada
-        foreach ($adminuniv->kriteriaPenilaian as $item) {
-            $nama = "penilaianAda" . $iPenilaian;
-            $bobot = "penilaianAda" . $iPenilaian . "Bobot";
+        foreach($penawaran->kriteriaPenilaian as $item){
+            $nama = "penilaianAda".$iPenilaian;
+            $bobot = "penilaianAda".$iPenilaian."Bobot";
             $hasilPenilaian[$item->nama_kriteria] = $request->$nama;
             $hasilPenilaian[$item->bobot] = $request->$bobot;
 
@@ -386,7 +387,7 @@ class AdminunivController extends Controller
         if ($request->fakultas1 != null) {
             $i = 1;
             $jml_kuota = 0;
-            foreach ($adminuniv->getKuotaFakultas as $item) {
+            foreach ($penawaran->getKuotaFakultas as $item) {
                 $name = "fakultas" . $i;
                 if ($request->$name == null) {
                     PenawaranKuotaFakultas::where('id_penawaran_kuota_fakultas', $item->id_penawaran_kuota_fakultas)
@@ -459,22 +460,22 @@ class AdminunivController extends Controller
             }
         }
 
-        return redirect('/adminuniversitas/' . $adminuniv->id_penawaran)->with('success', 'Data Penawaran Beasiswa Berhasil Diubah');
+        return redirect('/admin/penawarans/' . $penawaran->id_penawaran)->with('success', 'Data Penawaran Beasiswa Berhasil Diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Adminuniv  $adminuniv
+     * @param  \App\Penawaran  $penawaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Adminuniv $adminuniv)
+    public function destroy(Penawaran $penawaran)
     {
         //hapus penawaran
-        Adminuniv::destroy($adminuniv->id_penawaran);
-
+        Penawaran::destroy($penawaran->id_penawaran);
+        
         //hapus penawaran upload
-        foreach ($adminuniv->penawaranUpload as $item) {
+        foreach ($penawaran->penawaranUpload as $item) {
             PenawaranUpload::destroy($item->id_penawaran_upload);
 
             //untuk delete file jika dihapus
@@ -482,19 +483,19 @@ class AdminunivController extends Controller
         }
 
         // hapus kuota fakultas
-        foreach ($adminuniv->getKuotaFakultas as $item) {
+        foreach ($penawaran->getKuotaFakultas as $item) {
             PenawaranKuotaFakultas::destroy($item->id_penawaran_kuota_fakultas);
         }
 
         //hapus lampiran pendaftar
-        foreach ($adminuniv->lampiranPendaftar as $item) {
+        foreach ($penawaran->lampiranPendaftar as $item) {
             UploadFile::destroy($item->id_upload_file);
         }
         //hapus lampiran pendaftar
-        foreach ($adminuniv->kriteriaPenilaian as $item) {
+        foreach ($penawaran->kriteriaPenilaian as $item) {
             BeaPenawaranKriteria::destroy($item->id_kriteria);
         }
 
-        return redirect('/adminuniversitas')->with('success', 'Data berhasil dihapus');
+        return redirect('admin/penawarans')->with('success','Data berhasil dihapus');
     }
 }

@@ -11,20 +11,25 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/adminuniversitas', 'AdminunivController@index');
-Route::get('/adminuniversitas/create', 'AdminunivController@create');
-Route::post('/adminuniversitas', 'AdminunivController@store');
-Route::get('/adminuniversitas/{adminuniv}', 'AdminunivController@show');
-Route::patch('/adminuniversitas/{adminuniv}', 'AdminunivController@update');
-Route::put('/adminuniversitas/{adminuniv}', 'AdminunivController@edit');
-Route::delete('/adminuniversitas/{adminuniv}', 'AdminunivController@destroy');
+
+Auth::routes();
+Route::namespace('Admin')
+        ->prefix('admin')
+        ->name('admin.')
+        //->middleware('can:manage-users')
+        ->group(function(){
+            Route::resource('/users', 'UserController', ['except' => ['store','show', 'create']]);
+            Route::resource('/penawarans', 'Adminuniversitas\PenawaranController');
+            Route::resource('/nominasi', 'Adminuniversitas\NominasiController');
+            
+});
 
 
 //Route::get('/adminuniversitas/penetapan/pnominasi_index','AdminunivPNominasiController@index');
 Route::get('/pendaftaran', 'PendaftaranController@index');
-Route::post('/adminuniversitas', 'AdminunivController@store');
 Route::get('/pendaftaran/{adminuniv}', 'PendaftaranController@create');
 
 //monitoring
@@ -36,11 +41,6 @@ Route::get('/dashboard_hasil', 'DataController@dashboard_hasil');
 
 
 
-
-
-//Route::get('/article', 'WebController@index');
-
-Route::post('/adminuniversitas', 'AdminunivController@store');
 
 Route::get('/', 'PendaftaranController@index');
 

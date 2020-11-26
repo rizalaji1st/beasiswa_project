@@ -6,7 +6,7 @@ use App\Pendaftaran;
 use App\FilePendaftar;
 use App\UploadFile;
 use App\PenawaranUpload;
-use App\Adminuniv;
+use App\Penawaran;
 use App\Http\Requests\PenawaranRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,18 +18,17 @@ class PendaftaranController extends Controller
 
     public function index()
     {
-        $adminuniv = Adminuniv::all();
-        // $file = UploadFile::get();
-        return view('pages.pendaftaran.home', compact('adminuniv'));
+        $beasiswas = Penawaran::all();
+        return view('pages.pendaftaran.home', ['beasiswas' => $beasiswas]);
     }
 
     public function article()
     {
-        return $this->belongsTo('App\Adminuniv');
+        return $this->belongsTo('App\Penawaran');
     }
 
     // public function article(){
-    //     return $this->belongsTo('App\Adminuniv');
+    //     return $this->belongsTo('App\penawaran');
     // }
 
     public function post()
@@ -76,14 +75,14 @@ class PendaftaranController extends Controller
         //
     }
 
-    public function detail(Adminuniv $adminuniv)
+    public function detail(Penawaran $penawaran)
     {
-        return view('pages.pendaftaran.detail', compact('adminuniv'));
+        return view('pages.pendaftaran.detail', compact('penawaran'));
     }
 
-    public function daftar(Adminuniv $adminuniv)
+    public function daftar(Penawaran $penawaran)
     {
-        return view('pages.pendaftaran.daftar', compact('adminuniv'));
+        return view('pages.pendaftaran.daftar', compact('penawaran'));
     }
 
     public function store(Request $request)

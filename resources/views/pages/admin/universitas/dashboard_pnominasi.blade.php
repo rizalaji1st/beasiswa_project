@@ -1,6 +1,6 @@
 @extends('layouts.adminuniv')
 @section('title', 'Admin Universitas')
-@section('status-dashboard', 'active')
+@section('status-penetapan', 'active')
 @section('content')
 
 <div class="container">
