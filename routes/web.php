@@ -17,14 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::namespace('Admin')
-        ->prefix('admin')
-        ->name('admin.')
-        ->middleware('can:manage-users')
-        ->group(function(){
-            Route::resource('/users', 'UserController', ['except' => ['store','show', 'create']]);
-            Route::resource('/penawarans', 'Adminuniversitas\PenawaranController');
-            
-});
+    ->prefix('admin')
+    ->name('admin.')
+    ->middleware('can:manage-users')
+    ->group(function () {
+        Route::resource('/users', 'UserController', ['except' => ['store', 'show', 'create']]);
+        Route::resource('/penawarans', 'Adminuniversitas\PenawaranController');
+    });
 
 
 //Route::get('/adminuniversitas/penetapan/pnominasi_index','AdminunivPNominasiController@index');
@@ -47,5 +46,5 @@ Route::get('/', 'PendaftaranController@index');
 
 Route::get('/{adminuniv}', 'PendaftaranController@create');
 Route::post('/', 'PendaftaranController@store');
-Route::get('/detail/{adminuniv}/', 'PendaftaranController@detail');
-Route::get('/daftar/{adminuniv}/', 'PendaftaranController@daftar');
+Route::get('/detail/{penawaran}', 'PendaftaranController@detail');
+Route::get('/daftar/{penawaran}', 'PendaftaranController@daftar');
