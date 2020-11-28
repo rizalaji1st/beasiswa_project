@@ -56,9 +56,9 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('user')
         ]);
 
-        $admin->roles()->attach($adminRole);
-        $adminuniversitas->roles()->attach($adminuniversitasRole);
-        $adminfakultas->roles()->attach($adminfakultasRole);
-        $user->roles()->attach($userRole);
+        $admin->roless()->attach($adminRole);
+        $adminuniversitas->roless()->attach($adminuniversitasRole);
+        $adminfakultas->roless()->attach($adminfakultasRole);
+        $user->roless()->attach($userRole);
     }
 }

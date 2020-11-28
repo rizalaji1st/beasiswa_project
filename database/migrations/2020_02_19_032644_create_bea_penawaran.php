@@ -35,12 +35,12 @@ class CreateBeaPenawaran extends Migration
             $table->string('tahun_dasar_akademik');
             $table->boolean('is_double');
             $table->boolean('is_finalisasi')->default(false);
-            $table->dateTime('tgl_finalisasi');
+            $table->dateTime('tgl_finalisasi')->nullable();
             $table->integer('min_semester');
             $table->integer('max_semester');
             $table->longText('deskripsi');
-            $table->integer('id_user_finalisasi');
-            $table->integer('id_user_pembuat');
+            $table->integer('id_user_finalisasi')->nullable();
+            $table->integer('id_user_pembuat')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

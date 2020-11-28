@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call(JenisBeasiswaSeeder::class);
         $this->call(RefJenisFile::class);
         $this->call(RefKriteria::class);
+        $this->call(RolesTableSeeder::class);
         $this->call(TableRefFakultasSeeder::class);
+        $this->call(UserTableSeeder::class);
     }
 }
