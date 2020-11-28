@@ -36,4 +36,11 @@ class PendaftarDashController extends Controller
         return view('pages.pendaftaran.dashboard.penawaran.detail', compact('Penawaran'));
         
     }
+
+    public function penawaranDaftar(Penawaran $Penawaran)
+    {
+        
+        return view('pages.pendaftaran.dashboard.penawaran.daftar', compact('Penawaran'));
+        
+    }
 }
