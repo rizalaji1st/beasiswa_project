@@ -8,7 +8,7 @@
 
             <div class="col-lg-3"></div>
             <div class="card shadow col-lg-6">
-                <h3 class="card-title mt-3 text-center">Form Pendaftaran Beasiswa {{$adminuniv->nama_penawaran}}</h3>
+                <h3 class="card-title mt-3 text-center">Form Pendaftaran Beasiswa {{$penawaran->nama_penawaran}}</h3>
                 <form method="post" action="/" enctype="multipart/form-data">
                     @csrf
                     <div class=" form-group mt-3">
@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="id_penawaran">ID Penawaran</label>
-                        <input type="text" name="id_penawaran" value="{{$adminuniv->id_penawaran}}" class="form-control @error('id_penawaran') is-invalid @enderror" id="id_penawaran" readonly>
+                        <input type="text" name="id_penawaran" value="{{$penawaran->id_penawaran}}" class="form-control @error('id_penawaran') is-invalid @enderror" id="id_penawaran" readonly>
                         @error('id_pendaftar')
                         <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -60,7 +60,7 @@
                         <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    @foreach ($adminuniv->lampiranPendaftar as $lamp)
+                    @foreach ($penawaran->lampiranPendaftar as $lamp)
                     <div class="custom-file mb-3">
                         <input type="file" name="files[]" class="custom-file-input" id="file" required>
                         <label class="custom-file-label" for="file">Upload {{$lamp->refJenisFile->nama_jenis_file}}...</label>

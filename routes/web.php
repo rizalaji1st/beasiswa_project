@@ -19,10 +19,11 @@ Auth::routes();
 Route::namespace('Admin')
         ->prefix('admin')
         ->name('admin.')
-        ->middleware('can:manage-users')
+        //->middleware('can:manage-users')
         ->group(function(){
             Route::resource('/users', 'UserController', ['except' => ['store','show', 'create']]);
             Route::resource('/penawarans', 'Adminuniversitas\PenawaranController');
+            Route::resource('/nominasi', 'Adminuniversitas\NominasiController');
             
 });
 
@@ -31,21 +32,24 @@ Route::namespace('Admin')
 Route::get('/pendaftaran', 'PendaftaranController@index');
 Route::get('/pendaftaran/{adminuniv}', 'PendaftaranController@create');
 
-//nominasi ranking
-
-Route::get('/nrangkings', 'NrangkingsController@index');
-Route::get('/pnominasis', 'PNominasisController@index');
-Route::get('/pengusulans', 'PengusulansController@index');
-
-Route::get('/nrangking/{nrangking}', 'NrangkingsController@show');
-//Route::get('/nrangkings', 'NrangkingsController@index');
-Route::get('/nrangkings/export_excel', 'NrangkingsController@export_excel');
-Route::post('/pnominasis/import_excel', 'PNominasisController@import_excel');
+//monitoring
+Route::get('/dashboard', 'DataController@dashboard');
+Route::get('/data_mhs/{nrangking}', 'DataController@index');
+Route::get('/nrangking/cetak_pdf', 'DataController@cetak_pdf');
+Route::get('/hasil_mhs', 'DataController@show');
+Route::get('/dashboard_hasil', 'DataController@dashboard_hasil');
 
 
+
+//pendaftaran-rendi dahsboard
+Route::get('/pendaftar', 'PendaftarDashController@index');
+Route::get('/pendaftar/penawaran', 'PendaftarDashController@penawaranIndex');
+Route::get('/pendaftar/penawaran/detail/{penawaran}', 'PendaftarDashController@penawaranDetail');
+
+//
 Route::get('/', 'PendaftaranController@index');
 
 Route::get('/{adminuniv}', 'PendaftaranController@create');
 Route::post('/', 'PendaftaranController@store');
-Route::get('/detail/{adminuniv}/', 'PendaftaranController@detail');
-Route::get('/daftar/{adminuniv}/', 'PendaftaranController@daftar');
+Route::get('/detail/{penawaran}', 'PendaftaranController@detail');
+Route::get('/daftar/{penawaran}', 'PendaftaranController@daftar');

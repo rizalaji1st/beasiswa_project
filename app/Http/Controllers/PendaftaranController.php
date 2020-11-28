@@ -78,6 +78,7 @@ class PendaftaranController extends Controller
     public function detail(Penawaran $penawaran)
     {
         return view('pages.pendaftaran.detail', compact('penawaran'));
+        // return dd($penawaran);
     }
 
     public function daftar(Penawaran $penawaran)

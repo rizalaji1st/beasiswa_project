@@ -13,12 +13,12 @@ class AdminUnivExport implements FromCollection
 {
     protected $id;
 
-    function __construct($id) {
-           $this->id = $id;
-    }
+        function __construct($id) {
+            $this->id = $id;
+        }
 
-   public function collection()
-   {
-       return NRangking::where('id_penawaran',$this->id)->get();
-   }
+    public function collection()
+    {
+        return NRangking::where('id_penawaran',$this->id)->get();
+    }
 }

@@ -8,5 +8,11 @@ class Pendaftaran extends Model
 {
 
     protected $table = 'bea_pendaftar_penawaran';
-    protected $fillable = ['id_pendaftar', 'id_penawaran', 'nim', 'ips', 'ipk', 'penghasilan', 'semester'];
+    protected $fillable = ['id_pendaftar', 
+                            'id_penawaran', 
+                            'nim', 
+                            'ips', 
+                            'ipk', 
+                            'penghasilan', 
+                            'semester'];
 }
