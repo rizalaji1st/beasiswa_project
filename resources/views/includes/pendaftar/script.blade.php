@@ -11,3 +11,16 @@
 {{-- <script src="{{url('backend/vendor/parsley/parsley.min.js')}}"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script src="{{url('backend/vendor/fstdropdown/js/fstdropdown.min.js')}}"></script>
+<script>
+    jQuery(document).ready(function($) {
+    
+                $("#bea").change(function () {
+                            var ref =$(this).find('option:selected').attr('value');
+                            var link = "/pendaftar/penawaran/detail/"
+                            $('#link').attr('href', link + ref);
+    
+                });
+    
+            });
+
+</script>
