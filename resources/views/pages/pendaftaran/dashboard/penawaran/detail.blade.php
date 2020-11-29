@@ -39,7 +39,14 @@ $selisih = $akhir->diffInDays($sekarang);
                 Pengumuman: {{$Penawaran->tgl_pengumuman->format('d M Y')}}
             </div>
             <br>
-            <a href="/pendaftar/penawaran/daftar/{{$Penawaran->id_penawaran}}" class="btn btn-primary">Daftar</a>
+            <a id="link" href="" class=" btn
+                                btn-primary
+                                btn-icon-split btn-sm">
+                <span class="icon text-white-50">
+                    <i class="fa fa-paper-plane"></i>
+                </span>
+                <span class="text">Apply Beasiswa</span>
+            </a>
         </div>
         <div class="card-footer text-muted">
             batas pendaftaran {{$selisih}} hari lagi

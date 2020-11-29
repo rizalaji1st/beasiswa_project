@@ -27,9 +27,9 @@
                     btn-primary
                     btn-icon-split btn-sm">
                     <span class="icon text-white-50">
-                        <i class="fa fa-paper-plane"></i>
+                        <i class="fa fa-arrow-right"></i>
                     </span>
-                    <span class="text">Apply Beasiswa</span>
+                    <span class="text">Detail Beasiswa</span>
                 </a>
             </form>
         </div>
