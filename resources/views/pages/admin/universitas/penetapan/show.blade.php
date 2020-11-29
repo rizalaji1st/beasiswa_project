@@ -12,11 +12,15 @@
                 </div>
             @endif
         </div>
-<h3 class="mt-2 mb-2">DATA NILAI</h3>
-
+    
+        <div class="container">
+<div class="text-center"><h2>Daftar Penetapan Lolos Seleksi Beasiswa</h2>
+<table class='table table-bordered'>
+<div class="text-right">
+<a href=""  class="btn btn-primary" target="_blank">CETAK PDF</a>
         <table class='table table-bordered'>
         <div class="text-right">
-        <a href="/admin/nominasi/cetak_excel"  class="btn btn-primary" target="_blank">CETAK EXCEL</a>
+        
         </div>
         <div class="row">
             <div class="col-12">
@@ -30,7 +34,7 @@
                             <td scope="col">Prodi</td>
                             <td scope="col">Fakultas</td>
                             <td scope="col">Skor</td>
-                            <td scope="col" class="text-center">Action</td>    
+                              
                             </tr>
                             @foreach($nominasi as $n)                      
                             <tr>
@@ -50,8 +54,6 @@
                             
                             @endphp
                             <td scope="col">{{$total}}</td>
-                            <td scope="col" class="text-center">
-                    <a class="btn btn-primary" href="" > Detail Skor <i class="fa fa-arrow-right"></i></a>
                     @method('Delete')
                     @csrf
                     </form>
@@ -62,7 +64,7 @@
                     </tbody>
                 </table>
                 <div class="text-right">
-                <a href="{{route('admin.nominasi.index')}}" class="btn btn-outline-warning">kembali</a> 
+                <a href="{{route('admin.penetapan.index')}}" class="btn btn-outline-warning">kembali</a> 
             </div>
             </div>
             </div>

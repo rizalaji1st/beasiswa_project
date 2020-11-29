@@ -67,7 +67,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Menu:</h6>
               <a class="collapse-item" href="{{route('admin.nominasi.index')}}">Nominasi Rangking</a>
-              <a class="collapse-item" href="{{ url ('/pnominasis') }}">Penetapan Lolos</a>
+              <a class="collapse-item" href="{{route('admin.penetapan.index')}}">Penetapan Lolos</a>
               <!-- <a class="dropdown-item" href="{{ url ('/pengusulans') }}">Pengusulan Nominasi</a> -->
             </div>
           </div>

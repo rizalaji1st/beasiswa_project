@@ -19,7 +19,7 @@ use App\Exports\SkorBeasiswaExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
 
-class NominasiController extends Controller
+class PenetapanController extends Controller
 {
     public function __construct()
     {
@@ -30,12 +30,12 @@ class NominasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    { 
+    public function index(){
+        //$adminuniv = DB::table('bea_pendaftar_penawaran')->orderBy('ips', 'DESC');
         $beasiswas = Penawaran::all();
-        return view('pages.admin.universitas.nominasi.index', ['beasiswas' => $beasiswas]);
-        //dump('pages.admin.universitas.nominasi.index', ['beasiswas' => $beasiswas]);
-    } 
+        return view('pages.admin.universitas.penetapan.index', ['beasiswas' => $beasiswas]);
+    }
+
 
     public function show($nominasi)
     {
@@ -72,16 +72,6 @@ class NominasiController extends Controller
         )
         //->orderBy('total', 'desc')
         ->get();
-        return view('pages.admin.universitas.nominasi.show')->with('nominasi', $nominasi);
-    }
-
-    public function export_excel()
-	{
-		return Excel::download(new SkorBeasiswaExport, 'skor_rangking.xlsx');
-    }
-    
-    public function detail(){
-    $beasiswas = PendaftarPenawaran::all();
-    return view('pages.admin.universitas.nominasi.detail')->with('n', $beasiswas);
+        return view('pages.admin.universitas.penetapan.show')->with('nominasi', $nominasi);
     }
 }

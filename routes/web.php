@@ -24,11 +24,17 @@ Route::namespace('Admin')
             Route::resource('/users', 'UserController', ['except' => ['store','show', 'create']]);
             Route::resource('/penawarans', 'Adminuniversitas\PenawaranController');
             Route::resource('/nominasi', 'Adminuniversitas\NominasiController');
+            Route::resource('/penetapan', 'Adminuniversitas\PenetapanController');
+            //Route::resource('/nominasi', 'Adminuniversitas\NominasiController',['only' => ['index','show', 'export_excel']]);
+            //Route::resource('/nominasi/export_excel', 'Adminuniversitas\NominasiController@export_excel');
             
 });
-
+// Route::get('nominasi', 'Adminuniversitas\NominasiController@index');
+// Route::get('/admin/nominasi', 'NominasiController@show');
+//Route::get('/admin/mahasiswa/cetak_excel', 'NominasiController@export_excel');
 
 //Route::get('/adminuniversitas/penetapan/pnominasi_index','AdminunivPNominasiController@index');
+Route::get('/nominasi', 'AdminUniversitas\NominasiController@detail');
 Route::get('/pendaftaran', 'PendaftaranController@index');
 Route::get('/pendaftaran/{adminuniv}', 'PendaftaranController@create');
 
