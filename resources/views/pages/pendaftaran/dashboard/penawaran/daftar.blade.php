@@ -74,7 +74,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="pend-ayah">Status Ayah</label>
+                        <label for="pend-ayah">Pendidikan Ayah</label>
                         <select class="form-control" id="pend-ayah">
                             <option>Tidak Sekolah</option>
                             <option>SD/MI/Sederajat</option>
@@ -88,6 +88,85 @@
                         </select>
                     </div>
 
+                    <div class="form-group">
+                        <label for="pend-ibu">Pendidikan Ibu</label>
+                        <select class="form-control" id="pend-ibu">
+                            <option>Tidak Sekolah</option>
+                            <option>SD/MI/Sederajat</option>
+                            <option>SMP/MTs/Sederajat</option>
+                            <option>SMA/MA/Sederajat</option>
+                            <option>D1/Sederajat</option>
+                            <option>D2/Sederajat</option>
+                            <option>D3/Sederajat</option>
+                            <option>D4/S1/Sederajat</option>
+                            <option>S2/Sp1/Sederajat</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pek-ayah">Pekerjaan Ayah</label>
+                        <select class="form-control" id="pek-ayah">
+                            <option>Tidak Bekerja</option>
+                            <option>Lainnya</option>
+                            <option>Petani</option>
+                            <option>Wirausaha</option>
+                            <option>Pegawai Swasta</option>
+                            <option>PNS</option>
+                            <option>TNI/POLRI</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pek-ibu">Pekerjaan Ibu</label>
+                        <select class="form-control" id="pek-ibu">
+                            <option>Tidak Bekerja</option>
+                            <option>Lainnya</option>
+                            <option>Petani</option>
+                            <option>Wirausaha</option>
+                            <option>Pegawai Swasta</option>
+                            <option>PNS</option>
+                            <option>TNI/POLRI</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggungan">Jumlah Tanggungan</label>
+                        <select class="form-control" id="tanggungan">
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="semester">Semester</label>
+                        <select class="form-control" id="semester">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                        </select>
+                    </div>
+                    @foreach ($Penawaran->lampiranPendaftar as $lamp)
+                    <div class="custom-file mb-3">
+                        <input type="file" name="files[]" class="custom-file-input" id="file" required>
+                        <label class="custom-file-label" for="file">Upload
+                            {{$lamp->refJenisFile->nama_jenis_file}}...</label>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    </div>
+                    @endforeach
             </div>
             <a href="index.html" class="btn btn-primary btn-user btn-block">
                 Kirim
