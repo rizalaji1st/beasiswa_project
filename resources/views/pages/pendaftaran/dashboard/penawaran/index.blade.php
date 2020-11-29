@@ -1,6 +1,6 @@
 @extends('layouts.pendaftar')
 @section('title', 'Penawaran Beasiswa')
-@section('status-dashboard', 'active')
+@section('status-penawaran', 'active')
 @section('content')
 <div class="container-fluid">
     <div class="col-lg-6"></div>

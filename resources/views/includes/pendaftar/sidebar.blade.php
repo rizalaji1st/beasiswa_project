@@ -24,20 +24,20 @@
   <li class="nav-item @yield('status-penawaran')">
     <a class="nav-link" href="/pendaftar/penawaran">
       <i class="fa fa-list-alt" aria-hidden="true"></i>
-      <span>Penawaran</span>
+      <span>Daftar Beasiswa</span>
     </a>
   </li>
 
   <li class="nav-item @yield('status-verifikasi')">
     <a class="nav-link" href="index.html">
       <i class="fas fa-fw fa-clipboard-check"></i>
-      <span>Timeline</span></a>
+      <span>Verifikasi</span></a>
   </li>
 
-  <li class="nav-item @yield('status-verifikasi')">
+  <li class="nav-item @yield('status-pengumuman')">
     <a class="nav-link" href="index.html">
-      <i class="fas fa-fw fa-clipboard-check"></i>
-      <span>Biodata</span></a>
+      <i class="fas fa-hammer    "></i>
+      <span>Pengumuman</span></a>
   </li>
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">

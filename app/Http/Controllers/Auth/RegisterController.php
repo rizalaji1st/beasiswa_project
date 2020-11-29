@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -29,7 +30,18 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/penawarans';
+    public function redirectTo(){
+        if(Auth::user()->hasAnyRoles(['admin','adminuniversitas','adminfakultas'])){
+                $this->redirectTo = route('admin.penawarans.index');
+                return $this->redirectTo;
+        }
+        if(Auth::user()->hasRole(['user'])){
+            $this->redirectTo = url('/pendaftar/penawaran');
+            return $this->redirectTo;
+    }
+        $this->redirectTo = '/';
+        return $this->redirectTo;
+    }
 
     /**
      * Create a new controller instance.
