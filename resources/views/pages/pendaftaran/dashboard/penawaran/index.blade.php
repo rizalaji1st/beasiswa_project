@@ -12,22 +12,27 @@
             <h6 class="m-0 font-weight-bold text-primary">Form Beasiswa</h6>
         </div>
         <div class="card-body">
-            <div class="row">
-                @foreach ($beasiswas as $beasiswa)
-                <div class="col-sm-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Beasiswa {{$beasiswa->nama_penawaran}}</h5>
-                            <p class="card-text">{!!$beasiswa->deskripsi!!}</p>
-                            <a href="/pendaftar/penawaran/detail/{{$beasiswa->id_penawaran}}"
-                                class="btn btn-primary">selengkapnya</a>
-                        </div>
-                    </div>
+            <form method="POST" action="">
+                @csrf
+                <div class="form-group">
+                    <label for="bea">Pilih Beasiswa</label>
+                    <select class="form-control" name="bea" id="bea">
+                        @foreach ($beasiswas as $beasiswa)
+                        <option value=" {{$beasiswa->id_penawaran}}" id="{{$beasiswa->id_penawaran}}">
+                            {{$beasiswa->nama_penawaran}}</option>
+                        @endforeach
+                    </select>
                 </div>
-                @endforeach
-            </div>
+                <a id="link" href="" class=" btn
+                    btn-primary
+                    btn-icon-split btn-sm">
+                    <span class="icon text-white-50">
+                        <i class="fa fa-paper-plane"></i>
+                    </span>
+                    <span class="text">Apply Beasiswa</span>
+                </a>
+            </form>
         </div>
     </div>
-
 </div>
 @endsection
