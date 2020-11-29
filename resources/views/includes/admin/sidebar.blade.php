@@ -8,6 +8,13 @@
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
+        <!-- Nav Item - Beranda -->
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('/')}}">
+            <i class="fas fa-home    "></i>
+            <span>Beranda</span>
+          </a>
+        </li>
         <!-- Nav Item - Hak akses -->
         <li class="nav-item @yield('status-akses')">
           <a class="nav-link" href="{{url('/users')}}" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">

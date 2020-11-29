@@ -18,7 +18,7 @@
                     <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Beasiswa {{$beasiswa->nama_penawaran}}</h5>
-                        <p class="card-text">{{$beasiswa->deskripsi}}</p>
+                        <p class="card-text">{!!$beasiswa->deskripsi!!}</p>
                         <a href="/pendaftar/penawaran/detail/{{$beasiswa->id_penawaran}}" class="btn btn-primary">selengkapnya</a>
                     </div>
                     </div>

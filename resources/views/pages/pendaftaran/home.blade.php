@@ -21,7 +21,7 @@
 
 <!--================Service Area Start =================-->
 <section class="section-margin generic-margin">
-  <div class="container">
+  <div class="container" id="daftarBeasiswa">
     <div class="section-intro text-center pb-90px">
       <img class="section-intro-img" src="img/home/section-icon.png" alt="">
       <h2>Daftar Beasiswa Aktif</h2>
