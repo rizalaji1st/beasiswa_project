@@ -29,7 +29,7 @@ Route::namespace('Admin')
 
 
 //Route::get('/adminuniversitas/penetapan/pnominasi_index','AdminunivPNominasiController@index');
-Route::get('/pendaftaran', 'PendaftaranController@index');
+Route::get('/pendaftaran', 'PendaftaranController@index')->middleware('can:manage-users');
 Route::get('/pendaftaran/{adminuniv}', 'PendaftaranController@create');
 
 //monitoring

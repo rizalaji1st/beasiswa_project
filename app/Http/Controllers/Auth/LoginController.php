@@ -45,7 +45,7 @@ class LoginController extends Controller
                 return $this->redirectTo;
         }
         if(Auth::user()->hasRole(['user'])){
-            $this->redirectTo = url('/pendaftar');
+            $this->redirectTo = url('/pendaftar/penawaran');
             return $this->redirectTo;
     }
         $this->redirectTo = '/';
