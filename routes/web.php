@@ -45,6 +45,7 @@ Route::get('/dashboard_hasil', 'DataController@dashboard_hasil');
 Route::get('/pendaftar', 'PendaftarDashController@index');
 Route::get('/pendaftar/penawaran', 'PendaftarDashController@penawaranIndex');
 Route::get('/pendaftar/penawaran/detail/{penawaran}', 'PendaftarDashController@penawaranDetail');
+Route::get('/pendaftar/penawaran/daftar/{penawaran}', 'PendaftarDashController@penawaranDaftar');
 
 //
 Route::get('/', 'PendaftaranController@index');
