@@ -73,7 +73,10 @@ class UserTableSeeder extends Seeder
             'pekerjaan_ibu'=>'wirausaha',
             'gaji_ibu' => '700000',
             'jml_tanggungan' => '3',
-            'status_rumah' => 'Sendiri'
+            'status_rumah' => 'Sendiri',
+            'ipk'=>'3',
+            'ips'=>'4',
+            'semester'=>'5'
         ]);
         
 

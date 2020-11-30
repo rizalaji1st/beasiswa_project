@@ -48,27 +48,32 @@ class AddFieldToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('nim');
-            $table->dropColumn('nama');
-            $table->dropColumn('alamat');
-            $table->dropColumn('kabupaten');
-            $table->dropColumn('provinsi');
-            $table->dropColumn('kode_prodi');
-            $table->dropColumnr('penghasilan');
-            $table->dropColumn('nama_ayah');
-            $table->dropColumn('status_ayah');
-            $table->dropColumn('pend_ayah');
-            $table->dropColumn('pekerjaan_ayah');
-            $table->dropColumn('gaji_ayah');
-            $table->dropColumn('nama_ibu');
-            $table->dropColumn('status_ibu');
-            $table->dropColumn('pend_ibu');
-            $table->dropColumn('pekerjaan_ibu');
-            $table->dropColumn('gaji_ibu');
-            $table->dropColumn('jml_tanggungan');
-            $table->dropColumn('status_rumah');
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->dropColumn('nim');
+        //     $table->dropColumn('nama');
+        //     $table->dropColumn('ipk');
+        //     $table->dropColumn('ips');
+        //     $table->dropColumn('semester');
+        //     $table->dropColumn('alamat');
+        //     $table->dropColumn('kabupaten');
+        //     $table->dropColumn('provinsi');
+        //     $table->dropColumn('kode_prodi');
+        //     $table->dropColumnr('penghasilan');
+        //     $table->dropColumn('nama_ayah');
+        //     $table->dropColumn('status_ayah');
+        //     $table->dropColumn('pend_ayah');
+        //     $table->dropColumn('pekerjaan_ayah');
+        //     $table->dropColumn('gaji_ayah');
+        //     $table->dropColumn('nama_ibu');
+        //     $table->dropColumn('status_ibu');
+        //     $table->dropColumn('pend_ibu');
+        //     $table->dropColumn('pekerjaan_ibu');
+        //     $table->dropColumn('gaji_ibu');
+        //     $table->dropColumn('jml_tanggungan');
+        //     $table->dropColumn('status_rumah');
 
-        });
+            Schema::dropIfExists('users');
+
+        // });
     }
 }
