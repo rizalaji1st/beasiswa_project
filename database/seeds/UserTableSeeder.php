@@ -1,6 +1,7 @@
 <?php
 
 use App\Role;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -16,7 +17,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        
+       
         // DB::table('users')->insert([
         //     'name' => Str::random(10),
         //     'email' => Str::random(10).'@gmail.com',
@@ -51,10 +52,30 @@ class UserTableSeeder extends Seeder
         ]);
         
         $user = User::create([
-            'name' => 'Generic User',
-            'email' => 'user@user.com',
-            'password' => Hash::make('user')
+            'name' => 'Rendi Jaka Susanto',
+            'email' => 'rendijaka@student.uns.ac.id',
+            'password' => Hash::make('1234'),
+            'nim' => 'M3118074',
+            'nama' => 'Rendi Jaka Susanto',
+            'alamat' => 'Cilacap',
+            'kabupaten' => 'Cilacap',
+            'provinsi' => 'Jawa Tengah',
+            'kode_prodi' => '000000',
+            'penghasilan' => '',
+            'nama_ayah' => 'Dwi Windu Suroyo',
+            'status_ayah' => 'Wafat',
+            'pend_ayah' => 'SMA',
+            'pekerjaan_ayah' =>'',
+            'gaji_ayah' => '700000',
+            'nama_ibu' => 'Sumarni',
+            'status_ibu' => 'Sehat',
+            'pend_ibu' => 'SMP',
+            'pekerjaan_ibu'=>'wirausaha',
+            'gaji_ibu' => '700000',
+            'jml_tanggungan' => '3',
+            'status_rumah' => 'Sendiri'
         ]);
+        
 
         $admin->roless()->attach($adminRole);
         $adminuniversitas->roless()->attach($adminuniversitasRole);

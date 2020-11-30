@@ -14,5 +14,16 @@ class Pendaftaran extends Model
                             'ips', 
                             'ipk', 
                             'penghasilan', 
-                            'semester'];
+                            'semester', 
+                            'status_ayah',
+                            'status_ibu',
+                            'status_rumah',
+                            'pendidikan_ayah',
+                            'pendidikan_ibu',
+                            'pekerjaan_ayah',
+                            'pekerjaan_ibu',
+                            'jumlah_tanggungan',
+                            'gaji_ayah',
+                            'gaji_ibu'
+                        ];
 }

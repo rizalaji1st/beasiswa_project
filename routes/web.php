@@ -47,6 +47,8 @@ Route::get('/pendaftar', 'PendaftarDashController@index');
 Route::get('/pendaftar/penawaran', 'PendaftarDashController@penawaranIndex');
 Route::get('/pendaftar/penawaran/detail/{penawaran}', 'PendaftarDashController@penawaranDetail');
 Route::get('/pendaftar/penawaran/daftar/{penawaran}', 'PendaftarDashController@penawaranDaftar');
+Route::get('/pendaftar/penawaran/upload/{penawaran}', 'PendaftarDashController@penawaranUpload');
+Route::post('/pendaftar/penawaran/upload/{penawaran}', 'PendaftarDashController@penawaranCreate')->name('pendaftar_upload');
 
 //
 Route::get('/', 'PendaftaranController@index');

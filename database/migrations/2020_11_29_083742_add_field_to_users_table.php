@@ -17,6 +17,9 @@ class AddFieldToUsersTable extends Migration
             //
             $table->string('nim')->nullable();
             $table->string('nama')->nullable();
+            $table->string('ipk')->nullable();
+            $table->string('ips')->nullable();
+            $table->string('semester')->nullable();
             $table->string('alamat')->nullable();
             $table->string('kabupaten')->nullable();
             $table->string('provinsi')->nullable();

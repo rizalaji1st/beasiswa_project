@@ -20,7 +20,7 @@ class MahasiswaSeeder extends Seeder
        	);
         for ($row = 0; $row < count($mahasiswa); $row++) {
             DB::table('bea_mahasiswa')->insert([
-                'id_mahasiswa'=>$row+1,
+                'id_mahasiswa'=>"5",
                 'nim'=>$mahasiswa[$row][0],
                 'nama'=>$mahasiswa[$row][1],
                 'alamat'=>$mahasiswa[$row][2],

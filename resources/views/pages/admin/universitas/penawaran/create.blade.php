@@ -1,469 +1,423 @@
 @extends('layouts.adminuniv')
 @section('title', 'Tambah Penawaran')
 @section('content')
-    <div class="container col-10 mb-5 mt-5">
-        <h1>Tambah Penawaran Beasiswa</h1>
-        <h3 class="mt-5 mb-3">Informasi Umum</h3>
-        <form 
-            method="post" 
-            action="{{route('admin.penawarans.index')}}" 
-            enctype="multipart/form-data" 
-            id="form-penawaran" 
-            name="penawaran"
-            onsubmit="return validated()"
-            autocomplete="off">
-            @csrf
-            {{-- nama penawaran --}}
-            <div class="form-group">
-                <label for="nama_penawaran">Nama Penawaran</label>
-                <input 
-                    type="nama_penawaran" 
-                    class="form-control @error('nama_penawaran') is-invalid @enderror" 
-                    id="nama_penawaran" name="nama_penawaran" 
-                    placeholder="masukkan nama penawaran" 
-                    value="{{old('nama_penawaran')}}" 
-                    required
-                >
-                @error('nama_penawaran')
-                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                @enderror
+<div class="container col-10 mb-5 mt-5">
+    <h1>Tambah Penawaran Beasiswa</h1>
+    <h3 class="mt-5 mb-3">Informasi Umum</h3>
+    <form method="post" action="{{route('admin.penawarans.index')}}" enctype="multipart/form-data" id="form-penawaran"
+        name="penawaran" onsubmit="return validated()" autocomplete="off">
+        @csrf
+        {{-- nama penawaran --}}
+        <div class="form-group">
+            <label for="nama_penawaran">Nama Penawaran</label>
+            <input type="nama_penawaran" class="form-control @error('nama_penawaran') is-invalid @enderror"
+                id="nama_penawaran" name="nama_penawaran" placeholder="masukkan nama penawaran"
+                value="{{old('nama_penawaran')}}" required>
+            @error('nama_penawaran')
+            <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        {{-- jenis penawaran beasiswa --}}
+        <div class="form-group">
+            <label for="id_jenis_beasiswa">Jenis Beasiswa</label>
+            <select class="custom-select form-control fstdropdown-select" name="id_jenis_beasiswa"
+                id="id_jenis_beasiswa" value="{{old('id_jenis_beasiswa')}}" required>
+                <option value="" disabled selected>--Pilih salah satu--</option>
+                @foreach ($jenisBeasiswa as $item)
+                <option value="{{$item->id_jenis_beasiswa}}"
+                    {{old("id_jenis_beasiswa") == $item->id_jenis_beasiswa ? "selected":"" }}>{{$item->nama_beasiswa}}
+                </option>
+                @endforeach
+            </select>
+        </div>
+
+        {{-- tahun dasar akademik --}}
+        <div class="form-group">
+            <label for="tahun_dasar_akademik">Tahun Dasar Akademik</label>
+            <select class="custom-select form-control fstdropdown-select" name="tahun_dasar_akademik"
+                id="tahun_dasar_akademik" value="{{old('tahun_dasar_akademik')}}" required>
+                <option value="" disabled selected>--Pilih tahun akademik--</option>
+                @foreach ($years as $item)
+                @php
+                $nama = $item+1;
+                @endphp
+                <option value="{{$item}}/{{$item+1}}"
+                    {{old("tahun_dasar_akademik") ==  $item.'/'.$nama ? "selected":"" }}>{{$item}}/{{$item+1}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        {{-- is double --}}
+        <div class="form-group">
+            <input type="checkbox" name="is_double" value="true" id="is_double" {{old('is_double') ? 'checked' : ''}}>
+            <label for="is_double">Centang Jika Penerima Beasiswa Ini dapat Menerima Beasiswa Lain</label>
+        </div>
+
+        {{-- konfigurasi kuota --}}
+        <h3 class="mt-5 mb-4">Konfigurasi Kuota</h3>
+        <div class="form-group">
+            <div class="custom-control custom-radio">
+                <input type="radio" id="value1" name="pilihKuota" value="value1" class="custom-control-input"
+                    {{old("pilihKuota") == "value1" ? 'checked':''}}>
+                <label class="custom-control-label" for="value1">Abaikan Asal Fakultas</label>
+                <p style="color: #bdbdbd; font-size:14px;">Asal fakultas tidak akan berpengaruh terhadap Ketentuan
+                    seleksi</p>
             </div>
 
-            {{-- jenis penawaran beasiswa --}}
-            <div class="form-group">
-                <label for="id_jenis_beasiswa">Jenis Beasiswa</label>
-                <select 
-                    class="custom-select form-control fstdropdown-select" 
-                    name="id_jenis_beasiswa" 
-                    id="id_jenis_beasiswa" 
-                    value="{{old('id_jenis_beasiswa')}}" 
-                    required>
-                    <option value="" disabled selected>--Pilih salah satu--</option>
-                    @foreach ($jenisBeasiswa as $item)
-                        <option value="{{$item->id_jenis_beasiswa}}" {{old("id_jenis_beasiswa") == $item->id_jenis_beasiswa ? "selected":"" }}>{{$item->nama_beasiswa}}</option>
-                    @endforeach
-                </select>
+            {{-- kuota Total --}}
+            <div class="form-group kuota-total" id="kuota-total" class="custom-control-input" style="display: none">
+                <input type="number" class="form-control" id="jml_kuota" name="jml_kuota"
+                    placeholder="masukan jumlah kuota penerima" value="{{old('jml_kuota')}}">
             </div>
-
-            {{-- tahun dasar akademik --}}
-            <div class="form-group">
-                <label for="tahun_dasar_akademik">Tahun Dasar Akademik</label>
-                <select 
-                    class="custom-select form-control fstdropdown-select" 
-                    name="tahun_dasar_akademik" id="tahun_dasar_akademik" 
-                    value="{{old('tahun_dasar_akademik')}}" 
-                    required>
-                    <option value="" disabled selected>--Pilih tahun akademik--</option>
-                    @foreach ($years as $item)
-                    @php
-                        $nama = $item+1;
-                    @endphp
-                        <option value="{{$item}}/{{$item+1}}" {{old("tahun_dasar_akademik") ==  $item.'/'.$nama ? "selected":"" }}>{{$item}}/{{$item+1}}</option>
-                    @endforeach
-                </select>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="value2" value="value2" name="pilihKuota" class="custom-control-input"
+                    {{old("pilihKuota") == "value2" ? 'checked':''}}>
+                <label class="custom-control-label" for="value2">Tentukan kuota Perfakultas</label>
+                <p style="color: #bdbdbd; font-size:14px;">Jumlah pendaftar yang diterima berdasarkan kuota
+                    masing-masing fakultas</p>
             </div>
-
-            {{-- is double --}}
-            <div class="form-group">
-                <input  
-                    type="checkbox" 
-                    name="is_double" 
-                    value="true" 
-                    id="is_double" 
-                    {{old('is_double') ? 'checked' : ''}}
-                >
-                <label for="is_double">Centang Jika Penerima Beasiswa Ini dapat Menerima Beasiswa Lain</label>
-            </div>
-
-            {{-- konfigurasi kuota --}}
-            <h3 class="mt-5 mb-4">Konfigurasi Kuota</h3>
-            <div class="form-group">
-                <div class="custom-control custom-radio">
-                    <input type="radio" id="value1" name="pilihKuota" value="value1" class="custom-control-input" {{old("pilihKuota") == "value1" ? 'checked':''}}>
-                    <label class="custom-control-label" for="value1">Abaikan Asal Fakultas</label>
-                    <p style="color: #bdbdbd; font-size:14px;">Asal fakultas tidak akan berpengaruh terhadap Ketentuan seleksi</p>
+            <br>
+            <div class="form-group fakultas" id="fakultas" style="display: none">
+                <div class="form-group row">
+                    <label for="fkip" class="col-sm-6 col-form-label">Fakultas Keguruan dan Ilmu Pendidikan</label>
+                    <div class="col-sm-6">
+                        <input name="fkip" type="number" placeholder="masukkan kuota" class="form-control" id="fkip"
+                            value="{{old('fkip')}}">
+                    </div>
                 </div>
-
-                {{-- kuota Total --}}
-                <div class="form-group kuota-total" id="kuota-total" class="custom-control-input" style="display: none" >
-                    <input type="number" class="form-control" id="jml_kuota" name="jml_kuota"  placeholder="masukan jumlah kuota penerima" value="{{old('jml_kuota')}}">
+                <div class="form-group row">
+                    <label for="fmipa" class="col-sm-6 col-form-label">Fakultas Matematika dan Ilmu Alam</label>
+                    <div class="col-sm-6">
+                        <input name="fmipa" type="number" placeholder="masukkan kuota" class="form-control" id="fmipa"
+                            value="{{old('fmipa')}}">
+                    </div>
                 </div>
-                <div class="custom-control custom-radio">
-                    <input type="radio" id="value2" value="value2" name="pilihKuota" class="custom-control-input" {{old("pilihKuota") == "value2" ? 'checked':''}}>
-                    <label class="custom-control-label" for="value2">Tentukan kuota Perfakultas</label>
-                    <p style="color: #bdbdbd; font-size:14px;">Jumlah pendaftar yang diterima berdasarkan kuota masing-masing fakultas</p>
+                <div class="form-group row">
+                    <label for="fk" class="col-sm-6 col-form-label">Fakultas Kedokteran</label>
+                    <div class="col-sm-6">
+                        <input name="fk" type="number" placeholder="masukkan kuota" class="form-control" id="fk"
+                            value="{{old('fk')}}">
+                    </div>
                 </div>
-                <br>
-                <div class="form-group fakultas" id="fakultas" style="display: none">
-                    <div class="form-group row">
-                        <label for="fkip" class="col-sm-6 col-form-label">Fakultas Keguruan dan Ilmu Pendidikan</label>
-                        <div class="col-sm-6">
-                            <input name="fkip" type="number" placeholder="masukkan kuota" class="form-control" id="fkip" value="{{old('fkip')}}">
-                        </div>
+                <div class="form-group row">
+                    <label for="fp" class="col-sm-6 col-form-label">Fakultas Pertanian</label>
+                    <div class="col-sm-6">
+                        <input name="fp" type="number" placeholder="masukkan kuota" class="form-control" id="fp"
+                            value="{{old('fp')}}">
                     </div>
-                    <div class="form-group row">
-                        <label for="fmipa" class="col-sm-6 col-form-label">Fakultas Matematika dan Ilmu Alam</label>
-                        <div class="col-sm-6">
-                            <input name="fmipa" type="number" placeholder="masukkan kuota" class="form-control" id="fmipa" value="{{old('fmipa')}}">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="ft" class="col-sm-6 col-form-label">Fakultas Teknik</label>
+                    <div class="col-sm-6">
+                        <input name="ft" type="number" placeholder="masukkan kuota" class="form-control" id="ft"
+                            value="{{old('ft')}}">
                     </div>
-                    <div class="form-group row">
-                        <label for="fk" class="col-sm-6 col-form-label">Fakultas Kedokteran</label>
-                        <div class="col-sm-6">
-                            <input name="fk" type="number" placeholder="masukkan kuota" class="form-control" id="fk" value="{{old('fk')}}">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="fib" class="col-sm-6 col-form-label">Fakultas Ilmu Budaya</label>
+                    <div class="col-sm-6">
+                        <input name="fib" type="number" placeholder="masukkan kuota" class="form-control" id="fib"
+                            value="{{old('fib')}}">
                     </div>
-                    <div class="form-group row">
-                        <label for="fp" class="col-sm-6 col-form-label">Fakultas Pertanian</label>
-                        <div class="col-sm-6">
-                            <input name="fp" type="number" placeholder="masukkan kuota" class="form-control" id="fp" value="{{old('fp')}}">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="feb" class="col-sm-6 col-form-label">Fakultas Ekonomi Bisnis</label>
+                    <div class="col-sm-6">
+                        <input name="feb" type="number" placeholder="masukkan kuota" class="form-control" id="feb"
+                            value="{{old('feb')}}">
                     </div>
-                    <div class="form-group row">
-                        <label for="ft" class="col-sm-6 col-form-label">Fakultas Teknik</label>
-                        <div class="col-sm-6">
-                            <input name="ft" type="number" placeholder="masukkan kuota" class="form-control" id="ft" value="{{old('ft')}}">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="fh" class="col-sm-6 col-form-label">Fakultas Hukum</label>
+                    <div class="col-sm-6">
+                        <input name="fh" type="number" placeholder="masukkan kuota" class="form-control" id="fh"
+                            value="{{old('fh')}}">
                     </div>
-                    <div class="form-group row">
-                        <label for="fib" class="col-sm-6 col-form-label">Fakultas Ilmu Budaya</label>
-                        <div class="col-sm-6">
-                            <input name="fib" type="number" placeholder="masukkan kuota" class="form-control" id="fib" value="{{old('fib')}}">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="fsrd" class="col-sm-6 col-form-label">Fakultas Seni Rupa dan Desain</label>
+                    <div class="col-sm-6">
+                        <input name="fsrd" type="number" placeholder="masukkan kuota" class="form-control" id="fsrd"
+                            value="{{old('fsrd')}}">
                     </div>
-                    <div class="form-group row">
-                        <label for="feb" class="col-sm-6 col-form-label">Fakultas Ekonomi Bisnis</label>
-                        <div class="col-sm-6">
-                            <input name="feb" type="number" placeholder="masukkan kuota" class="form-control" id="feb" value="{{old('feb')}}">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="fisip" class="col-sm-6 col-form-label">Fakultas Ilmu Sosial dan Politik</label>
+                    <div class="col-sm-6">
+                        <input name="fisip" type="number" placeholder="masukkan kuota" class="form-control" id="fisip"
+                            value="{{old('fisip')}}">
                     </div>
-                    <div class="form-group row">
-                        <label for="fh" class="col-sm-6 col-form-label">Fakultas Hukum</label>
-                        <div class="col-sm-6">
-                            <input name="fh" type="number" placeholder="masukkan kuota" class="form-control" id="fh" value="{{old('fh')}}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="fsrd" class="col-sm-6 col-form-label">Fakultas Seni Rupa dan Desain</label>
-                        <div class="col-sm-6">
-                            <input name="fsrd" type="number" placeholder="masukkan kuota" class="form-control" id="fsrd" value="{{old('fsrd')}}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="fisip" class="col-sm-6 col-form-label">Fakultas Ilmu Sosial dan Politik</label>
-                        <div class="col-sm-6">
-                            <input name="fisip" type="number" placeholder="masukkan kuota" class="form-control" id="fisip" value="{{old('fisip')}}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="fkor" class="col-sm-6 col-form-label">Fakultas Keolahragaan</label>
-                        <div class="col-sm-6">
-                            <input name="fkor" type="number" placeholder="masukkan kuota" class="form-control" id="fkor" value="{{old('fkor')}}">
-                        </div>
-                    </div>
-                </div>  
-            </div>
-
-            {{-- Timeline --}}
-            <h3 class="mt-4 mb-3">Timeline</h3>
-            {{-- Penawaran --}}
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="tgl_awal_penawaran">Awal Penawaran</label>
-                            <input 
-                                type="date" 
-                                class="form-control @error('tgl_awal_penawaran') is-invalid @enderror" 
-                                id="tgl_awal_penawaran" 
-                                name="tgl_awal_penawaran" 
-                                value="{{old('tgl_awal_penawaran')}}" 
-                                required
-                            >
-                            @error('tgl_awal_penawaran')
-                                <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <div class=" alert alert-danger invalid-feedback" id="tgl_awal_penawaran_error">Tanggal Awal Penawaran harus paling awal dari apapun</div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="tgl_akhir_penawaran">Akhir Penawaran</label>
-                            <input 
-                                type="date" 
-                                class="form-control @error('tgl_akhir_penawaran') is-invalid @enderror"  
-                                id="tgl_akhir_penawaran" 
-                                name="tgl_akhir_penawaran" 
-                                value="{{old('tgl_akhir_penawaran')}}" 
-                                required
-                            >
-                            @error('tgl_akhir_penawaran')
-                                <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <div class=" alert alert-danger invalid-feedback" id="tgl_akhir_penawaran_error">Tanggal Akhir Penawaran harus setelah Tanggal Akhir Penawaran</div>
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="fkor" class="col-sm-6 col-form-label">Fakultas Keolahragaan</label>
+                    <div class="col-sm-6">
+                        <input name="fkor" type="number" placeholder="masukkan kuota" class="form-control" id="fkor"
+                            value="{{old('fkor')}}">
                     </div>
                 </div>
             </div>
-            {{-- Pendaftaran --}}
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="tgl_awal_pendaftaran">Awal Pendaftaran</label>
-                            <input 
-                                type="date" 
-                                class="form-control @error('tgl_awal_pendaftaran') is-invalid @enderror"
-                                id="tgl_awal_pendaftaran" 
-                                name="tgl_awal_pendaftaran" 
-                                value="{{old('tgl_awal_pendaftaran')}}" 
-                                required>
-                                @error('tgl_awal_pendaftaran')
-                                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                <div class=" alert alert-danger invalid-feedback" id="tgl_awal_pendaftaran_error">Tanggal Awal Pendaftaran harus setelah Tanggal Awal Penawaran</div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="tgl_akhir_pendaftaran">Akhir Pendaftaran</label>
-                            <input 
-                                type="date" 
-                                class="form-control @error('tgl_akhir_pendaftaran') is-invalid @enderror" 
-                                id="tgl_akhir_pendaftaran" 
-                                name="tgl_akhir_pendaftaran" 
-                                value="{{old('tgl_akhir_pendaftaran')}}" required>
-                                @error('tgl_akhir_pendaftaran')
-                                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                <div class=" alert alert-danger invalid-feedback" id="tgl_akhir_pendaftaran_error">Tanggal Awal Pendaftaran harus setelah Tanggal Awal Pendaftaran</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
 
-            {{-- Verifikasi --}}
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="tgl_awal_verifikasi">Awal Verifikasi</label>
-                            <input 
-                                type="date" 
-                                class="form-control @error('tgl_awal_verifikasi') is-invalid @enderror" 
-                                id="tgl_awal_verifikasi" 
-                                name="tgl_awal_verifikasi" 
-                                value="{{old('tgl_awal_verifikasi')}}" 
-                                required>
-                                @error('tgl_awal_verifikasi')
-                                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            <div class=" alert alert-danger invalid-feedback" id="tgl_awal_verifikasi_error">Tanggal Awal Verifikasi harus setelah Tanggal Awal Pendaftaran</div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="tgl_akhir_verifikasi">Akhir Verifikasi</label>
-                            <input 
-                                type="date" 
-                                class="form-control @error('tgl_akhir_verifikasi') is-invalid @enderror" 
-                                id="tgl_akhir_verifikasi" 
-                                name="tgl_akhir_verifikasi" 
-                                value="{{old('tgl_akhir_verifikasi')}}" required>
-                                @error('tgl_akhir_verifikasi')
-                                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            <div class=" alert alert-danger invalid-feedback" id="tgl_akhir_verifikasi_error">Tanggal Akhir Verifikasi harus setelah Tanggal Akhir Pendaftaran</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- Penetapan --}}
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="tgl_awal_penetapan">Awal penetapan</label>
-                            <input 
-                                type="date" 
-                                class="form-control @error('tgl_awal_penetapan') is-invalid @enderror" 
-                                id="tgl_awal_penetapan" 
-                                name="tgl_awal_penetapan" 
-                                value="{{old('tgl_awal_penetapan')}}" 
-                                required>
-                                @error('tgl_awal_penetapan')
-                                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            <div class=" alert alert-danger invalid-feedback" id="tgl_awal_penetapan_error">Tanggal Awal Penetapan harus setelah Tanggal Akhir Verifikasi</div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="tgl_akhir_penetapan">Akhir Penetapan</label>
-                            <input 
-                                type="date" 
-                                class="form-control @error('tgl_akhir_penetapan') is-invalid @enderror" 
-                                id="tgl_akhir_penetapan" 
-                                name="tgl_akhir_penetapan" 
-                                value="{{old('tgl_akhir_penetapan')}}" 
-                                required>
-                                @error('tgl_akhir_penetapan')
-                                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            <div class=" alert alert-danger invalid-feedback" id="tgl_akhir_penetapan_error">Tanggal Akhir Penetapan harus setelah Tanggal Awal Penetapan</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- pengumuman --}}
-            <div class="form-group">
-                <label for="tgl_pengumuman">Tanggal Pengumuman</label>
-                <input 
-                    type="date" 
-                    class="form-control @error('tgl_pengumuman') is-invalid @enderror" 
-                    id="tgl_pengumuman" 
-                    name="tgl_pengumuman" 
-                    value="{{old('tgl_pengumuman')}}" 
-                    required>
-                    @error('tgl_pengumuman')
+        {{-- Timeline --}}
+        <h3 class="mt-4 mb-3">Timeline</h3>
+        {{-- Penawaran --}}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="tgl_awal_penawaran">Awal Penawaran</label>
+                        <input type="date" class="form-control @error('tgl_awal_penawaran') is-invalid @enderror"
+                            id="tgl_awal_penawaran" name="tgl_awal_penawaran" value="{{old('tgl_awal_penawaran')}}"
+                            required>
+                        @error('tgl_awal_penawaran')
                         <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                    @enderror
-                <div class=" alert alert-danger invalid-feedback" id="tgl_pengumuman_error">Tanggal Pengumuman harus setelah Tanggal Akhir Penetapan</div>
-            </div>
-            <br>
-             {{-- deskripsi --}}
-             <h3 class="mt-4 mb-3">Deskripsi</h3>
-             <div class="form-group">
-                <textarea type="text" class="form-control" id="deskripsi" placeholder="Tulis Deskripsi Beasiswa" rows="20" name="deskripsi" height="20">{{old('deskripsi')}}</textarea>
-            </div>
-
-            {{-- ketentuan --}}
-            <h4 class="mt-5 mb-3">Ketentuan</h4>
-            <div class="form-group">
-                <label for="ips">Indek Prestasi Semester</label>
-                <input 
-                    type="number" 
-                    step="0.01" 
-                    class="form-control @error('ips') is-invalid @enderror" 
-                    placeholder="masukkan ips" 
-                    id="ips" 
-                    name="ips" 
-                    value="{{old('ips')}}" required>
-                    @error('ips')
-                        <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                    @enderror
-                <div class=" alert alert-danger invalid-feedback" id="ips_error">Indek prestasi semester nilai 1-4</div>
-            </div>
-            <div class="form-group">
-                <label for="ipk">Indek Prestasi Komulatif</label>
-                <input 
-                    type="number" 
-                    step="0.01" 
-                    class="form-control @error('ipk') is-invalid @enderror" 
-                    placeholder="masukkan ipk" 
-                    id="ipk" 
-                    name="ipk" 
-                    value="{{old('ipk')}}" required>
-                    @error('ipk')
-                        <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                    @enderror
-                <div class=" alert alert-danger invalid-feedback" id="ipk_error">Indek prestasi komulatif nilai 1-4</div>
-            </div>
-            {{-- Semester --}}
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="min_semester">Minimal Semester</label>
-                            <input 
-                                type="number" 
-                                class="form-control @error('min_semester') is-invalid @enderror" 
-                                placeholder="masukkan minimal semester" 
-                                id="min_semester" name="min_semester" 
-                                value="{{old('min_semester')}}" 
-                                required>
-                                @error('min_semester')
-                                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            <div class=" alert alert-danger invalid-feedback" id="min_semester_error">Minimal Semester harus lebih kecil dari Maksimal Semester | Semester: 1-8</div>
-                        </div>
+                        @enderror
+                        <div class=" alert alert-danger invalid-feedback" id="tgl_awal_penawaran_error">Tanggal Awal
+                            Penawaran harus paling awal dari apapun</div>
                     </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="max_semester">Maksimal Semester</label>
-                            <input 
-                                type="number" 
-                                class="form-control @error('max_semester') is-invalid @enderror" 
-                                placeholder="masukkan maksimal semester" 
-                                id="max_semester" 
-                                name="max_semester" 
-                                value="{{old('max_semester')}}" 
-                                required>
-                                @error('max_semester')
-                                    <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            <div class=" alert alert-danger invalid-feedback" id="max_semester_error">Maksimal Semester harus lebih besar dari Minimal Semester | Semester: 1-8</div>
-                        </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="tgl_akhir_penawaran">Akhir Penawaran</label>
+                        <input type="date" class="form-control @error('tgl_akhir_penawaran') is-invalid @enderror"
+                            id="tgl_akhir_penawaran" name="tgl_akhir_penawaran" value="{{old('tgl_akhir_penawaran')}}"
+                            required>
+                        @error('tgl_akhir_penawaran')
+                        <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class=" alert alert-danger invalid-feedback" id="tgl_akhir_penawaran_error">Tanggal Akhir
+                            Penawaran harus setelah Tanggal Akhir Penawaran</div>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="max_penghasilan">Maksimal Penghasilan</label>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Rp.</span>
+        </div>
+        {{-- Pendaftaran --}}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="tgl_awal_pendaftaran">Awal Pendaftaran</label>
+                        <input type="date" class="form-control @error('tgl_awal_pendaftaran') is-invalid @enderror"
+                            id="tgl_awal_pendaftaran" name="tgl_awal_pendaftaran"
+                            value="{{old('tgl_awal_pendaftaran')}}" required>
+                        @error('tgl_awal_pendaftaran')
+                        <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class=" alert alert-danger invalid-feedback" id="tgl_awal_pendaftaran_error">Tanggal Awal
+                            Pendaftaran harus setelah Tanggal Awal Penawaran</div>
                     </div>
-                    <input type="number" step="0.01" class="form-control" id="max_penghasilan" placeholder="masukkan maksimal penghasilan" name="max_penghasilan" value="{{old('max_penghasilan')}}"  required>
-                    <div class="input-group-append">
-                      <span class="input-group-text">.00</span>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="tgl_akhir_pendaftaran">Akhir Pendaftaran</label>
+                        <input type="date" class="form-control @error('tgl_akhir_pendaftaran') is-invalid @enderror"
+                            id="tgl_akhir_pendaftaran" name="tgl_akhir_pendaftaran"
+                            value="{{old('tgl_akhir_pendaftaran')}}" required>
+                        @error('tgl_akhir_pendaftaran')
+                        <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class=" alert alert-danger invalid-feedback" id="tgl_akhir_pendaftaran_error">Tanggal Awal
+                            Pendaftaran harus setelah Tanggal Awal Pendaftaran</div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            {{-- bobot penilaian --}}
-            <h3 class="mt-5 mb-4">Bobot Penilaian</h3>
-            <div class="form-group" id="form-penilaian">
-                <label for="penilaian">Masukkan Bobot Penilaian</label>
+        {{-- Verifikasi --}}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="tgl_awal_verifikasi">Awal Verifikasi</label>
+                        <input type="date" class="form-control @error('tgl_awal_verifikasi') is-invalid @enderror"
+                            id="tgl_awal_verifikasi" name="tgl_awal_verifikasi" value="{{old('tgl_awal_verifikasi')}}"
+                            required>
+                        @error('tgl_awal_verifikasi')
+                        <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class=" alert alert-danger invalid-feedback" id="tgl_awal_verifikasi_error">Tanggal Awal
+                            Verifikasi harus setelah Tanggal Awal Pendaftaran</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="tgl_akhir_verifikasi">Akhir Verifikasi</label>
+                        <input type="date" class="form-control @error('tgl_akhir_verifikasi') is-invalid @enderror"
+                            id="tgl_akhir_verifikasi" name="tgl_akhir_verifikasi"
+                            value="{{old('tgl_akhir_verifikasi')}}" required>
+                        @error('tgl_akhir_verifikasi')
+                        <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class=" alert alert-danger invalid-feedback" id="tgl_akhir_verifikasi_error">Tanggal Akhir
+                            Verifikasi harus setelah Tanggal Akhir Pendaftaran</div>
+                    </div>
+                </div>
             </div>
-            <button  type="button" class="btn btn-secondary btn-penilaian mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
-            <div class="form-group">
-                <input type="text" name="myCountPenilaian" id="myCountPenilaian" hidden>
+        </div>
+        {{-- Penetapan --}}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="tgl_awal_penetapan">Awal penetapan</label>
+                        <input type="date" class="form-control @error('tgl_awal_penetapan') is-invalid @enderror"
+                            id="tgl_awal_penetapan" name="tgl_awal_penetapan" value="{{old('tgl_awal_penetapan')}}"
+                            required>
+                        @error('tgl_awal_penetapan')
+                        <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class=" alert alert-danger invalid-feedback" id="tgl_awal_penetapan_error">Tanggal Awal
+                            Penetapan harus setelah Tanggal Akhir Verifikasi</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="tgl_akhir_penetapan">Akhir Penetapan</label>
+                        <input type="date" class="form-control @error('tgl_akhir_penetapan') is-invalid @enderror"
+                            id="tgl_akhir_penetapan" name="tgl_akhir_penetapan" value="{{old('tgl_akhir_penetapan')}}"
+                            required>
+                        @error('tgl_akhir_penetapan')
+                        <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class=" alert alert-danger invalid-feedback" id="tgl_akhir_penetapan_error">Tanggal Akhir
+                            Penetapan harus setelah Tanggal Awal Penetapan</div>
+                    </div>
+                </div>
             </div>
+        </div>
+        {{-- pengumuman --}}
+        <div class="form-group">
+            <label for="tgl_pengumuman">Tanggal Pengumuman</label>
+            <input type="date" class="form-control @error('tgl_pengumuman') is-invalid @enderror" id="tgl_pengumuman"
+                name="tgl_pengumuman" value="{{old('tgl_pengumuman')}}" required>
+            @error('tgl_pengumuman')
+            <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+            @enderror
+            <div class=" alert alert-danger invalid-feedback" id="tgl_pengumuman_error">Tanggal Pengumuman harus setelah
+                Tanggal Akhir Penetapan</div>
+        </div>
+        <br>
+        {{-- deskripsi --}}
+        <h3 class="mt-4 mb-3">Deskripsi</h3>
+        <div class="form-group">
+            <textarea type="text" class="form-control" id="deskripsi" placeholder="Tulis Deskripsi Beasiswa" rows="20"
+                name="deskripsi" height="20">{{old('deskripsi')}}</textarea>
+        </div>
+
+        {{-- ketentuan --}}
+        <h4 class="mt-5 mb-3">Ketentuan</h4>
+        <div class="form-group">
+            <label for="ips">Indek Prestasi Semester</label>
+            <input type="number" step="0.01" class="form-control @error('ips') is-invalid @enderror"
+                placeholder="masukkan ips" id="ips" name="ips" value="{{old('ips')}}" required>
+            @error('ips')
+            <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+            @enderror
+            <div class=" alert alert-danger invalid-feedback" id="ips_error">Indek prestasi semester nilai 1-4</div>
+        </div>
+        <div class="form-group">
+            <label for="ipk">Indek Prestasi Komulatif</label>
+            <input type="number" step="0.01" class="form-control @error('ipk') is-invalid @enderror"
+                placeholder="masukkan ipk" id="ipk" name="ipk" value="{{old('ipk')}}" required>
+            @error('ipk')
+            <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+            @enderror
+            <div class=" alert alert-danger invalid-feedback" id="ipk_error">Indek prestasi komulatif nilai 1-4</div>
+        </div>
+        {{-- Semester --}}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="min_semester">Minimal Semester</label>
+                        <input type="number" class="form-control @error('min_semester') is-invalid @enderror"
+                            placeholder="masukkan minimal semester" id="min_semester" name="min_semester"
+                            value="{{old('min_semester')}}" required>
+                        @error('min_semester')
+                        <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class=" alert alert-danger invalid-feedback" id="min_semester_error">Minimal Semester harus
+                            lebih kecil dari Maksimal Semester | Semester: 1-8</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="max_semester">Maksimal Semester</label>
+                        <input type="number" class="form-control @error('max_semester') is-invalid @enderror"
+                            placeholder="masukkan maksimal semester" id="max_semester" name="max_semester"
+                            value="{{old('max_semester')}}" required>
+                        @error('max_semester')
+                        <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class=" alert alert-danger invalid-feedback" id="max_semester_error">Maksimal Semester
+                            harus lebih besar dari Minimal Semester | Semester: 1-8</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="max_penghasilan">Maksimal Penghasilan</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Rp.</span>
+                </div>
+                <input type="number" step="0.01" class="form-control" id="max_penghasilan"
+                    placeholder="masukkan maksimal penghasilan" name="max_penghasilan"
+                    value="{{old('max_penghasilan')}}" required>
+                <div class="input-group-append">
+                    <span class="input-group-text">.00</span>
+                </div>
+            </div>
+        </div>
+
+        {{-- bobot penilaian --}}
+        <h3 class="mt-5 mb-4">Bobot Penilaian</h3>
+        <div class="form-group" id="form-penilaian">
+            <label for="penilaian">Masukkan Bobot Penilaian</label>
+        </div>
+        <button type="button" class="btn btn-secondary btn-penilaian mb-4"><i class="fa fa-plus-circle"
+                aria-hidden="true"></i>Tambah</button>
+        <div class="form-group">
+            <input type="text" name="myCountPenilaian" id="myCountPenilaian" hidden>
+        </div>
 
 
-            {{-- lampiran --}}
-            <h3 class="mt-5 mb-4">Lampiran</h3>
-            <div class="form-group" id="form-lampiran">
-                <label for="lampiran">Lampiran Penawaran</label>
-            </div>
-            
-            <button  type="button" class="btn btn-secondary click mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
-            <div class="form-group">
-                <input type="text" name="myCount" id="myCount" hidden>
-            </div>
-            <div class="form-group">
-                <input type="text" name="myCountPendaftar" id="myCountPendaftar" hidden>
-            </div>
+        {{-- lampiran --}}
+        <h3 class="mt-5 mb-4">Lampiran</h3>
+        <div class="form-group" id="form-lampiran">
+            <label for="lampiran">Lampiran Penawaran</label>
+        </div>
 
-            <div class="from-group" id="lampiran-pendaftar">
-                <label for="lampiran_pendaftar">Lampiran Pendaftar</label>
-            </div>
-            <button  type="button" class="btn btn-secondary tambah-lampiran-pendaftar mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
-            <br>
-            <br>
-            <br>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save    "></i> Simpan</button>
-            <a href="route('admin.penawarans.index')" class="btn btn-outline-warning">Batal</a>
+        <button type="button" class="btn btn-secondary click mb-4"><i class="fa fa-plus-circle"
+                aria-hidden="true"></i>Tambah</button>
+        <div class="form-group">
+            <input type="text" name="myCount" id="myCount" hidden>
+        </div>
+        <div class="form-group">
+            <input type="text" name="myCountPendaftar" id="myCountPendaftar" hidden>
+        </div>
+
+        <div class="from-group" id="lampiran-pendaftar">
+            <label for="lampiran_pendaftar">Lampiran Pendaftar</label>
+        </div>
+        <button type="button" class="btn btn-secondary tambah-lampiran-pendaftar mb-4"><i class="fa fa-plus-circle"
+                aria-hidden="true"></i>Tambah</button>
+        <br>
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save    "></i> Simpan</button>
+        <a href="route('admin.penawarans.index')" class="btn btn-outline-warning">Batal</a>
 
 
-        </form>
-    </div>
+    </form>
+</div>
 @endsection
 
 {{-- regex --}}
 @push('addon-script')
-    <script>
-        var awal_penawaran = document.forms['penawaran']['tgl_awal_penawaran'];
+<script>
+    var awal_penawaran = document.forms['penawaran']['tgl_awal_penawaran'];
         var akhir_penawaran = document.forms['penawaran']['tgl_akhir_penawaran'];
         var awal_pendaftaran = document.forms['penawaran']['tgl_awal_pendaftaran'];
         var akhir_pendaftaran = document.forms['penawaran']['tgl_akhir_pendaftaran'];
@@ -679,12 +633,11 @@
                 return true;
             }
         }
-    </script>
+</script>
 @endpush
 @push('addon-script')
-    <script type="text/javascript">
-
-        $(document).ready(function(){
+<script type="text/javascript">
+    $(document).ready(function(){
             $("#value1").click(function(){
                 $("#fakultas").hide();
                 $("#kuota-total").show();
@@ -710,20 +663,21 @@
             });
         });
     
-    </script>
+</script>
 @endpush
 @push('addon-script')
-    <script src='https://cdn.tiny.cloud/1/0uwdgf525pyf04gsx5l2p31w2vgbln2vgbmacloluf1pwt79/tinymce/5/tinymce.min.js' referrerpolicy="origin">
-  </script>
-  <script>
+<script src='https://cdn.tiny.cloud/1/0uwdgf525pyf04gsx5l2p31w2vgbln2vgbmacloluf1pwt79/tinymce/5/tinymce.min.js'
+    referrerpolicy="origin">
+</script>
+<script>
     tinymce.init({
       selector: '#deskripsi'
     });
-  </script>
+</script>
 @endpush
 @push('addon-script')
-    <script type="text/javascript">
-        var countPenilaian = 0;
+<script type="text/javascript">
+    var countPenilaian = 0;
         var myNamePenilaian = [];
 
         //menghapus penilaian
@@ -847,11 +801,10 @@
                 select.appendChild(option);
             }
         }
-    </script>
+</script>
 @endpush
 @push('addon-script')
-    <script type="text/javascript">
-
+<script type="text/javascript">
     //penawaran upload
     var count = 0;
     var myName = [];
@@ -1113,6 +1066,5 @@
         }
     }
         
-    </script>
+</script>
 @endpush
-

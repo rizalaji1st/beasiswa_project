@@ -7,10 +7,10 @@ use App\FilePendaftar;
 use App\UploadFile;
 use App\PenawaranUpload;
 use App\Penawaran;
-use App\Http\Requests\PenawaranRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use Auth;
 
 
 class PendaftarDashController extends Controller
@@ -46,6 +46,63 @@ class PendaftarDashController extends Controller
     {
         
         return view('pages.pendaftaran.dashboard.penawaran.daftar', compact('Penawaran'));
+        
+    }
+    
+    public function penawaranCreate(Penawaran $Penawaran, Request $request)
+    {   
+        $data = $request->all();
+        $this->validate($request, [
+                'files.*' => 'required|file|max:5000'
+        ]);
+
+
+        if($request->hasfile('files'))
+         {
+            foreach($request->file('files') as $file)
+            {
+                $extension = $file->extension();
+                $filenameWithExt = $file->getClientOriginalName();
+                $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME) . '_' . date('dmyHis') . '.' . $extension;
+                $path = Storage::putFileAs('public/data_file/penawaran_upload', $file, $filename);
+                
+                $size = $file->getSize();
+                FilePendaftar::create([
+                        // 'id_pendaftar' => $data['id_mahasiswa'],
+                        // 'id_jenis_file' => $data['id_jenis_file'],
+                        // 'id_upload_file' => $datas['id_upload_file'],
+                        'path_file' => $path,
+                        'nama_file' => $filename,
+                        'ektensi' => $extension,
+                        'size' => $size
+                    ]);            
+            }
+            
+         };
+         Pendaftaran::create([
+                            'id_mahasiswa'=>Auth::user()->nim,
+                            'id_penawaran'=>$Penawaran->id_penawaran, 
+                            'ips'=>Auth::user()->ips, 
+                            'ipk'=>Auth::user()->ipk, 
+                            'penghasilan'=>Auth::user()->penghasilan, 
+                            'semester'=>Auth::user()->semester,
+                            'status_ayah'=>Auth::user()->status_ayah,
+                            'status_ibu'=>Auth::user()->status_ibu,
+                            'status_rumah'=>Auth::user()->status_rumah,
+                            'pendidikan_ayah'=>Auth::user()->pend_ayah,
+                            'pendidikan_ibu'=>Auth::user()->pend_ibu,
+                            'pekerjaan_ayah'=>Auth::user()->pekerjaan_ayah,
+                            'pekerjaan_ibu'=>Auth::user()->pekerjaan_ibu,
+                            'gaji_ayah'=>Auth::user()->gaji_ayah,
+                            'gaji_ibu'=>Auth::user()->gaji_ibu,
+                            'jumlah_tanggungan'=>Auth::user()->jml_tanggungan,
+                    ]);
+         return redirect('/pendaftar/penawaran/upload/' . $Penawaran->id_penawaran)->with('success', 'Pendaftaran Beasiswa Berhasil');
+
+    }
+    public function penawaranUpload(Penawaran $Penawaran)
+    {
+        return view('pages.pendaftaran.dashboard.penawaran.upload', compact('Penawaran'));
         
     }
 }
