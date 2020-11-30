@@ -56,31 +56,8 @@ class PendaftarDashController extends Controller
                 'files.*' => 'required|file|max:5000'
         ]);
 
-
-        if($request->hasfile('files'))
-         {
-            foreach($request->file('files') as $file)
-            {
-                $extension = $file->extension();
-                $filenameWithExt = $file->getClientOriginalName();
-                $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME) . '_' . date('dmyHis') . '.' . $extension;
-                $path = Storage::putFileAs('public/data_file/penawaran_upload', $file, $filename);
-                
-                $size = $file->getSize();
-                FilePendaftar::create([
-                        // 'id_pendaftar' => $data['id_mahasiswa'],
-                        // 'id_jenis_file' => $data['id_jenis_file'],
-                        // 'id_upload_file' => $datas['id_upload_file'],
-                        'path_file' => $path,
-                        'nama_file' => $filename,
-                        'ektensi' => $extension,
-                        'size' => $size
-                    ]);            
-            }
-            
-         };
-         Pendaftaran::create([
-                            'id_mahasiswa'=>Auth::user()->nim,
+        Pendaftaran::create([
+                            'id_mahasiswa'=>Auth::user()->id,
                             'id_penawaran'=>$Penawaran->id_penawaran, 
                             'ips'=>Auth::user()->ips, 
                             'ipk'=>Auth::user()->ipk, 
@@ -96,7 +73,38 @@ class PendaftarDashController extends Controller
                             'gaji_ayah'=>Auth::user()->gaji_ayah,
                             'gaji_ibu'=>Auth::user()->gaji_ibu,
                             'jumlah_tanggungan'=>Auth::user()->jml_tanggungan,
-                    ]);
+         ]);       
+            
+
+
+        if($request->hasfile('files'))
+         {
+            foreach($request->file('files') as $file)
+            {
+                foreach ($Penawaran->lampiranPendaftar as $row) {
+                    # code...
+                
+                    $extension = $file->extension();
+                    $filenameWithExt = $file->getClientOriginalName();
+                    $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME) . '_' . date('dmyHis') . '.' . $extension;
+                    $path = Storage::putFileAs('public/data_file/penawaran_upload', $file, $filename);
+                    
+                    $size = $file->getSize();
+                    FilePendaftar::create([
+                            'id_pendaftar' => Auth::user()->id,
+                            // 'id_jenis_file' => $data['id_jenis_file'],
+                            // 'id_upload_file' => $datas['id_upload_file'],
+                            'path_file' => $path,
+                            'nama_file' => $filename,
+                            'ektensi' => $extension,
+                            'size' => $size,
+                            'id_jenis_file' => $row->refJenisFile->id_jenis_file,
+                            'id_upload_file' => $row->id_upload_file
+                        ]); 
+                }  
+            } 
+            
+            };
          return redirect('/pendaftar/penawaran/upload/' . $Penawaran->id_penawaran)->with('success', 'Pendaftaran Beasiswa Berhasil');
 
     }
@@ -105,4 +113,5 @@ class PendaftarDashController extends Controller
         return view('pages.pendaftaran.dashboard.penawaran.upload', compact('Penawaran'));
         
     }
+
 }

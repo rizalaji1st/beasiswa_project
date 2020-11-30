@@ -76,7 +76,7 @@ class UserTableSeeder extends Seeder
             'status_rumah' => 'Sendiri',
             'ipk'=>'3',
             'ips'=>'4',
-            'semester'=>'5'
+            'semester'=>'5s'
         ]);
         
 
