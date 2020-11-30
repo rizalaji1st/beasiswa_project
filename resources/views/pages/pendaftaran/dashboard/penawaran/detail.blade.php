@@ -39,24 +39,13 @@ $selisih = $akhir->diffInDays($sekarang);
                     Pengumuman: {{$Penawaran->tgl_pengumuman->format('d M Y')}}
                 </div>
                 <br>
-                <form action="">
-                    @foreach ($Penawaran->lampiranPendaftar as $lamp)
-                    <div class="custom-file mb-3">
-                        <input type="file" name="files[]" class="custom-file-input" id="file" required>
-                        <label class="custom-file-label" for="file">Upload
-                            {{$lamp->refJenisFile->nama_jenis_file}}...</label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div>
-                    </div>
-                    @endforeach
-                </form>
-
                 <a href="/pendaftar/penawaran/upload/{{$Penawaran->id_penawaran}}" class=" btn
                                 btn-primary
                                 btn-icon-split btn-sm">
                     <span class="icon text-white-50">
-                        <i class="fa fa-paper-plane"></i>
+                        <i class="fa fa-book"></i>
                     </span>
-                    <span class="text">Apply Beasiswa</span>
+                    <span class="text">Pemberkasan</span>
                 </a>
             </div>
         </div>

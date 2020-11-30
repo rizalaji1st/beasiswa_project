@@ -25,7 +25,7 @@
                         <div class="invalid-feedback">Example invalid custom file feedback</div>
                     </div>
                     @endforeach
-                    <button type="submit" class="btn btn-primary btn-icon-split btn-sm">
+                    <button type="submit" class="btn btn-success btn-icon-split btn-sm">
                         <span class="icon text-white-50">
                             <i class="fa fa-paper-plane"></i>
                         </span>
