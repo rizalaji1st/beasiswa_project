@@ -94,8 +94,8 @@ class UserTableSeeder extends Seeder
         // ]);
 
         $mahasiswa = array(
-            array("M3118074", "Rendi Jaka Susanto", "Sindangbarang", "Cilacap", "Jawa Tengah", "00000", "Rp.700.000","Dwi Windu Suroyo", "Wafat" , "SMA/MA / Sederajat","Tidak bekerja", "Rp.0","Sumarni","hidup", "SMP/MTs / Sederajat","wirausaha","Rp.700.000","3","Sendiri","Rendi Jaka Susanto","rendijaka@student.uns.ac.id","1234","4","4","6"),
-            array("M3118076", "Dummy Data", "Sindangbarang", "Cilacap", "Jawa Tengah", "00000", "Rp.700.000","Dwi Windu Suroyo", "Wafat" , "SMA/MA / Sederajat","Tidak bekerja", "Rp.0","Sumarni","hidup", "SMP/MTs / Sederajat","wirausaha","Rp.700.000","3","Sendiri", "Puskom","puskom@student.uns.ac.id","1234","4","4","6"),
+            array("M3118074", "Rendi Jaka Susanto", "Sindangbarang", "Cilacap", "Jawa Tengah", "00000", "Rp.700.000","Dwi Windu Suroyo", "Wafat" , "SMA/MA / Sederajat","Tidak bekerja", "Rp.0","Sumarni","hidup", "SMP/MTs / Sederajat","wirausaha","Rp.700.000","3","Sendiri","Rendi Jaka Susanto","rendijaka@student.uns.ac.id","1234","4","4","6","5"),
+            array("M3118076", "Dummy Data", "Sindangbarang", "Cilacap", "Jawa Tengah", "00000", "Rp.700.000","Dwi Windu Suroyo", "Wafat" , "SMA/MA / Sederajat","Tidak bekerja", "Rp.0","Sumarni","hidup", "SMP/MTs / Sederajat","wirausaha","Rp.700.000","3","Sendiri", "Puskom","puskom@student.uns.ac.id","1234","4","4","6","5"),
         );
         $i = 1;
         for ($row = 0; $row < count($mahasiswa); $row++) {
@@ -125,6 +125,7 @@ class UserTableSeeder extends Seeder
                 'ips' => $mahasiswa[$row][22],
                 'ipk' => $mahasiswa[$row][23],
                 'alamat' => $mahasiswa[$row][24],
+                'semester' => $mahasiswa[$row][25],
                 'created_at'=>Carbon::now(),
                 'updated_at'=>Carbon::now()   
             ]);  
