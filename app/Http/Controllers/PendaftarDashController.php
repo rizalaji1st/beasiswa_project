@@ -32,7 +32,7 @@ class PendaftarDashController extends Controller
      public function penawaranIndex()
     {
         $beasiswas = Penawaran::all();
-        return view('pages.pendaftaran.dashboard.penawaran.index', ['beasiswas' => $beasiswas]);
+        return view('pages.pendaftaran.dashboard.penawaran.indexcoba', ['beasiswas' => $beasiswas]);
         
     }
 
