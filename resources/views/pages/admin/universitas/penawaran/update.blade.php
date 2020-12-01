@@ -342,6 +342,7 @@
                         <div class="alert alert-danger invalid-feedback">{{ $message }}</div>
                     @enderror
                 <div class=" alert alert-danger invalid-feedback" id="tgl_pengumuman_error">Tanggal Pengumuman harus setelah Tanggal Akhir Penetapan</div>
+                <div class=" alert alert-danger invalid-feedback" id="tgl_pengumuman_error1">Tanggal Pengumuman harus sebelum Tanggal Akhir Penawaran</div>
             </div>
             <br>
             {{-- deskripsi --}}
@@ -676,6 +677,12 @@
             if(tgl_pengumuman.value <= tgl_akhir_penetapan.value || tgl_akhir_penawaran.value <= tgl_pengumuman.value){
                 tgl_pengumuman.style.border = "1px solid red";
                 tgl_pengumuman_error.style.display = "block";
+                tgl_pengumuman.scrollIntoView();
+                return false;
+            }
+            if(tgl_akhir_penawaran.value <= tgl_pengumuman.value){
+                tgl_pengumuman.style.border = "1px solid red";
+                tgl_pengumuman_error1.style.display = "block";
                 tgl_pengumuman.scrollIntoView();
                 return false;
             }

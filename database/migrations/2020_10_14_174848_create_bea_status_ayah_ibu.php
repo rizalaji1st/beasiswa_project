@@ -28,6 +28,6 @@ class CreateBeaStatusAyahIbu extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bea_status__ayah_ibu');
+        Schema::dropIfExists('bea_status_ayah_ibu');
     }
 }

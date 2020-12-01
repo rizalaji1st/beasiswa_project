@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
-use Gate;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
