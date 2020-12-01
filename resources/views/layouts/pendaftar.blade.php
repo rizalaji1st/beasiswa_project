@@ -1,4 +1,4 @@
-@include('includes.pendaftar.header')
+@include('includes.pendaftar.sb-admin.header')
 
 
 <body id="page-top">
@@ -6,7 +6,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    @include('includes.pendaftar.sidebar')
+    @include('includes.pendaftar.sb-admin.sidebar')
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -14,7 +14,7 @@
       <!-- Main Content -->
       <div id="content">
 
-        @include('includes.pendaftar.topbar')
+        @include('includes.pendaftar.sb-admin.topbar')
 
         @yield('content')
 
@@ -43,7 +43,8 @@
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -61,8 +62,8 @@
     </div>
   </div>
 
-@include('includes.pendaftar.script')
-@stack('addon-script')
+  @include('includes.pendaftar.sb-admin.script')
+  @stack('addon-script')
 </body>
 
 </html>

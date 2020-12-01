@@ -50,6 +50,20 @@ class UserTableSeeder extends Seeder
             'email' => 'fakultas@fakultas.com',
             'password' => Hash::make('fakultas')
         ]);
+
+        $fakultas = array(
+            'Fakultas Keguruan dan Ilmu Pendidikan',
+            'Fakultas Matematika dan Ilmu Alam',
+            'Fakultas Kedokteran',
+            'Fakultas Pertanian',
+            'Fakultas Teknik',
+            'Fakultas Ilmu Budaya',
+            'Fakultas Ekonomi Bisnis',
+            'Fakultas Hukum',
+            'Fakultas Seni Rupa dan Desain',
+            'Fakultas Ilmu Sosial dan Politik',
+            'Fakultas Keolahragaan'
+        );
         
         $user1 = User::create([
             'name' => 'Rendi Jaka Susanto',
