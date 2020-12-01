@@ -534,6 +534,7 @@
 
             <div class="form-group" id="lampiran-pendaftar">
                 <label for="lampiran">Lampiran Pendaftar</label>
+                <p for="lampiran_pendaftar" style="color: #bdbdbd">*masukkan dokumen yang harus diupload pendaftar</p>
                 @foreach ($penawaran->lampiranPendaftar as $lampiranPendaftar)
                 <div class="container card p-3 mb-3" id="lampiranPendaftarAda{{$loop->iteration}}">
                     <div class="row">
@@ -674,7 +675,7 @@
                 tgl_akhir_penetapan.scrollIntoView();
                 return false;
             }
-            if(tgl_pengumuman.value <= tgl_akhir_penetapan.value || tgl_akhir_penawaran.value <= tgl_pengumuman.value){
+            if(tgl_pengumuman.value <= tgl_akhir_penetapan.value){
                 tgl_pengumuman.style.border = "1px solid red";
                 tgl_pengumuman_error.style.display = "block";
                 tgl_pengumuman.scrollIntoView();
@@ -772,6 +773,7 @@
             if(tgl_pengumuman.value > tgl_akhir_penetapan.value  && tgl_akhir_penawaran.value > tgl_pengumuman.value){
                 tgl_pengumuman.style.border = "1px solid silver";
                 tgl_pengumuman_error.style.display = "none";
+                tgl_pengumuman_error1.style.display = "none";
                 return true;
             }
         }

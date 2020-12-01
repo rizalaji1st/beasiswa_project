@@ -389,6 +389,7 @@
         <h3 class="mt-5 mb-4">Lampiran</h3>
         <div class="form-group" id="form-lampiran">
             <label for="lampiran">Lampiran Penawaran</label>
+            
         </div>
 
         <button type="button" class="btn btn-secondary click mb-4"><i class="fa fa-plus-circle"
@@ -402,6 +403,7 @@
 
         <div class="from-group" id="lampiran-pendaftar">
             <label for="lampiran_pendaftar">Lampiran Pendaftar</label>
+            <p for="lampiran_pendaftar" style="color: #bdbdbd">*masukkan dokumen yang harus diupload pendaftar</p>
         </div>
         <button type="button" class="btn btn-secondary tambah-lampiran-pendaftar mb-4"><i class="fa fa-plus-circle"
                 aria-hidden="true"></i>Tambah</button>
@@ -508,7 +510,7 @@
                 tgl_akhir_penetapan.scrollIntoView();
                 return false;
             }
-            if(tgl_pengumuman.value <= tgl_akhir_penetapan.value || tgl_akhir_penawaran.value <= tgl_pengumuman.value){
+            if(tgl_pengumuman.value <= tgl_akhir_penetapan.value){
                 tgl_pengumuman.style.border = "1px solid red";
                 tgl_pengumuman_error.style.display = "block";
                 tgl_pengumuman.scrollIntoView();
@@ -606,6 +608,7 @@
             if(tgl_pengumuman.value > tgl_akhir_penetapan.value  && tgl_akhir_penawaran.value > tgl_pengumuman.value){
                 tgl_pengumuman.style.border = "1px solid silver";
                 tgl_pengumuman_error.style.display = "none";
+                tgl_pengumuman_error1.style.display = "none";
                 return true;
             }
         }
