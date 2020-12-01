@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Auth;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 
 class PendaftarDashController extends Controller
@@ -51,13 +52,33 @@ class PendaftarDashController extends Controller
     
     public function penawaranCreate(Penawaran $Penawaran, Request $request)
     {   
+        //generate id bea pendaftar npenawaran
+        $configBeaPendaftar = [
+            'table' => 'bea_pendaftar_penawaran',
+            'length' => 6,
+            'prefix' => '0',
+            'field'=> 'id_pendaftar'
+        ];
+        $idBeaPendaftar = IdGenerator::generate($configBeaPendaftar);
+
+        //generatePendaftarUpload
+
+        $configPendaftarUpload = [
+            'table' => 'bea_pendaftar_upload',
+            'length' => 6,
+            'prefix' => '0',
+            'field'=>'id_pendaftar'
+        ];
+        $idPendaftarUpload = IdGenerator::generate($configPendaftarUpload);
+
+
         $data = $request->all();
         $this->validate($request, [
                 'files.*' => 'required|file|max:5000'
         ]);
 
         Pendaftaran::create([
-                            'id_mahasiswa'=>Auth::user()->id,
+                            'id_pendaftar'=>$idBeaPendaftar,
                             'id_penawaran'=>$Penawaran->id_penawaran, 
                             'ips'=>Auth::user()->ips, 
                             'ipk'=>Auth::user()->ipk, 
@@ -91,7 +112,7 @@ class PendaftarDashController extends Controller
                     
                     $size = $file->getSize();
                     FilePendaftar::create([
-                            'id_pendaftar' => Auth::user()->id,
+                            'id_pendaftar' => $idPendaftarUpload,
                             // 'id_jenis_file' => $data['id_jenis_file'],
                             // 'id_upload_file' => $datas['id_upload_file'],
                             'path_file' => $path,
