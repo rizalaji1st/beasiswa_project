@@ -56,7 +56,7 @@ class PendaftarDashController extends Controller
         $configBeaPendaftar = [
             'table' => 'bea_pendaftar_penawaran',
             'length' => 6,
-            'prefix' => '0',
+            'prefix' => '',
             'field'=> 'id_pendaftar'
         ];
         $idBeaPendaftar = IdGenerator::generate($configBeaPendaftar);
@@ -66,7 +66,7 @@ class PendaftarDashController extends Controller
         $configPendaftarUpload = [
             'table' => 'bea_pendaftar_upload',
             'length' => 6,
-            'prefix' => '0',
+            'prefix' => '',
             'field'=>'id_pendaftar'
         ];
         $idPendaftarUpload = IdGenerator::generate($configPendaftarUpload);

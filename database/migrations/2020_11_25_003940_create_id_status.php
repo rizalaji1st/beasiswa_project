@@ -15,7 +15,7 @@ class CreateIdStatus extends Migration
     {
         Schema::create('id_status', function (Blueprint $table) {
             $table->bigIncrements('id_status');
-            $table->unsignedBigInteger('id_pendaftar');
+            $table->string('id_pendaftar');
             $table->foreign('id_pendaftar')->references('id_pendaftar')->on('bea_pendaftar_penawaran')->onDelete('cascade');
             $table->unsignedBigInteger('id_pekerjaan_AyahIbu');
             $table->foreign('id_pekerjaan_AyahIbu')->references('id_pekerjaan_AyahIbu')->on('bea_pekerjaan_ayah_ibu')->onDelete('cascade');
