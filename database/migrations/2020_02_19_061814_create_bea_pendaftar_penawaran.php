@@ -18,7 +18,8 @@ class CreateBeaPendaftarPenawaran extends Migration
             $table->string('id_pendaftar')->primary();
             $table->unsignedBigInteger('id_penawaran');
             $table->foreign('id_penawaran')->references('id_penawaran')->on('bea_penawaran')->onDelete('cascade');
-            $table->integer('nim');
+            $table->integer('id_user');
+            $table->string('nim');
             $table->float('ips');
             $table->float('ipk');
             $table->integer('penghasilan');

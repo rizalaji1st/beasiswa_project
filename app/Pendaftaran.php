@@ -24,6 +24,7 @@ class Pendaftaran extends Model
                             'pekerjaan_ibu',
                             'jumlah_tanggungan',
                             'gaji_ayah',
-                            'gaji_ibu'
+                            'gaji_ibu',
+                            'id_user'
                         ];
 }

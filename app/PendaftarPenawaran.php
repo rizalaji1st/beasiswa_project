@@ -9,7 +9,8 @@ class PendaftarPenawaran extends Model
 {
     protected $table = 'bea_pendaftar_penawaran';
     protected $primaryKey = 'id_pendaftar';
-    protected $fillable = ['id_pendaftar', 
+    protected $fillable = ['id_pendaftar',
+                            'id_user',
                             'id_penawaran',
                             'nim',
                             'ips',
@@ -23,7 +24,8 @@ class PendaftarPenawaran extends Model
                             'pekerjaan_ayah',
                             'pekerjaan_ibu',
                             'jumlah_tanggungan',
-                            'semester'                        
+                            'semester',
+                                                    
                         ];
 
     public function refFakultas(){

@@ -25,12 +25,23 @@
                         <div class="invalid-feedback">Example invalid custom file feedback</div>
                     </div>
                     @endforeach
+                    @if($user==null)
                     <button type="submit" class="btn btn-success btn-icon-split btn-sm">
                         <span class="icon text-white-50">
                             <i class="fa fa-paper-plane"></i>
                         </span>
                         <span class="text">Apply Beasiswa</span>
                     </button>
+                    @else
+                    <button type="submit" class="btn btn-secondary btn-icon-split btn-sm" disabled>
+                        <span class="icon text-white-50">
+                            <i class="fa fa-paper-plane"></i>
+                        </span>
+                        <span class="text">Anda Sudah Mendaftar</span>
+                    </button>
+                    @endif
+
+
                 </form>
             </div>
         </div>

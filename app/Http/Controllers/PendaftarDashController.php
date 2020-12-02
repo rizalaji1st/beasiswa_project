@@ -32,7 +32,7 @@ class PendaftarDashController extends Controller
      public function penawaranIndex()
     {
         $beasiswas = Penawaran::all();
-        return view('pages.pendaftaran.dashboard.penawaran.indexcoba', ['beasiswas' => $beasiswas]);
+        return view('pages.pendaftaran.dashboard.penawaran.index', ['beasiswas' => $beasiswas]);
         
     }
 
@@ -49,9 +49,16 @@ class PendaftarDashController extends Controller
         return view('pages.pendaftaran.dashboard.penawaran.daftar', compact('Penawaran'));
         
     }
-    
-    public function penawaranCreate(Penawaran $Penawaran, Request $request)
+    public function penawaranUpload(Penawaran $Penawaran)
+    {
+        $id = Auth::user()->id;
+        $user = Pendaftaran::where('id_user', '=', $id );
+        return view('pages.pendaftaran.dashboard.penawaran.upload', compact('Penawaran','user'));
+        
+    }
+    public function penawaranCreate(Penawaran $Penawaran, Request $request, user $user)
     {   
+
         //generate id bea pendaftar npenawaran
         $configBeaPendaftar = [
             'table' => 'bea_pendaftar_penawaran',
@@ -79,7 +86,9 @@ class PendaftarDashController extends Controller
 
         Pendaftaran::create([
                             'id_pendaftar'=>$idBeaPendaftar,
-                            'id_penawaran'=>$Penawaran->id_penawaran, 
+                            'id_penawaran'=>$Penawaran->id_penawaran,
+                            'id_user'=>Auth::user()->id,
+                            'nim'=>Auth::user()->nim,
                             'ips'=>Auth::user()->ips, 
                             'ipk'=>Auth::user()->ipk, 
                             'penghasilan'=>Auth::user()->penghasilan, 
@@ -93,7 +102,7 @@ class PendaftarDashController extends Controller
                             'pekerjaan_ibu'=>Auth::user()->pekerjaan_ibu,
                             'gaji_ayah'=>Auth::user()->gaji_ayah,
                             'gaji_ibu'=>Auth::user()->gaji_ibu,
-                            'jumlah_tanggungan'=>Auth::user()->jml_tanggungan,
+                            'jumlah_tanggungan'=>Auth::user()->jml_tanggungan
          ]);       
             
 
@@ -108,7 +117,7 @@ class PendaftarDashController extends Controller
                     $extension = $file->extension();
                     $filenameWithExt = $file->getClientOriginalName();
                     $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME) . '_' . date('dmyHis') . '.' . $extension;
-                    $path = Storage::putFileAs('public/data_file/penawaran_upload', $file, $filename);
+                    $path = Storage::putFileAs('public/data_file/pendaftaran_upload', $file, $filename);
                     
                     $size = $file->getSize();
                     FilePendaftar::create([
@@ -129,10 +138,6 @@ class PendaftarDashController extends Controller
          return redirect('/pendaftar/penawaran/upload/' . $Penawaran->id_penawaran)->with('success', 'Pendaftaran Beasiswa Berhasil');
 
     }
-    public function penawaranUpload(Penawaran $Penawaran)
-    {
-        return view('pages.pendaftaran.dashboard.penawaran.upload', compact('Penawaran'));
-        
-    }
+    
 
 }
