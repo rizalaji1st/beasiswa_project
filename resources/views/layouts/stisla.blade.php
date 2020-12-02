@@ -21,4 +21,4 @@
                     </footer>
             </div>
         </div>
-    </div>
+        @include('includes.pendaftar.stisla.script')

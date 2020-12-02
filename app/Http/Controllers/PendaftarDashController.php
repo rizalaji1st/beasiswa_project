@@ -24,7 +24,7 @@ class PendaftarDashController extends Controller
     
     public function index()
     {
-        return view('pages.pendaftaran.dashboard.index');
+        return view('pages.pendaftaran.dashboard.index2');
         
     }
 
@@ -33,14 +33,14 @@ class PendaftarDashController extends Controller
      public function penawaranIndex()
     {
         $beasiswas = Penawaran::all();
-        return view('pages.pendaftaran.dashboard.penawaran.index', ['beasiswas' => $beasiswas]);
+        return view('pages.pendaftaran.dashboard.penawaran2.index', ['beasiswas' => $beasiswas]);
         
     }
 
     public function penawaranDetail(Penawaran $Penawaran)
     {
         
-        return view('pages.pendaftaran.dashboard.penawaran.detail', compact('Penawaran'));
+        return view('pages.pendaftaran.dashboard.penawaran2.detail', compact('Penawaran'));
         
     }
 
@@ -54,7 +54,7 @@ class PendaftarDashController extends Controller
     {
         $id = Auth::user()->id;
         $user = Pendaftaran::where('id_user', '=', $id );
-        return view('pages.pendaftaran.dashboard.penawaran.upload', compact('Penawaran','user'));
+        return view('pages.pendaftaran.dashboard.penawaran2.upload', compact('Penawaran','user'));
         
     }
     public function penawaranCreate(Penawaran $Penawaran, Request $request, user $user)
