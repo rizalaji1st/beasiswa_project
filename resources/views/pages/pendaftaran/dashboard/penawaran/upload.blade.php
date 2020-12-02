@@ -39,6 +39,15 @@
                         </span>
                         <span class="text">Anda Sudah Mendaftar</span>
                     </button>
+                    <br>
+                    <a href="/pendaftar/penawaran/print/{{$Penawaran->id_penawaran}}" type="submit"
+                        class="btn btn-primary btn-icon-split btn-sm mt-2" disabled>
+                        <span class="icon text-white-50">
+                            <i class="fas fa-print"></i>
+                        </span>
+                        <span class="text">Print Bukti Pendaftaran</span>
+                    </a>
+
                     @endif
 
 

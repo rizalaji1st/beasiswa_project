@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Auth;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use PDF;
 
 
 class PendaftarDashController extends Controller
@@ -137,6 +138,17 @@ class PendaftarDashController extends Controller
             };
          return redirect('/pendaftar/penawaran/upload/' . $Penawaran->id_penawaran)->with('success', 'Pendaftaran Beasiswa Berhasil');
 
+    }
+
+    public function cetakPdf(Penawaran $Penawaran)
+    {
+        $now = Carbon::now();
+        $pdf = PDF::loadview('pages.pendaftaran.dashboard.penawaran.pdf', [
+            'Penawaran'=>$Penawaran,
+            'now'=> $now
+        ]);
+	    return $pdf->stream("Bukti Pendaftaran.pdf");
+        
     }
     
 
