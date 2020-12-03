@@ -13,10 +13,8 @@
             <label>{{$lamp->refJenisFile->nama_jenis_file}}</label>
             <input type="file" class="form-control">
             @endforeach
-            @if($user==null)
-            <button type="submit" class="btn btn-icon icon-left btn-primary mt-2"><i class="fa fa-paper-plane"></i>Apply
-                Beasiswa</button>
-            @else
+            @if($cekbea)
+            @if($user->count() > 0)
             <button type="submit" class="btn btn-icon icon-left btn-danger mt-2" disabled>
                 <i class="fas fa-exclamation"></i>
                 Anda Sudah Mendaftar
@@ -26,7 +24,13 @@
                 class="btn btn-icon icon-left btn-primary mt-2">
                 <i class="fas fa-print">Print Bukti Pendaftaran</i>
             </a>
-
+            @else
+            <button type="submit" class="btn btn-icon icon-left btn-primary mt-2"><i class="fa fa-paper-plane"></i>Apply
+                Beasiswa</button>
+            @endif
+            @else
+            <button type="submit" class="btn btn-icon icon-left btn-primary mt-2"><i class="fa fa-paper-plane"></i>Apply
+                Beasiswa</button>
             @endif
         </form>
     </div>

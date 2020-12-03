@@ -2,32 +2,40 @@
 @section('title', 'Penawaran Beasiswa')
 @section('content')
 <div class="section-header">
-    <h1>Penawaran</h1>
+    <h1>Daftar beasiswa Aktif</h1>
 </div>
 <div class="section-body">
     <div class="row">
-        <div class="col-12 col-md-6 col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="section-title mt-0">Daftar Beasiswa Aktif</div>
-                    <form method="POST" action="">
-                        @csrf
-                        <div class="form-group">
-                            <label>Pilih Besiswa</label>
-                            <select class="form-control" name="bea" id="bea">
-                                @foreach ($beasiswas as $beasiswa)
-                                <option value=" {{$beasiswa->id_penawaran}}" id="{{$beasiswa->id_penawaran}}">
-                                    {{$beasiswa->nama_penawaran}}</option>
-                                @endforeach
-                            </select>
-                            <a id="link" href="" class="btn btn-sm btn-primary mt-2">
-                                <span class="text">Detail Beasiswa</span>
-                            </a>
-                        </div>
-                    </form>
+        @foreach ($beasiswas as $beasiswa)
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+            <article class="article">
+                <div class="article-header">
+                    <div class="article-image" data-background="{{url('dashboard/img/bea.jpg')}}"
+                        style="background-image: url(&quot;{{url('dashboard/img/bea.jpg')}}&quot;);">
+                    </div>
                 </div>
-            </div>
+                <div class="article-details">
+                    @if($beasiswa->is_double = 1)
+                    beasiswa ganda<br>
+                    @else
+                    beasiswa tunggal<br>
+                    @endif
+                    Beasiswa {{$beasiswa->nama_penawaran}}<br>
+                    <i class="fas fa-box-open"></i>
+                    Tahun Akademik: {{$beasiswa->tahun_dasar_akademik}}<br>
+                    <i class="fas fa-box-open"></i>
+                    Kuota: {{$beasiswa->jml_kuota}}
+
+
+                    <div class="article-cta">
+                        <a href="/pendaftar/penawaran/detail/{{$beasiswa->id_penawaran}}" class="btn btn-primary">Read
+                            More</a>
+                    </div>
+                </div>
+            </article>
         </div>
+        @endforeach
+
+
     </div>
-</div>
-@endsection
+    @endsection
