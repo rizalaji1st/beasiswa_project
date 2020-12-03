@@ -23,14 +23,7 @@
                         @endforeach
                     </select>
                 </div>
-                <a id="link" href="" class=" btn
-                    btn-primary
-                    btn-icon-split btn-sm">
-                    <span class="icon text-white-50">
-                        <i class="fa fa-arrow-right"></i>
-                    </span>
-                    <span class="text">Detail Beasiswa</span>
-                </a>
+                <a id="link" href="" class="btn btn-primary">Detail Beasiswa <span><i class="fas fa-arrow-right    "></i></span></i></a>
             </form>
         </div>
     </div>
