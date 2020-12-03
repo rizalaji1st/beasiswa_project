@@ -13,12 +13,12 @@
                     <div class="article-image" data-background="{{url('dashboard/img/bea.jpg')}}"
                         style="background-image: url(&quot;{{url('dashboard/img/bea.jpg')}}&quot;);">
                     </div>
-                    @if($user->count() > 0)
+                    {{-- @if($user->count() > 0)
                     <div class="article-badge">
-                        <div class="article-badge-item bg-danger"><i class="fas fa-fire"></i> Trending</div>
+                        <div class="article-badge-item bg-success"><i class="fas fa-check"></i>Sudah mendaftar</div>
                     </div>
                     @else
-                    @endif
+                    @endif --}}
                 </div>
                 <div class="article-details">
                     @if($beasiswa->is_double != 1)

@@ -40,8 +40,12 @@ class PendaftarDashController extends Controller
 
     public function penawaranDetail(Penawaran $Penawaran)
     {
+        $id = Auth::user()->id;
+        $idpen = $Penawaran->id_penawaran;
+        $user = Pendaftaran::where('id_user', '=', $id );
+        $cek = Pendaftaran::where('id_penawaran', '=', $idpen );
         
-        return view('pages.pendaftaran.dashboard.penawaran2.detail', compact('Penawaran'));
+        return view('pages.pendaftaran.dashboard.penawaran2.detail', compact('Penawaran','user','cek'));
         
     }
 
@@ -139,7 +143,7 @@ class PendaftarDashController extends Controller
             } 
             
             };
-         return redirect('/pendaftar/penawaran/upload/' . $Penawaran->id_penawaran)->with('success', 'Pendaftaran Beasiswa Berhasil');
+         return redirect('/pendaftar/penawaran/upload/' . $Penawaran->id_penawaran)->with('success-stisla', 'Pendaftaran Beasiswa Berhasil');
 
     }
 

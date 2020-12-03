@@ -6,6 +6,16 @@
         <h4>Beasiswa {{$Penawaran->nama_penawaran}}</h4>
     </div>
     <div class="card-body">
+        @if($user->count() > 0 && $cek->count() > 0)
+        <div class="alert alert-success alert-has-icon">
+            <div class="alert-icon"><i class="fa fa-check"></i></div>
+            <div class="alert-body">
+                <div class="alert-title"></div>
+                Anda sudah mendaftar beasiswa ini
+            </div>
+        </div>
+        @else
+
         <p>{{$Penawaran->deskripsi}}</p>
         <i class="fas fa-box-open"></i>
         Kuota: {{$Penawaran->jml_kuota}}
@@ -42,8 +52,10 @@
             class="btn btn-icon icon-left btn-primary mt-2"><i class="fas fa-book"></i>Pemberkasan</a>
     </div>
 
+
     <div class="card-footer bg-whitesmoke">
         This is card footer
     </div>
+    @endif
 </div>
 @endsection
