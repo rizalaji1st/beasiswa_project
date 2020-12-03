@@ -14,7 +14,6 @@ use Auth;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use PDF;
 
-
 class PendaftarDashController extends Controller
 {
     public function __construct()
@@ -32,9 +31,10 @@ class PendaftarDashController extends Controller
 
      public function penawaranIndex()
     {
-        
+        $id = Auth::user()->id;
+        $user = Pendaftaran::where('id_user', '=', $id );
         $beasiswas = Penawaran::all();
-        return view('pages.pendaftaran.dashboard.penawaran2.index', ['beasiswas' => $beasiswas]);
+        return view('pages.pendaftaran.dashboard.penawaran2.index', compact('beasiswas','user'));
         
     }
 
@@ -54,12 +54,13 @@ class PendaftarDashController extends Controller
     public function penawaranUpload(Penawaran $Penawaran)
     {
         $id = Auth::user()->id;
+        $bea = Pendaftaran::where('id_penawaran', '=', $id );
         $user = Pendaftaran::where('id_user', '=', $id );
         $cekbea = $Penawaran->is_double = 0;
         return view('pages.pendaftaran.dashboard.penawaran2.upload', compact('Penawaran','user','cekbea'));
         
     }
-    public function penawaranCreate(Penawaran $Penawaran, Request $request, user $user,cekbea $cekbea)
+    public function penawaranCreate(Penawaran $Penawaran, Request $request)
     {   
 
         //generate id bea pendaftar npenawaran

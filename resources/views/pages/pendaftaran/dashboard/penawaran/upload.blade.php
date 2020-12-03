@@ -25,14 +25,7 @@
                         <div class="invalid-feedback">Example invalid custom file feedback</div>
                     </div>
                     @endforeach
-                    @if($user==null)
-                    <button type="submit" class="btn btn-success btn-icon-split btn-sm">
-                        <span class="icon text-white-50">
-                            <i class="fa fa-paper-plane"></i>
-                        </span>
-                        <span class="text">Apply Beasiswa</span>
-                    </button>
-                    @else
+                    @if($user->count() > 0)
                     <button type="submit" class="btn btn-secondary btn-icon-split btn-sm" disabled>
                         <span class="icon text-white-50">
                             <i class="fa fa-paper-plane"></i>
@@ -41,12 +34,20 @@
                     </button>
                     <br>
                     <a href="/pendaftar/penawaran/print/{{$Penawaran->id_penawaran}}" type="submit"
-                        class="btn btn-primary btn-icon-split btn-sm mt-2" disabled>
+                        class="btn btn-primary btn-icon-split btn-sm mt-2">
                         <span class="icon text-white-50">
                             <i class="fas fa-print"></i>
                         </span>
                         <span class="text">Print Bukti Pendaftaran</span>
                     </a>
+                    @else
+
+                    <button type="submit" class="btn btn-success btn-icon-split btn-sm">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-paper-plane"></i>
+                        </span>
+                        <span class="text">Apply Beasiswa</span>
+                    </button>
 
                     @endif
 
