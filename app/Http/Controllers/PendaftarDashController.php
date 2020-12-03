@@ -60,8 +60,9 @@ class PendaftarDashController extends Controller
         $id = Auth::user()->id;
         $bea = Pendaftaran::where('id_penawaran', '=', $id );
         $user = Pendaftaran::where('id_user', '=', $id );
-        $cekbea = $Penawaran->is_double = 0;
-        return view('pages.pendaftaran.dashboard.penawaran2.upload', compact('Penawaran','user','cekbea'));
+        $idpen = $Penawaran->id_penawaran;
+        $cek = Pendaftaran::where('id_penawaran', '=', $idpen );
+        return view('pages.pendaftaran.dashboard.penawaran2.upload', compact('Penawaran','user','cek'));
         
     }
     public function penawaranCreate(Penawaran $Penawaran, Request $request)

@@ -15,7 +15,7 @@
             <label>{{$lamp->refJenisFile->nama_jenis_file}}</label>
             <input type="file" class="form-control">
             @endforeach
-            @if($user->count() > 0)
+            @if($user->count() > 0 && $cek->count() > 0)
             <button type="submit" class="btn btn-icon icon-left btn-danger mt-2" disabled>
                 <i class="fas fa-exclamation"></i>
                 Anda Sudah Mendaftar

@@ -21,13 +21,13 @@
                     @endif --}}
                 </div>
                 <div class="article-details">
-                    @if($beasiswa->is_double != 1)
+                    {{-- @if($beasiswa->is_double != 1)
                     <div class="alert alert-danger">
                         beasiswa tidak bisa didaftar dengan beasiswa lain
                     </div>
                     @else($beasiswa->is_double = 0)
                     beasiswa tunggal<br>
-                    @endif
+                    @endif --}}
                     Beasiswa {{$beasiswa->nama_penawaran}}<br>
                     <i class="fas fa-box-open"></i>
                     Tahun Akademik: {{$beasiswa->tahun_dasar_akademik}}<br>

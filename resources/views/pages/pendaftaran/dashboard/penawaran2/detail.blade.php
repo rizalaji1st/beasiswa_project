@@ -6,6 +6,7 @@
         <h4>Beasiswa {{$Penawaran->nama_penawaran}}</h4>
     </div>
     <div class="card-body">
+        @if($Penawaran->is_double == 1)
         @if($user->count() > 0 && $cek->count() > 0)
         <div class="alert alert-success alert-has-icon">
             <div class="alert-icon"><i class="fa fa-check"></i></div>
@@ -57,5 +58,28 @@
         This is card footer
     </div>
     @endif
+    @else
+    @if($user->count() > 0 && $cek->count() > 0)
+    <div class="alert alert-success alert-has-icon">
+        <div class="alert-icon"><i class="fa fa-check"></i></div>
+        <div class="alert-body">
+            <div class="alert-title"></div>
+            Anda sudah mendaftar beasiswa ini
+        </div>
+    </div>
+    @else
+    <div class="alert alert-success alert-has-icon">
+        <div class="alert-icon"><i class="fa fa-check"></i></div>
+        <div class="alert-body">
+            <div class="alert-title"></div>
+            Anda sudah mendaftar beasiswa lain
+        </div>
+    </div>
+</div>
+<div class="card-footer bg-whitesmoke">
+    This is card footer
+</div>
+@endif
+@endif
 </div>
 @endsection
