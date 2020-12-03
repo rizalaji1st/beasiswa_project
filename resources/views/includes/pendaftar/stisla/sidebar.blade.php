@@ -1,15 +1,17 @@
 <div class="main-sidebar">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="index.html">Stisla</a>
+      <a href="index.html">Beasiswa UNS</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
       <a href="index.html">St</a>
     </div>
     <ul class="sidebar-menu">
-      <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a></li>
+      <li><a class="nav-link" href="/pendaftar/penawaran"><i class="fas fa-graduation-cap"></i> <span>Beasiswa
+            Aktif</span></a>
+      </li>
 
-      <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li>
+      <li><a class="nav-link" href="credits.html"><i class="fas fa-bullhorn"></i><span>Pengumuman</span></a></li>
     </ul>
 
     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
