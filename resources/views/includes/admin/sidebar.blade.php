@@ -59,12 +59,6 @@
     </a>
   </li>
 
-  {{-- verifikasi --}}
-  <li class="nav-item @yield('status-verifikasi')">
-    <a class="nav-link" href="{{route('admin.verifikasi.index')}}">
-      <i class="fas fa-fw fa-clipboard-check"></i>
-      <span>Verifikasi</span></a>
-  </li>
   <li class="nav-item @yield('status-penetapan')">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
       aria-controls="collapseTwo">
