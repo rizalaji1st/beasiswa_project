@@ -9,6 +9,7 @@ use App\PenawaranUpload;
 use App\Penawaran;
 use App\Http\Requests\PenawaranRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 
@@ -18,8 +19,10 @@ class PendaftaranController extends Controller
 
     public function index()
     {
+        $id = Auth::user()->id;
+        $user = Pendaftaran::where('id_user', '=', $id );
         $beasiswas = Penawaran::all();
-        return view('pages.pendaftaran.home', ['beasiswas' => $beasiswas]);
+        return view('pages.pendaftaran.dashboard.penawaran2.index', compact('beasiswas','user'));
     }
 
     public function article()

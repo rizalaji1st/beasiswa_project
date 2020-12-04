@@ -9,6 +9,7 @@
       <button class="btn" type="submit"><i class="fas fa-search"></i></button>
     </div>
   </form>
+  @auth
   <ul class="navbar-nav navbar-right">
     <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
         class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
@@ -16,12 +17,8 @@
         <div class="d-sm-none d-lg-inline-block">{{Auth::user()->name}}</div>
       </a>
       <div class="dropdown-menu dropdown-menu-right">
-        <div class="dropdown-title">Logged in 5 min ago</div>
-        <a href="features-profile.html" class="dropdown-item has-icon">
-          <i class="far fa-user"></i> Profile
-        </a>
-        <a href="features-settings.html" class="dropdown-item has-icon">
-          <i class="fas fa-cog"></i> Settings
+        <a href="https://siakad.uns.ac.id/registrasi/biodata/view" class="dropdown-item has-icon" target="_blank">
+          <i class="far fa-user"></i> Update Data
         </a>
         <div class="dropdown-divider"></div>
         <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger" onclick="event.preventDefault();
@@ -34,4 +31,5 @@
       </div>
     </li>
   </ul>
+  @endauth
 </nav>
