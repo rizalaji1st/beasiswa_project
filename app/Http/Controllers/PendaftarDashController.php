@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
-use PDF;
+use Barryvdh\DomPDF\PDF;
 
 class PendaftarDashController extends Controller
 {
@@ -23,7 +23,10 @@ class PendaftarDashController extends Controller
     
     public function index()
     {
-        return view('pages.pendaftaran.dashboard.index2');
+        $beasiswas = Penawaran::all();
+        $id = Auth::user()->id;
+        $beasiswa_anda = Pendaftaran::where('id_user', $id);
+        return view('pages.pendaftaran.dashboard.index2', compact('beasiswas','beasiswa_anda'));
         
     }
 
@@ -73,23 +76,23 @@ class PendaftarDashController extends Controller
     {   
 
         //generate id bea pendaftar npenawaran
-        $configBeaPendaftar = [
-            'table' => 'bea_pendaftar_penawaran',
-            'length' => 6,
-            'prefix' => 'IP',
-            'field'=> 'id_pendaftar'
-        ];
-        $idBeaPendaftar = IdGenerator::generate($configBeaPendaftar);
+        // $configBeaPendaftar = [
+        //     'table' => 'bea_pendaftar_penawaran',
+        //     'length' => 6,
+        //     'prefix' => 'IP',
+        //     'field'=> 'id_pendaftar'
+        // ];
+        // $idBeaPendaftar = IdGenerator::generate($configBeaPendaftar);
 
-        //generatePendaftarUpload
+        // //generatePendaftarUpload
 
-        $configPendaftarUpload = [
-            'table' => 'bea_pendaftar_upload',
-            'length' => 6,
-            'prefix' => 'IP',
-            'field'=>'id_pendaftar'
-        ];
-        $idPendaftarUpload = IdGenerator::generate($configPendaftarUpload);
+        // $configPendaftarUpload = [
+        //     'table' => 'bea_pendaftar_upload',
+        //     'length' => 6,
+        //     'prefix' => 'IP',
+        //     'field'=>'id_pendaftar'
+        // ];
+         $idPendaftarUpload = 1;
 
 
         $data = $request->all();
@@ -98,7 +101,6 @@ class PendaftarDashController extends Controller
         ]);
 
         Pendaftaran::create([
-                            'id_pendaftar'=>$idBeaPendaftar,
                             'id_penawaran'=>$Penawaran->id_penawaran,
                             'id_user'=>Auth::user()->id,
                             'nim'=>Auth::user()->nim,
@@ -134,7 +136,6 @@ class PendaftarDashController extends Controller
                     
                     $size = $file->getSize();
                     FilePendaftar::create([
-                            'id_pendaftar' => $idPendaftarUpload,
                             // 'id_jenis_file' => $data['id_jenis_file'],
                             // 'id_upload_file' => $datas['id_upload_file'],
                             'path_file' => $path,

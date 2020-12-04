@@ -15,6 +15,7 @@
                 Anda sudah mendaftar beasiswa ini
             </div>
         </div>
+        <a href="#" class=" btn btn-icon icon-left btn-danger mt-2"><i class="fas fa-times"></i>Batalkan</a>
         @else
 
         <p>{!!$Penawaran->deskripsi!!}</p>
@@ -67,8 +68,9 @@
             Anda sudah mendaftar beasiswa ini
         </div>
     </div>
+    <a href="#" class=" btn btn-icon icon-left btn-danger mt-2"><i class="fas fa-times"></i>Batalkan</a>
     @else
-    <div class="alert alert-success alert-has-icon">
+    <div class="alert alert-danger alert-has-icon">
         <div class="alert-icon"><i class="fa fa-check"></i></div>
         <div class="alert-body">
             <div class="alert-title"></div>
