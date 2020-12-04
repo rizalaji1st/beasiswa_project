@@ -1,24 +1,21 @@
 @include('includes.pendaftar.stisla.header')
-
 <body>
-    <div id="app">
-        <div class="main-wrapper">
-            <div class="navbar-bg"></div>
-            @include('includes.pendaftar.stisla.topbar')
-            @include('includes.pendaftar.stisla.sidebar')
-            <div class="main-content">
-                <section class="section">
-                    @yield('content')
-                    <footer class="main-footer">
-                        <div class="footer-left">
-                            Copyright &copy; 2018 <div class="bullet"></div> Design By <a
-                                href="https://nauval.in/">Muhamad
-                                Nauval Azhar</a>
-                        </div>
-                        <div class="footer-right">
-                            2.3.0
-                        </div>
-                    </footer>
-            </div>
+    
+    <div class="main-wrapper">
+        <div class="navbar-bg"></div>
+        @include('includes.pendaftar.stisla.topbar')
+        @include('includes.pendaftar.stisla.sidebar')
+        <div class="main-content">
+            <section class="section">
+                @yield('content')
+                <footer class="main-footer">
+                    <div class="footer-center">
+                        Copyright &copy; 2020 <div class="bullet"></div><a href="https://tik.uns.ac.id" target="_blank">Maganger UPT TIK UNS</a>
+                    </div>
+                </footer>
         </div>
-        @include('includes.pendaftar.stisla.script')
+    </div>
+</body>
+@include('includes.pendaftar.stisla.script')
+@stack('addon-script')
+</html>
