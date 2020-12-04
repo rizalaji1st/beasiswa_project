@@ -14,9 +14,8 @@ class CreateBeaPendaftarUpload extends Migration
     public function up()
     {
         Schema::create('bea_pendaftar_upload', function (Blueprint $table) {
-            $table->engine = 'InnoDB'; // <- add this
             $table->bigIncrements('id_pendaftar_upload');
-            $table->string('id_pendaftar');
+            $table->unsignedBigInteger('id_pendaftar');
             $table->foreign('id_pendaftar')->references('id_pendaftar')->on('bea_pendaftar_penawaran')->onDelete('cascade');
             $table->unsignedBigInteger('id_jenis_file');
             $table->foreign('id_jenis_file')->references('id_jenis_file')->on('bea_ref_jenis_file')->onDelete('cascade');

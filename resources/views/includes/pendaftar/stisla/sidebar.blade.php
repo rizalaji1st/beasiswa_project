@@ -1,10 +1,10 @@
 <div class="main-sidebar">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="index.html">Beasiswa UNS</a>
+      <a href="/pendaftar">Beasiswa UNS</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
-      <a href="index.html">St</a>
+      <a href="/pendaftar">BU</a>
     </div>
     <ul class="sidebar-menu">
       <li><a class="nav-link" href="/pendaftar/penawaran"><i class="fas fa-graduation-cap"></i> <span>Beasiswa

@@ -14,8 +14,7 @@ class CreateBeaPendaftarPenawaran extends Migration
     public function up()
     {
         Schema::create('bea_pendaftar_penawaran', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->string('id_pendaftar')->primary();
+            $table->bigInteger('id_pendaftar')->primary();
             $table->unsignedBigInteger('id_penawaran');
             $table->foreign('id_penawaran')->references('id_penawaran')->on('bea_penawaran')->onDelete('cascade');
             $table->integer('id_user');
