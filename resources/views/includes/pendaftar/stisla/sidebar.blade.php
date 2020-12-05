@@ -7,7 +7,7 @@
       <a href="{{url('/')}}">UNS</a>
     </div>
     <ul class="sidebar-menu">
-      <li><a class="nav-link" href="/pendaftar/penawaran"><i class="fas fa-graduation-cap"></i> <span>Beasiswa
+      <li class="@yield('status-beasiswa')"><a class="nav-link" href="{{url('/')}}"><i class="fas fa-graduation-cap"></i> <span>Beasiswa
             Aktif</span></a>
       </li>
 

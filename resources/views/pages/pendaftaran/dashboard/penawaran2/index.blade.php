@@ -1,5 +1,6 @@
 @extends('layouts.stisla')
 @section('title', 'Penawaran Beasiswa')
+@section('status-beasiswa', 'active')
 @section('content')
 <div class="section-header">
     <h1>Daftar beasiswa Aktif</h1>
