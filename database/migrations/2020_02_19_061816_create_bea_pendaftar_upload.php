@@ -23,7 +23,7 @@ class CreateBeaPendaftarUpload extends Migration
             $table->foreign('id_upload_file')->references('id_upload_file')->on('bea_upload_file')->onDelete('cascade');
             $table->string('nama_file');
             $table->string('path_file');
-            $table->string('deskripsi');
+            $table->string('deskripsi')->nullable();
             $table->string('ektensi');
             $table->integer('size');
             $table->softDeletes();

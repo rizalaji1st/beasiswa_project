@@ -92,15 +92,15 @@ class PendaftarDashController extends Controller
         //     'prefix' => 'IP',
         //     'field'=>'id_pendaftar'
         // ];
-         $idPendaftarUpload = 1;
+        //  $idPendaftarUpload = 1;
 
 
-        $data = $request->all();
+        // $data = $request->all();
         $this->validate($request, [
                 'files.*' => 'required|file|max:5000'
         ]);
-
-        Pendaftaran::create([
+        $time = Carbon::now();
+        $pendaftaran = Pendaftaran::create([
                             'id_penawaran'=>$Penawaran->id_penawaran,
                             'id_user'=>Auth::user()->id,
                             'nim'=>Auth::user()->nim,
@@ -117,19 +117,22 @@ class PendaftarDashController extends Controller
                             'pekerjaan_ibu'=>Auth::user()->pekerjaan_ibu,
                             'gaji_ayah'=>Auth::user()->gaji_ayah,
                             'gaji_ibu'=>Auth::user()->gaji_ibu,
-                            'jumlah_tanggungan'=>Auth::user()->jml_tanggungan
+                            'jumlah_tanggungan'=>Auth::user()->jml_tanggungan,
+                            'is_finalisasi'=>true,
+                            'create_at'=>$time,
+                            'create_by'=>Auth::user()->name,
+                            'finalized_at'=>$time,
+                            'finalized_by'=>Auth::user()->name,
+                            'is_verified'=>'menunggu verifikasi',
+
          ]);       
             
-
-
-        if($request->hasfile('files'))
-         {
-            foreach($request->file('files') as $file)
-            {
-                foreach ($Penawaran->lampiranPendaftar as $row) {
-                    # code...
-                
-                    $extension = $file->extension();
+        foreach($Penawaran->lampiranPendaftar as $lamp){
+            $nama = "nama".$lamp->id_upload_file;
+            
+            if($request->hasFile($nama)){
+                $file = $request->file($nama);
+                $extension = $file->extension();
                     $filenameWithExt = $file->getClientOriginalName();
                     $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME) . '_' . date('dmyHis') . '.' . $extension;
                     $path = Storage::putFileAs('public/data_file/pendaftaran_upload', $file, $filename);
@@ -138,13 +141,25 @@ class PendaftarDashController extends Controller
                     FilePendaftar::create([
                             // 'id_jenis_file' => $data['id_jenis_file'],
                             // 'id_upload_file' => $datas['id_upload_file'],
+                            'id_pendaftar' =>$pendaftaran->id_pendaftar,
                             'path_file' => $path,
                             'nama_file' => $filename,
                             'ektensi' => $extension,
                             'size' => $size,
-                            'id_jenis_file' => $row->refJenisFile->id_jenis_file,
-                            'id_upload_file' => $row->id_upload_file
+                            'id_jenis_file' => $lamp->refJenisFile->id_jenis_file,
+                            'id_upload_file' => $lamp->id_upload_file
                         ]); 
+            }
+        }
+        
+        if($request->hasfile('files'))
+         {
+            foreach($request->file('files') as $file)
+            {
+                foreach ($Penawaran->lampiranPendaftar as $row) {
+                    # code...
+                
+                    
                 }  
             } 
             

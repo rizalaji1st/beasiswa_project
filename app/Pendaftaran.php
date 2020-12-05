@@ -8,8 +8,10 @@ class Pendaftaran extends Model
 {
 
     protected $table = 'bea_pendaftar_penawaran';
-    protected $fillable = ['id_pendaftar', 
-                            'id_penawaran', 
+    protected $primaryKey = 'id_pendaftar';
+    protected $fillable = [
+                            'id_penawaran',
+                            'id_user', 
                             'nim', 
                             'ips', 
                             'ipk', 
@@ -22,9 +24,23 @@ class Pendaftaran extends Model
                             'pendidikan_ibu',
                             'pekerjaan_ayah',
                             'pekerjaan_ibu',
-                            'jumlah_tanggungan',
                             'gaji_ayah',
                             'gaji_ibu',
-                            'id_user'
+                            'jumlah_tanggungan',
+                            'is_finalisasi',
+                            'create_at',
+                            'create_by',
+                            'finalized_at',
+                            'finalized_by',
+                            'printed_at',
+                            'is_nominates',
+                            'nominated_at',
+                            'nominated_by',
+                            'is_accepted',
+                            'accepted_at',
+                            'accepted_by',
+                            'is_verified',
+                            'verified_at',
+                            'verified_by',
                         ];
 }

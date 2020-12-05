@@ -19,7 +19,7 @@ class CreateBeaPendaftarPenawaran extends Migration
             $table->foreign('id_penawaran')->references('id_penawaran')->on('bea_penawaran')->onDelete('cascade');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('nim');
+            $table->string('nim');
             $table->float('ips');
             $table->float('ipk');
             $table->integer('penghasilan');
@@ -34,12 +34,12 @@ class CreateBeaPendaftarPenawaran extends Migration
             $table->integer('gaji_ibu');
             $table->integer('jumlah_tanggungan');
             $table->integer('semester');
-            $table->boolean('is_finalisasi');
+            $table->boolean('is_finalisasi')->nullable();
             $table->string('create_at');
             $table->string('create_by');
             $table->string('finalized_at');
             $table->string('finalized_by');
-            $table->string('printed_at');
+            $table->string('printed_at')->nullable();
             $table->string('is_nominates')->nullable();
             $table->string('nominated_at')->nullable();
             $table->string('nominated_by')->nullable();
