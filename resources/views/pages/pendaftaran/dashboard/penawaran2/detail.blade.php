@@ -15,19 +15,12 @@
                 Anda sudah mendaftar beasiswa ini
             </div>
         </div>
-        @else
-        {{-- <div class="alert alert-success alert-has-icon">
-            <div class="alert-icon"><i class="fa fa-check"></i></div>
-            <div class="alert-body">
-                <div class="alert-title"></div>
-                Anda sudah mendaftar dobel tapi boleh
-            </div>
-        </div> --}}
         @endif
     </div>
 
 
-    <h4>Deskripsi</h4>
+    <div class="container">
+        <h4>Deskripsi</h4>
     <div class="container">
         <p class="mb-2">{!!$Penawaran->deskripsi!!}</p>
         <table class="table table-borderles">
@@ -38,7 +31,7 @@
             </tr>
         </table>
     </div>
-    <h4 class="mt-4">Persyaratan</h4>
+    <h4 class="mt-2">Persyaratan</h4>
     <div class="container">
         <p>
             <i class="fas fa-chevron-down mr-2"></i>
@@ -76,7 +69,6 @@
             <span> Pengumuman: {{$Penawaran->tgl_pengumuman->format('d M Y')}} </span>
         </p>
     </div>
-
     <h4 class="mt-4">Berkas yang perlu di siapkan </h4>
     <div class="container">
         @forelse ($Penawaran->lampiranPendaftar as $lamp)
@@ -104,9 +96,14 @@
         <h5>Data tidak tersedia</h5>
         @endforelse
     </div>
+    </div>
     <br>
-    <a href="/pendaftar/penawaran/upload/{{$Penawaran->id_penawaran}}"
-        class="btn btn-icon icon-left btn-primary mt-2"><i class="fas fa-book"></i>Pemberkasan</a>
+    <div class="container">
+        <div class="col text-center">
+            <a href="/pendaftar/penawaran/upload/{{$Penawaran->id_penawaran}}"
+                class="btn btn-icon icon-left btn-primary mb-4 col-4 text-center"><i class="fas fa-book"></i>Pemberkasan</a>
+        </div>
+    </div>
 </div>
 
 

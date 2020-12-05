@@ -155,7 +155,7 @@ class PenawaranController extends Controller
                     $extension = $request->file($upload)->extension();
                     $size = $request->file($upload)->getSize();
                     $filenameWithExt = $request->file($upload)->getClientOriginalName();
-                    $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME) . '_' . date('dmyHis') . '.' . $extension;
+                    $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME) . '_' . date('dmyHis') .'_' .Str::random(4). '.' . $extension;
                     $this->validate($request, [$upload => 'required|file|max:5000']);
                     $path = Storage::putFileAs('public/data_file/penawaran_upload', $request->file($upload), $filename);
                     $penawaranCreate->penawaranUpload()->create([
