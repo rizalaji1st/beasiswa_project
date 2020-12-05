@@ -73,7 +73,7 @@ class PendaftarDashController extends Controller
 
         // $data = $request->all();
         
-
+    
         $daftar =Pendaftaran::create([
                             'id_penawaran'=>$Penawaran->id_penawaran,
                             'id_user'=>Auth::user()->id,
@@ -95,7 +95,12 @@ class PendaftarDashController extends Controller
                             // 'is_finalisasi'=>1,
          ]);
 
-         $daftar->save();
+        $daftar->save();
+
+        
+        $pendaftaran =  Pendaftaran::select('id_pendaftar')->get();
+
+        $id_terakhir = $pendaftaran->last();
 
         $this->validate($request, [
         'files.*' => 'required|file|max:5000'
@@ -114,25 +119,29 @@ class PendaftarDashController extends Controller
                     $path = Storage::putFileAs('public/data_file/pendaftaran_upload', $file, $filename);
                     
                     $size = $file->getSize();
-                    $upload =  FilePendaftar::create([
+                    $id_jenis_file = $row->refJenisFile->id_jenis_file;
+                    $id_upload_file = $row->id_upload_file;
+                    
+                    
+                    // $upload->$FilePendaftar->pendaftarUpload()->associate($daftar);
+                    
+                }
+                FilePendaftar::create([
                             // 'id_jenis_file' => $data['id_jenis_file'],
                             // 'id_upload_file' => $datas['id_upload_file'],
+                            'id_pendaftar'=> $id_terakhir['id_pendaftar'],
                             'path_file' => $path,
                             'nama_file' => $filename,
                             'ektensi' => $extension,
                             'size' => $size,
-                            'id_jenis_file' => $row->refJenisFile->id_jenis_file,
-                            'id_upload_file' => $row->id_upload_file
+                            'id_jenis_file' => $id_jenis_file,
+                            'id_upload_file' => $id_upload_file
                         ]);
-                    $idpen = Pendaftaran::all();
-                    $upload->$FilePendaftar->pendaftarUpload()->associate($idpen);
-                    $upload->save();
-                }  
-            }
-            
-            
                     
-            };
+            }; 
+            }
+
+            
          return redirect('/pendaftar/penawaran/upload/' . $Penawaran->id_penawaran)->with('success-stisla', 'Pendaftaran Beasiswa Berhasil');
 
     }
