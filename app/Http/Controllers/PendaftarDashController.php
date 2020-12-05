@@ -75,12 +75,10 @@ class PendaftarDashController extends Controller
     public function penawaranCreate(Penawaran $Penawaran, Request $request)
     {   
 
+        // $data = $request->all();
         
-        $this->validate($request, [
-                'files.*' => 'required|file|max:5000'
-        ]);
-        $time = Carbon::now();
-        $pendaftaran = Pendaftaran::create([
+    
+        $daftar =Pendaftaran::create([
                             'id_penawaran'=>$Penawaran->id_penawaran,
                             'id_user'=>Auth::user()->id,
                             'nim'=>Auth::user()->nim,
@@ -98,29 +96,35 @@ class PendaftarDashController extends Controller
                             'gaji_ayah'=>Auth::user()->gaji_ayah,
                             'gaji_ibu'=>Auth::user()->gaji_ibu,
                             'jumlah_tanggungan'=>Auth::user()->jml_tanggungan,
-                            'is_finalisasi'=>true,
-                            'create_at'=>$time,
-                            'create_by'=>Auth::user()->name,
-                            'finalized_at'=>$time,
-                            'finalized_by'=>Auth::user()->name,
-                            'is_verified'=>'menunggu verifikasi',
+                            // 'is_finalisasi'=>1,
+         ]);
 
-         ]);       
-            
-        foreach($Penawaran->lampiranPendaftar as $lamp){
-            $nama = "nama".$lamp->id_upload_file;
-            
-            if($request->hasFile($nama)){
-                $file = $request->file($nama);
-                $extension = $file->extension();
+        $daftar->save();
+
+        
+        $pendaftaran =  Pendaftaran::select('id_pendaftar')->get();
+
+        $id_terakhir = $pendaftaran->last();
+
+        $this->validate($request, [
+        'files.*' => 'required|file|max:5000'
+            ]);
+
+        if($request->hasfile('files'))
+         {
+            foreach($request->file('files') as $file)
+            {
+                foreach ($Penawaran->lampiranPendaftar as $row) {
+                      
+                    $extension = $file->extension();
                     $filenameWithExt = $file->getClientOriginalName();
                     $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME) . '_' . date('dmyHis') . '.' . $extension;
                     
                     $path = Storage::putFileAs('public/data_file/pendaftaran_upload', $file, $filename);
                     
                     $size = $file->getSize();
-                    $id_jenis_file = $lamp->refJenisFile->id_jenis_file;
-                    $id_upload_file = $lamp->id_upload_file;
+                    $id_jenis_file = $row->refJenisFile->id_jenis_file;
+                    $id_upload_file = $row->id_upload_file;
                     
                     
                     // $upload->$FilePendaftar->pendaftarUpload()->associate($daftar);
@@ -129,16 +133,18 @@ class PendaftarDashController extends Controller
                 FilePendaftar::create([
                             // 'id_jenis_file' => $data['id_jenis_file'],
                             // 'id_upload_file' => $datas['id_upload_file'],
-                            'id_pendaftar' =>$pendaftaran->id_pendaftar,
+                            'id_pendaftar'=> $id_terakhir['id_pendaftar'],
                             'path_file' => $path,
                             'nama_file' => $filename,
                             'ektensi' => $extension,
                             'size' => $size,
-                            'id_jenis_file' => $lamp->refJenisFile->id_jenis_file,
-                            'id_upload_file' => $lamp->id_upload_file
-                        ]); 
-            
-        }
+                            'id_jenis_file' => $id_jenis_file,
+                            'id_upload_file' => $id_upload_file
+                        ]);
+                    
+            }; 
+            }
+
             
          return redirect('/pendaftar/penawaran/upload/' . $Penawaran->id_penawaran)->with('success-stisla', 'Pendaftaran Beasiswa Berhasil');
 
