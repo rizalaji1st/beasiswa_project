@@ -44,7 +44,7 @@ Route::get('/dashboard_hasil', 'DataController@dashboard_hasil');
 
 //pendaftaran-rendi dahsboard
 Route::get('/pendaftar', 'PendaftarDashController@index');
-Route::get('/pendaftar/penawaran', 'PendaftarDashController@penawaranIndex');
+Route::get('/', 'PendaftarDashController@penawaranIndex');
 Route::get('/pendaftar/penawaran/detail/{penawaran}', 'PendaftarDashController@penawaranDetail');
 Route::get('/pendaftar/penawaran/daftar/{penawaran}', 'PendaftarDashController@penawaranDaftar');
 Route::get('/pendaftar/penawaran/upload/{penawaran}', 'PendaftarDashController@penawaranUpload');
@@ -52,7 +52,6 @@ Route::post('/pendaftar/penawaran/upload/{penawaran}', 'PendaftarDashController@
 Route::get('/pendaftar/penawaran/print/{penawaran}', 'PendaftarDashController@cetakPdf');
 
 //
-Route::get('/', 'PendaftaranController@index');
 
 Route::get('/{adminuniv}', 'PendaftaranController@create');
 Route::post('/', 'PendaftaranController@store');

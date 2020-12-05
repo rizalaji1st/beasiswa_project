@@ -36,7 +36,7 @@ class RegisterController extends Controller
                 return $this->redirectTo;
         }
         if(Auth::user()->hasRole(['user'])){
-            $this->redirectTo = url('/pendaftar/penawaran');
+            $this->redirectTo = url('/');
             return $this->redirectTo;
     }
         $this->redirectTo = '/';

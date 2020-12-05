@@ -10,15 +10,15 @@ use App\Penawaran;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Auth;
-// use Haruncpi\LaravelIdGenerator\IdGenerator;
-use PDF;
+use Illuminate\Support\Facades\Auth;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Barryvdh\DomPDF\PDF;
 
 class PendaftarDashController extends Controller
 {
     public function __construct()
     {
-        return $this->middleware('auth');
+        return $this->middleware('auth',['except'=>['penawaranIndex']]);
     }
     
     public function index()
@@ -33,9 +33,13 @@ class PendaftarDashController extends Controller
     //penawaran
 
      public function penawaranIndex()
-    {
-        $id = Auth::user()->id;
-        $user = Pendaftaran::where('id_user', '=', $id );
+    {   
+        $id = '';
+        $user = '';
+        if(Auth::check()){
+            $id = Auth::user()->id;
+            $user = Pendaftaran::where('id_user', '=', $id );
+        }
         $beasiswas = Penawaran::all();
         return view('pages.pendaftaran.dashboard.penawaran2.index', compact('beasiswas','user'));
         

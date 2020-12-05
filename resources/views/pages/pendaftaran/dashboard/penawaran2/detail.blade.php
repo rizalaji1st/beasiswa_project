@@ -18,7 +18,7 @@
         <a href="#" class=" btn btn-icon icon-left btn-danger mt-2"><i class="fas fa-times"></i>Batalkan</a>
         @else
 
-        <p>{{$Penawaran->deskripsi}}</p>
+        <p>{!!$Penawaran->deskripsi!!}</p>
         <i class="fas fa-box-open"></i>
         Kuota: {{$Penawaran->jml_kuota}}
         <br><i class="fas fa-chevron-down"></i>
