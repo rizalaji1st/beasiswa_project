@@ -50,6 +50,7 @@ Route::get('/pendaftar/penawaran/daftar/{penawaran}', 'PendaftarDashController@p
 Route::get('/pendaftar/penawaran/upload/{penawaran}', 'PendaftarDashController@penawaranUpload');
 Route::post('/pendaftar/penawaran/upload/{penawaran}', 'PendaftarDashController@penawaranCreate')->name('pendaftar_upload');
 Route::get('/pendaftar/penawaran/print/{penawaran}', 'PendaftarDashController@cetakPdf');
+Route::get('/pendaftar/pengumuman', 'PendaftarDashController@indexPengumuman');
 
 //
 

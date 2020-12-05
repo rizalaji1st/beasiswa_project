@@ -14,7 +14,7 @@
             enctype="multipart/form-data">
             @csrf
             <label>{{$lamp->refJenisFile->nama_jenis_file}}</label>
-            <input type="file" class="form-control" name="nama{{$lamp->id_upload_file}}">
+            <input type="file" class="form-control" name="files[]">
             @endforeach
             @if($user->count() > 0 && $cek->count() > 0)
             <button type="submit" class="btn btn-icon icon-left btn-danger mt-2" disabled>

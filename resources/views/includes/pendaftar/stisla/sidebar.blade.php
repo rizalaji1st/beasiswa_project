@@ -7,11 +7,13 @@
       <a href="{{url('/')}}">UNS</a>
     </div>
     <ul class="sidebar-menu">
-      <li class="@yield('status-beasiswa')"><a class="nav-link" href="{{url('/')}}"><i class="fas fa-graduation-cap"></i> <span>Beasiswa
+      <li class="@yield('status-beasiswa')"><a class="nav-link" href="{{url('/')}}"><i
+            class="fas fa-graduation-cap"></i> <span>Beasiswa
             Aktif</span></a>
       </li>
 
-      <li><a class="nav-link" href="credits.html"><i class="fas fa-bullhorn"></i><span>Pengumuman</span></a></li>
+      <li><a class="nav-link" href="{{url('/pendaftar/pengumuman')}}"><i
+            class="fas fa-bullhorn"></i><span>Pengumuman</span></a></li>
     </ul>
 
     @guest
@@ -25,9 +27,9 @@
     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
       <a class="btn btn-primary btn-lg btn-block btn-icon-split" href="{{ route('logout') }}" onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
-          <i class="fas fa-rocket"></i>
-          {{ __('Keluar') }}
-        </a>
+        <i class="fas fa-rocket"></i>
+        {{ __('Keluar') }}
+      </a>
       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
       </form>

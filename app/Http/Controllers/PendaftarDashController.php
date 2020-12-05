@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
-use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class PendaftarDashController extends Controller
 {
@@ -40,6 +40,10 @@ class PendaftarDashController extends Controller
             $id = Auth::user()->id;
             $user = Pendaftaran::where('id_user', '=', $id );
         }
+
+        
+
+
         $beasiswas = Penawaran::all();
         return view('pages.pendaftaran.dashboard.penawaran2.index', compact('beasiswas','user'));
         
@@ -143,7 +147,7 @@ class PendaftarDashController extends Controller
                         ]);
                     
             }; 
-            }
+        }
 
             
          return redirect('/pendaftar/penawaran/upload/' . $Penawaran->id_penawaran)->with('success-stisla', 'Pendaftaran Beasiswa Berhasil');
@@ -158,6 +162,13 @@ class PendaftarDashController extends Controller
             'now'=> $now
         ]);
 	    return $pdf->stream("Bukti Pendaftaran.pdf");
+        
+    }
+
+    public function indexPengumuman()
+    {
+        $beasiswas = Penawaran::all();
+        return view('pages.pendaftaran.dashboard.pengumuman.index', compact('beasiswas'));
         
     }
     

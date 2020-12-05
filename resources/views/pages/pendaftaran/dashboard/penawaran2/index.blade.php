@@ -16,6 +16,12 @@
                     </div>
                 </div>
                 <div class="article-details">
+                    {{-- @if ($beasiswa->is_double != true )
+                    <div class="alert alert-danger">
+                        jika mendaftar beasiswa ini tidak bisa mendaftar beasiswa lain
+                    </div>
+                    @else
+                    @endif --}}
                     Beasiswa {{$beasiswa->nama_penawaran}}<br>
                     <i class="fas fa-box-open"></i>
                     Tahun Akademik: {{$beasiswa->tahun_dasar_akademik}}<br>
