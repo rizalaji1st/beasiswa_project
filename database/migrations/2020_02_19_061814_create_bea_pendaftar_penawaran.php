@@ -14,7 +14,7 @@ class CreateBeaPendaftarPenawaran extends Migration
     public function up()
     {
         Schema::create('bea_pendaftar_penawaran', function (Blueprint $table) {
-            $table->bigInteger('id_pendaftar')->primary();
+            $table->bigIncrements('id_pendaftar');
             $table->unsignedBigInteger('id_penawaran');
             $table->foreign('id_penawaran')->references('id_penawaran')->on('bea_penawaran')->onDelete('cascade');
             $table->integer('id_user');
@@ -33,18 +33,18 @@ class CreateBeaPendaftarPenawaran extends Migration
             $table->string('gaji_ibu');
             $table->integer('jumlah_tanggungan');
             $table->integer('semester');
-            $table->boolean('is_finalisasi');
-            $table->string('create_at');
-            $table->string('create_by');
-            $table->string('finalized_at');
-            $table->string('finalized_by');
-            $table->string('printed_at');
-            $table->string('is_nominates');
-            $table->string('nominated_at');
-            $table->string('nominated_by');
-            $table->boolean('is_accepted');
-            $table->string('accepted_at');
-            $table->string('accepted_by');
+            $table->boolean('is_finalisasi')->default(false);
+            $table->string('create_at')->nullable();
+            $table->string('create_by')->nullable();
+            $table->string('finalized_at')->nullable();
+            $table->string('finalized_by')->nullable();
+            $table->string('printed_at')->nullable();
+            $table->string('is_nominates')->nullable();
+            $table->string('nominated_at')->nullable();
+            $table->string('nominated_by')->nullable();
+            $table->boolean('is_accepted')->nullable();
+            $table->string('accepted_at')->nullable();
+            $table->string('accepted_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

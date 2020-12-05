@@ -21,4 +21,10 @@ class FilePendaftar extends Model
         'ektensi',
         'size'
     ];
+
+    public function pendaftarUpload()
+    {
+        $this->belongsTo(Pendaftaran::class, 'id_pendaftar', 'id_pendaftar');
+    }
+    
 }
