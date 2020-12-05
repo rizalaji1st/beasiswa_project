@@ -43,4 +43,8 @@ class Pendaftaran extends Model
                             'verified_at',
                             'verified_by',
                         ];
+                        
+    public function pendaftaranUpload(){
+        return $this->hasMany(filePendaftar::class, 'id_pendaftar', 'id_pendaftar');
+    }
 }

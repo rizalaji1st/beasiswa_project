@@ -75,27 +75,7 @@ class PendaftarDashController extends Controller
     public function penawaranCreate(Penawaran $Penawaran, Request $request)
     {   
 
-        //generate id bea pendaftar npenawaran
-        // $configBeaPendaftar = [
-        //     'table' => 'bea_pendaftar_penawaran',
-        //     'length' => 6,
-        //     'prefix' => 'IP',
-        //     'field'=> 'id_pendaftar'
-        // ];
-        // $idBeaPendaftar = IdGenerator::generate($configBeaPendaftar);
-
-        // //generatePendaftarUpload
-
-        // $configPendaftarUpload = [
-        //     'table' => 'bea_pendaftar_upload',
-        //     'length' => 6,
-        //     'prefix' => 'IP',
-        //     'field'=>'id_pendaftar'
-        // ];
-        //  $idPendaftarUpload = 1;
-
-
-        // $data = $request->all();
+        
         $this->validate($request, [
                 'files.*' => 'required|file|max:5000'
         ]);
@@ -135,10 +115,18 @@ class PendaftarDashController extends Controller
                 $extension = $file->extension();
                     $filenameWithExt = $file->getClientOriginalName();
                     $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME) . '_' . date('dmyHis') . '.' . $extension;
+                    
                     $path = Storage::putFileAs('public/data_file/pendaftaran_upload', $file, $filename);
                     
                     $size = $file->getSize();
-                    FilePendaftar::create([
+                    $id_jenis_file = $lamp->refJenisFile->id_jenis_file;
+                    $id_upload_file = $lamp->id_upload_file;
+                    
+                    
+                    // $upload->$FilePendaftar->pendaftarUpload()->associate($daftar);
+                    
+                }
+                FilePendaftar::create([
                             // 'id_jenis_file' => $data['id_jenis_file'],
                             // 'id_upload_file' => $datas['id_upload_file'],
                             'id_pendaftar' =>$pendaftaran->id_pendaftar,
@@ -149,21 +137,9 @@ class PendaftarDashController extends Controller
                             'id_jenis_file' => $lamp->refJenisFile->id_jenis_file,
                             'id_upload_file' => $lamp->id_upload_file
                         ]); 
-            }
-        }
-        
-        if($request->hasfile('files'))
-         {
-            foreach($request->file('files') as $file)
-            {
-                foreach ($Penawaran->lampiranPendaftar as $row) {
-                    # code...
-                
-                    
-                }  
-            } 
             
-            };
+        }
+            
          return redirect('/pendaftar/penawaran/upload/' . $Penawaran->id_penawaran)->with('success-stisla', 'Pendaftaran Beasiswa Berhasil');
 
     }
