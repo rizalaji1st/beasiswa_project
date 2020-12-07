@@ -36,4 +36,12 @@ class PendaftarPenawaran extends Model
     public function penawaran(){
         return $this->belongsTo(Penawaran::class, 'id_penawaran', 'id_penawaran');
     }
+
+    public function status(){
+        return $this->hasMany('App\Kriteria\Status', 'id_pendaftar', 'id_pendaftar');
+    }
+
+    public function beaLolos(){
+        return $this->hasMany(BeaLolos::class, 'id_penawaran', 'id_penawaran');
+    }
 }

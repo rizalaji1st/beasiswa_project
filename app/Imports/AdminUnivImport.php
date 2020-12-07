@@ -2,8 +2,9 @@
 
 namespace App\Imports;
 
-use App\NRangking; 
-use Maatwebsite\Excel\Concerns\{ToModel, WithHeadingRow};
+use App\BeaLolos; 
+use App\PendaftarPenawaran; 
+use Maatwebsite\Excel\Concerns\ToModel;
 
 class AdminUnivImport implements ToModel
 {
@@ -15,15 +16,13 @@ class AdminUnivImport implements ToModel
 
     public function model(array $row)
     {
-        return new NRangking([
-
+        return new BeaLolos([
             'id_pendaftar' => $row[0],
-            'id_penawaran' => $row[1],
-            'nim' => $row[2],
-            'ips' => $row[3],
-            'ipk' => $row[4],
-            'penghasilan' => $row[5],
-            'semester' => $row[6],
+            'nim' => $row[1],
+            'nama' => $row[2],
+            'nama_prodi' => $row[3],
+            'nama_fakultas' => $row[4],
+            'total' => $row[5],
         ]);
     }
 }

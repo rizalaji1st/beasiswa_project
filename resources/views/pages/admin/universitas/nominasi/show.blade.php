@@ -16,7 +16,7 @@
 
         <table class='table table-bordered'>
         <div class="text-right">
-        <a href="/nrangking/cetak_pdf"  class="btn btn-primary" target="_blank">CETAK PDF</a>
+        <a href="/admin/cetak_excel/"  class="btn btn-primary" target="_blank">CETAK EXCEL</a>
         </div>
         <div class="row">
             <div class="col-12">
@@ -24,7 +24,6 @@
                     <tbody>
                         <tr>
                             <th scope="col">No</th>
-                            <td scope="col">Id Pendaftar</td>
                             <td scope="col">NIM</td>
                             <td scope="col">Nama</td>
                             <td scope="col">Prodi</td>
@@ -35,26 +34,15 @@
                             @foreach($nominasi as $n)                      
                             <tr>
                             <th scope="row">{{$loop->iteration}}</th>
-                            <td scope="col">{{$n->id_pendaftar}}</td>
                             <td scope="col">{{$n->nim}}</td>
                             <td scope="col">{{$n->nama}}</td>
                             <td scope="col">{{$n->nama_prodi}}</td>
                             <td scope="col">{{$n->nama_fakultas}}</td>
-                            @php
-                            $total =$n->status_ayah + $n->status_ibu + 
-                                    $n->pekerjaan_ayah + $n->pekerjaan_ibu +
-                                    $n->pendidikan_ayah + $n->pendidikan_ibu +
-                                    $n->penghasilan_ayah + $n->penghasilan_ibu +
-                                    $n->status_rumah + $n->tanggungan
-                                    ;
+                            <td scope="col">{{$n->total}}</td>
                             
-                            @endphp
-                            <td scope="col">{{$total}}</td>
                             <td scope="col" class="text-center">
-                    <a class="btn btn-primary" href="" > Detail Skor <i class="fa fa-arrow-right"></i></a>
-                    @method('Delete')
-                    @csrf
-                    </form>
+                            <a class="btn btn-primary" href="{{route('admin.detail_skor',$n->id_pendaftar)}}" > Detail Skor <i class="fa fa-arrow-right"></i></a>
+                    <!-- <a class="btn btn-primary" href="{{route('admin.detail_skor')}}" > Detail Skor <i class="fa fa-arrow-right"></i></a> -->
                 </td>
                             
                         </tr>
@@ -77,3 +65,4 @@
                     } );
                 </script>
             @endpush
+

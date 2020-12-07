@@ -34,9 +34,8 @@
                             <td scope="col">Prodi</td>
                             <td scope="col">Fakultas</td>
                             <td scope="col">Skor</td>
-                              
                             </tr>
-                            @foreach($nominasi as $n)                      
+                            @foreach($lolos as $n)                      
                             <tr>
                             <th scope="row">{{$loop->iteration}}</th>
                             <td scope="col">{{$n->id_pendaftar}}</td>
@@ -44,16 +43,7 @@
                             <td scope="col">{{$n->nama}}</td>
                             <td scope="col">{{$n->nama_prodi}}</td>
                             <td scope="col">{{$n->nama_fakultas}}</td>
-                            @php
-                            $total =$n->status_ayah + $n->status_ibu + 
-                                    $n->pekerjaan_ayah + $n->pekerjaan_ibu +
-                                    $n->pendidikan_ayah + $n->pendidikan_ibu +
-                                    $n->penghasilan_ayah + $n->penghasilan_ibu +
-                                    $n->status_rumah + $n->tanggungan
-                                    ;
-                            
-                            @endphp
-                            <td scope="col">{{$total}}</td>
+                            <td scope="col">{{$n->total}}</td>
                     @method('Delete')
                     @csrf
                     </form>
