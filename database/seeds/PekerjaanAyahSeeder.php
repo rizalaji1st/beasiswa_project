@@ -24,8 +24,8 @@ class PekerjaanAyahSeeder extends Seeder
         );
 
     	    for ($row = 0; $row < count($pekerjaan_ayah); $row++) {
-            DB::table('bea_pekerjaan_ayah')->insert([
-                'id_pekerjaan_Ayah'=>$row+1,
+            DB::table('pekerjaan_ayah')->insert([
+                'id_pekerjaan_ayah'=>$row+1,
                 'status'=>$pekerjaan_ayah[$row][0],
                 'skor'=>$pekerjaan_ayah[$row][1],
                 'created_at'=>Carbon::now(),

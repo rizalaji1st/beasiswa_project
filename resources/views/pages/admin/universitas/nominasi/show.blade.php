@@ -34,11 +34,16 @@
                             @foreach($nominasi as $n)                      
                             <tr>
                             <th scope="row">{{$loop->iteration}}</th>
-                            <td scope="col">{{$n->nim}}</td>
+                            <th scope="row"></td>
+                            <th scope="row"></td>
+                            <th scope="row"></td>
+                            <th scope="row"></td>
+                            <th scope="row"></td>
+                            <!-- <td scope="col">{{$n->nim}}</td>
                             <td scope="col">{{$n->nama}}</td>
                             <td scope="col">{{$n->nama_prodi}}</td>
                             <td scope="col">{{$n->nama_fakultas}}</td>
-                            <td scope="col">{{$n->total}}</td>
+                            <td scope="col">{{$n->total}}</td> -->
                             
                             <td scope="col" class="text-center">
                             <a class="btn btn-primary" href="{{route('admin.detail_skor',$n->id_pendaftar)}}" > Detail Skor <i class="fa fa-arrow-right"></i></a>

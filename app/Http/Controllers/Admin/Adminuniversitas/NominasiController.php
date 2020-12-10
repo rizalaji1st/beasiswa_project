@@ -46,62 +46,65 @@ class NominasiController extends Controller
 
     public function show($nominasi)
     {
-        DB::enableQueryLog();
-        //$nominasi = PendaftarPenawaran::where('id_penawaran', $nominasi)->get();
-        $limit = DB::table('bea_penawaran')->join('bea_pendaftar_penawaran', 'bea_penawaran.id_penawaran', 
-        '=', 'bea_pendaftar_penawaran.id_penawaran')
-        ->where('bea_pendaftar_penawaran.id_penawaran', $nominasi)
-        ->first()->jml_kuota;
-        $nominasi = DB::table('bea_pendaftar_penawaran')->where('bea_pendaftar_penawaran.id_penawaran', $nominasi)
-        ->join('bea_mahasiswa', 'bea_mahasiswa.nim', '=', 'bea_pendaftar_penawaran.nim')
-        ->join('bea_ref_prodi', 'bea_ref_prodi.id_prodi', '=', 'bea_mahasiswa.id_prodi')
-        ->join('bea_ref_fakultas', 'bea_ref_fakultas.id_fakultas', '=', 'bea_ref_prodi.id_fakultas')
 
-        ->join('id_status as a', 'bea_pendaftar_penawaran.id_pendaftar', '=', 'a.id_pendaftar')
-        ->join('bea_status_ayah as b', 'a.id_statusAyah', '=', 'b.id_statusAyah')
-        ->join('bea_status_ibu as c', 'a.id_statusIbu', '=', 'c.id_statusIbu')
-        ->join('bea_pekerjaan_ayah as d', 'a.id_pekerjaan_Ayah', '=', 'd.id_pekerjaan_Ayah')
-        ->join('bea_pekerjaan_ibu as e', 'a.id_pekerjaan_Ibu', '=', 'e.id_pekerjaan_Ibu')
-        ->join('bea_pendidikan_ayah as f', 'a.id_pendidikan_Ayah', '=', 'f.id_pendidikan_Ayah')
-        ->join('bea_pendidikan_ibu as g', 'a.id_pendidikan_Ibu', '=', 'g.id_pendidikan_Ibu')
-        ->join('bea_penghasilan_ayah as h', 'a.id_penghasilan_Ayah', '=', 'h.id_penghasilan_ayah')
-        ->join('bea_penghasilan_ibu as i', 'a.id_penghasilan_Ibu', '=', 'i.id_penghasilan_ibu')
-        ->join('bea_status_rumah as j', 'a.id_status_rumah', '=', 'j.id_status_rumah')
-        ->join('bea_tanggungan as k', 'a.id_tanggungan', '=', 'k.id_tanggungan')
-        ->join('bea_penawaran_kriteria as l', 'j.id_kriteria', '=', 'l.id_kriteria')
-        ->join('bea_penawaran_kriteria as m', 'd.id_kriteria', '=', 'm.id_kriteria')
-        ->join('bea_penawaran_kriteria as n', 'e.id_kriteria', '=', 'n.id_kriteria')
-        ->join('bea_penawaran_kriteria as o', 'f.id_kriteria', '=', 'o.id_kriteria')
-        ->join('bea_penawaran_kriteria as p', 'g.id_kriteria', '=', 'p.id_kriteria')
-        ->join('bea_penawaran_kriteria as q', 'h.id_kriteria', '=', 'q.id_kriteria')
-        ->join('bea_penawaran_kriteria as r', 'i.id_kriteria', '=', 'r.id_kriteria')
-        ->join('bea_penawaran_kriteria as s', 'b.id_kriteria', '=', 's.id_kriteria')
-        ->join('bea_penawaran_kriteria as t', 'c.id_kriteria', '=', 't.id_kriteria')
-        ->join('bea_penawaran_kriteria as u', 'k.id_kriteria', '=', 'u.id_kriteria')
-        ->limit($limit)
+        $nominasi = Pendaftaran::where('id_penawaran', $nominasi)->get();
+    //     DB::enableQueryLog();
+    //     //$nominasi = PendaftarPenawaran::where('id_penawaran', $nominasi)->get();
+    //     $limit = DB::table('bea_penawaran')->join('bea_pendaftar_penawaran', 'bea_penawaran.id_penawaran', 
+    //     '=', 'bea_pendaftar_penawaran.id_penawaran')
+    //     ->where('bea_pendaftar_penawaran.id_penawaran', $nominasi)
+    //     ->first()->jml_kuota;
+    //     $nominasi = DB::table('bea_pendaftar_penawaran')->where('bea_pendaftar_penawaran.id_penawaran', $nominasi)
+    //     ->join('bea_mahasiswa', 'bea_mahasiswa.nim', '=', 'bea_pendaftar_penawaran.nim')
+    //     ->join('bea_ref_prodi', 'bea_ref_prodi.id_prodi', '=', 'bea_mahasiswa.id_prodi')
+    //     ->join('bea_ref_fakultas', 'bea_ref_fakultas.id_fakultas', '=', 'bea_ref_prodi.id_fakultas')
 
-        ->select
-        (
-            'bea_pendaftar_penawaran.id_pendaftar','bea_mahasiswa.nama',
-            'bea_ref_fakultas.nama_fakultas', 'bea_ref_prodi.nama_prodi', 'bea_mahasiswa.nim',
-            'b.skor as status_ayah', 'c.skor as status_ibu', 
-            'd.skor as pekerjaan_ayah', 'e.skor as pekerjaan_ibu',
-            'f.skor as pendidikan_ayah', 'g.skor as pendidikan_ibu',
-            'h.skor as penghasilan_ayah', 'i.skor as penghasilan_ibu',
-            'j.skor as status_rumah', 'k.skor as tanggungan',
-            'l.bobot as bobot_rumah', 'm.bobot as bobot_pekerjaan_ayah',
-            'n.bobot as bobot_pekerjaan_ibu', 'o.bobot as bobot_pendidikan_ayah',
-            'p.bobot as bobot_pendidikan_ibu', 'q.bobot as bobot_penghasilan_ayah',
-            'r.bobot as bobot_penghasilan_ibu', 's.bobot as bobot_status_ayah',
-            't.bobot as bobot_status_ibu', 'u.bobot as bobot_tanggungan',
-        )
-        ->selectRaw('((b.skor * s.bobot) + (c.skor * t.bobot) + (d.skor * m.bobot) + (e.skor * n.bobot) + 
-                      (f.skor * o.bobot) + (g.skor * n.bobot) + (h.skor * q.bobot) + (i.skor * r.bobot) + 
-                      (j.skor * l.bobot) + (k.skor * u.bobot)) as total')
+    //     ->join('bea_status as a', 'bea_pendaftar_penawaran.id_pendaftar', '=', 'a.id_pendaftar')
+    //     ->join('bea_status_ayah as b', 'a.id_status_ayah', '=', 'b.id_status_ayah')
+    //     ->join('bea_status_ibu as c', 'a.id_status_ibu', '=', 'c.id_status_ibu')
+    //     ->join('bea_pekerjaan_ayah as d', 'a.id_pekerjaan_ayah', '=', 'd.id_pekerjaan_ayah')
+    //     ->join('bea_pekerjaan_ibu as e', 'a.id_pekerjaan_ibu', '=', 'e.id_pekerjaan_ibu')
+    //     ->join('bea_pendidikan_ayah as f', 'a.id_pendidikan_ayah', '=', 'f.id_pendidikan_ayah')
+    //     ->join('bea_pendidikan_ibu as g', 'a.id_pendidikan_ibu', '=', 'g.id_pendidikan_ibu')
+    //     ->join('bea_penghasilan_ayah as h', 'a.id_penghasilan_ayah', '=', 'h.id_penghasilan_ayah')
+    //     ->join('bea_penghasilan_ibu as i', 'a.id_penghasilan_ibu', '=', 'i.id_penghasilan_ibu')
+    //     ->join('bea_status_rumah as j', 'a.id_status_rumah', '=', 'j.id_status_rumah')
+    //     ->join('bea_tanggungan as k', 'a.id_tanggungan', '=', 'k.id_tanggungan')
+    //     ->join('bea_penawaran_kriteria as l', 'j.id_kriteria', '=', 'l.id_kriteria')
+    //     ->join('bea_penawaran_kriteria as m', 'd.id_kriteria', '=', 'm.id_kriteria')
+    //     ->join('bea_penawaran_kriteria as n', 'e.id_kriteria', '=', 'n.id_kriteria')
+    //     ->join('bea_penawaran_kriteria as o', 'f.id_kriteria', '=', 'o.id_kriteria')
+    //     ->join('bea_penawaran_kriteria as p', 'g.id_kriteria', '=', 'p.id_kriteria')
+    //     ->join('bea_penawaran_kriteria as q', 'h.id_kriteria', '=', 'q.id_kriteria')
+    //     ->join('bea_penawaran_kriteria as r', 'i.id_kriteria', '=', 'r.id_kriteria')
+    //     ->join('bea_penawaran_kriteria as s', 'b.id_kriteria', '=', 's.id_kriteria')
+    //     ->join('bea_penawaran_kriteria as t', 'c.id_kriteria', '=', 't.id_kriteria')
+    //     ->join('bea_penawaran_kriteria as u', 'k.id_kriteria', '=', 'u.id_kriteria')
+    //     ->limit($limit)
+
+    //     ->select
+    //     (
+    //         'bea_pendaftar_penawaran.id_pendaftar',
+    //         'bea_mahasiswa.nama',
+    //         'bea_ref_fakultas.nama_fakultas', 'bea_ref_prodi.nama_prodi', 'bea_mahasiswa.nim',
+    //         'b.skor as status_ayah', 'c.skor as status_ibu', 
+    //         'd.skor as pekerjaan_ayah', 'e.skor as pekerjaan_ibu',
+    //         'f.skor as pendidikan_ayah', 'g.skor as pendidikan_ibu',
+    //         'h.skor as penghasilan_ayah', 'i.skor as penghasilan_ibu',
+    //         'j.skor as status_rumah', 'k.skor as tanggungan',
+    //         'l.bobot as bobot_rumah', 'm.bobot as bobot_pekerjaan_ayah',
+    //         'n.bobot as bobot_pekerjaan_ibu', 'o.bobot as bobot_pendidikan_ayah',
+    //         'p.bobot as bobot_pendidikan_ibu', 'q.bobot as bobot_penghasilan_ayah',
+    //         'r.bobot as bobot_penghasilan_ibu', 's.bobot as bobot_status_ayah',
+    //         't.bobot as bobot_status_ibu', 'u.bobot as bobot_tanggungan',
+    //     )
+    //     ->selectRaw('((b.skor * s.bobot) + (c.skor * t.bobot) + (d.skor * m.bobot) + (e.skor * n.bobot) + 
+    //                   (f.skor * o.bobot) + (g.skor * n.bobot) + (h.skor * q.bobot) + (i.skor * r.bobot) + 
+    //                   (j.skor * l.bobot) + (k.skor * u.bobot)) as total')
         
     
-    ->orderBy('total','DESC')
-    ->get();
+    // ->orderBy('total','DESC')
+    // ->get();
     return view('pages.admin.universitas.nominasi.show')->with('nominasi', $nominasi);
     }
 
@@ -116,19 +119,19 @@ class NominasiController extends Controller
         // ->first()->jml_kuota;
 
         $nominasi = DB::table('bea_pendaftar_penawaran')->where('bea_pendaftar_penawaran.id_penawaran', $id)
-        ->join('bea_mahasiswa', 'bea_mahasiswa.nim', '=', 'bea_pendaftar_penawaran.nim')
-        ->join('bea_ref_prodi', 'bea_ref_prodi.id_prodi', '=', 'bea_mahasiswa.id_prodi')
-        ->join('bea_ref_fakultas', 'bea_ref_fakultas.id_fakultas', '=', 'bea_ref_prodi.id_fakultas')
+        // ->join('bea_mahasiswa', 'users.nim', '=', 'bea_pendaftar_penawaran.nim')
+        // ->join('bea_ref_prodi', 'bea_ref_prodi.id_prodi', '=', 'users.id_prodi')
+        // ->join('bea_ref_fakultas', 'bea_ref_fakultas.id_fakultas', '=', 'bea_ref_prodi.id_fakultas')
 
         ->join('id_status as a', 'bea_pendaftar_penawaran.id_pendaftar', '=', 'a.id_pendaftar')
-        ->join('bea_status_ayah as b', 'a.id_statusAyah', '=', 'b.id_statusAyah')
-        ->join('bea_status_ibu as c', 'a.id_statusIbu', '=', 'c.id_statusIbu')
-        ->join('bea_pekerjaan_ayah as d', 'a.id_pekerjaan_Ayah', '=', 'd.id_pekerjaan_Ayah')
-        ->join('bea_pekerjaan_ibu as e', 'a.id_pekerjaan_Ibu', '=', 'e.id_pekerjaan_Ibu')
-        ->join('bea_pendidikan_ayah as f', 'a.id_pendidikan_Ayah', '=', 'f.id_pendidikan_Ayah')
-        ->join('bea_pendidikan_ibu as g', 'a.id_pendidikan_Ibu', '=', 'g.id_pendidikan_Ibu')
-        ->join('bea_penghasilan_ayah as h', 'a.id_penghasilan_Ayah', '=', 'h.id_penghasilan_ayah')
-        ->join('bea_penghasilan_ibu as i', 'a.id_penghasilan_Ibu', '=', 'i.id_penghasilan_ibu')
+        ->join('bea_status_ayah as b', 'a.id_status_ayah', '=', 'b.id_status_ayah')
+        ->join('bea_status_ibu as c', 'a.id_status_ibu', '=', 'c.id_status_ibu')
+        ->join('bea_pekerjaan_ayah as d', 'a.id_pekerjaan_ayah', '=', 'd.id_pekerjaan_ayah')
+        ->join('bea_pekerjaan_ibu as e', 'a.id_pekerjaan_ibu', '=', 'e.id_pekerjaan_ibu')
+        ->join('bea_pendidikan_ayah as f', 'a.id_pendidikan_ayah', '=', 'f.id_pendidikan_ayah')
+        ->join('bea_pendidikan_ibu as g', 'a.id_pendidikan_ibu', '=', 'g.id_pendidikan_ibu')
+        ->join('bea_penghasilan_ayah as h', 'a.id_penghasilan_ayah', '=', 'h.id_penghasilan_ayah')
+        ->join('bea_penghasilan_ibu as i', 'a.id_penghasilan_ibu', '=', 'i.id_penghasilan_ibu')
         ->join('bea_status_rumah as j', 'a.id_status_rumah', '=', 'j.id_status_rumah')
         ->join('bea_tanggungan as k', 'a.id_tanggungan', '=', 'k.id_tanggungan')
         ->join('bea_penawaran_kriteria as l', 'j.id_kriteria', '=', 'l.id_kriteria')
@@ -145,8 +148,9 @@ class NominasiController extends Controller
 
         ->select
         (
-            'bea_pendaftar_penawaran.id_pendaftar','bea_mahasiswa.nama',
-            'bea_ref_fakultas.nama_fakultas', 'bea_ref_prodi.nama_prodi', 'bea_mahasiswa.nim',
+            'bea_pendaftar_penawaran.id_pendaftar',
+            //'bea_mahasiswa.nama',
+            // 'bea_ref_fakultas.nama_fakultas', 'bea_ref_prodi.nama_prodi', 'bea_mahasiswa.nim',
             'b.skor as status_ayah', 'c.skor as status_ibu', 
             'd.skor as pekerjaan_ayah', 'e.skor as pekerjaan_ibu',
             'f.skor as pendidikan_ayah', 'g.skor as pendidikan_ibu',

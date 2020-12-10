@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBeaStatusAyahIbu extends Migration
+class CreatePendidikanAyah extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateBeaStatusAyahIbu extends Migration
      */
     public function up()
     {
-        Schema::create('bea_status_ayah_ibu', function (Blueprint $table) {
-            $table->bigIncrements('id_statusAyahIbu');
+        Schema::create('pendidikan_ayah', function (Blueprint $table) {
+            $table->bigIncrements('id_pendidikan_ayah');
             $table->string('status');
             $table->integer('skor');
             $table->timestamps();
@@ -28,6 +28,6 @@ class CreateBeaStatusAyahIbu extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bea_status__ayah_ibu');
+        Schema::dropIfExists('pendidikan_ayah');
     }
 }

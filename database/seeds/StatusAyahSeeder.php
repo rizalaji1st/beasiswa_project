@@ -21,8 +21,8 @@ class StatusAyahSeeder extends Seeder
         );
 
                 for ($row = 0; $row < count($status_ayah); $row++) {
-                DB::table('bea_status_ayah')->insert([
-                        'id_statusAyah'=>$row+1,
+                DB::table('status_ayah')->insert([
+                        'id_status_ayah'=>$row+1,
                         'status'=>$status_ayah[$row][0],
                         'skor'=>$status_ayah[$row][1],
                         'created_at'=>Carbon::now(),

@@ -27,8 +27,8 @@ class PendidikanIbuSeeder extends Seeder
         );
 
         for ($row=0; $row < count($status_pendidikan_ibu); $row++) { 
-        	DB::table('bea_pendidikan_ibu')->insert([
-        		'id_pendidikan_Ibu'=>$row+1,
+        	DB::table('pendidikan_ibu')->insert([
+        		'id_pendidikan_ibu'=>$row+1,
         		'status'=>$status_pendidikan_ibu[$row][0],
         		'skor'=>$status_pendidikan_ibu[$row][1],
         		'created_at'=>Carbon::now(),

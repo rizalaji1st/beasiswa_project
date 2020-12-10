@@ -21,8 +21,8 @@ class StatusIbuSeeder extends Seeder
         );
 
                 for ($row = 0; $row < count($status_ibu); $row++) {
-                DB::table('bea_status_ibu')->insert([
-                        'id_statusIbu'=>$row+1,
+                DB::table('status_ibu')->insert([
+                        'id_status_ibu'=>$row+1,
                         'status'=>$status_ibu[$row][0],
                         'skor'=>$status_ibu[$row][1],
                         'created_at'=>Carbon::now(),

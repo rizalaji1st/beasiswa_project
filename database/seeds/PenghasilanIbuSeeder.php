@@ -42,7 +42,7 @@ class PenghasilanIbuSeeder extends Seeder
        	);
 
         for ($row = 0; $row < count($penghasilan_ibu); $row++) {
-        		DB::table('bea_penghasilan_ibu')->insert([
+        		DB::table('penghasilan_ibu')->insert([
 		                'id_penghasilan_ibu'=>$row+1,
 		                'penghasilan_min'=>$penghasilan_ibu[$row][0],
 		                'penghasilan_max'=>$penghasilan_ibu[$row][1],
