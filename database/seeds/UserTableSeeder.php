@@ -1,6 +1,7 @@
 <?php
 
 use App\Role;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -16,7 +17,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        
+       
         // DB::table('users')->insert([
         //     'name' => Str::random(10),
         //     'email' => Str::random(10).'@gmail.com',
@@ -49,16 +50,168 @@ class UserTableSeeder extends Seeder
             'email' => 'fakultas@fakultas.com',
             'password' => Hash::make('fakultas')
         ]);
+
+        $fakultas = array(
+            'Fakultas Keguruan dan Ilmu Pendidikan',
+            'Fakultas Matematika dan Ilmu Alam',
+            'Fakultas Kedokteran',
+            'Fakultas Pertanian',
+            'Fakultas Teknik',
+            'Fakultas Ilmu Budaya',
+            'Fakultas Ekonomi Bisnis',
+            'Fakultas Hukum',
+            'Fakultas Seni Rupa dan Desain',
+            'Fakultas Ilmu Sosial dan Politik',
+            'Fakultas Keolahragaan'
+        );
         
-        $user = User::create([
-            'name' => 'Generic User',
-            'email' => 'user@user.com',
-            'password' => Hash::make('user')
+        $user1 = User::create([
+            'name' => 'Rendi Jaka Susanto',
+            'email' => 'rendijaka@student.uns.ac.id',
+            'password' => Hash::make('Rendijaka'),
+            'nim' => 'M3118074',
+            'nama' => 'Rendi Jaka Susanto',
+            'ipk'=>'3',
+            'ips'=>'4',
+            'semester'=>'5',
+            'alamat' => 'Cilacap',
+            'kabupaten' => 'Cilacap',
+            'provinsi' => 'Jawa Tengah',
+            'kode_prodi' => '01',
+            'penghasilan' => '3000000',
+            'nama_ayah' => 'Dwi Windu Suroyo',
+            'status_ayah' => 'meninggal',
+            'pend_ayah' => 'SMP/MTs / Sederajat',
+            'pekerjaan_ayah' =>'PNS',
+            'gaji_ayah' => '2000000',
+            'nama_ibu' => 'Sumarni',
+            'status_ibu' => 'hidup',
+            'pend_ibu' => 'SMP/MTs / Sederajat',
+            'pekerjaan_ibu'=>'wirausaha',
+            'gaji_ibu' => '1000000',
+            'jml_tanggungan' => '3',
+            'status_rumah' => 'Sendiri',
         ]);
+        $user2 = User::create([
+            'name' => 'Joni Budiyanto',
+            'email' => 'joni@student.uns.ac.id',
+            'password' => Hash::make('Jonibudiyanto'),
+            'nim' => 'M3118074',
+            'nama' => 'Joni Budiyanto',
+            'ipk'=>'3.1',
+            'ips'=>'4.0',
+            'semester'=>'5',
+            'alamat' => 'Sukoharjo, Jawa Tengah',
+            'kabupaten' => 'Sukoharjo',
+            'provinsi' => 'Jawa Tengah',
+            'kode_prodi' => '01',
+            'penghasilan' => '3000000',
+            'nama_ayah' => 'Suroyo',
+            'status_ayah' => 'Cerai',
+            'pend_ayah' => 'SMP/MTs / Sederajat',
+            'pekerjaan_ayah' =>'Pedagang',
+            'gaji_ayah' => '700000',
+            'nama_ibu' => 'Sumarni',
+            'status_ibu' => 'Hidup',
+            'pend_ibu' => 'S1',
+            'pekerjaan_ibu'=>'wirausaha',
+            'gaji_ibu' => '700000',
+            'jml_tanggungan' => '3',
+            'status_rumah' => 'Sendiri',
+        ]);
+        $user3 = User::create([
+            'name' => 'Milasari',
+            'email' => 'milsari@student.uns.ac.id',
+            'password' => Hash::make('Milsari'),
+            'nim' => 'M3118090',
+            'nama' => 'Milasari',
+            'ipk'=>'3.1',
+            'ips'=>'3.3',
+            'semester'=>'5',
+            'alamat' => 'Gemolong, Sragen',
+            'kabupaten' => 'Sragen',
+            'provinsi' => 'Jawa Tengah',
+            'kode_prodi' => '09',
+            'penghasilan' => '9000000',
+            'nama_ayah' => 'Windu',
+            'status_ayah' => 'Hidup',
+            'pend_ayah' => 'S2',
+            'pekerjaan_ayah' =>'',
+            'gaji_ayah' => '7000000',
+            'nama_ibu' => 'Wati',
+            'status_ibu' => 'Hidup',
+            'pend_ibu' => 'S1',
+            'pekerjaan_ibu'=>'wirausaha',
+            'gaji_ibu' => '2000000',
+            'jml_tanggungan' => '3',
+            'status_rumah' => 'Sendiri',
+        ]);
+        $user4 = User::create([
+            'name' => 'Tony Stark',
+            'email' => 'tony@student.uns.ac.id',
+            'password' => Hash::make('1234'),
+            'nim' => 'M3118012',
+            'nama' => 'Tony Stark',
+            'ipk'=>'3.5',
+            'ips'=>'3.2',
+            'semester'=>'5',
+            'alamat' => 'Pabelan',
+            'kabupaten' => 'Sukoharjo',
+            'provinsi' => 'Jawa Tengah',
+            'kode_prodi' => '12',
+            'penghasilan' => '10000000',
+            'nama_ayah' => 'Stark',
+            'status_ayah' => 'hidup',
+            'pend_ayah' => 'S3',
+            'pekerjaan_ayah' =>'Dosen',
+            'gaji_ayah' => '8000000',
+            'nama_ibu' => 'Wanti',
+            'status_ibu' => 'hidup',
+            'pend_ibu' => 'SMP/MTs / Sederajat',
+            'pekerjaan_ibu'=>'wirausaha',
+            'gaji_ibu' => '2000000',
+            'jml_tanggungan' => '2',
+            'status_rumah' => 'Sendiri',
+            
+        ]);
+
+        $user4 = User::create([
+            'name' => 'luthfi',
+            'email' => 'luthfi_puji1@student.uns.ac.id',
+            'password' => Hash::make('1234'),
+            'nim' => 'M3118051',
+            'nama' => 'luthfi',
+            'ipk'=>'3.7',
+            'ips'=>'3.7',
+            'semester'=>'5',
+            'alamat' => 'Ngawi',
+            'kabupaten' => 'Ngawi',
+            'provinsi' => 'Jawa Timur',
+            'kode_prodi' => '12',
+            'penghasilan' => '10000000',
+            'nama_ayah' => 'Stark',
+            'status_ayah' => 'hidup',
+            'pend_ayah' => 'S3',
+            'pekerjaan_ayah' =>'Dosen',
+            'gaji_ayah' => '8000000',
+            'nama_ibu' => 'Wanti',
+            'status_ibu' => 'hidup',
+            'pend_ibu' => 'SMP/MTs / Sederajat',
+            'pekerjaan_ibu'=>'wirausaha',
+            'gaji_ibu' => '2000000',
+            'jml_tanggungan' => '2',
+            'status_rumah' => 'Sendiri',
+            
+        ]);
+        
+        
 
         $admin->roless()->attach($adminRole);
         $adminuniversitas->roless()->attach($adminuniversitasRole);
         $adminfakultas->roless()->attach($adminfakultasRole);
-        $user->roless()->attach($userRole);
+        $user1->roless()->attach($userRole);
+        $user2->roless()->attach($userRole);
+        $user3->roless()->attach($userRole);
+        $user4->roless()->attach($userRole);
     }
 }
