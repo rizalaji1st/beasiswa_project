@@ -31,12 +31,12 @@
                             <td scope="col">Skor</td>
                             <td scope="col" class="text-center">Action</td>    
                             </tr>
-                            @foreach($nominasi as $n)                      
+                            @foreach($nom as $n)                      
                             <tr>
                             <th scope="row">{{$loop->iteration}}</th>
-                            <th scope="row"></td>
-                            <th scope="row"></td>
-                            <th scope="row"></td>
+                            <td scope="row">{{$n->users->nim}}</td>
+                            <td scope="row">{{$n->users->nama}}</td>
+                            <th scope="row">{{$n->refProdi->nama_prodi}}</td>
                             <th scope="row"></td>
                             <th scope="row"></td>
                             <!-- <td scope="col">{{$n->nim}}</td>

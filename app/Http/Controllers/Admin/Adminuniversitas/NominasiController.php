@@ -48,6 +48,7 @@ class NominasiController extends Controller
     {
 
         $nominasi = Pendaftaran::where('id_penawaran', $nominasi)->get();
+        return view('pages.admin.universitas.nominasi.show', ['nom'=> $nominasi]);
     //     DB::enableQueryLog();
     //     //$nominasi = PendaftarPenawaran::where('id_penawaran', $nominasi)->get();
     //     $limit = DB::table('bea_penawaran')->join('bea_pendaftar_penawaran', 'bea_penawaran.id_penawaran', 
@@ -105,7 +106,7 @@ class NominasiController extends Controller
     
     // ->orderBy('total','DESC')
     // ->get();
-    return view('pages.admin.universitas.nominasi.show')->with('nominasi', $nominasi);
+    
     }
 
 

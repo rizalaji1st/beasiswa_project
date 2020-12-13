@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBeaRefProdi extends Migration
+class CreateTableBeaRefProdi extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class CreateBeaRefProdi extends Migration
     public function up()
     {
         Schema::create('bea_ref_prodi', function (Blueprint $table) {
-            $table->bigIncrements('id_prodi');
+            $table->string('kode_prodi');
+            $table->string('kode_fakultas');
             $table->string('nama_prodi');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

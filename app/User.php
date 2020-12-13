@@ -37,4 +37,14 @@ class User extends Authenticatable
         return false;
         
     }
+
+    public function pendaftaran()
+    {
+        return $this->hasMany(Pendaftaran::class, 'id_user', 'id');
+    }
+
+    public function refProdi()
+    {
+        return $this->belongsTo(Prodi::class, 'kode_prodi');
+    }
 }
