@@ -15,6 +15,8 @@ class CreateStatusIbu extends Migration
     {
         Schema::create('status_ibu', function (Blueprint $table) {
             $table->bigIncrements('id_status_ibu');
+            $table->unsignedBigInteger('id_kriteria');
+            $table->foreign('id_kriteria')->references('id_kriteria')->on('bea_penawaran_kriteria')->onDelete('cascade');
             $table->string('status');
             $table->integer('skor');
             $table->timestamps();

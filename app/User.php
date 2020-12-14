@@ -45,6 +45,7 @@ class User extends Authenticatable
 
     public function refProdi()
     {
-        return $this->belongsTo(Prodi::class, 'kode_prodi');
+        return $this->belongsTo('App\References\RefProdi', 'kode_prodi');
     }
 }
+

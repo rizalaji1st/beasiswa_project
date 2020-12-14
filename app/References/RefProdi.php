@@ -14,6 +14,7 @@ class RefProdi extends Model
     public function refFakultas(){
         return $this->belongsTo('App\References\RefFakultas', 'id_fakultas', 'id_fakultas');
     }
+    
 
     public function user()
     {

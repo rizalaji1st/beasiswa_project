@@ -15,6 +15,8 @@ class CreatePekerjaanAyah extends Migration
     {
         Schema::create('pekerjaan_ayah', function (Blueprint $table) {
             $table->bigIncrements('id_pekerjaan_ayah');
+            $table->unsignedBigInteger('id_kriteria');
+            $table->foreign('id_kriteria')->references('id_kriteria')->on('bea_penawaran_kriteria')->onDelete('cascade');
             $table->string('status');
             $table->integer('skor');
             $table->timestamps();

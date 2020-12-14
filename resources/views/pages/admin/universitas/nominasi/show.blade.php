@@ -34,17 +34,9 @@
                             @foreach($nom as $n)                      
                             <tr>
                             <th scope="row">{{$loop->iteration}}</th>
-                            <td scope="row">{{$n->users->nim}}</td>
-                            <td scope="row">{{$n->users->nama}}</td>
-                            <th scope="row">{{$n->refProdi->nama_prodi}}</td>
-                            <th scope="row"></td>
-                            <th scope="row"></td>
-                            <!-- <td scope="col">{{$n->nim}}</td>
-                            <td scope="col">{{$n->nama}}</td>
-                            <td scope="col">{{$n->nama_prodi}}</td>
-                            <td scope="col">{{$n->nama_fakultas}}</td>
-                            <td scope="col">{{$n->total}}</td> -->
-                            
+                            <td scope="row">{{$n->user->nim}}</td>
+                            <td scope="row">{{$n->user->nama}}</td>
+                            <td scope="row">{{$n->refProdi['nama_prodi']}}</td>
                             <td scope="col" class="text-center">
                             <a class="btn btn-primary" href="{{route('admin.detail_skor',$n->id_pendaftar)}}" > Detail Skor <i class="fa fa-arrow-right"></i></a>
                     <!-- <a class="btn btn-primary" href="{{route('admin.detail_skor')}}" > Detail Skor <i class="fa fa-arrow-right"></i></a> -->

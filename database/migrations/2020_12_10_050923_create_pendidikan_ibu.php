@@ -15,6 +15,8 @@ class CreatePendidikanIbu extends Migration
     {
         Schema::create('pendidikan_ibu', function (Blueprint $table) {
             $table->bigIncrements('id_pendidikan_ibu');
+            $table->unsignedBigInteger('id_kriteria');
+            $table->foreign('id_kriteria')->references('id_kriteria')->on('bea_penawaran_kriteria')->onDelete('cascade');
             $table->string('status');
             $table->integer('skor');
             $table->timestamps();

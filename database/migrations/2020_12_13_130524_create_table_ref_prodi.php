@@ -15,7 +15,7 @@ class CreateTableBeaRefProdi extends Migration
     {
         Schema::create('bea_ref_prodi', function (Blueprint $table) {
             $table->string('kode_prodi');
-            $table->string('kode_fakultas');
+            $table->string('id_fakultas');
             $table->string('nama_prodi');
             $table->timestamps();
         });
