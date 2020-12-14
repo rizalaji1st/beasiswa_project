@@ -1,5 +1,6 @@
 <?php
 
+namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,7 @@ class PekerjaanAyahSeeder extends Seeder
     	    for ($row = 0; $row < count($pekerjaan_ayah); $row++) {
             DB::table('pekerjaan_ayah')->insert([
                 'id_pekerjaan_ayah'=>$row+1,
+                'id_kriteria'=>1,
                 'status'=>$pekerjaan_ayah[$row][0],
                 'skor'=>$pekerjaan_ayah[$row][1],
                 'created_at'=>Carbon::now(),
