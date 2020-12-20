@@ -1,6 +1,8 @@
 <?php
 
 namespace App;
+use App\Pendaftaran;
+use App\References\RefProdi;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -37,4 +39,11 @@ class User extends Authenticatable
         return false;
         
     }
+    
+    public function userProdi(){
+        return $this->belongsTo(RefProdi::class, 'kode_prodi','kode_prodi');
+      }
+    public function userPendaftaran(){
+        return $this->hasMany(Pendaftaran::class, 'id_user','id');
+      }
 }

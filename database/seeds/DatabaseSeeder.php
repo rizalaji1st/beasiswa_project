@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RefKriteria::class);
         $this->call(RolesTableSeeder::class);
         $this->call(TableRefFakultasSeeder::class);
+        $this->call(RefProdiSeeder::class);
         $this->call(UserTableSeeder::class);
     }
 }

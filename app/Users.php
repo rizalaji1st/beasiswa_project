@@ -2,12 +2,13 @@
 
 namespace App;
 
+use App\References\RefProdi;
+use App\Pendaftaran;
 use Illuminate\Database\Eloquent\Model;
 
 class Users extends Model
 {
   protected $table = 'bea_pendaftar_penawaran';
-  protected $primaryKey = 'id_pendaftar';
   protected $primaryKey = 'id_user';
   protected $integer = [
     'id_penawaran',
@@ -21,4 +22,12 @@ class Users extends Model
   ];
   protected $guarded = [];
   protected $fillable = ['prodi', 'fakultas'];
+
+  
+  public function userProdi(){
+    return $this->belongsTo(RefProdi::class);
+  }
+
+  
+
 }
