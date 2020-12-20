@@ -58,6 +58,13 @@
       <span>Penawaran</span>
     </a>
   </li>
+    <!-- Nav Item - Penawaran -->
+    <li class="nav-item @yield('status-verifikasi')">
+      <a class="nav-link" href="{{route('admin.verifikasi.index')}}">
+        <i class="fas fa-file-signature    "></i>
+        <span>Verifikasi</span>
+      </a>
+    </li>
   
   <li class="nav-item @yield('status-penetapan')">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
@@ -77,7 +84,7 @@
 <li class="nav-item">
   <a class="nav-link" href="{{route('logout')}}" onclick="event.preventDefault();
     document.getElementById('logout-form').submit();">
-    <i class="fas fa-rocket    "></i>
+    <i class="fas fa-sign-out-alt    "></i>
     <span>Keluar</span>
         </a>
 

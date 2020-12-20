@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use App\References\RefKriteria;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PenawaranController extends Controller
@@ -68,6 +67,8 @@ class PenawaranController extends Controller
         $penawaran = $request->all();
         $penawaran['tahun'] = $request->tgl_awal_penawaran;
         $penawaran['id_user_pembuat'] = Auth::user()->id; 
+        $penawaran['id_user_finalisasi'] = Auth::user()->id; 
+        $penawaran['tgl_finalisasi'] = Carbon::now(); 
         if($request->is_double == null){
             $penawaran['is_double']='false';
         }else {
@@ -217,6 +218,8 @@ class PenawaranController extends Controller
 
         $penawaran2 = $request->all();
         $penawaran2['tahun'] = $request->tgl_awal_penawaran;
+        $penawaran2['id_user_finalisasi'] = Auth::user()->id; 
+        $penawaran2['tgl_finalisasi'] = Carbon::now();
         if($request->is_double == null){
             $penawaran2['is_double']='false';
         }else {

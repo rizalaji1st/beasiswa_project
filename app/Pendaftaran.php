@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
+use App\FilePendaftar;
 
 class Pendaftaran extends Model
 {
@@ -42,9 +44,16 @@ class Pendaftaran extends Model
                             'is_verified',
                             'verified_at',
                             'verified_by',
+                            'verified_note'
                         ];
                         
     public function pendaftaranUpload(){
         return $this->hasMany(filePendaftar::class, 'id_pendaftar', 'id_pendaftar');
+    }
+    public function pendaftarPenawaran(){
+        return $this->belongsTo(Penawaran::class);
+    }
+    public function userPendaftar(){
+        return $this->belongsTo(User::class,'id_user');
     }
 }

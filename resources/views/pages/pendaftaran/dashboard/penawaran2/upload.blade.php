@@ -14,14 +14,7 @@
             enctype="multipart/form-data">
             @csrf
             @if ($Penawaran->tgl_akhir_pendaftaran > $time)
-                @if($user->count() <= 0 && $cek->count() <= 0)
-                    @foreach ($Penawaran->lampiranPendaftar as $lamp)
-                        <label>{{$lamp->refJenisFile->nama_jenis_file}}</label>
-                        <input type="file" class="form-control" name="nama{{$lamp->id_upload_file}}">
-                    @endforeach
-                        <button type="submit" class="btn btn-icon icon-left btn-primary mt-2"><i class="fa fa-paper-plane"></i>Apply
-                            Beasiswa</button>
-                    @else
+                @if($user->count() > 0 && $cek->count() > 0)
                     <button type="submit" class="btn btn-icon icon-left btn-success mt-2" disabled>
                         <i class="fas fa-exclamation"></i>
                         Anda Sudah Mendaftar
@@ -31,6 +24,15 @@
                         class="btn btn-icon icon-left btn-primary mt-2" target="_blank">
                         <i class="fas fa-print">Print Bukti Pendaftaran</i>
                     </a>
+                    @else
+                    @foreach ($Penawaran->lampiranPendaftar as $lamp)
+                        <div class="form-group">
+                            <label>{{$lamp->refJenisFile->nama_jenis_file}}</label>
+                            <input type="file" class="form-control" name="nama{{$lamp->id_upload_file}}">
+                        </div>
+                    @endforeach
+                        <button type="submit" class="btn btn-icon icon-left btn-primary mt-2"><i class="fa fa-paper-plane"></i>Daftar Beasiswa</button>
+                    
                 @endif
             @else
             <div class="alert alert-danger alert-has-icon">
