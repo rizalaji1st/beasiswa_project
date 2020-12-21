@@ -49,10 +49,11 @@ class PenawaranController extends Controller
     {
         //
         $jenisBeasiswa = RefJenisBeasiswa::get();
-        $lampiran = RefJenisFile::get();
+        $lampiran = RefJenisFile::where('roles','penawaran')->get();
+        $lampiranPendaftar = RefJenisFile::where('roles','pendaftar')->get();
         $kriteria = RefKriteria::get();
         $years = range(Carbon::now()->year-5,Carbon::now()->year+4);
-        return view('pages.admin.universitas.penawaran.create', compact('jenisBeasiswa', 'lampiran','kriteria','years'));
+        return view('pages.admin.universitas.penawaran.create', compact('jenisBeasiswa', 'lampiran','lampiranPendaftar','kriteria','years'));
     }
 
     /**
@@ -199,11 +200,13 @@ class PenawaranController extends Controller
     {
         //
         $jenisBeasiswa = RefJenisBeasiswa::get();
-        $refJenisFile = RefJenisFile::get();
+        
         $kriteria = RefKriteria::get();
+        $lampirans = RefJenisFile::where('roles','penawaran')->get();
+        $lampiransPendaftar = RefJenisFile::where('roles','pendaftar')->get();
         $refFakultas = RefFakultas::get();
         $years = range(Carbon::now()->year-5,Carbon::now()->year+4);
-        return view('pages.admin.universitas.penawaran.update', compact('penawaran', 'jenisBeasiswa', 'refJenisFile', 'refFakultas','kriteria','years'));
+        return view('pages.admin.universitas.penawaran.update', compact('penawaran', 'jenisBeasiswa', 'lampirans','lampiransPendaftar', 'refFakultas','kriteria','years'));
     }
 
     /**

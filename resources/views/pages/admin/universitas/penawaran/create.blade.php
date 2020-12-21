@@ -411,7 +411,7 @@
         <br>
         <br>
         <button type="submit" class="btn btn-primary"><i class="fas fa-save    "></i> Simpan</button>
-        <a href="route('admin.penawarans.index')" class="btn btn-outline-warning">Batal</a>
+        <a href="{{route('admin.penawarans.index')}}" class="btn btn-outline-warning">Batal</a>
 
 
     </form>
@@ -884,7 +884,7 @@
         select.setAttribute("id", cls);
         select.setAttribute("required","");
         select.appendChild(option);
-        reference(select);
+        referencePendaftar(select);
 
         var divcol1 = document.createElement("div");
         divcol1.setAttribute("class","col form-group");
@@ -1069,6 +1069,16 @@
     function reference(select){
         var i = 0;
         var reflampiran = <?php echo json_encode($lampiran); ?>;
+        for(; i < reflampiran.length ; i++){
+            var option = document.createElement("option");
+            option.setAttribute("value", reflampiran[i]['id_jenis_file']);
+            option.innerHTML=reflampiran[i]['nama_jenis_file'];
+            select.appendChild(option);
+        }
+    }
+    function referencePendaftar(select){
+        var i = 0;
+        var reflampiran = <?php echo json_encode($lampiranPendaftar); ?>;
         for(; i < reflampiran.length ; i++){
             var option = document.createElement("option");
             option.setAttribute("value", reflampiran[i]['id_jenis_file']);

@@ -496,7 +496,7 @@
                             <label for="lampiranAda{{$loop->iteration}}">Nama Lampiran</label>
                             <select name="lampiranAda{{$loop->iteration}}" id="" class="form-control custom-select fstdropdown">
                                 <option value="">--pilih salah satu--</option>
-                                @foreach ($refJenisFile as $item)
+                                @foreach ($lampirans as $item)
                                     <option value="{{$item->id_jenis_file}}" 
                                         {{$item->id_jenis_file == $lampiran->id_jenis_file ? 'selected' : ''}}
                                         >{{$item->nama_jenis_file}}</option>
@@ -552,7 +552,7 @@
                         <div class="col form-group">
                             <select name="lampiranPendaftarAda{{$loop->iteration}}" id="" class="form-control custom-select fstdropdown">
                                 <option value="">--pilih salah satu--</option>
-                                @foreach ($refJenisFile as $item)
+                                @foreach ($lampiransPendaftar as $item)
                                     <option value="{{$item->id_jenis_file}}" 
                                         {{$item->id_jenis_file == $lampiranPendaftar->id_jenis_file ? 'selected' : ''}}
                                         >{{$item->nama_jenis_file}}</option>
@@ -1039,7 +1039,7 @@
             select.setAttribute("id", cls);
             select.setAttribute("required","");
             select.appendChild(option);
-            reference(select);
+            referencePendaftar(select);
 
             var divcol1 = document.createElement("div");
             divcol1.setAttribute("class","col form-group");
@@ -1234,7 +1234,17 @@
 
         function reference(select){
             var i = 0;
-            var reflampiran = <?php echo json_encode($refJenisFile); ?>;
+            var reflampiran = <?php echo json_encode($lampirans); ?>;
+            for(; i < reflampiran.length ; i++){
+                var option = document.createElement("option");
+                option.setAttribute("value", reflampiran[i]['id_jenis_file']);
+                option.innerHTML=reflampiran[i]['nama_jenis_file'];
+                select.appendChild(option);
+            }
+        }
+        function referencePendaftar(select){
+            var i = 0;
+            var reflampiran = <?php echo json_encode($lampiransPendaftar); ?>;
             for(; i < reflampiran.length ; i++){
                 var option = document.createElement("option");
                 option.setAttribute("value", reflampiran[i]['id_jenis_file']);

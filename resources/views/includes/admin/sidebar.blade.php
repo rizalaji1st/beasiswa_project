@@ -58,7 +58,7 @@
       <span>Penawaran</span>
     </a>
   </li>
-    <!-- Nav Item - Penawaran -->
+    <!-- Nav Item - Verifikasi -->
     <li class="nav-item @yield('status-verifikasi')">
       <a class="nav-link" href="{{route('admin.verifikasi.index')}}">
         <i class="fas fa-file-signature    "></i>
@@ -80,6 +80,13 @@
       <!-- <a class="dropdown-item" href="{{ url ('/pengusulans') }}">Pengusulan Nominasi</a> -->
     </div>
   </div>
+</li>
+<!-- Nav Item - Lampiran -->
+<li class="nav-item @yield('status-lampiran')">
+  <a class="nav-link" href="{{route('admin.lampiran-penawaran.index')}}">
+    <i class="fa fa-paperclip" aria-hidden="true"></i>
+    <span>Lampiran</span>
+  </a>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="{{route('logout')}}" onclick="event.preventDefault();

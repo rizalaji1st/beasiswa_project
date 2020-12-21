@@ -4,12 +4,17 @@
 @section('content')
 
     <div class="container ">
-        <h1>Penawaran Beasiswa</h1>
+        <div class="section-header">
+          <h1>Penawaran Beasiswa</h1>
+        </div>
         @include('includes.flashmessage')
-        <a href="{{route('admin.penawarans.create')}}" class="btn btn-primary mt-4 mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambahkan Penawaran</a>
-        <div class="card shadow mb-4">
+        <div class="card shadow">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Beasiswa Aktif</h6>
+            <div class="d-flex justify-content-between">
+              <div class="float-right">
+                <a href="{{route('admin.penawarans.create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambahkan Penawaran</a>
+              </div>
+          </div>
           </div>
           <div class="card-body">
             <div class="table-responsive">

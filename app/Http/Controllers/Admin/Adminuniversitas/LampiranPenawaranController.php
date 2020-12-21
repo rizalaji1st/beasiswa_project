@@ -3,16 +3,10 @@
 namespace App\Http\Controllers\Admin\Adminuniversitas;
 
 use App\Http\Controllers\Controller;
-use App\Penawaran;
-use App\Pendaftaran;
-use App\References\RefProdi;
-use App\User;
-use Carbon\Carbon;
+use App\References\RefJenisFile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class VerifikasiController extends Controller
+class LampiranPenawaranController extends Controller
 {
     public function __construct()
     {
@@ -26,8 +20,8 @@ class VerifikasiController extends Controller
     public function index()
     {
         //
-        $beasiswas = Penawaran::all();
-        return view('pages.admin.universitas.verifikasi.index', ['beasiswas' => $beasiswas]);
+        $lampirans = RefJenisFile::all();
+        return view('pages.admin.universitas.lampiran.penawaran', ['lampirans'=>$lampirans]);
     }
 
     /**
@@ -48,30 +42,33 @@ class VerifikasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        RefJenisFile::create([
+            'nama_jenis_file'=>$request->lampiran,
+            'roles'=>$request->roles
+        ]);
+        return redirect(route('admin.lampiran-penawaran.index'))->with('success','Data berhasil ditambahkan');
+
+        
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\References\RefJenisFile  $refJenisFile
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {   
-        $pendaftars = Pendaftaran::with('userPendaftar')->with('pendaftaranUpload')->where('id_penawaran',$id)->get();
-        $beasiswa = Penawaran::findOrFail($id);
-        return view('pages.admin.universitas.verifikasi.show', compact('beasiswa','pendaftars'));
-     
+    public function show(RefJenisFile $refJenisFile)
+    {
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\References\RefJenisFile  $refJenisFile
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(RefJenisFile $refJenisFile)
     {
         //
     }
@@ -80,31 +77,24 @@ class VerifikasiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\References\RefJenisFile  $refJenisFile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, RefJenisFile $refJenisFile)
     {
         //
-
-        $date_verified = Carbon::now();
-        $pendaftar = Pendaftaran::where('id_pendaftar',$request->noPendaftar)
-                    ->update(['is_verified' => $request->status_verifikasi,
-                            'verified_at'=>$date_verified,
-                            'verified_by'=>Auth::user()->name,
-                            'verified_note'=>$request->catatan]);
-        return redirect(route('admin.verifikasi.show', $id))->with('success','Status berhasil diubah');
-        
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\References\RefJenisFile  $refJenisFile
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        
+        RefJenisFile::destroy($id);
+        return redirect(route('admin.lampiran-penawaran.index'))->with('success','data berhasil di hapus');
     }
 }
