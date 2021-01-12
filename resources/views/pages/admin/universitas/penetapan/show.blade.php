@@ -28,29 +28,30 @@
                     <tbody>
                         <tr>
                             <th scope="col">No</th>
-                            <td scope="col">Id Pendaftar</td>
-                            <td scope="col">NIM</td>
-                            <td scope="col">Nama</td>
                             <td scope="col">Prodi</td>
                             <td scope="col">Fakultas</td>
-                            <td scope="col">Skor</td>
+                            <td scope="col">NIM</td>
+                            <td scope="col">Nama</td>
+                            <td scope="col">Semester</td>
                             </tr>
-                            @foreach($lolos as $n)                      
-                            <tr>
-                            <th scope="row">{{$loop->iteration}}</th>
-                            <td scope="col">{{$n->id_pendaftar}}</td>
-                            <td scope="col">{{$n->nim}}</td>
-                            <td scope="col">{{$n->nama}}</td>
-                            <td scope="col">{{$n->nama_prodi}}</td>
-                            <td scope="col">{{$n->nama_fakultas}}</td>
-                            <td scope="col">{{$n->total}}</td>
-                    @method('Delete')
-                    @csrf
-                    </form>
-                </td>
-                            
-                        </tr>
-                        @endforeach
+                    </tbody>
+                    <tbody>
+                    @foreach ($lolos as $n)
+                    <tr>
+                    <th scope="row" class="text-center">{{$loop->iteration}}</th>
+                        <td scope="col" class="text-center">{{$n->nama_prodi}}</td>
+                        <td scope="col" class="text-center">{{$n->nama_fakultas}}</td>
+                        <td scope="col" class="text-center">{{$n->nim}}</td>
+                        <td scope="col" class="text-center">{{$n->nama}}</td>
+                        <td scope="col" class="text-center">{{$n->semester}}</td>
+                        <td scope="col" class="text-center">
+                        <a href="{{route('admin.penetapan.index')}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                            @method('Delete')
+                            @csrf
+                        </form>
+                        </td>
+                    </tr>
+                    @endforeach
                     </tbody>
                 </table>
                 <div class="text-right">

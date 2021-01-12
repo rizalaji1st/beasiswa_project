@@ -1,6 +1,6 @@
 @extends('layouts.adminuniv')
-@section('title', 'Detail Beasiswa')
-@section('status-dashboard', 'active')
+@section('title', 'pendaftaran Beasiswa')
+@section('pendaftaran-dashboard', 'active')
 @section('content')
     <div class="container my-3">
         {{-- succes --}}
@@ -22,91 +22,99 @@
                 <table class="table table-bordered table-striped">
                     <tbody>
                         <tr>
-                        @foreach($detail as $n) @endforeach
+                        @foreach($pendaftaran as $n) @endforeach
                             <th scope="col" class="text-center">Kriteria - {{$n->id_pendaftar}}</th>
-                            @foreach($detail as $n) @endforeach
+                            @foreach($pendaftaran as $n) @endforeach
                             <th scope="col" class="text-center">Bobot - {{$n->id_pendaftar}}</th>
-                            @foreach($detail as $n) @endforeach
+                            @foreach($pendaftaran as $n) @endforeach
                             <th scope="col" class="text-center">Skor - {{$n->id_pendaftar}}</th>
-                            @foreach($detail as $n) @endforeach
+                            @foreach($pendaftaran as $n) @endforeach
                             <th scope="col" class="text-center">Nilai - {{$n->id_pendaftar}}</th> 
                             </tr>
 
-                    @foreach($detail as $n) 
+
+                    <tr>
+
+                    @foreach($pendaftaran as $n) 
+                    <tr>
+                    <td scope="col">Status Rumah (SR)</td>
+                    <td scope="col" class="text-center">{{$bobot_rumah[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$skor_rumah[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$hasil_rumah[$loop->iteration-1]}}</td>
+                    </tr>
+
+                    <tr>
+                    <td scope="col">Jumlah Tanggungan</td>
+                    <td scope="col" class="text-center">{{$bobot_tanggungan[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$skor_tanggungan[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$hasil_tanggungan[$loop->iteration-1]}}</td>
+                    </tr>
+
                     <tr>
                     <td scope="col">Status Ayah (STA)</td>
-                    <td scope="col" class="text-center">{{$n->bobot_status_ayah}}</td>
-                    <td scope="col" class="text-center">{{$n->status_ayah}}</td>
-                    <td scope="col" class="text-center">{{$n->bobot_status_ayah * $n->status_ayah}}</td>
+                    <td scope="col" class="text-center">{{$bobot_staAyah[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$skor_staAyah[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$hasil_staAyah[$loop->iteration-1]}}</td>
                     </tr>
 
                     <tr>
                     <td scope="col">Status Ibu (STI)</td>
-                    <td scope="col" class="text-center">{{$n->bobot_status_ibu}}</td>
-                    <td scope="col" class="text-center">{{$n->status_ibu}}</td>
-                    <td scope="col" class="text-center">{{$n->bobot_status_ibu * $n->status_ibu}}</td>
+                    <td scope="col" class="text-center">{{$bobot_staIbu[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$skor_staIbu[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$hasil_staIbu[$loop->iteration-1]}}</td>
                     </tr>
 
-                    <tr>
-                    <td scope="col">Status Rumah (SR)</td>
-                    <td scope="col" class="text-center">{{$n->bobot_rumah}}</td>
-                    <td scope="col" class="text-center">{{$n->status_rumah}}</td>
-                    <td scope="col" class="text-center">{{$n->bobot_rumah * $n->status_rumah}}</td>
-                    </tr>
-
-                    <tr>
-                    <td scope="col">Pendidikan Ayah (SPA)</td>
-                    <td scope="col" class="text-center">{{$n->bobot_pendidikan_ayah}}</td>
-                    <td scope="col" class="text-center">{{$n->pendidikan_ayah}}</td>
-                    <td scope="col" class="text-center">{{$n->bobot_pendidikan_ayah * $n->pendidikan_ayah}}</td>
-                    </tr>
-
-                    <tr>
-                    <td scope="col">Pendidikan Ibu (SPI)</td>
-                    <td scope="col" class="text-center">{{$n->bobot_pendidikan_ibu}}</td>
-                    <td scope="col" class="text-center">{{$n->pendidikan_ibu}}</td>
-                    <td scope="col" class="text-center">{{$n->bobot_pendidikan_ibu * $n->pendidikan_ibu}}</td>
-                    </tr>
-
-                    <tr>
-                    <td scope="col">Pekerjaan Ayah (SKA)</td>
-                    <td scope="col" class="text-center">{{$n->bobot_pekerjaan_ayah}}</td>
-                    <td scope="col" class="text-center">{{$n->pekerjaan_ayah}}</td>
-                    <td scope="col" class="text-center">{{$n->bobot_pekerjaan_ayah * $n->pekerjaan_ayah}}</td>
-                    </tr>
                     
                     <tr>
-                    <td scope="col">Pekerjaan Ibu (SKI)</td>
-                    <td scope="col" class="text-center">{{$n->bobot_pekerjaan_ibu}}</td>
-                    <td scope="col" class="text-center">{{$n->pekerjaan_ibu}}</td>
-                    <td scope="col" class="text-center">{{$n->bobot_pekerjaan_ibu * $n->pekerjaan_ibu}}</td>
+                    <td scope="col">Status Pendidikan Ayah (SPA)</td>
+                    <td scope="col" class="text-center">{{$bobot_pendAyah[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$skor_pendAyah[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$hasil_pendAyah[$loop->iteration-1]}}</td>
+                    </tr>
+
+                    <tr>
+                    <td scope="col">Status Pendidikan Ibu (SPI)</td>
+                    <td scope="col" class="text-center">{{$bobot_pendIbu[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$skor_pendIbu[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$hasil_pendIbu[$loop->iteration-1]}}</td>
+                    </tr>
+
+                    <tr>
+                    <td scope="col">Status Pekerjaan Ayah (SKA)</td>
+                    <td scope="col" class="text-center">{{$bobot_pekAyah[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$skor_pekAyah[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$hasil_pekAyah[$loop->iteration-1]}}</td>
+                    </tr>
+
+                    <tr>
+                    <td scope="col">Status Pekerjaan Ibu (SKI)</td>
+                    <td scope="col" class="text-center">{{$bobot_pekIbu[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$skor_pekIbu[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$hasil_pekIbu[$loop->iteration-1]}}</td>
                     </tr>
 
                     <tr>
                     <td scope="col">Penghasilan Ayah (PA)</td>
-                    <td scope="col" class="text-center">{{$n->bobot_penghasilan_ayah}}</td>
-                    <td scope="col" class="text-center">{{$n->penghasilan_ayah}}</td>
-                    <td scope="col" class="text-center">{{$n->bobot_penghasilan_ayah * $n->penghasilan_ayah}}</td>
+                    <td scope="col" class="text-center">{{$bobot_pengAyah[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$skor_pengAyah[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$hasil_pengAyah[$loop->iteration-1]}}</td>
                     </tr>
 
                     <tr>
                     <td scope="col">Penghasilan Ibu (PI)</td>
-                    <td scope="col" class="text-center">{{$n->bobot_penghasilan_ibu}}</td>
-                    <td scope="col" class="text-center">{{$n->penghasilan_ibu}}</td>
-                    <td scope="col" class="text-center">{{$n->bobot_penghasilan_ibu * $n->penghasilan_ibu}}</td>
+                    <td scope="col" class="text-center">{{$bobot_pengIbu[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$skor_pengIbu[$loop->iteration-1]}}</td>
+                    <td scope="col" class="text-center">{{$hasil_pengIbu[$loop->iteration-1]}}</td>
                     </tr>
- 
+
                     <tr>
                     <td scope="col">Total Skor Beasiswa</td>
                     <td scope="col" class="text-center"></td>
                     <td scope="col" class="text-center"></td>
-                    <td scope="col" class="text-center">{{$n->total}}</td>
+                    <th scope="col" class="text-center">{{$hasil[$loop->iteration-1]}}</th>
                     </tr>
-                    
+
                     @endforeach
-                            
-
-
                     @method('Delete')
                     @csrf
                     </form>

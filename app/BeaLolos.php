@@ -10,13 +10,24 @@ class BeaLolos extends Model
     //
     use SoftDeletes;
     protected $table = 'bea_lolos';
-    protected $primaryKey = 'id_pendaftar';
+    protected $primaryKey = 'id_lolos';
     protected $fillable = [
-        'nim',
-        'nama',
+        'id_penawaran',
         'nama_prodi',
         'nama_fakultas',
-        'total'
+        'nim',
+        'nama',
+        'semester',
+        'status_ayah',
+        'status_ibu',
+        'status_rumah',
+        'gaji_ayah',
+        'gaji_ibu',
+        'pekerjaan_ayah',
+        'pekerjaan_ibu',
+        'pendidikan_ayah',
+        'pendidikan_ibu',
+        'jumlah_tanggungan'
     ];
 
     // public function PendaftarPenawaran(){

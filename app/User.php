@@ -43,7 +43,7 @@ class User extends Authenticatable
         return $this->hasMany(Pendaftaran::class, 'id_user', 'id');
     }
 
-    public function refProdi()
+    public function RefProdi()
     {
         return $this->belongsTo('App\References\RefProdi', 'kode_prodi');
     }

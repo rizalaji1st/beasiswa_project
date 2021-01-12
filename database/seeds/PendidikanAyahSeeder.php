@@ -15,25 +15,26 @@ class PendidikanAyahSeeder extends Seeder
     {
         //
         $status_pendidikan_ayah = array(
-            array("Tidak Sekolah", 10),
-            array("SD/MI / Sederajat", 9),
-            array("SMP/MTs / Sederajat", 8),
-            array("SMA/MA / Sederajat", 7),
-            array("D1 / Sederajat", 6),
-            array("D2 / Sederajat", 5),
-            array("D3 / Sederajat", 4),
-            array("D4/S1 / Sederajat", 2),
-            array("S2/Sp1 / Sederajat", 0),
+            array(4, "Tidak Sekolah", 10),
+            array(4, "SD/MI / Sederajat", 9),
+            array(4, "SMP/MTs / Sederajat", 8),
+            array(4, "SMA/MA / Sederajat", 7),
+            array(4, "D1 / Sederajat", 6),
+            array(4, "D2 / Sederajat", 5),
+            array(4, "D3 / Sederajat", 4),
+            array(4, "D4/S1 / Sederajat", 2),
+            array(4, "S2/Sp1 / Sederajat", 0),
         );
 
-        for ($row=0; $row < count($status_pendidikan_ayah); $row++) { 
-        	DB::table('pendidikan_ayah')->insert([
-        		'id_pendidikan_ayah'=>$row+1,
-        		'status'=>$status_pendidikan_ayah[$row][0],
-        		'skor'=>$status_pendidikan_ayah[$row][1],
-        		'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
-        	]);
+            for ($row=0; $row < count($status_pendidikan_ayah); $row++) { 
+                DB::table('pendidikan_ayah')->insert([
+                    'id_pendidikan_ayah'=>$row+1,
+                    'id_kriteria'=>$status_pendidikan_ayah[$row][0],
+                    'status'=>$status_pendidikan_ayah[$row][1],
+                    'skor'=>$status_pendidikan_ayah[$row][2],
+                    'created_at'=>Carbon::now(),
+                    'updated_at'=>Carbon::now()
+                ]);
         }
     }
 }

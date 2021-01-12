@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ProdiSeeder extends Seeder
 {
@@ -11,23 +13,28 @@ class ProdiSeeder extends Seeder
      */
     public function run()
     {
-        $prodi = array(
-            'Kimia',
-            'Fisika',
-            'Teknik Mesin',
-            'Farmasi',
-            'Teknik Kimia',
-            'Kedokteran',
-            'Sastra Inggris',
-            'Sastra Arab'
+        $ref_prodi = array(
+            array(1, "Kimia"),
+            array(2, "Fisika"),
+            array(3, "Teknik Mesin"),
+            array(4, "Farmasi"),
+            array(5, "Kedokteran"),
+            array(6, "Sastra Inggris"),
+            array(7, "Sastra Arab"),
+            array(8, "Kebidanan"),
+            array(9, "Teknik Kimia"),
+            array(10, "Sosiologi"),
         );
 
-        foreach ($prodi as $item) {
+        
+        for ($row = 0; $row < count($ref_prodi); $row++) {
             DB::table('bea_ref_prodi')->insert([
-                'nama_prodi' => $item,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
+                    'kode_prodi'=>$row+1,
+                    'id_fakultas'=>$ref_prodi[$row][0],
+                    'nama_prodi'=>$ref_prodi[$row][1],
+                    'created_at'=>Carbon::now(),
+                    'updated_at'=>Carbon::now()
+                ]);
         }
     }
 }

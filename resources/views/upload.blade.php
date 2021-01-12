@@ -15,7 +15,7 @@
             @endif
         </div>
 
-         <table class="table table-striped table-bordered" id="beasiswa">
+        <table class="table table-striped table-bordered" id="beasiswa">
             <thead class="bg-primary text-white" >
             	<form action="/upload/proses" method="POST" enctype="multipart/form-data">
 					{{ csrf_field() }}

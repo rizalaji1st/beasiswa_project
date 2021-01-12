@@ -55,11 +55,6 @@ class Penawaran extends Model
 
     protected $guarded = [];
 
-    public function pendaftaran()
-    {
-        return $this->hasMany(Pendaftaran::class);
-    }
-
     public function getKuotaFakultas()
     {
         return $this->hasMany(PenawaranKuotaFakultas::class, 'id_penawaran', 'id_penawaran');
@@ -95,5 +90,9 @@ class Penawaran extends Model
 
     public function beaMahasiswa(){
         return $this->belongsTo(Mahasiswa::class, 'nim', 'nim');
+    }
+
+    public function pendaftaran(){
+        return $this->hasMany(Pendaftaran::class, 'id_penawaran', 'id_penawaran');
     }
 }

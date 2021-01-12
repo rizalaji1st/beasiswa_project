@@ -17,6 +17,21 @@
             @endif
         </div>
 
+        {{-- notifikasi form validasi --}}
+		@if ($errors->has('file'))
+		<span class="invalid-feedback" role="alert">
+			<strong>{{ $errors->first('file') }}</strong>
+		</span>
+		@endif
+
+		{{-- notifikasi sukses --}}
+		@if ($sukses = Session::get('sukses'))
+		<div class="alert alert-success alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button> 
+			<strong>{{ $sukses }}</strong>
+		</div>
+		@endif
+
 
         {{-- <ul class="list-group mt-2">
             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -55,12 +70,10 @@
                                 </div>
                                 <div class="modal-body">
                                     {{ csrf_field() }}
-
                                     <label>Pilih file excel</label>
                                     <div class="form-group">
                                         <input type="file" name="file" required="required">
                                     </div>
-
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

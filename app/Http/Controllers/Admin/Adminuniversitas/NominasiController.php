@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin\Adminuniversitas;
 
 use App\Http\Controllers\Controller;
-use App\{Penawaran, Mahasiswa, Pendaftaran, PendaftarPenawaran, BeaPenawaranKriteria, PenawaranUpload, Status};
-use App\Kriteria\{PekerjaanAyahIbu, PendidikanAyahIbu, Penghasilan, StatusAyahIbu, StatusRumah, Tanggungan};
+use App\{Penawaran, Mahasiswa, Pendaftaran, PendaftarPenawaran, BeaPenawaranKriteria, PenawaranUpload, Status, User};
+use App\Status\{ StatusRumah, Tanggungan, PekerjaanAyah, PekerjaanIbu, PendidikanAyah, PendidikanIbu, PenghasilanAyah, PenghasilanIbu, StatusAyah, StatusIbu};
 use App\References\RefFakultas;
 use App\References\RefProdi;
 use App\References\RefJenisBeasiswa;
+use App\Status\BeaStatus;
 use App\Http\Requests\PenawaranRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -38,228 +39,413 @@ class NominasiController extends Controller
      */
     public function index()
     { 
-        $beasiswas = Penawaran::all();
+        $beasiswas = Penawaran::orderBy('id_penawaran', 'ASC')->get();;
                                                             //nama variabel => nama data
         return view('pages.admin.universitas.nominasi.index', ['beasiswas' => $beasiswas]);
         //dump('pages.admin.universitas.nominasi.index', ['beasiswas' => $beasiswas]);
     } 
 
-    public function show($nominasi)
+    public function show($nomi)
     {
+        $result=[];
+        $limit = Penawaran::with('pendaftaran')->where('id_penawaran', $nomi)->first()->jml_kuota;
+        $pendaftaran = Pendaftaran::where('id_penawaran', $nomi)->limit($limit)->get();
+        foreach ($pendaftaran as $n)
+        {
+            $status=BeaStatus::where('id_pendaftar', $n->id_pendaftar)->first();
+            if($status != null){
+                $tanggungan = Tanggungan::where('id_tanggungan', $status->id_tanggungan)->first();
+                $status_rumah = StatusRumah::where('id_status_rumah', $status->id_status_rumah)->first();
+                $pekerjaan_ayah = PekerjaanAyah::where('id_pekerjaan_ayah', $status->id_pekerjaan_ayah)->first();
+                $pekerjaan_ibu = PekerjaanIbu::where('id_pekerjaan_ibu', $status->id_pekerjaan_ibu)->first();
+                $penghasilan_ayah = PenghasilanAyah::where('id_penghasilan_ayah', $status->id_penghasilan_ayah)->first();
+                $penghasilan_ibu = PenghasilanIbu::where('id_penghasilan_ibu', $status->id_penghasilan_ibu)->first();
+                $pendidikan_ayah = PendidikanAyah::where('id_pendidikan_ayah', $status->id_pendidikan_ayah)->first();
+                $pendidikan_ibu = PendidikanIbu::where('id_pendidikan_ibu', $status->id_pendidikan_ibu)->first();
+                $status_ayah = StatusAyah::where('id_status_ayah', $status->id_status_ayah)->first();
+                $status_ibu = StatusIbu::where('id_status_ibu', $status->id_status_ibu)->first();
 
-        $nominasi = Pendaftaran::where('id_penawaran', $nominasi)->get();
-        //print ($nominasi);
-        return view('pages.admin.universitas.nominasi.show', ['nom'=> $nominasi]);
-        //return view('pages.admin.universitas.nominasi.show', ['nom'=> $nominasi]);
-    //     DB::enableQueryLog();
-    //     //$nominasi = PendaftarPenawaran::where('id_penawaran', $nominasi)->get();
-    //     $limit = DB::table('bea_penawaran')->join('bea_pendaftar_penawaran', 'bea_penawaran.id_penawaran', 
-    //     '=', 'bea_pendaftar_penawaran.id_penawaran')
-    //     ->where('bea_pendaftar_penawaran.id_penawaran', $nominasi)
-    //     ->first()->jml_kuota;
-    //     $nominasi = DB::table('bea_pendaftar_penawaran')->where('bea_pendaftar_penawaran.id_penawaran', $nominasi)
-    //     ->join('bea_mahasiswa', 'bea_mahasiswa.nim', '=', 'bea_pendaftar_penawaran.nim')
-    //     ->join('bea_ref_prodi', 'bea_ref_prodi.id_prodi', '=', 'bea_mahasiswa.id_prodi')
-    //     ->join('bea_ref_fakultas', 'bea_ref_fakultas.id_fakultas', '=', 'bea_ref_prodi.id_fakultas')
+                if($tanggungan != null){
+                    $result_tanggungan = [
+                        'skor' => $tanggungan->skor
+                    ];
+                    $kriteria_tanggungan=BeaPenawaranKriteria::where('id_kriteria', $tanggungan->id_kriteria)->first();
+                    if($kriteria_tanggungan!=null){
+                        $bobot_tanggungan = [
+                            'bobot'=>$kriteria_tanggungan->bobot
+                        ];
+                    }
+                }
 
-    //     ->join('bea_status as a', 'bea_pendaftar_penawaran.id_pendaftar', '=', 'a.id_pendaftar')
-    //     ->join('bea_status_ayah as b', 'a.id_status_ayah', '=', 'b.id_status_ayah')
-    //     ->join('bea_status_ibu as c', 'a.id_status_ibu', '=', 'c.id_status_ibu')
-    //     ->join('bea_pekerjaan_ayah as d', 'a.id_pekerjaan_ayah', '=', 'd.id_pekerjaan_ayah')
-    //     ->join('bea_pekerjaan_ibu as e', 'a.id_pekerjaan_ibu', '=', 'e.id_pekerjaan_ibu')
-    //     ->join('bea_pendidikan_ayah as f', 'a.id_pendidikan_ayah', '=', 'f.id_pendidikan_ayah')
-    //     ->join('bea_pendidikan_ibu as g', 'a.id_pendidikan_ibu', '=', 'g.id_pendidikan_ibu')
-    //     ->join('bea_penghasilan_ayah as h', 'a.id_penghasilan_ayah', '=', 'h.id_penghasilan_ayah')
-    //     ->join('bea_penghasilan_ibu as i', 'a.id_penghasilan_ibu', '=', 'i.id_penghasilan_ibu')
-    //     ->join('bea_status_rumah as j', 'a.id_status_rumah', '=', 'j.id_status_rumah')
-    //     ->join('bea_tanggungan as k', 'a.id_tanggungan', '=', 'k.id_tanggungan')
-    //     ->join('bea_penawaran_kriteria as l', 'j.id_kriteria', '=', 'l.id_kriteria')
-    //     ->join('bea_penawaran_kriteria as m', 'd.id_kriteria', '=', 'm.id_kriteria')
-    //     ->join('bea_penawaran_kriteria as n', 'e.id_kriteria', '=', 'n.id_kriteria')
-    //     ->join('bea_penawaran_kriteria as o', 'f.id_kriteria', '=', 'o.id_kriteria')
-    //     ->join('bea_penawaran_kriteria as p', 'g.id_kriteria', '=', 'p.id_kriteria')
-    //     ->join('bea_penawaran_kriteria as q', 'h.id_kriteria', '=', 'q.id_kriteria')
-    //     ->join('bea_penawaran_kriteria as r', 'i.id_kriteria', '=', 'r.id_kriteria')
-    //     ->join('bea_penawaran_kriteria as s', 'b.id_kriteria', '=', 's.id_kriteria')
-    //     ->join('bea_penawaran_kriteria as t', 'c.id_kriteria', '=', 't.id_kriteria')
-    //     ->join('bea_penawaran_kriteria as u', 'k.id_kriteria', '=', 'u.id_kriteria')
-    //     ->limit($limit)
+                if($status_rumah != null){
+                    $result_status_rumah = [
+                        'skor' => $status_rumah->skor
+                    ];
+                    $kriteria_status_rumah=BeaPenawaranKriteria::where('id_kriteria', $status_rumah->id_kriteria)->first();
+                    if($kriteria_status_rumah!=null){
+                        $bobot_status_rumah = [
+                            'bobot'=>$kriteria_status_rumah->bobot
+                        ];
+                    }
+                }
 
-    //     ->select
-    //     (
-    //         'bea_pendaftar_penawaran.id_pendaftar',
-    //         'bea_mahasiswa.nama',
-    //         'bea_ref_fakultas.nama_fakultas', 'bea_ref_prodi.nama_prodi', 'bea_mahasiswa.nim',
-    //         'b.skor as status_ayah', 'c.skor as status_ibu', 
-    //         'd.skor as pekerjaan_ayah', 'e.skor as pekerjaan_ibu',
-    //         'f.skor as pendidikan_ayah', 'g.skor as pendidikan_ibu',
-    //         'h.skor as penghasilan_ayah', 'i.skor as penghasilan_ibu',
-    //         'j.skor as status_rumah', 'k.skor as tanggungan',
-    //         'l.bobot as bobot_rumah', 'm.bobot as bobot_pekerjaan_ayah',
-    //         'n.bobot as bobot_pekerjaan_ibu', 'o.bobot as bobot_pendidikan_ayah',
-    //         'p.bobot as bobot_pendidikan_ibu', 'q.bobot as bobot_penghasilan_ayah',
-    //         'r.bobot as bobot_penghasilan_ibu', 's.bobot as bobot_status_ayah',
-    //         't.bobot as bobot_status_ibu', 'u.bobot as bobot_tanggungan',
-    //     )
-    //     ->selectRaw('((b.skor * s.bobot) + (c.skor * t.bobot) + (d.skor * m.bobot) + (e.skor * n.bobot) + 
-    //                   (f.skor * o.bobot) + (g.skor * n.bobot) + (h.skor * q.bobot) + (i.skor * r.bobot) + 
-    //                   (j.skor * l.bobot) + (k.skor * u.bobot)) as total')
-        
-    
-    // ->orderBy('total','DESC')
-    // ->get();
+                if($pekerjaan_ayah != null){
+                    $result_pekerjaan_ayah = [
+                        'skor' => $pekerjaan_ayah->skor
+                    ];
+                    $kriteria_pekerjaan_ayah=BeaPenawaranKriteria::where('id_kriteria', $pekerjaan_ayah->id_kriteria)->first();
+                    if($kriteria_pekerjaan_ayah!=null){
+                        $bobot_pekerjaan_ayah = [
+                            'bobot'=>$kriteria_pekerjaan_ayah->bobot
+                        ];
+                    }
+                }
+
+                if($pekerjaan_ibu != null){
+                    $result_pekerjaan_ibu = [
+                        'skor' => $pekerjaan_ibu->skor
+                    ];
+                    $kriteria_pekerjaan_ibu=BeaPenawaranKriteria::where('id_kriteria', $pekerjaan_ibu->id_kriteria)->first();
+                    if($kriteria_pekerjaan_ibu!=null){
+                        $bobot_pekerjaan_ibu = [
+                            'bobot'=>$kriteria_pekerjaan_ibu->bobot
+                        ];
+                    }
+                }
+
+                if($penghasilan_ayah != null){
+                    $result_penghasilan_ayah = [
+                        'skor' => $penghasilan_ayah->skor
+                    ];
+                    $kriteria_penghasilan_ayah=BeaPenawaranKriteria::where('id_kriteria', $penghasilan_ayah->id_kriteria)->first();
+                    if($kriteria_penghasilan_ayah!=null){
+                        $bobot_penghasilan_ayah = [
+                            'bobot'=>$kriteria_penghasilan_ayah->bobot
+                        ];
+                    }
+                }
+
+                if($penghasilan_ibu != null){
+                    $result_penghasilan_ibu = [
+                        'skor' => $penghasilan_ibu->skor
+                    ];
+                    $kriteria_penghasilan_ibu=BeaPenawaranKriteria::where('id_kriteria', $penghasilan_ibu->id_kriteria)->first();
+                    if($kriteria_penghasilan_ibu!=null){
+                        $bobot_penghasilan_ibu = [
+                            'bobot'=>$kriteria_penghasilan_ibu->bobot
+                        ];
+                    }
+                }
+
+                if($pendidikan_ayah != null){
+                    $result_pendidikan_ayah = [
+                        'skor' => $pendidikan_ayah->skor
+                    ];
+                    $kriteria_pendidikan_ayah=BeaPenawaranKriteria::where('id_kriteria', $pendidikan_ayah->id_kriteria)->first();
+                    if($kriteria_pendidikan_ayah!=null){
+                        $bobot_pendidikan_ayah = [
+                            'bobot'=>$kriteria_pendidikan_ayah->bobot
+                        ];
+                    }
+                }
+
+                if($pendidikan_ibu != null){
+                    $result_pendidikan_ibu = [
+                        'skor' => $pendidikan_ibu->skor
+                    ];
+                    $kriteria_pendidikan_ibu=BeaPenawaranKriteria::where('id_kriteria', $pendidikan_ibu->id_kriteria)->first();
+                    if($kriteria_pendidikan_ibu!=null){
+                        $bobot_pendidikan_ibu = [
+                            'bobot'=>$kriteria_pendidikan_ibu->bobot
+                        ];
+                    }
+                }
+
+                if($status_ayah != null){
+                    $result_status_ayah = [
+                        'skor' => $status_ayah->skor
+                    ];
+                    $kriteria_status_ayah=BeaPenawaranKriteria::where('id_kriteria', $status_ayah->id_kriteria)->first();
+                    if($kriteria_status_ayah!=null){
+                        $bobot_status_ayah = [
+                            'bobot'=>$kriteria_status_ayah->bobot
+                        ];
+                    }
+                }
+
+                if($status_ibu != null){
+                    $result_status_ibu = [
+                        'skor' => $status_ibu->skor
+                    ];
+                    $kriteria_status_ibu=BeaPenawaranKriteria::where('id_kriteria', $status_ibu->id_kriteria)->first();
+                    if($kriteria_status_ibu!=null){
+                        $bobot_status_ibu = [
+                            'bobot'=>$kriteria_status_ibu->bobot
+                        ];
+                    }
+                }
+
+                $result[] = [
+                    'id_pendaftar' => $n->id_pendaftar,
+                    'tanggungan' => $result_tanggungan,
+                    'status_rumah' => $result_status_rumah,
+                    'pekerjaan_ayah' => $result_pekerjaan_ayah,
+                    'pekerjaan_ibu' => $result_pekerjaan_ibu,
+                    'penghasilan_ayah' => $result_penghasilan_ayah,
+                    'penghasilan_ibu' => $result_penghasilan_ibu,
+                    'pendidikan_ayah' => $result_pendidikan_ayah,
+                    'pendidikan_ibu' => $result_pendidikan_ibu,
+                    'status_ayah' => $result_status_ayah,
+                    'status_ibu' => $result_status_ibu,
+                    
+                    'kriteria_tanggungan' => $bobot_tanggungan,
+                    'kriteria_status_rumah' => $bobot_status_rumah,
+                    'kriteria_pekerjaan_ayah' => $bobot_pekerjaan_ayah,
+                    'kriteria_pekerjaan_ibu' => $bobot_pekerjaan_ibu,
+                    'kriteria_penghasilan_ayah' => $bobot_penghasilan_ayah,
+                    'kriteria_penghasilan_ibu' => $bobot_penghasilan_ibu,
+                    'kriteria_pendidikan_ayah' => $bobot_pendidikan_ayah,
+                    'kriteria_pendidikan_ibu' => $bobot_pendidikan_ibu,
+                    'kriteria_status_ayah' => $bobot_status_ayah,
+                    'kriteria_status_ibu' => $bobot_status_ibu
+                ];
+            }
+
+            $hasil[] = ($result_tanggungan['skor'] * $bobot_tanggungan['bobot'])+
+                        ($result_status_rumah['skor']* $bobot_status_rumah['bobot'])+
+                        ($result_penghasilan_ayah['skor']* $bobot_penghasilan_ayah['bobot'])+
+                        ($result_penghasilan_ibu['skor']* $bobot_penghasilan_ibu['bobot'])+
+                        ($result_pendidikan_ayah['skor']* $bobot_pendidikan_ayah['bobot'])+
+                        ($result_pendidikan_ibu['skor']* $bobot_pendidikan_ibu['bobot'])+
+                        ($result_status_ayah['skor']* $bobot_status_ayah['bobot'])+
+                        ($result_status_ibu['skor']* $bobot_status_ibu['bobot'])+
+                        ($result_pekerjaan_ayah['skor']* $bobot_pekerjaan_ayah['bobot'])+
+                        ($result_pekerjaan_ibu['skor']* $bobot_pekerjaan_ibu['bobot'])
+                        ; 
+        }
+        array_multisort($hasil, SORT_DESC, $hasil);
+        return view('pages.admin.universitas.nominasi.show', compact('pendaftaran', 'hasil', 'status', 'result'));
     
     }
 
 
     public function detail_skor($id)
     {
-        DB::enableQueryLog();
-        //$nominasi = PendaftarPenawaran::where('id_penawaran', $nominasi)->get();
-        // $limit = DB::table('bea_penawaran')->join('bea_pendaftar_penawaran', 'bea_penawaran.id_penawaran', 
-        // '=', 'bea_pendaftar_penawaran.id_penawaran')
-        // ->where('bea_pendaftar_penawaran.id_penawaran', $nominasi)
-        // ->first()->jml_kuota;
+        $pendaftaran = Pendaftaran::where('id_pendaftar', $id)->get();
+        foreach ($pendaftaran as $n)
+        {
+            $status=BeaStatus::where('id_pendaftar', $n->id_pendaftar)->first();
+            if($status != null){
+                $tanggungan = Tanggungan::where('id_tanggungan', $status->id_tanggungan)->first();
+                $status_rumah = StatusRumah::where('id_status_rumah', $status->id_status_rumah)->first();
+                $pekerjaan_ayah = PekerjaanAyah::where('id_pekerjaan_ayah', $status->id_pekerjaan_ayah)->first();
+                $pekerjaan_ibu = PekerjaanIbu::where('id_pekerjaan_ibu', $status->id_pekerjaan_ibu)->first();
+                $penghasilan_ayah = PenghasilanAyah::where('id_penghasilan_ayah', $status->id_penghasilan_ayah)->first();
+                $penghasilan_ibu = PenghasilanIbu::where('id_penghasilan_ibu', $status->id_penghasilan_ibu)->first();
+                $pendidikan_ayah = PendidikanAyah::where('id_pendidikan_ayah', $status->id_pendidikan_ayah)->first();
+                $pendidikan_ibu = PendidikanIbu::where('id_pendidikan_ibu', $status->id_pendidikan_ibu)->first();
+                $status_ayah = StatusAyah::where('id_status_ayah', $status->id_status_ayah)->first();
+                $status_ibu = StatusIbu::where('id_status_ibu', $status->id_status_ibu)->first();
 
-        $nominasi = DB::table('bea_pendaftar_penawaran')->where('bea_pendaftar_penawaran.id_penawaran', $id)
-        // ->join('bea_mahasiswa', 'users.nim', '=', 'bea_pendaftar_penawaran.nim')
-        // ->join('bea_ref_prodi', 'bea_ref_prodi.id_prodi', '=', 'users.id_prodi')
-        // ->join('bea_ref_fakultas', 'bea_ref_fakultas.id_fakultas', '=', 'bea_ref_prodi.id_fakultas')
+                if($tanggungan != null){
+                    $result_tanggungan = [
+                        'skor' => $tanggungan->skor
+                    ];
+                    $kriteria_tanggungan=BeaPenawaranKriteria::where('id_kriteria', $tanggungan->id_kriteria)->first();
+                    if($kriteria_tanggungan!=null){
+                        $bobot_tanggungan = [
+                            'bobot'=>$kriteria_tanggungan->bobot
+                        ];
+                    }
+                }
 
-        ->join('id_status as a', 'bea_pendaftar_penawaran.id_pendaftar', '=', 'a.id_pendaftar')
-        ->join('bea_status_ayah as b', 'a.id_status_ayah', '=', 'b.id_status_ayah')
-        ->join('bea_status_ibu as c', 'a.id_status_ibu', '=', 'c.id_status_ibu')
-        ->join('bea_pekerjaan_ayah as d', 'a.id_pekerjaan_ayah', '=', 'd.id_pekerjaan_ayah')
-        ->join('bea_pekerjaan_ibu as e', 'a.id_pekerjaan_ibu', '=', 'e.id_pekerjaan_ibu')
-        ->join('bea_pendidikan_ayah as f', 'a.id_pendidikan_ayah', '=', 'f.id_pendidikan_ayah')
-        ->join('bea_pendidikan_ibu as g', 'a.id_pendidikan_ibu', '=', 'g.id_pendidikan_ibu')
-        ->join('bea_penghasilan_ayah as h', 'a.id_penghasilan_ayah', '=', 'h.id_penghasilan_ayah')
-        ->join('bea_penghasilan_ibu as i', 'a.id_penghasilan_ibu', '=', 'i.id_penghasilan_ibu')
-        ->join('bea_status_rumah as j', 'a.id_status_rumah', '=', 'j.id_status_rumah')
-        ->join('bea_tanggungan as k', 'a.id_tanggungan', '=', 'k.id_tanggungan')
-        ->join('bea_penawaran_kriteria as l', 'j.id_kriteria', '=', 'l.id_kriteria')
-        ->join('bea_penawaran_kriteria as m', 'd.id_kriteria', '=', 'm.id_kriteria')
-        ->join('bea_penawaran_kriteria as n', 'e.id_kriteria', '=', 'n.id_kriteria')
-        ->join('bea_penawaran_kriteria as o', 'f.id_kriteria', '=', 'o.id_kriteria')
-        ->join('bea_penawaran_kriteria as p', 'g.id_kriteria', '=', 'p.id_kriteria')
-        ->join('bea_penawaran_kriteria as q', 'h.id_kriteria', '=', 'q.id_kriteria')
-        ->join('bea_penawaran_kriteria as r', 'i.id_kriteria', '=', 'r.id_kriteria')
-        ->join('bea_penawaran_kriteria as s', 'b.id_kriteria', '=', 's.id_kriteria')
-        ->join('bea_penawaran_kriteria as t', 'c.id_kriteria', '=', 't.id_kriteria')
-        ->join('bea_penawaran_kriteria as u', 'k.id_kriteria', '=', 'u.id_kriteria')
-    
+                if($status_rumah != null){
+                    $result_status_rumah = [
+                        'skor' => $status_rumah->skor
+                    ];
+                    $kriteria_status_rumah=BeaPenawaranKriteria::where('id_kriteria', $status_rumah->id_kriteria)->first();
+                    if($kriteria_status_rumah!=null){
+                        $bobot_status_rumah = [
+                            'bobot'=>$kriteria_status_rumah->bobot
+                        ];
+                    }
+                }
 
-        ->select
-        (
-            'bea_pendaftar_penawaran.id_pendaftar',
-            //'bea_mahasiswa.nama',
-            // 'bea_ref_fakultas.nama_fakultas', 'bea_ref_prodi.nama_prodi', 'bea_mahasiswa.nim',
-            'b.skor as status_ayah', 'c.skor as status_ibu', 
-            'd.skor as pekerjaan_ayah', 'e.skor as pekerjaan_ibu',
-            'f.skor as pendidikan_ayah', 'g.skor as pendidikan_ibu',
-            'h.skor as penghasilan_ayah', 'i.skor as penghasilan_ibu',
-            'j.skor as status_rumah', 'k.skor as tanggungan',
-            'l.bobot as bobot_rumah', 'm.bobot as bobot_pekerjaan_ayah',
-            'n.bobot as bobot_pekerjaan_ibu', 'o.bobot as bobot_pendidikan_ayah',
-            'p.bobot as bobot_pendidikan_ibu', 'q.bobot as bobot_penghasilan_ayah',
-            'r.bobot as bobot_penghasilan_ibu', 's.bobot as bobot_status_ayah',
-            't.bobot as bobot_status_ibu', 'u.bobot as bobot_tanggungan',
-        )
-        ->selectRaw('((b.skor * s.bobot) + (c.skor * t.bobot) + (d.skor * m.bobot) + (e.skor * n.bobot) + 
-                      (f.skor * o.bobot) + (g.skor * n.bobot) + (h.skor * q.bobot) + (i.skor * r.bobot) + 
-                      (j.skor * l.bobot) + (k.skor * u.bobot)) as total')
-    ->orderBy('total','DESC')
-    ->get();
-        return view('pages.admin.universitas.nominasi.detail_skor')->with('detail', $nominasi);
-    }
-    
+                if($pekerjaan_ayah != null){
+                    $result_pekerjaan_ayah = [
+                        'skor' => $pekerjaan_ayah->skor
+                    ];
+                    $kriteria_pekerjaan_ayah=BeaPenawaranKriteria::where('id_kriteria', $pekerjaan_ayah->id_kriteria)->first();
+                    if($kriteria_pekerjaan_ayah!=null){
+                        $bobot_pekerjaan_ayah = [
+                            'bobot'=>$kriteria_pekerjaan_ayah->bobot
+                        ];
+                    }
+                }
 
-    public function export_excel($nominasi)
-    {
-        DB::enableQueryLog();
-        //$nominasi = PendaftarPenawaran::where('id_penawaran', $nominasi)->get();
-        $limit = DB::table('bea_penawaran')->join('bea_pendaftar_penawaran', 'bea_penawaran.id_penawaran', 
-        '=', 'bea_pendaftar_penawaran.id_penawaran')
-        ->where('bea_pendaftar_penawaran.id_penawaran', $nominasi)
-        ->first()->jml_kuota;
+                if($pekerjaan_ibu != null){
+                    $result_pekerjaan_ibu = [
+                        'skor' => $pekerjaan_ibu->skor
+                    ];
+                    $kriteria_pekerjaan_ibu=BeaPenawaranKriteria::where('id_kriteria', $pekerjaan_ibu->id_kriteria)->first();
+                    if($kriteria_pekerjaan_ibu!=null){
+                        $bobot_pekerjaan_ibu = [
+                            'bobot'=>$kriteria_pekerjaan_ibu->bobot
+                        ];
+                    }
+                }
 
-        $nominasi = DB::table('bea_pendaftar_penawaran')->where('bea_pendaftar_penawaran.id_penawaran', $nominasi)
-        ->join('bea_mahasiswa', 'bea_mahasiswa.nim', '=', 'bea_pendaftar_penawaran.nim')
-        ->join('bea_ref_prodi', 'bea_ref_prodi.id_prodi', '=', 'bea_mahasiswa.id_prodi')
-        ->join('bea_ref_fakultas', 'bea_ref_fakultas.id_fakultas', '=', 'bea_ref_prodi.id_fakultas')
+                if($penghasilan_ayah != null){
+                    $result_penghasilan_ayah = [
+                        'skor' => $penghasilan_ayah->skor
+                    ];
+                    $kriteria_penghasilan_ayah=BeaPenawaranKriteria::where('id_kriteria', $penghasilan_ayah->id_kriteria)->first();
+                    if($kriteria_penghasilan_ayah!=null){
+                        $bobot_penghasilan_ayah = [
+                            'bobot'=>$kriteria_penghasilan_ayah->bobot
+                        ];
+                    }
+                }
 
-        ->join('id_status as a', 'bea_pendaftar_penawaran.id_pendaftar', '=', 'a.id_pendaftar')
-        ->join('bea_status_ayah as b', 'a.id_statusAyah', '=', 'b.id_statusAyah')
-        ->join('bea_status_ibu as c', 'a.id_statusIbu', '=', 'c.id_statusIbu')
-        ->join('bea_pekerjaan_ayah as d', 'a.id_pekerjaan_Ayah', '=', 'd.id_pekerjaan_Ayah')
-        ->join('bea_pekerjaan_ibu as e', 'a.id_pekerjaan_Ibu', '=', 'e.id_pekerjaan_Ibu')
-        ->join('bea_pendidikan_ayah as f', 'a.id_pendidikan_Ayah', '=', 'f.id_pendidikan_Ayah')
-        ->join('bea_pendidikan_ibu as g', 'a.id_pendidikan_Ibu', '=', 'g.id_pendidikan_Ibu')
-        ->join('bea_penghasilan_ayah as h', 'a.id_penghasilan_Ayah', '=', 'h.id_penghasilan_ayah')
-        ->join('bea_penghasilan_ibu as i', 'a.id_penghasilan_Ibu', '=', 'i.id_penghasilan_ibu')
-        ->join('bea_status_rumah as j', 'a.id_status_rumah', '=', 'j.id_status_rumah')
-        ->join('bea_tanggungan as k', 'a.id_tanggungan', '=', 'k.id_tanggungan')
-        ->join('bea_penawaran_kriteria as l', 'j.id_kriteria', '=', 'l.id_kriteria')
-        ->join('bea_penawaran_kriteria as m', 'd.id_kriteria', '=', 'm.id_kriteria')
-        ->join('bea_penawaran_kriteria as n', 'e.id_kriteria', '=', 'n.id_kriteria')
-        ->join('bea_penawaran_kriteria as o', 'f.id_kriteria', '=', 'o.id_kriteria')
-        ->join('bea_penawaran_kriteria as p', 'g.id_kriteria', '=', 'p.id_kriteria')
-        ->join('bea_penawaran_kriteria as q', 'h.id_kriteria', '=', 'q.id_kriteria')
-        ->join('bea_penawaran_kriteria as r', 'i.id_kriteria', '=', 'r.id_kriteria')
-        ->join('bea_penawaran_kriteria as s', 'b.id_kriteria', '=', 's.id_kriteria')
-        ->join('bea_penawaran_kriteria as t', 'c.id_kriteria', '=', 't.id_kriteria')
-        ->join('bea_penawaran_kriteria as u', 'k.id_kriteria', '=', 'u.id_kriteria')
-        ->limit($limit)
+                if($penghasilan_ibu != null){
+                    $result_penghasilan_ibu = [
+                        'skor' => $penghasilan_ibu->skor
+                    ];
+                    $kriteria_penghasilan_ibu=BeaPenawaranKriteria::where('id_kriteria', $penghasilan_ibu->id_kriteria)->first();
+                    if($kriteria_penghasilan_ibu!=null){
+                        $bobot_penghasilan_ibu = [
+                            'bobot'=>$kriteria_penghasilan_ibu->bobot
+                        ];
+                    }
+                }
 
-        ->select
-        (
-            'bea_pendaftar_penawaran.id_pendaftar','bea_mahasiswa.nama',
-            'bea_ref_fakultas.nama_fakultas', 'bea_ref_prodi.nama_prodi', 'bea_mahasiswa.nim',
-            'b.skor as status_ayah', 'c.skor as status_ibu', 
-            'd.skor as pekerjaan_ayah', 'e.skor as pekerjaan_ibu',
-            'f.skor as pendidikan_ayah', 'g.skor as pendidikan_ibu',
-            'h.skor as penghasilan_ayah', 'i.skor as penghasilan_ibu',
-            'j.skor as status_rumah', 'k.skor as tanggungan',
-            'l.bobot as bobot_rumah', 'm.bobot as bobot_pekerjaan_ayah',
-            'n.bobot as bobot_pekerjaan_ibu', 'o.bobot as bobot_pendidikan_ayah',
-            'p.bobot as bobot_pendidikan_ibu', 'q.bobot as bobot_penghasilan_ayah',
-            'r.bobot as bobot_penghasilan_ibu', 's.bobot as bobot_status_ayah',
-            't.bobot as bobot_status_ibu', 'u.bobot as bobot_tanggungan',
-        )
-        ->selectRaw('((b.skor * s.bobot) + (c.skor * t.bobot) + (d.skor * m.bobot) + (e.skor * n.bobot) + 
-                      (f.skor * o.bobot) + (g.skor * n.bobot) + (h.skor * q.bobot) + (i.skor * r.bobot) + 
-                      (j.skor * l.bobot) + (k.skor * u.bobot)) as total')
-    ->orderBy('total','DESC')
-    ->get();
+                if($pendidikan_ayah != null){
+                    $result_pendidikan_ayah = [
+                        'skor' => $pendidikan_ayah->skor
+                    ];
+                    $kriteria_pendidikan_ayah=BeaPenawaranKriteria::where('id_kriteria', $pendidikan_ayah->id_kriteria)->first();
+                    if($kriteria_pendidikan_ayah!=null){
+                        $bobot_pendidikan_ayah = [
+                            'bobot'=>$kriteria_pendidikan_ayah->bobot
+                        ];
+                    }
+                }
 
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'Id Pendaftar');
-        $sheet->setCellValue('B1', 'NIM');
-        $sheet->setCellValue('C1', 'Nama');
-        $sheet->setCellValue('D1', 'Prodi');
-        $sheet->setCellValue('E1', 'Fakultas');
-        $sheet->setCellValue('F1', 'Skor');
+                if($pendidikan_ibu != null){
+                    $result_pendidikan_ibu = [
+                        'skor' => $pendidikan_ibu->skor
+                    ];
+                    $kriteria_pendidikan_ibu=BeaPenawaranKriteria::where('id_kriteria', $pendidikan_ibu->id_kriteria)->first();
+                    if($kriteria_pendidikan_ibu!=null){
+                        $bobot_pendidikan_ibu = [
+                            'bobot'=>$kriteria_pendidikan_ibu->bobot
+                        ];
+                    }
+                }
 
-        $rows = 2;
+                if($status_ayah != null){
+                    $result_status_ayah = [
+                        'skor' => $status_ayah->skor
+                    ];
+                    $kriteria_status_ayah=BeaPenawaranKriteria::where('id_kriteria', $status_ayah->id_kriteria)->first();
+                    if($kriteria_status_ayah!=null){
+                        $bobot_status_ayah = [
+                            'bobot'=>$kriteria_status_ayah->bobot
+                        ];
+                    }
+                }
 
-        foreach($nominasi as $data){
-            $sheet->setCellValue('A' . $rows, $data->id_pendaftar);
-            $sheet->setCellValue('B' . $rows, $data->nim);
-            $sheet->setCellValue('C' . $rows, $data->nama);
-            $sheet->setCellValue('D' . $rows, $data->nama_prodi);
-            $sheet->setCellValue('E' . $rows, $data->nama_fakultas);
-            $sheet->setCellValue('F' . $rows, $data->total);
-            $rows++;
+                if($status_ibu != null){
+                    $result_status_ibu = [
+                        'skor' => $status_ibu->skor
+                    ];
+                    $kriteria_status_ibu=BeaPenawaranKriteria::where('id_kriteria', $status_ibu->id_kriteria)->first();
+                    if($kriteria_status_ibu!=null){
+                        $bobot_status_ibu = [
+                            'bobot'=>$kriteria_status_ibu->bobot
+                        ];
+                    }
+                }
+
+                $result[] = [
+                    'id_pendaftar' => $n->id_pendaftar,
+                    'tanggungan' => $result_tanggungan,
+                    'status_rumah' => $result_status_rumah,
+                    'pekerjaan_ayah' => $result_pekerjaan_ayah,
+                    'pekerjaan_ibu' => $result_pekerjaan_ibu,
+                    'penghasilan_ayah' => $result_penghasilan_ayah,
+                    'penghasilan_ibu' => $result_penghasilan_ibu,
+                    'pendidikan_ayah' => $result_pendidikan_ayah,
+                    'pendidikan_ibu' => $result_pendidikan_ibu,
+                    'status_ayah' => $result_status_ayah,
+                    'status_ibu' => $result_status_ibu,
+                    
+                    'kriteria_tanggungan' => $bobot_tanggungan,
+                    'kriteria_status_rumah' => $bobot_status_rumah,
+                    'kriteria_pekerjaan_ayah' => $bobot_pekerjaan_ayah,
+                    'kriteria_pekerjaan_ibu' => $bobot_pekerjaan_ibu,
+                    'kriteria_penghasilan_ayah' => $bobot_penghasilan_ayah,
+                    'kriteria_penghasilan_ibu' => $bobot_penghasilan_ibu,
+                    'kriteria_pendidikan_ayah' => $bobot_pendidikan_ayah,
+                    'kriteria_pendidikan_ibu' => $bobot_pendidikan_ibu,
+                    'kriteria_status_ayah' => $bobot_status_ayah,
+                    'kriteria_status_ibu' => $bobot_status_ibu
+                ];
+            }
+            $skor_tanggungan[] = ($result_tanggungan['skor']); $bobot_tanggungan[] = ($bobot_tanggungan['bobot']); 
+            $skor_rumah[] = ($result_status_rumah['skor']); $bobot_rumah[] = ($bobot_status_rumah['bobot']);
+            $skor_pengAyah[] = ($result_penghasilan_ayah['skor']); $bobot_pengAyah[] = ($bobot_penghasilan_ayah['bobot']); 
+            $skor_pengIbu[] = ($result_penghasilan_ibu['skor']); $bobot_pengIbu[] = ($bobot_penghasilan_ibu['bobot']); 
+            $skor_pendAyah[] = ($result_pendidikan_ayah['skor']); $bobot_pendAyah[] = ($bobot_pendidikan_ayah['bobot']); 
+            $skor_pendIbu[] = ($result_pendidikan_ibu['skor']); $bobot_pendIbu[] = ($bobot_pendidikan_ibu['bobot']); 
+            $skor_staAyah[] = ($result_status_ayah['skor']); $bobot_staAyah[] = ($bobot_status_ayah['bobot']); 
+            $skor_staIbu[] = ($result_status_ibu['skor']); $bobot_staIbu[] = ($bobot_status_ibu['bobot']); 
+            $skor_pekAyah[] = ($result_pekerjaan_ayah['skor']); $bobot_pekAyah[] = ($bobot_pekerjaan_ayah['bobot']); 
+            $skor_pekIbu[] = ($result_pekerjaan_ibu['skor']); $bobot_pekIbu[] = ($bobot_pekerjaan_ibu['bobot']); 
+            
+            $hasil_tanggungan[] = ($result_tanggungan['skor'] * $bobot_tanggungan['bobot']);
+            $hasil_rumah[] = ($result_status_rumah['skor']* $bobot_status_rumah['bobot']);
+            $hasil_pengAyah[] = ($result_penghasilan_ayah['skor']* $bobot_penghasilan_ayah['bobot']);
+            $hasil_pengIbu[] = ($result_pendidikan_ibu['skor']* $bobot_pendidikan_ibu['bobot']);
+            $hasil_pendAyah[] = ($result_pendidikan_ayah['skor']* $bobot_pendidikan_ayah['bobot']);
+            $hasil_pendIbu[] = ($result_pendidikan_ibu['skor']* $bobot_pendidikan_ibu['bobot']);
+            $hasil_staAyah[] = ($result_status_ayah['skor']* $bobot_status_ayah['bobot']);
+            $hasil_staIbu[] = ($result_status_ibu['skor']* $bobot_status_ibu['bobot']);
+            $hasil_pekAyah[] = ($result_pekerjaan_ayah['skor']* $bobot_pekerjaan_ayah['bobot']);
+            $hasil_pekIbu[] = ($result_pekerjaan_ibu['skor']* $bobot_pekerjaan_ibu['bobot']);
+
+
+            $skor = 'skor';
+            $bobot = 'bobot';
+            $hasil[] = ($result_tanggungan['skor'] * $bobot_tanggungan['bobot'])+
+                        ($result_status_rumah['skor']* $bobot_status_rumah['bobot'])+
+                        ($result_penghasilan_ayah['skor']* $bobot_penghasilan_ayah['bobot'])+
+                        ($result_penghasilan_ibu['skor']* $bobot_penghasilan_ibu['bobot'])+
+                        ($result_pendidikan_ayah['skor']* $bobot_pendidikan_ayah['bobot'])+
+                        ($result_pendidikan_ibu['skor']* $bobot_pendidikan_ibu['bobot'])+
+                        ($result_status_ayah['skor']* $bobot_status_ayah['bobot'])+
+                        ($result_status_ibu['skor']* $bobot_status_ibu['bobot'])+
+                        ($result_pekerjaan_ayah['skor']* $bobot_pekerjaan_ayah['bobot'])+
+                        ($result_pekerjaan_ibu['skor']* $bobot_pekerjaan_ibu['bobot'])
+                        ; 
         }
-        
-        $fileName = "emp.xlsx";
-        $writer = new Xlsx($spreadsheet);
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
-        $writer->save('php://output');
+        //return $res_tangg;
+        //return $bobot_tanggungan[$bobot];
+        return view('pages.admin.universitas.nominasi.detail_skor', compact(
+            'pendaftaran', 'hasil',
+            'skor_tanggungan', 'bobot_tanggungan', 'skor_rumah', 'bobot_rumah', 'skor_pengAyah', 'bobot_pengAyah', 'skor_pengIbu', 'bobot_pengIbu', 'skor_pendAyah', 'bobot_pendAyah', 'skor_pendIbu', 'bobot_pendIbu', 'skor_staAyah', 'bobot_staAyah', 'skor_staIbu', 'bobot_staIbu', 'skor_pekAyah', 'bobot_pekAyah', 'bobot_pekIbu', 'skor_pekIbu',  
+            'hasil_tanggungan', 'hasil_rumah', 'hasil_pengAyah', 'hasil_pengIbu', 'hasil_pendAyah', 'hasil_pendIbu', 'hasil_staAyah', 'hasil_staIbu', 'hasil_pekAyah', 'hasil_pekIbu'
+            )
+        );
     }
-
-
     
+
+    public function export_excel()
+    {
+        // $pendaftaran = Pendaftaran::where('id_penawaran')->get();
+        // return Excel::download(new AdminUnivExport(1), 'Nominasi-calon-beasiswa.xlsx');
+
+        $pendaftaran = Pendaftaran::where('id_penawaran')->get();
+        return Excel::download(new AdminUnivExport(1), 'Nominasi-calon-beasiswa.xlsx');
+    }
 }

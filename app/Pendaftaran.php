@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pendaftaran extends Model
 {
-
     protected $table = 'bea_pendaftar_penawaran';
     protected $fillable = ['id_pendaftar', 
                             'id_penawaran',
@@ -26,17 +25,16 @@ class Pendaftaran extends Model
                             'gaji_ibu',
                             'jumlah_tanggungan',
                             'semester'];
+    public function users(){
+        return $this->belongsTo(User::class, 'id_user');
+    }
 
+    public function beastatus(){
+        return $this->hasOne('App\Status\BeaStatus', 'id_pendaftar', 'id_pendaftar');
+    }
 
-    public function user()
-        {
-            return $this->belongsTo(User::class, 'id_user');
-        }
-    
-    // public function RefProdi()
-    // {
-    //     return $this->belongsTo('App\References\RefProdi', 'kode_prodi');
-    // }
-    
+    public function penawaran(){
+        return $this->belongsTo(Penawarann::class, 'id_penawaran', 'id_penawaran');
+    }
 }
 
