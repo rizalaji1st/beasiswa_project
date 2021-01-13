@@ -24,7 +24,7 @@ class AddFieldToUsersTable extends Migration
             $table->string('kabupaten')->nullable();
             $table->string('provinsi')->nullable();
             $table->string('kode_prodi')->nullable();
-            $table->integer('penghasilan')->nullable();
+            $table->integer('penghasilan')->nullable(); 
             $table->string('nama_ayah')->nullable();
             $table->string('status_ayah')->nullable();
             $table->string('pend_ayah')->nullable();

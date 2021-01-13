@@ -47,6 +47,8 @@ class Penawaran extends Model
                             'is_double',
                             'tahun_dasar_akademik',
                             'id_user_pembuat',
+                            'id_user_finalisasi',
+                            'tgl_finalisasi'
         ];
     
     public function penawaranUpload(){

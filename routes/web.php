@@ -23,6 +23,9 @@ Route::namespace('Admin')
         ->group(function(){
             Route::resource('/users', 'UserController', ['except' => ['store','show', 'create']]);
             Route::resource('/penawarans', 'Adminuniversitas\PenawaranController');
+            Route::resource('/verifikasi', 'Adminuniversitas\VerifikasiController');
+            Route::resource('/lampiran-penawaran', 'Adminuniversitas\LampiranPenawaranController');
+            // Route::put('/verifikasi/{id_pendaftar}', 'Adminuniversitas\VerifikasiController@verify');
             Route::resource('/nominasi', 'Adminuniversitas\NominasiController');
             Route::resource('/penetapan', 'Adminuniversitas\PenetapanController');
             

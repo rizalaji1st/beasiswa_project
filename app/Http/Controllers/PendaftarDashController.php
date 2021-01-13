@@ -58,11 +58,11 @@ class PendaftarDashController extends Controller
     public function penawaranUpload(Penawaran $Penawaran)
     {
         $id = Auth::user()->id;
-        $bea = Pendaftaran::where('id_penawaran', '=', $id );
         $user = Pendaftaran::where('id_user', '=', $id );
         $idpen = $Penawaran->id_penawaran;
         $time = Carbon::now();
         $cek = Pendaftaran::where('id_penawaran', '=', $idpen );
+        
         return view('pages.pendaftaran.dashboard.penawaran2.upload', compact('Penawaran','user','cek','time'));
         
     }
