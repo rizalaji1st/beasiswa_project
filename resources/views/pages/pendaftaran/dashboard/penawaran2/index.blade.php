@@ -17,11 +17,12 @@
                     </div>
                 </div>
                 <div class="article-details">
-                    Beasiswa {{$beasiswa->nama_penawaran}}<br>
-                    <i class="fas fa-box-open mr-1"></i>
-                    Tahun: {{$beasiswa->tahun_dasar_akademik}}<br>
-                    <i class="fas fa-box-open mr-1"></i>
-                    Kuota: {{$beasiswa->jml_kuota}}
+                    <h6><strong>Beasiswa {{$beasiswa->nama_penawaran}}</strong></h6>
+                    <ul style="list-style-type: none;">
+                        <li><i class="fas fa-box-open mr-1"></i>Tahun: {{$beasiswa->tahun_dasar_akademik}}</li>
+                        <li><i class="fas fa-box-open mr-1"></i>Kuota: {{$beasiswa->jml_kuota}}</li>
+                    </ul>
+                    
                     <div class="article-cta mt-3">
                         <a href="/pendaftar/penawaran/detail/{{$beasiswa->id_penawaran}}" class="btn btn-primary ">Selengkapnya</a>
                     </div>

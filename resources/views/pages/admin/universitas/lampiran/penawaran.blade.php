@@ -2,10 +2,6 @@
 @section('title', 'Admin Universitas')
 @section('status-lampiran', 'active')
 @section('content')
-    {{-- modal --}}
-    
-    <!-- Modal -->
-    <!-- Modal -->
     <div class="modal fade" id="lampiranModal" tabindex="-1" aria-labelledby="lampiranModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
@@ -27,7 +23,7 @@
                     <select class="custom-select form-control fstdropdown-select" name="roles"
                         id="id_jenis_beasiswa" required>
                         <option value="pendaftar">Lampiran Pendaftar</option>
-                        <option value="pendaftar">Lampiran Penawaran</option>
+                        <option value="penawaran">Lampiran Penawaran</option>
                     </select>
                 </div>
             </div>

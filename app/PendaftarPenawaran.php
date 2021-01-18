@@ -10,8 +10,8 @@ class PendaftarPenawaran extends Model
     protected $table = 'bea_pendaftar_penawaran';
     protected $primaryKey = 'id_pendaftar';
     protected $fillable = ['id_pendaftar',
+                            'id_penawaran', 
                             'id_user',
-                            'id_penawaran',
                             'nim',
                             'ips',
                             'ipk',
@@ -25,6 +25,8 @@ class PendaftarPenawaran extends Model
                             'pekerjaan_ibu',
                             'jumlah_tanggungan',
                             'semester',
+                            'gaji_ayah',
+                            'gaji_ibu',
                                                     
                         ];
 

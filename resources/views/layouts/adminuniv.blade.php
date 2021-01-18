@@ -17,6 +17,6 @@
     </div>
     @yield('modal')
 </body>
-@include('includes.admin.script')
+@include('includes.admin.script');
 @stack('addon-script')
 </html>
