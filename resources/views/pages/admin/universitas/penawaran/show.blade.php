@@ -1,6 +1,6 @@
 @extends('layouts.adminuniv')
 @section('title', 'Detail Beasiswa')
-@section('status-dashboard', 'active')
+@section('status-penawaran', 'active')
 @section('content')
     <div class="container my-3">
         {{-- succes --}}
@@ -12,34 +12,37 @@
                 </div>
             @endif
         </div>
+        <div class="section-header">
+            <h1>Detail {{$penawaran->nama_penawaran}}</h1>
+        </div>
         <h3 class="mt-4 mb-3">Informasi Umum</h3>
         <div class="row">
             <div class="col-12">
                 <table class="table table-bordered table-striped">
                     <tbody>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Nama Penawaran</td>
-                            <td scope="col" class="col">{{$penawaran->nama_penawaran}}</td>
+                        <tr>
+                            <td style="width: 50%">Nama Penawaran</td>
+                            <td style="width: 50%">{{$penawaran->nama_penawaran}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Jenis Beasiswa</td>
-                            <td scope="col" class="col">{{$penawaran->refJenisPenawaran->nama_beasiswa}}</td>
+                        <tr>
+                            <td>Jenis Beasiswa</td>
+                            <td>{{$penawaran->refJenisPenawaran->nama_beasiswa}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Tahun</td>
-                            <td scope="col" class="col">{{$penawaran->tahun->format('Y')}}</td>
+                        <tr>
+                            <td>Tahun</td>
+                            <td>{{$penawaran->tahun->format('Y')}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Tahun Dasar Akademik</td>
-                            <td scope="col" class="col">{{$penawaran->tahun_dasar_akademik}}</td>
+                        <tr>
+                            <td>Tahun Dasar Akademik</td>
+                            <td>{{$penawaran->tahun_dasar_akademik}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Penerima boleh Menerima beasiswa lain</td>
-                            <td scope="col" class="col">{{$penawaran->is_double == true ? 'boleh' : 'tidak boleh'}}</td>
+                        <tr>
+                            <td>Penerima boleh Menerima beasiswa lain</td>
+                            <td>{{$penawaran->is_double == true ? 'boleh' : 'tidak boleh'}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Kuota</td>
-                            <td scope="col" class="col">{{$penawaran->jml_kuota}} Penerima</td>
+                        <tr>
+                            <td>Kuota</td>
+                            <td>{{$penawaran->jml_kuota}} Penerima</td>
                         </tr>
                     </tbody>
                 </table>
@@ -52,9 +55,9 @@
                 <table class="table table-bordered table-striped">
                     <tbody>
                         @forelse ($fakultas as $item)
-                        <tr class="d-flex">
-                            <td scope="col" class="col">{{$item->refFakultas->nama_fakultas}}</td>
-                            <td scope="col" class="col">{{$item->jml_kuota}} Penerima</td>
+                        <tr>
+                            <td style="width: 50%">{{$item->refFakultas->nama_fakultas}}</td>
+                            <td style="width: 50%">{{$item->jml_kuota}} Penerima</td>
                         </tr>
                         @empty
                             <h5 style="color: #bdbdbd">Tidak ada kuota fakultas</h5>
@@ -69,29 +72,29 @@
             <div class="col-12">
                 <table class="table table-bordered table-striped">
                     <tbody>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Tanggal Penawaran</td>
-                            <td scope="col" class="col">{{$penawaran->tgl_awal_penawaran->format('d M Y')}}
+                        <tr>
+                            <td style="width: 50%">Tanggal Penawaran</td>
+                            <td style="width: 50%">{{$penawaran->tgl_awal_penawaran->format('d M Y')}}
                             s/d {{$penawaran->tgl_akhir_penawaran->format('d M Y')}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Tanggal Pendaftaran</td>
-                            <td scope="col" class="col">{{$penawaran->tgl_awal_pendaftaran->format('d M Y')}}
+                        <tr>
+                            <td style="width: 50%">Tanggal Pendaftaran</td>
+                            <td style="width: 50%">{{$penawaran->tgl_awal_pendaftaran->format('d M Y')}}
                                 s/d {{$penawaran->tgl_akhir_pendaftaran->format('d M Y')}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Tanggal Verifikasi</td>
-                            <td scope="col" class="col">{{$penawaran->tgl_awal_verifikasi->format('d M Y')}}
+                        <tr>
+                            <td style="width: 50%">Tanggal Verifikasi</td>
+                            <td style="width: 50%">{{$penawaran->tgl_awal_verifikasi->format('d M Y')}}
                                 s/d {{$penawaran->tgl_akhir_verifikasi->format('d M Y')}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Tanggal Penetapan</td>
-                            <td scope="col" class="col">{{$penawaran->tgl_awal_penetapan->format('d M Y')}}
+                        <tr>
+                            <td style="width: 50%">Tanggal Penetapan</td>
+                            <td style="width: 50%">{{$penawaran->tgl_awal_penetapan->format('d M Y')}}
                                 s/d {{$penawaran->tgl_akhir_penetapan->format('d M Y')}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Tanggal Pengumuman</td>
-                            <td scope="col" class="col">{{$penawaran->tgl_pengumuman->format('d M Y')}}</td>
+                        <tr>
+                            <td style="width: 50%">Tanggal Pengumuman</td>
+                            <td style="width: 50%">{{$penawaran->tgl_pengumuman->format('d M Y')}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -103,21 +106,21 @@
                 <table class="table table-bordered table-striped">
                     <tbody>
 
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Indek Prestasi Semester</td>
-                            <td scope="col" class="col">{{$penawaran->ips}}</td>
+                        <tr>
+                            <td style="width: 50%">Indek Prestasi Semester</td>
+                            <td style="width: 50%">{{$penawaran->ips}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Indek Prestasi Komulatif</td>
-                            <td scope="col" class="col">{{$penawaran->ipk}}</td>
+                        <tr>
+                            <td style="width: 50%">Indek Prestasi Komulatif</td>
+                            <td style="width: 50%">{{$penawaran->ipk}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Semester</td>
-                            <td scope="col" class="col">{{$penawaran->min_semester}} s/d {{$penawaran->max_semester}}</td>
+                        <tr>
+                            <td style="width: 50%">Semester</td>
+                            <td style="width: 50%">{{$penawaran->min_semester}} s/d {{$penawaran->max_semester}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Maksimal Penghasilan</td>
-                            <td scope="col" class="col">Rp. {{$penawaran->max_penghasilan}}</td>
+                        <tr>
+                            <td style="width: 50%">Maksimal Penghasilan</td>
+                            <td style="width: 50%">Rp. {{$penawaran->max_penghasilan}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -128,16 +131,16 @@
             <div class="col-12">
                 <table class="table table-bordered table-striped">
                     <thead>
-                        <tr class="d-flex">
-                            <th scope="col" class="text-center col">Kriteria</th>
-                            <th scope="col" class="text-center col">Bobot</th>
+                        <tr>
+                            <th style="width: 50%" class="text-center">Kriteria</th>
+                            <th style="width: 50%" class="text-center">Bobot</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($penawaran->kriteriaPenilaian as $item)
-                        <tr class="d-flex">
-                            <td scope="col" class="col">{{$item->nama_kriteria}}</td>
-                            <td scope="col" class="col">{{$item->bobot}} poin</td>
+                        <tr>
+                            <td style="width: 50%">{{$item->nama_kriteria}}</td>
+                            <td style="width: 50%">{{$item->bobot}} poin</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -150,20 +153,20 @@
                 @forelse ($penawaran->penawaranUpload as $lampiran)
                 <table class="table table-bordered table-striped">
                     <tbody>
-                        <tr class="d-flex">
-                            <th colspan="2" class="col">Lampiran  {{$loop->iteration}}</th>
+                        <tr>
+                            <th colspan="2">Lampiran  {{$loop->iteration}}</th>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Nama Upload</td>
-                            <td scope="col" class="col">{{$lampiran->nama_upload}}</td>
+                        <tr>
+                            <td style="width: 50%">Nama Upload</td>
+                            <td style="width: 50%">{{$lampiran->nama_upload}}</td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Nama File</td>
-                            <td scope="col" class="col"><a href="{{Storage::url($lampiran->path_file)}}" target="_blank">{{$lampiran->nama_upload}}.{{$lampiran->ekstensi}}</a></td>
+                        <tr>
+                            <td style="width: 50%">Nama File</td>
+                            <td style="width: 50%"><a href="{{Storage::url($lampiran->path_file)}}" target="_blank">{{$lampiran->nama_upload}}.{{$lampiran->ekstensi}}</a></td>
                         </tr>
-                        <tr class="d-flex">
-                            <td scope="col" class="col">Deskripsi</td>
-                            <td scope="col" class="col">{{$lampiran->deskripsi}}</td>
+                        <tr>
+                            <td style="width: 50%">Deskripsi</td>
+                            <td style="width: 50%">{{$lampiran->deskripsi}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -178,8 +181,8 @@
                 <table class="table table-bordered table-striped">
                     <tbody>
                         @forelse ($lampiranPendaftar as $item)
-                            <tr class="d-flex">
-                                <td scope="col" class="col">{{$item->refJenisFile->nama_jenis_file}}</td>
+                            <tr>
+                                <td style="width: 50%">{{$item->refJenisFile->nama_jenis_file}}</td>
                             </tr>
                         @empty
                             

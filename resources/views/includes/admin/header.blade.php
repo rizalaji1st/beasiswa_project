@@ -12,4 +12,4 @@
 
     @include('includes.admin.style')
 
-  </head>
+</head>
