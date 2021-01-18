@@ -8,19 +8,20 @@
     </div>
     <ul class="sidebar-menu">
       <li class="menu-header">Menu Utama</li>
-      {{-- beranda --}}
+      
+      {{-- beasiswa aktif --}}
       <li class="@yield('status-beasiswa')">
         <a class="nav-link" href="{{url('/')}}">
           <i
             class="fas fa-graduation-cap"></i><span>Beasiswa Aktif</span>
         </a>
       </li>
+      
+      @can('manage-users')
       <li>
         <a class="nav-link" href="{{url('/pendaftar/pengumuman')}}"><i
         class="fas fa-bullhorn"></i><span>Pengumuman</span></a>
       </li>
-      @can('manage-users')
-      
       <!-- Nav Item - Hak akses -->
       <li class="nav-item dropdown @yield('status-akses')">
         <a href="{{url('/users')}}" class="nav-link has-dropdown">

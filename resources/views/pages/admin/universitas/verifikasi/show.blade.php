@@ -1,81 +1,6 @@
 @extends('layouts.adminuniv')
 @section('title', 'Admin Universitas')
 @section('status-verifikasi', 'active')
-@section('content')
-    <div class="container ">
-      @include('includes.flashmessage')
-        <div class="section-header">
-          <h1>Penawaran {{$beasiswa->nama_penawaran}}</h1>
-        </div>
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Beasiswa Aktif</h6>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table id="beasiswa" class="table table-bordered table-hover" width="100%" cellspacing="0" style="border:1px solid #e3e6f0">
-                <thead>
-                  <tr>
-                    <th scope="col" class="text-center">No Daftar</th>
-                    <th scope="col" class="text-center">Tgl Daftar</th>
-                    <th scope="col" class="text-center">Nama</th>
-                    <th scope="col" class="text-center">Program Studi</th>
-                    <th scope="col" class="text-center">Berkas</th>
-                    <th scope="col" class="text-center">Status</th>
-                    <th scope="col" class="text-center">Catatan</th>
-                    <th scope="col" class="text-center">Action</th>
-                  </tr>
-                </thead>
-                <tfoot>
-                  <tr>
-                    <th scope="col" class="text-center">No Daftar</th>
-                    <th scope="col" class="text-center">Tgl Daftar</th>
-                    <th scope="col" class="text-center">Nama</th>
-                    <th scope="col" class="text-center">Program Studi</th>
-                    <th scope="col" class="text-center">Berkas</th>
-                    <th scope="col" class="text-center">Status</th>
-                    <th scope="col" class="text-center">Catatan</th>
-                    <th scope="col" class="text-center">Action</th>
-                  </tr>
-                </tfoot>
-                <tbody>
-                  @foreach ($pendaftars as $pendaftar)
-                  <tr>
-                    <td scope="col" >{{$pendaftar->id_pendaftar}}</td>
-                    <td scope="col" >{{$pendaftar->created_at}}</td>
-                    <td scope="col" >{{$pendaftar->userPendaftar->name}}</td>
-                    <td scope="col" >{{$pendaftar->userPendaftar->userProdi->nama_prodi}}</td>
-                    
-                    <td scope="col" >
-                      @foreach ($pendaftar->pendaftaranUpload as $file)
-                      <div class="badge badge-sm badge-success mx-1 my-1">
-                        <i class="fas fa-file-download    "></i>
-                      <a href="{{Storage::url($file->path_file)}}" class="text-white" target="_blank">{{Illuminate\Support\Str::between($file->nama_file, $pendaftar->userPendaftar->name."_", '_')}}</a>
-                      </div>  
-                      <br>
-                      @endforeach
-                    </td>
-                    <td scope="col" ><span class="badge badge-pill text-white
-                      {{"terverifikasi" == $pendaftar->is_verified ? "badge-success":
-                      ("menunggu verifikasi" == $pendaftar->is_verified ? "badge-warning":
-                      ("ditolak" == $pendaftar->is_verified ? "badge-danger":
-                      ("perbaikan" == $pendaftar->is_verified ? "badge-info":""))) }}">{{$pendaftar->is_verified}}</span></td>
-                    <td scope="col">{{$pendaftar->verified_note}}</td>
-                    <td scope="col" class="text-center">
-                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalVerifikasi{{$pendaftar->id_pendaftar}}"><i class="fas fa-pencil-alt    "></i></button>
-                    </td>
-                  </tr>
-                  @endforeach
-                  
-                  
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-    </div>
-    
-@endsection
 @section('modal')
 @foreach ($pendaftars as $pendaftar)
 <div class="modal fade" tabindex="-1" id="modalVerifikasi{{$pendaftar->id_pendaftar}}" style="z-index: 1040 !important;">
@@ -109,7 +34,7 @@
           </tr>
           <tr>
             <td scope="col">Prodi</td>
-            <td scope="col">{{$pendaftar->userPendaftar->userProdi->nama_prodi}}</td>
+            <td scope="col">{{$pendaftar->userPendaftar->kode_prodi}}</td>
           </tr>
           <tr>
             <td scope="col">Semester</td>
@@ -169,6 +94,81 @@
   </div>
 </div>
 @endforeach
+@endsection
+@section('content')
+    <div class="container ">
+      @include('includes.flashmessage')
+        <div class="section-header">
+          <h1>Penawaran {{$beasiswa->nama_penawaran}}</h1>
+        </div>
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Beasiswa Aktif</h6>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="beasiswa" class="table table-bordered table-hover" width="100%" cellspacing="0" style="border:1px solid #e3e6f0">
+                <thead>
+                  <tr>
+                    <th scope="col" class="text-center">No Daftar</th>
+                    <th scope="col" class="text-center">Tgl Daftar</th>
+                    <th scope="col" class="text-center">Nama</th>
+                    <th scope="col" class="text-center">Program Studi</th>
+                    <th scope="col" class="text-center">Berkas</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Catatan</th>
+                    <th scope="col" class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th scope="col" class="text-center">No Daftar</th>
+                    <th scope="col" class="text-center">Tgl Daftar</th>
+                    <th scope="col" class="text-center">Nama</th>
+                    <th scope="col" class="text-center">Program Studi</th>
+                    <th scope="col" class="text-center">Berkas</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Catatan</th>
+                    <th scope="col" class="text-center">Action</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  @foreach ($pendaftars as $pendaftar)
+                  <tr>
+                    <td scope="col" >{{$pendaftar->id_pendaftar}}</td>
+                    <td scope="col" >{{$pendaftar->created_at}}</td>
+                    <td scope="col" >{{$pendaftar->userPendaftar->name}}</td>
+                    <td scope="col" >{{$pendaftar->userPendaftar->kode_prodi}}</td>
+                    
+                    <td scope="col" >
+                      @foreach ($pendaftar->pendaftaranUpload as $file)
+                      <div class="badge badge-sm badge-success mx-1 my-1">
+                        <i class="fas fa-file-download    "></i>
+                      <a href="{{Storage::url($file->path_file)}}" class="text-white" target="_blank">{{Illuminate\Support\Str::between($file->nama_file, $pendaftar->userPendaftar->name."_", '_')}}</a>
+                      </div>  
+                      <br>
+                      @endforeach
+                    </td>
+                    <td scope="col" ><span class="badge badge-pill text-white
+                      {{"terverifikasi" == $pendaftar->is_verified ? "badge-success":
+                      ("menunggu verifikasi" == $pendaftar->is_verified ? "badge-warning":
+                      ("ditolak" == $pendaftar->is_verified ? "badge-danger":
+                      ("perbaikan" == $pendaftar->is_verified ? "badge-info":""))) }}">{{$pendaftar->is_verified}}</span></td>
+                    <td scope="col">{{$pendaftar->verified_note}}</td>
+                    <td scope="col" class="text-center">
+                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalVerifikasi{{$pendaftar->id_pendaftar}}"><i class="fas fa-pencil-alt    "></i></button>
+                    </td>
+                  </tr>
+                  @endforeach
+                  
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+    
 @endsection
 @push('addon-script')
     <script>
