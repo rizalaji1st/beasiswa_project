@@ -92,6 +92,6 @@ class PenetapanController extends Controller
 
         // $n->save();
 		// alihkan halaman kembali
-		return view('pages.admin.universitas.penetapan.index', ['bea'=>$file]);
+        return redirect()->action([PenetapanController::class, 'index']);
         }
 	}
