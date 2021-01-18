@@ -24,13 +24,11 @@ Route::namespace('Admin')
             Route::resource('/users', 'UserController', ['except' => ['store','show', 'create']]);
             Route::resource('/penawarans', 'Adminuniversitas\PenawaranController');
             Route::resource('/nominasi', 'Adminuniversitas\NominasiController');
-            Route::get('/nominasi/detail_skor/', 'Adminuniversitas\NominasiController@detail_skor')->name('detail_skor');
+            Route::get('/nominasi/detail_skor/{id}', 'Adminuniversitas\NominasiController@detail_skor')->name('detail_skor');
             //Route::get('/cetak_excel/{nominasi}', 'Adminuniversitas\NominasiController@export_excel')->name('export_excel');
-            Route::get('/cetak_excel/{nominasi}', 'Adminuniversitas\NominasiController@export_excel')->name('export_excel');
-            Route::post('/import_excel', 'Adminuniversitas\PenetapanController@import_excel')->name('import_excel');
+            Route::get('/cetak_excel', 'Adminuniversitas\NominasiController@export_excel')->name('export_excel');
             Route::resource('/penetapan', 'Adminuniversitas\PenetapanController');
-            
-            
+            Route::post('/import_excel', 'Adminuniversitas\PenetapanController@import_excel')->name('import_excel');
 });
 
 

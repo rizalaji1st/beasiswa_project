@@ -9,14 +9,14 @@ class RefFakultas extends Model
     //
     protected $table = 'bea_ref_fakultas';
     protected $primaryKey = 'id_fakultas';
-    //protected $fillable = 'nama_fakultas';
+    protected $fillable = 'nama_fakultas';
 
     public function penawaranKuotaFakultas() {
         return $this->hasMany('App\PenawaranKuotaFakultas', 'id_fakultas', 'id_fakultas');
     }
 
-    // public function Prodi()
-    // {
-    //     return $this->hasMany(Prodi::class, 'id_fakultas', 'id_fakultas');
-    // }
+    public function RefProdi()
+    {
+        return $this->hasMany('App\References\RefProdi', 'id_fakultas', 'id_fakultas');
+    }
 }

@@ -3,23 +3,30 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+//use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BeaLolos extends Model
 {
+    //protected $guarded = []; 
     //
-    use SoftDeletes;
+    //use SoftDeletes;
     protected $table = 'bea_lolos';
-    protected $primaryKey = 'id_pendaftar';
     protected $fillable = [
-        'nim',
-        'nama',
+        'id',
+        'id_penawaran',
         'nama_prodi',
         'nama_fakultas',
-        'total'
+        'nim',
+        'nama',
+        'semester',
+        'status_ayah',
+        'status_ibu',
+        'status_rumah',
+        'gaji_ayah',
+        'gaji_ibu',
+        'pekerjaan_ayah',
+        'pekerjaan_ibu',
+        'pendidikan_ayah',
+        'pendidikan_ibu',
     ];
-
-    // public function PendaftarPenawaran(){
-    //     return $this->belongsTo(PendaftarPenawaran::class, 'id_penawaran', 'id_penawaran');
-    // }
 }

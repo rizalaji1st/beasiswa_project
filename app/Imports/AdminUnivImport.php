@@ -17,14 +17,22 @@ class AdminUnivImport implements ToModel
     public function model(array $row)
     {
         return new BeaLolos([
-            'id_pendaftar' => $row[0],
-            'nim' => $row[1],
-            'nama' => $row[2],
-            'nama_prodi' => $row[3],
-            'nama_fakultas' => $row[4],
-            'total' => $row[5],
-        ]);
+            'id' => $row[0],
+            'id_penawaran' =>$row[1],
+            'nama_prodi' => $row[2],
+            'nama_fakultas' => $row[3],
+            'nim' => $row[4],
+            'nama' => $row[5],
+            'semester' => $row[6],
+            'status_ayah' => $row[7],
+            'status_ibu' => $row[8],
+            'status_rumah' => $row[9],
+            'gaji_ayah' => $row[10],
+            'gaji_ibu' => $row[11],
+            'pekerjaan_ayah' => $row[12],
+            'pekerjaan_ibu' => $row[13],
+            'pendidikan_ayah' => $row[14],
+            'pendidikan_ibu' => $row[15],
+            ]);
+        }
     }
-}
-
-
