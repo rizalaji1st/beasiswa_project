@@ -27,17 +27,30 @@ class PendaftarPenawaran extends Model
                             'semester',
                             'gaji_ayah',
                             'gaji_ibu',
+                            'create_at',
+                            'create_by',
+                            'finalized_at',
+                            'finalized_by',
+                            'is_verified'
                                                     
                         ];
 
     public function refFakultas(){
         return $this->hasManyThrough('App\References\RefFakultas','App\PenawaranKuotaFakultas', 'id_penawaran','id_fakultas','id_penawaran','id_fakultas');
     }
-        public function mahasiswa() {
+    public function mahasiswa() {
         $this->belongsTo(Mahasiswa::class, 'nim', 'nim');
     }
 
     public function penawaran(){
         return $this->belongsTo(Penawaran::class, 'id_penawaran', 'id_penawaran');
+    }
+
+    public function status(){
+        return $this->hasMany('App\Kriteria\Status', 'id_pendaftar', 'id_pendaftar');
+    }
+
+    public function beaLolos(){
+        return $this->hasMany(BeaLolos::class, 'id_penawaran', 'id_penawaran');
     }
 }

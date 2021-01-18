@@ -11,13 +11,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Mahasiswa extends Model
 {
 	use SoftDeletes;
-    //
     protected $table = 'bea_mahasiswa';
     protected $primaryKey = 'nim';
     protected $fillable = ['nama', 
 							'alamat', 
 							'kabupaten', 
-							'[provinsi', 
+							'provinsi', 
 							'id_prodi', 
 							'penghasilan', 
 							'nama_ayah', 
@@ -35,11 +34,4 @@ class Mahasiswa extends Model
     					];
 
 
-    public function pendaftarPenawaran(){
-        return $this->hasOne(PendaftarPenawaran::class, 'nim', 'nim');
-    }
-    public function refProdi(){
-        return $this->belongsTo('App\References\RefProdi', 'id_prodi', 'id_prodi');
-	}
-	
 }

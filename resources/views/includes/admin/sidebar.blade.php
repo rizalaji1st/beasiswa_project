@@ -15,11 +15,12 @@
             class="fas fa-graduation-cap"></i><span>Beasiswa Aktif</span>
         </a>
       </li>
-      @can('manage-users')
       <li>
         <a class="nav-link" href="{{url('/pendaftar/pengumuman')}}"><i
         class="fas fa-bullhorn"></i><span>Pengumuman</span></a>
       </li>
+      @can('manage-users')
+      
       <!-- Nav Item - Hak akses -->
       <li class="nav-item dropdown @yield('status-akses')">
         <a href="{{url('/users')}}" class="nav-link has-dropdown">
@@ -68,6 +69,44 @@
         <span>Verifikasi</span>
       </a>
     </li>
+  <!-- Nav Item - Monitoring Universitas -->
+  <li class="nav-item @yield('status-penetapan')">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"aria-controls="collapseTwo">
+    <i class="fas fa-hammer    "></i>
+    <span>Monitoring Universitas</span>
+  </a>
+  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Menu:</h6>
+        <a class="collapse-item" href="{{route('admin.nominasi.index')}}">Nominasi Rangking</a>
+        <a class="collapse-item" href="{{route('admin.penetapan.index')}}">Penetapan Lolos</a>
+        <!-- <a class="dropdown-item" href="{{ url ('/pengusulans') }}">Pengusulan Nominasi</a> -->
+      </div>
+
+    </div>
+  </div>
+</li>
+<!-- Nav Item - Lampiran -->
+<li class="nav-item @yield('status-lampiran')">
+  <a class="nav-link" href="{{route('admin.lampiran-penawaran.index')}}">
+    <i class="fa fa-paperclip" aria-hidden="true"></i>
+    <span>Lampiran</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{{route('logout')}}" onclick="event.preventDefault();
+    document.getElementById('logout-form').submit();">
+    <i class="fas fa-sign-out-alt    "></i>
+    <span>Keluar</span>
+        </a>
+
+  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @csrf
+  </form>
+</li>
 
     <li class="nav-item dropdown @yield('status-penetapan')">
       <a class="nav-link nav-link has-dropdown" href="#">

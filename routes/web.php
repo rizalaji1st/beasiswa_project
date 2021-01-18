@@ -27,9 +27,13 @@ Route::namespace('Admin')
             Route::resource('/lampiran-penawaran', 'Adminuniversitas\LampiranPenawaranController');
             // Route::put('/verifikasi/{id_pendaftar}', 'Adminuniversitas\VerifikasiController@verify');
             Route::resource('/nominasi', 'Adminuniversitas\NominasiController');
+            Route::get('/nominasi/detail_skor/{id}', 'Adminuniversitas\NominasiController@detail_skor')->name('detail_skor');
+            //Route::get('/cetak_excel/{nominasi}', 'Adminuniversitas\NominasiController@export_excel')->name('export_excel');
+            Route::get('/cetak_excel', 'Adminuniversitas\NominasiController@export_excel')->name('export_excel');
             Route::resource('/penetapan', 'Adminuniversitas\PenetapanController');
-            
+            Route::post('/import_excel', 'Adminuniversitas\PenetapanController@import_excel')->name('import_excel');
 });
+
 
 
 //Route::get('/adminuniversitas/penetapan/pnominasi_index','AdminunivPNominasiController@index');
@@ -37,7 +41,10 @@ Route::get('/pendaftaran', 'PendaftaranController@index')->middleware('can:manag
 Route::get('/pendaftaran/{adminuniv}', 'PendaftaranController@create');
 
 //monitoring
-Route::get('/dashboard', 'DataController@dashboard');
+// Route::get('/admin/nominasi/{$nominasi}', 'NominasiController@index');
+// Route::get('/admin/nominasi/show', 'NominasiController@show');
+// Route::get('/admin/nominasi', 'NominasiController@detail_skor');
+
 Route::get('/data_mhs/{nrangking}', 'DataController@index');
 Route::get('/nrangking/cetak_pdf', 'DataController@cetak_pdf');
 Route::get('/hasil_mhs', 'DataController@show');

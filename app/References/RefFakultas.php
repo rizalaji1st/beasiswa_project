@@ -15,8 +15,8 @@ class RefFakultas extends Model
         return $this->hasMany('App\PenawaranKuotaFakultas', 'id_fakultas', 'id_fakultas');
     }
 
-    public function refProdi(){
+    public function RefProdi()
+    {
         return $this->hasMany('App\References\RefProdi', 'id_fakultas', 'id_fakultas');
     }
-
 }

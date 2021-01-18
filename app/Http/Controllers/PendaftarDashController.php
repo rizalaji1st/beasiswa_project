@@ -100,7 +100,7 @@ class PendaftarDashController extends Controller
                             'is_verified'=>'menunggu verifikasi',
 
          ]);       
-            
+          
         foreach($Penawaran->lampiranPendaftar as $lamp){
             $nama = "nama".$lamp->id_upload_file;
             
@@ -125,7 +125,7 @@ class PendaftarDashController extends Controller
         }
             
          return redirect('/pendaftar/penawaran/upload/' . $Penawaran->id_penawaran)->with('success-stisla', 'Pendaftaran Beasiswa Berhasil');
-
+            
     }
 
     public function cetakPdf(Penawaran $Penawaran)
