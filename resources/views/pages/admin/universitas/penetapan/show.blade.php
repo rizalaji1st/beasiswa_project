@@ -29,7 +29,6 @@
                         <tr>
                             <th scope="col">No</th>
                             <td scope="col">Prodi</td>
-                            <td scope="col">Fakultas</td>
                             <td scope="col">NIM</td>
                             <td scope="col">Nama</td>
                             </tr>
@@ -39,7 +38,6 @@
                     <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
                         <td scope="col" class="text-center">{{$n->nama_prodi}}</td>
-                        <td scope="col" class="text-center">{{$n->nama_fakultas}}</td>
                         <td scope="col" class="text-center">{{$n->nim}}</td>
                         <td scope="col" class="text-center">{{$n->nama}}</td>
                         </form>

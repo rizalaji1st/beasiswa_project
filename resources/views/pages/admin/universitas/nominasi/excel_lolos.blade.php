@@ -27,7 +27,6 @@
             <td>{{ $no++ }}</td>
             <td>{{ $n->id_penawaran }}</td>
             <td>{{$n->users->RefProdi->nama_prodi}}</td>
-            <td></td>
             <td>{{ $n->nim}}</td>
             <td>{{$n->users->name}}</td>
             <td>{{ $n->semester}}</td>

@@ -18,7 +18,6 @@ class CreateBeaLolosTable extends Migration
             $table->unsignedBigInteger('id_penawaran');
             $table->foreign('id_penawaran')->references('id_penawaran')->on('bea_penawaran_kriteria')->onDelete('cascade');
             $table->string('nama_prodi');
-            $table->string('nama_fakultas');
             $table->string('nim');
             $table->string('nama');
             $table->integer('semester');

@@ -27,7 +27,6 @@
                                 <td scope="col">NIM</td>
                                 <td scope="col">Nama</td>
                                 <td scope="col">Prodi</td>
-                                <td scope="col">Fakultas</td>
                                 <td scope="col">Skor</td>
                                 <td scope="col" class="text-center">Action</td>    
                                 </tr>
@@ -39,7 +38,6 @@
                         <td scope="col" class="text-center">{{$n->users->nim}}</td>
                         <td scope="col" class="text-center">{{$n->users->name}}</td>
                         <td scope="col" class="text-center">{{$n->users->RefProdi->nama_prodi}}</td>
-                        <td scope="col" class="text-center"></td>
                         <td scope="col" class="text-center">{{$hasil[$loop->iteration-1]}}</td>
                         
                         <td scope="col" class="text-center">
