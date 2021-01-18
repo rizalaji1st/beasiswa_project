@@ -17,7 +17,7 @@
 <div class="text-center"><h2>Daftar Penetapan Lolos Seleksi Beasiswa</h2>
 <table class='table table-bordered'>
 <div class="text-right">
-<a href=""  class="btn btn-primary" target="_blank">CETAK PDF</a>
+<!-- <a href=""  class="btn btn-primary" target="_blank">CETAK PDF</a> -->
         <table class='table table-bordered'>
         <div class="text-right">
         
@@ -28,39 +28,22 @@
                     <tbody>
                         <tr>
                             <th scope="col">No</th>
-                            <td scope="col">Id Pendaftar</td>
+                            <td scope="col">Prodi</td>
                             <td scope="col">NIM</td>
                             <td scope="col">Nama</td>
-                            <td scope="col">Prodi</td>
-                            <td scope="col">Fakultas</td>
-                            <td scope="col">Skor</td>
-                              
                             </tr>
-                            @foreach($nominasi as $n)                      
-                            <tr>
-                            <th scope="row">{{$loop->iteration}}</th>
-                            <td scope="col">{{$n->id_pendaftar}}</td>
-                            <td scope="col">{{$n->nim}}</td>
-                            <td scope="col">{{$n->nama}}</td>
-                            <td scope="col">{{$n->nama_prodi}}</td>
-                            <td scope="col">{{$n->nama_fakultas}}</td>
-                            @php
-                            $total =$n->status_ayah + $n->status_ibu + 
-                                    $n->pekerjaan_ayah + $n->pekerjaan_ibu +
-                                    $n->pendidikan_ayah + $n->pendidikan_ibu +
-                                    $n->penghasilan_ayah + $n->penghasilan_ibu +
-                                    $n->status_rumah + $n->tanggungan
-                                    ;
-                            
-                            @endphp
-                            <td scope="col">{{$total}}</td>
-                    @method('Delete')
-                    @csrf
-                    </form>
-                </td>
-                            
-                        </tr>
-                        @endforeach
+                    </tbody>
+                    <tbody>
+                    @foreach ($lolos as $n)
+                    <tr>
+                    <th scope="row" class="text-center">{{$loop->iteration}}</th>
+                        <td scope="col" class="text-center">{{$n->nama_prodi}}</td>
+                        <td scope="col" class="text-center">{{$n->nim}}</td>
+                        <td scope="col" class="text-center">{{$n->nama}}</td>
+                        </form>
+                        </td>
+                    </tr>
+                    @endforeach
                     </tbody>
                 </table>
                 <div class="text-right">

@@ -77,7 +77,11 @@ class UserTableSeeder extends Seeder
             'alamat' => 'Cilacap',
             'kabupaten' => 'Cilacap',
             'provinsi' => 'Jawa Tengah',
+<<<<<<< HEAD
             'kode_prodi' => 'KIP01',
+=======
+            'kode_prodi' => '01',
+>>>>>>> rangking-penetapan
             'penghasilan' => '3000000',
             'nama_ayah' => 'Dwi Windu Suroyo',
             'status_ayah' => 'meninggal',
@@ -104,7 +108,11 @@ class UserTableSeeder extends Seeder
             'alamat' => 'Sukoharjo, Jawa Tengah',
             'kabupaten' => 'Sukoharjo',
             'provinsi' => 'Jawa Tengah',
+<<<<<<< HEAD
             'kode_prodi' => 'KIP02',
+=======
+            'kode_prodi' => '01',
+>>>>>>> rangking-penetapan
             'penghasilan' => '3000000',
             'nama_ayah' => 'Suroyo',
             'status_ayah' => 'Cerai',
@@ -131,7 +139,11 @@ class UserTableSeeder extends Seeder
             'alamat' => 'Gemolong, Sragen',
             'kabupaten' => 'Sragen',
             'provinsi' => 'Jawa Tengah',
+<<<<<<< HEAD
             'kode_prodi' => 'MIPA02',
+=======
+            'kode_prodi' => '09',
+>>>>>>> rangking-penetapan
             'penghasilan' => '9000000',
             'nama_ayah' => 'Windu',
             'status_ayah' => 'Hidup',
@@ -158,7 +170,11 @@ class UserTableSeeder extends Seeder
             'alamat' => 'Pabelan',
             'kabupaten' => 'Sukoharjo',
             'provinsi' => 'Jawa Tengah',
+<<<<<<< HEAD
             'kode_prodi' => 'MIPA02',
+=======
+            'kode_prodi' => '12',
+>>>>>>> rangking-penetapan
             'penghasilan' => '10000000',
             'nama_ayah' => 'Stark',
             'status_ayah' => 'hidup',

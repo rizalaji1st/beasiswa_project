@@ -16,12 +16,23 @@
                 </div>
             @endif
         </div>
-
-
+        {{-- notifikasi form validasi --}}
+		@if ($errors->has('file'))
+		<span class="invalid-feedback" role="alert">
+			<strong>{{ $errors->first('file') }}</strong>
+		</span>
+		@endif
+		{{-- notifikasi sukses --}}
+		@if ($sukses = Session::get('sukses'))
+		<div class="alert alert-success alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button> 
+			<strong>{{ $sukses }}</strong>
+		</div>
+		@endif
         {{-- <ul class="list-group mt-2">
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{$beasiswa->nama_penawaran}}
-                <a href="/adminuniversitas/{{$beasiswa->id_penawaran}}" class="badge badge-info badge-pill">detail</a>
+                {{$bea->nama_penawaran}}
+                <a href="/adminuniversitas/{{$bea->id_penawaran}}" class="badge badge-info badge-pill">detail</a>
             </li>
         </ul> --}}
         <table class="table table-striped table-bordered" id="beasiswa">
@@ -34,13 +45,12 @@
                 <th scope="col">Action</th>
             </tr>
             </thead>
-
             <tbody>
-            @foreach ($beasiswas as $beasiswa)
+            @foreach ($bea as $a)
             <tr>
             <th scope="row">{{$loop->iteration}}</th>
-            <td  scope="col" >{{$beasiswa->id_penawaran}}</td>
-                <td  scope="col" >{{$beasiswa->nama_penawaran}}</td>
+            <td  scope="col" >{{$a->id_penawaran}}</td>
+                <td  scope="col" >{{$a->nama_penawaran}}</td>
                 <div class="text-center">
                 <td><button type="button" class="btn btn-primary mr-5" data-toggle="modal" data-target="#importExcel">
                     IMPORT EXCEL
@@ -48,44 +58,39 @@
                 <!-- Import Excel -->
                 <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <form method="post" action="/pnominasis/import_excel" enctype="multipart/form-data">
+                        <form method="post" action="/admin/import_excel" enctype="multipart/form-data">
                             <div class="modal-content">
                                 <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5></br>
                                 </div>
                                 <div class="modal-body">
-
                                     {{ csrf_field() }}
-
                                     <label>Pilih file excel</label>
                                     <div class="form-group">
                                         <input type="file" name="file" required="required">
                                     </div>
-
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Import</button>
+                                    <button type="submit" class="btn btn-primary" value="import" name="import">Import</button>
                                 </div>
                             </div>
                             <td scope="col" class="text-center">
-                    <a class="btn btn-primary" href="{{route('admin.penetapan.show', $beasiswa->id_penawaran)}}" > Lihat Hasil <i class="fa fa-arrow-right"></i></a>
+                    <a class="btn btn-primary" href="{{route('admin.penetapan.show',$a->id_penawaran)}}" > Lihat Hasil <i class="fa fa-arrow-right"></i></a>
                         </form>
                     </div>
                 </div>
-</td>
+            </td>
             </tr>
             @endforeach
             </tbody>
         </table>
     </div>
-
-@endsection
-
-@push('addon-script')
-    <script>
-        $(document).ready(function() {
-            $('#beasiswa').DataTable();
-        } );
-    </script>
-@endpush
+    @endsection
+    @push('addon-script')
+        <script>
+            $(document).ready(function() {
+                $('#beasiswa').DataTable();
+            } );
+        </script>
+    @endpush

@@ -13,27 +13,18 @@ class RefProdi extends Model
 
     protected $table = 'bea_ref_prodi';
     protected $primaryKey = 'kode_prodi';
-    protected $fillable = ['nama_prodi','id_fakultas'];
+    protected $fillable = ['id_fakultas', 'nama_prodi'];
 
-    public function refFakultas(){
-        return $this->belongsTo('App\References\RefFakultas', 'id_fakultas', 'id_fakultas');
-    }
-
-    public function beaMahasiswa(){
-        return $this->hasMany(Mahasiswa::class, 'kode_prodi', 'kode_prodi');
-    }
-    public function prodiMahasiswa(){
-        return $this->hasMany(User::class, 'kode_prodi', 'kode_prodi');
+    public function RefFakultas(){
+        return $this->belongsTo('App\References\RefFakultas', 'id_fakultas');
     }
 
-    public function userPendaftarPenawaran(){
-        return $this->hasManyThrough(
-            Pendaftaran::class, 
-            User::class,
-            'kode_prodi',
-            'id_user',
-            'kode_prodi',
-            'id'
-        );
+    public function user(){
+        return $this->hasMany(User::class);
     }
+
+    // public function refFakultas()
+    // {
+    //     return $this->belongsTo('App\References\RefFakultas', 'id_fakultas', 'id_fakultas');
+    // }
 }

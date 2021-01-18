@@ -15,6 +15,8 @@ class CreateBeaTanggungan extends Migration
     {
         Schema::create('bea_tanggungan', function (Blueprint $table) {
             $table->bigIncrements('id_tanggungan');
+            $table->unsignedBigInteger('id_kriteria');
+            $table->foreign('id_kriteria')->references('id_kriteria')->on('bea_penawaran_kriteria')->onDelete('cascade');
             $table->integer('tanggungan');
             $table->integer('skor');
             $table->timestamps();

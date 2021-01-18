@@ -39,11 +39,15 @@ class User extends Authenticatable
         return false;
         
     }
-    
-    public function userProdi(){
-        return $this->belongsTo(RefProdi::class, 'kode_prodi','kode_prodi');
-      }
-    public function userPendaftaran(){
-        return $this->hasMany(Pendaftaran::class, 'id_user','id');
-      }
+
+    public function pendaftaran()
+    {
+        return $this->hasMany(Pendaftaran::class, 'id_user', 'id');
+    }
+
+    public function RefProdi()
+    {
+        return $this->belongsTo('App\References\RefProdi', 'kode_prodi');
+    }
 }
+
