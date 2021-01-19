@@ -65,8 +65,8 @@ class PenetapanController extends Controller
     Excel::import(new AdminUnivImport, public_path('/file_siswa/'.$nama_file));
 
     // notifikasi dengan session
-    Session::flash('sukses','Data Siswa Berhasil Diimport!');
+    Session::flash('sukses','Data Mahasiswa Berhasil Diimport!');
+        
     return redirect()->action([PenetapanController::class, 'index']);
-		//return view('pages.admin.universitas.penetapan.index', ['bea'=>$file]);
         }
 	}

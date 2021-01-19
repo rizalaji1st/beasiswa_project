@@ -107,12 +107,12 @@
                     <td scope="col" class="text-center">{{$hasil_pengIbu[$loop->iteration-1]}}</td>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                     <td scope="col">Total Skor Beasiswa</td>
                     <td scope="col" class="text-center"></td>
                     <td scope="col" class="text-center"></td>
                     <th scope="col" class="text-center">{{$hasil[$loop->iteration-1]}}</th>
-                    </tr>
+                    </tr> -->
 
                     @endforeach
                     @method('Delete')

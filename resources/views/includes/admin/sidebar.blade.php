@@ -81,10 +81,12 @@
         <a class="collapse-item" href="{{route('admin.penetapan.index')}}">Penetapan Lolos</a>
         <!-- <a class="dropdown-item" href="{{ url ('/pengusulans') }}">Pengusulan Nominasi</a> -->
       </div>
-
     </div>
   </div>
 </li>
+
+
+
 <!-- Nav Item - Lampiran -->
 <li class="nav-item @yield('status-lampiran')">
   <a class="nav-link" href="{{route('admin.lampiran-penawaran.index')}}">
