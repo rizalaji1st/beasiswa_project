@@ -1,4 +1,4 @@
-@include('includes.pendaftar.stisla.header')
+@include('includes.admin.header')
 <body>
     <div class="main-wrapper">
         <div class="navbar-bg"></div>

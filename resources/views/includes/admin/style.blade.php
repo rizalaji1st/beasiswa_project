@@ -4,8 +4,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="{{url('backend/vendor/fstdropdown/css/fstdropdown.min.css')}}">
-{{-- <link rel="stylesheet" href="{{url('frontend/admin/style.css')}}"> --}}
+<link rel="stylesheet" href="{{url('dashboard/vendor/fstdropdown/css/fstdropdown.min.css')}}">
 <link rel="stylesheet" href="{{url('dashboard/modules/bootstrap/css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{url('dashboard/modules/fontawesome/css/all.min.css')}}">
 <link rel="stylesheet" href="{{url('dashboard/modules/jqvmap/dist/jqvmap.min.css')}}">

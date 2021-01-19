@@ -13,6 +13,7 @@
                         Copyright &copy; 2020 <div class="bullet"></div><a href="https://tik.uns.ac.id" target="_blank">Maganger UPT TIK UNS</a>
                     </div>
                 </footer>
+            </section>
         </div>
     </div>
     @yield('modal')

@@ -4,7 +4,9 @@
 @section('content')
 
     <div class="container">
-        <h1>Daftar Beasiswa Aktif</h1>
+        <div class="section-header">
+          <h1>Daftar Beasiswa Aktif</h1>
+        </div>
         @include('includes.flashmessage')
         <table class="table table-striped table-bordered" id="beasiswa">
             <thead class="bg-primary text-white" >

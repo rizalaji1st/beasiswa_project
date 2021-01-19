@@ -8,15 +8,13 @@
     </div>
     <ul class="sidebar-menu">
       <li class="menu-header">Menu Utama</li>
-      
-      {{-- beasiswa aktif --}}
+      {{-- beranda --}}
       <li class="@yield('status-beasiswa')">
         <a class="nav-link" href="{{url('/')}}">
           <i
             class="fas fa-graduation-cap"></i><span>Beasiswa Aktif</span>
         </a>
       </li>
-      
       @can('manage-users')
       <li>
         <a class="nav-link" href="{{url('/pendaftar/pengumuman')}}"><i
@@ -24,7 +22,7 @@
       </li>
       <!-- Nav Item - Hak akses -->
       <li class="nav-item dropdown @yield('status-akses')">
-        <a href="{{url('/users')}}" class="nav-link has-dropdown">
+        <a href="#" class="nav-link has-dropdown">
           <i class="fas fa-shield-alt"></i>
           <span>Daftar Hak Akses</span></a>
         <ul class="dropdown-menu">
@@ -70,26 +68,6 @@
         <span>Verifikasi</span>
       </a>
     </li>
-  <!-- Nav Item - Monitoring Universitas -->
-  <li class="nav-item @yield('status-penetapan')">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"aria-controls="collapseTwo">
-    <i class="fas fa-hammer    "></i>
-    <span>Monitoring Universitas</span>
-  </a>
-  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-    <div class="bg-white py-2 collapse-inner rounded">
-    </a>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Menu:</h6>
-        <a class="collapse-item" href="{{route('admin.nominasi.index')}}">Nominasi Rangking</a>
-        <a class="collapse-item" href="{{route('admin.penetapan.index')}}">Penetapan Lolos</a>
-        <!-- <a class="dropdown-item" href="{{ url ('/pengusulans') }}">Pengusulan Nominasi</a> -->
-      </div>
-
-    </div>
-  </div>
-</li>
 <!-- Nav Item - Lampiran -->
 <li class="nav-item @yield('status-lampiran')">
   <a class="nav-link" href="{{route('admin.lampiran-penawaran.index')}}">
@@ -97,18 +75,6 @@
     <span>Lampiran</span>
   </a>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="{{route('logout')}}" onclick="event.preventDefault();
-    document.getElementById('logout-form').submit();">
-    <i class="fas fa-sign-out-alt    "></i>
-    <span>Keluar</span>
-        </a>
-
-  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-    @csrf
-  </form>
-</li>
-
     <li class="nav-item dropdown @yield('status-penetapan')">
       <a class="nav-link nav-link has-dropdown" href="#">
         <i class="fas fa-hammer"></i>
@@ -119,19 +85,9 @@
           <a class="nav-link @yield('status-penetapan')" href="{{route('admin.nominasi.index')}}">Nominasi Rangking</a>
         </li>
         <li>
-          <a class="nav-link @yield('status-penetapan')" href="{{ url ('/pnominasis') }}">Penetapan Lolos</a>
-        </li>
-        <li>
-          <a class="nav-link @yield('status-penetapan')" href="{{ url ('/pengusulan') }}">Pengusulan Nominasi</a>
+          <a class="nav-link @yield('status-penetapan')" href="{{route('admin.penetapan.index')}}">Penetapan Lolos</a>
         </li>
       </ul>
-    </li>
-    <!-- Nav Item - Lampiran -->
-    <li class="nav-item @yield('status-lampiran')">
-      <a class="nav-link" href="{{route('admin.lampiran-penawaran.index')}}">
-        <i class="fas fa-paperclip    "></i>
-        <span>Lampiran</span>
-      </a>
     </li>
     @endcan
     @guest

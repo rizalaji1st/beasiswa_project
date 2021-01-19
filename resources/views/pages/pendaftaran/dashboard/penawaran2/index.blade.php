@@ -1,4 +1,4 @@
-@extends('layouts.stisla')
+@extends('layouts.adminuniv')
 @section('title', 'Penawaran Beasiswa')
 @section('status-beasiswa', 'active')
 @section('content')
