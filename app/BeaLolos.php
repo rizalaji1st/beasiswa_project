@@ -15,7 +15,6 @@ class BeaLolos extends Model
         'id',
         'id_penawaran',
         'nama_prodi',
-        'nama_fakultas',
         'nim',
         'nama',
         'semester',
