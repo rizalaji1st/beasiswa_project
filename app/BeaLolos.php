@@ -26,5 +26,6 @@ class BeaLolos extends Model
         'pekerjaan_ibu',
         'pendidikan_ayah',
         'pendidikan_ibu',
+        'jumlah_tanggungan'
     ];
 }
