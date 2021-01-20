@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBeaLolosTable extends Migration
+class CreateTabelBeaLolos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateBeaLolosTable extends Migration
      */
     public function up()
     {
-        Schema::create('bea_lolos', function (Blueprint $table) {
-            $table->integer('id');
+        Schema::table('bea_lolos', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('id_penawaran');
             $table->foreign('id_penawaran')->references('id_penawaran')->on('bea_penawaran_kriteria')->onDelete('cascade');
             $table->string('nama_prodi');
@@ -41,6 +41,8 @@ class CreateBeaLolosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bea_lolos');
+        Schema::table('bea_lolos', function (Blueprint $table) {
+            $table->dropIfExists('bea_lolos');
+        });
     }
 }

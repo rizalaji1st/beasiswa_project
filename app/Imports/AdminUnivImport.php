@@ -17,7 +17,6 @@ class AdminUnivImport implements ToModel
     public function model(array $row)
     {
         return new BeaLolos([
-            'id' => $row[0],
             'id_penawaran' =>$row[1],
             'nama_prodi' => $row[2],
             'nim' => $row[3],

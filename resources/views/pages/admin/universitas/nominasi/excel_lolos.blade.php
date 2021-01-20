@@ -24,7 +24,7 @@
     @php $no = 1 @endphp
     @foreach($pendaftaran as $n)
         <tr>
-            <td>{{ $no++ }}</td>
+            <td></td>
             <td>{{ $n->id_penawaran }}</td>
             <td>{{$n->users->RefProdi->nama_prodi}}</td>
             <td>{{ $n->nim}}</td>

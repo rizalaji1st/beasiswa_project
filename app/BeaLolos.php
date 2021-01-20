@@ -12,7 +12,6 @@ class BeaLolos extends Model
     //use SoftDeletes;
     protected $table = 'bea_lolos';
     protected $fillable = [
-        'id',
         'id_penawaran',
         'nama_prodi',
         'nim',

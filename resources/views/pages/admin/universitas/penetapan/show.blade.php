@@ -14,7 +14,7 @@
         </div>
     
         <div class="container">
-<div class="text-center"><h2>Daftar Penetapan Lolos Seleksi Beasiswa</h2>
+<div class="text-center"><h2>Daftar Lolos Seleksi Beasiswa</h2>
 <table class='table table-bordered'>
 <div class="text-right">
 <!-- <a href=""  class="btn btn-primary" target="_blank">CETAK PDF</a> -->

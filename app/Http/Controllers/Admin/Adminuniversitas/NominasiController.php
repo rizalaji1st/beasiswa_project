@@ -213,7 +213,7 @@ class NominasiController extends Controller
                 ];
             }
 
-            $hasil = ($result_tanggungan['skor'] * $bobot_tanggungan['bobot']) +
+            $hasil= ($result_tanggungan['skor'] * $bobot_tanggungan['bobot']) +
                 ($result_status_rumah['skor'] * $bobot_status_rumah['bobot']) +
                 ($result_penghasilan_ayah['skor'] * $bobot_penghasilan_ayah['bobot']) +
                 ($result_penghasilan_ibu['skor'] * $bobot_penghasilan_ibu['bobot']) +
@@ -230,8 +230,8 @@ class NominasiController extends Controller
         $price = array_column($result, 0);
 
         array_multisort($price, SORT_DESC, $result);
-        //array_multisort($hasil, SORT_DESC, $hasil);
         //dd($result);
+        
         return view('pages.admin.universitas.nominasi.show', compact('pendaftaran', 'status', 'result'));
     }
 
