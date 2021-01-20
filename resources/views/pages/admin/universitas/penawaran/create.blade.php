@@ -1,8 +1,11 @@
 @extends('layouts.adminuniv')
 @section('title', 'Tambah Penawaran')
+@section('status-penawaran', 'active')
 @section('content')
-<div class="container col-10 mb-5 mt-5">
-    <h1>Tambah Penawaran Beasiswa</h1>
+<div class="container col-10 mb-5">
+    <div class="section-header">
+        <h1>Tambah Penawaran Beasiswa</h1>
+    </div>
     <h3 class="mt-5 mb-3">Informasi Umum</h3>
     <form method="post" action="{{route('admin.penawarans.index')}}" enctype="multipart/form-data" id="form-penawaran"
         name="penawaran" onsubmit="return validated()" autocomplete="off">
@@ -378,7 +381,7 @@
         <div class="form-group" id="form-penilaian">
             <label for="penilaian">Masukkan Bobot Penilaian</label>
         </div>
-        <button type="button" class="btn btn-secondary btn-penilaian mb-4"><i class="fa fa-plus-circle"
+        <button type="button" class="btn btn-primary btn-penilaian mb-4 btn-sm"><i class="fa fa-plus-circle"
                 aria-hidden="true"></i>Tambah</button>
         <div class="form-group">
             <input type="text" name="myCountPenilaian" id="myCountPenilaian" hidden>
@@ -392,7 +395,7 @@
             
         </div>
 
-        <button type="button" class="btn btn-secondary click mb-4"><i class="fa fa-plus-circle"
+        <button type="button" class="btn btn-primary click mb-4 btn-sm"><i class="fa fa-plus-circle"
                 aria-hidden="true"></i>Tambah</button>
         <div class="form-group">
             <input type="text" name="myCount" id="myCount" hidden>
@@ -405,7 +408,7 @@
             <label for="lampiran_pendaftar">Lampiran Pendaftar</label>
             <p for="lampiran_pendaftar" style="color: #bdbdbd">*masukkan dokumen yang harus diupload pendaftar</p>
         </div>
-        <button type="button" class="btn btn-secondary tambah-lampiran-pendaftar mb-4"><i class="fa fa-plus-circle"
+        <button type="button" class="btn btn-primary tambah-lampiran-pendaftar mb-4 btn-sm"><i class="fa fa-plus-circle"
                 aria-hidden="true"></i>Tambah</button>
         <br>
         <br>

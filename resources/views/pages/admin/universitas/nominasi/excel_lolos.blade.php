@@ -33,8 +33,8 @@
             <td>{{ $n->status_ayah}}</td>
             <td>{{ $n->status_ibu}}</td>
             <td>{{ $n->status_rumah}}</td>
-            <td>{{ $n->gaji_ayah}}</td>
-            <td>{{ $n->gaji_ibu}}</td>
+            <td>{{ $n->penghasilan_ayah}}</td>
+            <td>{{ $n->penghasilan_ibu}}</td>
             <td>{{ $n->pekerjaan_ayah}}</td>
             <td>{{ $n->pekerjaan_ibu}}</td>
             <td>{{ $n->pendidikan_ayah}}</td>

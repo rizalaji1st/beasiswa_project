@@ -1,102 +1,106 @@
 @extends('layouts.adminuniv')
 @section('title', 'Admin Universitas')
 @section('status-verifikasi', 'active')
-@section('content')
-  @foreach ($pendaftars as $pendaftar)
-    <div class="modal fade" tabindex="-1" id="modalVerifikasi{{$pendaftar->id_pendaftar}}">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <form action="{{route('admin.verifikasi.update',$beasiswa->id_penawaran)}}" method="POST">
-            @csrf
-            @method('PUT')
-          <div class="modal-header">
-            <h5 class="modal-title">Detail Pendaftar</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <table class="table table-bordered">
-              <tr>
-                <td scope="col">ID Pendaftar</td>
-                <td scope="col">{{$pendaftar->id_pendaftar}}</td>
-              </tr>
-              <tr hidden>
-                <td><input type="text" name="noPendaftar" value="{{$pendaftar->id_pendaftar}}"></td>
-              </tr>
-              <tr>
-                <td scope="col">Nama</td>
-                <td scope="col">{{$pendaftar->userPendaftar->name}}</td>
-              </tr>
-              <tr>
-                <td scope="col">NIM</td>
-                <td scope="col">{{$pendaftar->nim}}</td>
-              </tr>
-              <tr>
-                <td scope="col">Prodi</td>
-                <td scope="col">{{$pendaftar->userPendaftar->userProdi->nama_prodi}}</td>
-              </tr>
-              <tr>
-                <td scope="col">Semester</td>
-                <td scope="col">{{$pendaftar->userPendaftar->semester}}</td>
-              </tr>
-              <tr>
-                <td scope="col">IPS</td>
-                <td scope="col">{{$pendaftar->ips}}</td>
-              </tr>
-              <tr>
-                <td scope="col">IPK</td>
-                <td scope="col">{{$pendaftar->ipk}}</td>
-              </tr>
-              <tr>
-                <td scope="col">Penghasilan</td>
-                <td scope="col">{{$pendaftar->penghasilan}}</td>
-              </tr>
-              <tr>
-                <td scope="col">Status Verifikasi</td>
-                <td scope="col">
-                  <div class="form-group">
-                    <select class="custom-select form-control fstdropdown-select" name="status_verifikasi"
-                        id="id_jenis_beasiswa" value="{{$pendaftar->is_verified}}" required>
-                        
-                        <option value="menunggu verifikasi"
-                            {{"menunggu verifikasi" == $pendaftar->is_verified ? "selected":"" }}>Mengunggu Verifikasi
-                        </option>
-                        <option value="terverifikasi"
-                            {{"terverifikasi" == $pendaftar->is_verified ? "selected":"" }}>Terverifikasi
-                        </option>
-                        <option value="ditolak"
-                            {{"ditolak" == $pendaftar->is_verified ? "selected":"" }}>Ditolak
-                        </option>
-                        <option value="perbaikan"
-                            {{"perbaikan" == $pendaftar->is_verified ? "selected":"" }}>Perbaikan
-                        </option>
-                        
-                    </select>
-                </div>
-                </td>
-              </tr>
-              <tr>
-                <td scope="col">Catatan Verifikasi</td>
-                <td scope="col">
-                  <textarea name="catatan" id="catatan" cols="30" rows="5" class="form-control">{{$pendaftar->verified_note}}</textarea>
-                </td>
-              </tr>
-            </table>
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Simpan</button>
-            </div>
-          </form>
-        </div>
+@section('modal')
+@foreach ($pendaftars as $pendaftar)
+<div class="modal fade" tabindex="-1" id="modalVerifikasi{{$pendaftar->id_pendaftar}}" style="z-index: 1040 !important;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form action="{{route('admin.verifikasi.update',$beasiswa->id_penawaran)}}" method="POST">
+        @csrf
+        @method('PUT')
+      <div class="modal-header">
+        <h5 class="modal-title">Detail Pendaftar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <tr>
+            <td scope="col">ID Pendaftar</td>
+            <td scope="col">{{$pendaftar->id_pendaftar}}</td>
+          </tr>
+          <tr hidden>
+            <td><input type="text" name="noPendaftar" value="{{$pendaftar->id_pendaftar}}"></td>
+          </tr>
+          <tr>
+            <td scope="col">Nama</td>
+            <td scope="col">{{$pendaftar->userPendaftar->name}}</td>
+          </tr>
+          <tr>
+            <td scope="col">NIM</td>
+            <td scope="col">{{$pendaftar->nim}}</td>
+          </tr>
+          <tr>
+            <td scope="col">Prodi</td>
+            <td scope="col">{{$pendaftar->userPendaftar->kode_prodi}}</td>
+          </tr>
+          <tr>
+            <td scope="col">Semester</td>
+            <td scope="col">{{$pendaftar->userPendaftar->semester}}</td>
+          </tr>
+          <tr>
+            <td scope="col">IPS</td>
+            <td scope="col">{{$pendaftar->ips}}</td>
+          </tr>
+          <tr>
+            <td scope="col">IPK</td>
+            <td scope="col">{{$pendaftar->ipk}}</td>
+          </tr>
+          <tr>
+            <td scope="col">Penghasilan</td>
+            <td scope="col">{{$pendaftar->penghasilan}}</td>
+          </tr>
+          <tr>
+            <td scope="col">Status Verifikasi</td>
+            <td scope="col">
+              <div class="form-group">
+                <select class="custom-select form-control fstdropdown-select" name="status_verifikasi"
+                    id="id_jenis_beasiswa" value="{{$pendaftar->is_verified}}" required>
+                    
+                    <option value="menunggu verifikasi"
+                        {{"menunggu verifikasi" == $pendaftar->is_verified ? "selected":"" }}>Mengunggu Verifikasi
+                    </option>
+                    <option value="terverifikasi"
+                        {{"terverifikasi" == $pendaftar->is_verified ? "selected":"" }}>Terverifikasi
+                    </option>
+                    <option value="ditolak"
+                        {{"ditolak" == $pendaftar->is_verified ? "selected":"" }}>Ditolak
+                    </option>
+                    <option value="perbaikan"
+                        {{"perbaikan" == $pendaftar->is_verified ? "selected":"" }}>Perbaikan
+                    </option>
+                    
+                </select>
+            </div>
+            </td>
+          </tr>
+          <tr>
+            <td scope="col">Catatan Verifikasi</td>
+            <td scope="col">
+              <textarea name="catatan" id="catatan" cols="30" rows="5" class="form-control">{{$pendaftar->verified_note}}</textarea>
+            </td>
+          </tr>
+        </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </form>
     </div>
-  @endforeach
+  </div>
+</div>
+@endforeach
+@endsection
+@section('content')
     <div class="container ">
       @include('includes.flashmessage')
-        <h1>Penawaran {{$beasiswa->nama_penawaran}}</h1>
+        <div class="section-header">
+          <h1>Penawaran {{$beasiswa->nama_penawaran}}</h1>
+        </div>
         <div class="card shadow mb-4">
           <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Daftar Beasiswa Aktif</h6>
@@ -134,7 +138,7 @@
                     <td scope="col" >{{$pendaftar->id_pendaftar}}</td>
                     <td scope="col" >{{$pendaftar->created_at}}</td>
                     <td scope="col" >{{$pendaftar->userPendaftar->name}}</td>
-                    <td scope="col" >{{$pendaftar->userPendaftar->userProdi->nama_prodi}}</td>
+                    <td scope="col" >{{$pendaftar->userPendaftar->kode_prodi}}</td>
                     
                     <td scope="col" >
                       @foreach ($pendaftar->pendaftaranUpload as $file)
@@ -164,13 +168,13 @@
           </div>
         </div>
     </div>
-
+    
 @endsection
-
 @push('addon-script')
     <script>
         $(document).ready(function() {
             $('#beasiswa').DataTable();
         } );
+        
     </script>
 @endpush

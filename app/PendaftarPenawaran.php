@@ -10,8 +10,8 @@ class PendaftarPenawaran extends Model
     protected $table = 'bea_pendaftar_penawaran';
     protected $primaryKey = 'id_pendaftar';
     protected $fillable = ['id_pendaftar',
+                            'id_penawaran', 
                             'id_user',
-                            'id_penawaran',
                             'nim',
                             'ips',
                             'ipk',
@@ -25,13 +25,20 @@ class PendaftarPenawaran extends Model
                             'pekerjaan_ibu',
                             'jumlah_tanggungan',
                             'semester',
+                            'gaji_ayah',
+                            'gaji_ibu',
+                            'create_at',
+                            'create_by',
+                            'finalized_at',
+                            'finalized_by',
+                            'is_verified'
                                                     
                         ];
 
     public function refFakultas(){
         return $this->hasManyThrough('App\References\RefFakultas','App\PenawaranKuotaFakultas', 'id_penawaran','id_fakultas','id_penawaran','id_fakultas');
     }
-        public function mahasiswa() {
+    public function mahasiswa() {
         $this->belongsTo(Mahasiswa::class, 'nim', 'nim');
     }
 

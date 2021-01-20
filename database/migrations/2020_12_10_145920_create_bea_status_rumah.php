@@ -17,7 +17,6 @@ class CreateBeaStatusRumah extends Migration
             $table->bigIncrements('id_status_rumah');
             $table->unsignedBigInteger('id_kriteria');
             $table->foreign('id_kriteria')->references('id_kriteria')->on('bea_penawaran_kriteria')->onDelete('cascade');
-            $table->integer('id_kriteria');
             $table->string('status');
             $table->integer('skor');
             $table->timestamps();

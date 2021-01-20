@@ -1,5 +1,6 @@
 @extends('layouts.adminuniv')
 @section('title', 'Ubah Penawaran')
+@section('status-penawaran', 'active')
 @section('content')
     <div class="container col-10 mb-5 mt-5">
         <h1>Edit {{$penawaran->nama_penawaran}}</h1>
@@ -469,7 +470,7 @@
                     </div>
                 @endforeach
             </div>
-            <button  type="button" class="btn btn-secondary btn-penilaian mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
+            <button  type="button" class="btn btn-primary btn-sm btn-penilaian mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
             <div class="form-group">
                 <input type="text" name="myCountPenilaian" id="myCountPenilaian" hidden>
             </div>
@@ -529,7 +530,7 @@
                 @endforeach
             </div>
 
-            <button  type="button" class="btn btn-secondary click mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
+            <button  type="button" class="btn btn-primary btn-sm click mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
 
 
             <div class="form-group" id="lampiran-pendaftar">
@@ -567,7 +568,7 @@
                 @endforeach
             </div>
 
-            <button  type="button" class="btn btn-secondary tambah-lampiran-pendaftar mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
+            <button  type="button" class="btn btn-primary btn-sm tambah-lampiran-pendaftar mb-4"><i class="fa fa-plus-circle" aria-hidden="true"></i>Tambah</button>
             
             <div class="form-group">
                 <input type="text" name="myCount" id="myCount" hidden>

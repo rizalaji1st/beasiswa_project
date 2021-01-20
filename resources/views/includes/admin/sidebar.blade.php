@@ -1,92 +1,73 @@
-<!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-  <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.penawarans.index')}}">
-    <div class="sidebar-brand-text mx-3">Admin Beasiswa</sup></div>
-  </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-        <!-- Nav Item - Beranda -->
-        <li class="nav-item">
-          <a class="nav-link" href="{{url('/')}}">
-            <i class="fas fa-home    "></i>
-            <span>Beranda</span>
-          </a>
-        </li>
-        <!-- Nav Item - Hak akses -->
-        <li class="nav-item @yield('status-akses')">
-          <a class="nav-link" href="{{url('/users')}}" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <i class="fas fa-shield-alt"></i>
-            <span>Daftar Hak Akses</span>
-          </a>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              @can('manage-users')
-                <a class="collapse-item" href="{{route('admin.users.index')}}"><i class="fa fa-users" aria-hidden="true"></i>  Manage Users</a>
-              @endcan
-              <h6 class="collapse-header">Status:</h6>
-              @can('edit-users')
-                <div class="collapse-item" href="">Super User <span class="badge badge-primary">Aktif</span></div>
-              @endcan
-              @can('adminuniversitas-users')
-                <div class="collapse-item" href="">Admin Universitas <span class="badge badge-primary">Aktif</span></div>
-              @endcan
-              @can('adminfakultas-users')
-                <div class="collapse-item" href="{{route('admin.fakultas.index')}}">Admin Fakultas <span class="badge badge-primary">Aktif</span></div>
-              @endcan
-                <div class="collapse-item" href="">General Users <span class="badge badge-primary">Aktif</span></div>
-
-      </div>
+<div class="main-sidebar">
+  <aside id="sidebar-wrapper">
+    <div class="sidebar-brand">
+      <a href="{{url('/')}}">Beasiswa UNS</a>
     </div>
-  </li>
-
-
-  <!-- Divider -->
-  <hr class="sidebar-divider">
-
-  <!-- Heading -->
-  <div class="sidebar-heading">
-    Admin Universitas
-  </div>
-
-  <!-- Nav Item - Penawaran -->
-  <li class="nav-item @yield('status-penawaran')">
-    <a class="nav-link" href="{{route('admin.penawarans.index')}}">
-      <i class="fa fa-list-alt" aria-hidden="true"></i>
-      <span>Penawaran</span>
-    </a>
-  </li>
+    <div class="sidebar-brand sidebar-brand-sm">
+      <a href="{{url('/')}}">UNS</a>
+    </div>
+    <ul class="sidebar-menu">
+      <li class="menu-header">Menu Utama</li>
+      {{-- beranda --}}
+      <li class="@yield('status-beasiswa')">
+        <a class="nav-link" href="{{url('/')}}">
+          <i
+            class="fas fa-graduation-cap"></i><span>Beasiswa Aktif</span>
+        </a>
+      </li>
+      @can('manage-users')
+      <li>
+        <a class="nav-link" href="{{url('/pendaftar/pengumuman')}}"><i
+        class="fas fa-bullhorn"></i><span>Pengumuman</span></a>
+      </li>
+      <!-- Nav Item - Hak akses -->
+      <li class="nav-item dropdown @yield('status-akses')">
+        <a href="#" class="nav-link has-dropdown">
+          <i class="fas fa-shield-alt"></i>
+          <span>Daftar Hak Akses</span></a>
+        <ul class="dropdown-menu">
+          @can('manage-users')
+          <li>
+            <a class="nav-link @yield('status-akses')" href="{{route('admin.users.index')}}"><i class="fa fa-users" aria-hidden="true"></i>  Manage Users</a>
+          </li>
+          @endcan
+          @can('edit-users')
+          <li>
+            <a  class="nav-link" href="">Super User <i class="fa fa-check-circle text-success" aria-hidden="true"></i></a>
+          </li>
+          @endcan
+          @can('adminuniversitas-users')
+          <li>
+            <a class="nav-link" href="">Admin Universitas <i class="fa fa-check-circle text-success" aria-hidden="true"></i></a>
+          </li>
+          @endcan
+          @can('adminfakultas-users')
+          <li>
+            <a class="nav-link" href="">Admin Fakultas <i class="fa fa-check-circle text-success" aria-hidden="true"></i></a>
+          </li>
+          @endcan
+          <li>
+            <a class="nav-link" href="">General Users <i class="fa fa-check-circle text-success" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </li>
+      @endcan
+      @can('adminuniversitas-users')
+      <li class="menu-header">Admin Universitas</li>
+    <!-- Nav Item - Penawaran -->
+    <li class="nav-item @yield('status-penawaran')">
+      <a class="nav-link" href="{{route('admin.penawarans.index')}}">
+        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+        <span>Penawaran</span>
+      </a>
+    </li>
     <!-- Nav Item - Verifikasi -->
     <li class="nav-item @yield('status-verifikasi')">
       <a class="nav-link" href="{{route('admin.verifikasi.index')}}">
-        <i class="fas fa-file-signature    "></i>
+        <i class="fas fa-signature    "></i>
         <span>Verifikasi</span>
       </a>
     </li>
-  <!-- Nav Item - Monitoring Universitas -->
-  <li class="nav-item @yield('status-penetapan')">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"aria-controls="collapseTwo">
-    <i class="fas fa-hammer    "></i>
-    <span>Monitoring Universitas</span>
-  </a>
-  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-    <div class="bg-white py-2 collapse-inner rounded">
-    </a>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Menu:</h6>
-        <a class="collapse-item" href="{{route('admin.nominasi.index')}}">Nominasi Rangking</a>
-        <a class="collapse-item" href="{{route('admin.penetapan.index')}}">Penetapan Lolos</a>
-        <!-- <a class="dropdown-item" href="{{ url ('/pengusulans') }}">Pengusulan Nominasi</a> -->
-      </div>
-    </div>
-  </div>
-</li>
-
-
-
 <!-- Nav Item - Lampiran -->
 <li class="nav-item @yield('status-lampiran')">
   <a class="nav-link" href="{{route('admin.lampiran-penawaran.index')}}">
@@ -94,27 +75,44 @@
     <span>Lampiran</span>
   </a>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="{{route('logout')}}" onclick="event.preventDefault();
-    document.getElementById('logout-form').submit();">
-    <i class="fas fa-sign-out-alt    "></i>
-    <span>Keluar</span>
-        </a>
-
-  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-    @csrf
-  </form>
-</li>
-
-
-
-  <!-- Divider -->
-  <hr class="sidebar-divider d-none d-md-block">
-
-  <!-- Sidebar Toggler (Sidebar) -->
-  <div class="text-center d-none d-md-inline">
-    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-  </div>
-
-</ul>
+    <li class="nav-item dropdown @yield('status-penetapan')">
+      <a class="nav-link nav-link has-dropdown" href="#">
+        <i class="fas fa-hammer"></i>
+        <span>Monitoring</span>
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <a class="nav-link @yield('status-penetapan')" href="{{route('admin.nominasi.index')}}">Nominasi Rangking</a>
+        </li>
+        <li>
+          <a class="nav-link @yield('status-penetapan')" href="{{route('admin.penetapan.index')}}">Penetapan Lolos</a>
+        </li>
+      </ul>
+    </li>
+    @endcan
+    @guest
+    <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+      <a href="{{route('login')}}" class="btn btn-primary btn-lg btn-block btn-icon-split">
+        <i class="fas fa-sign-in-alt    "></i> Masuk
+      </a>
+    </div>
+    @endguest
+    @auth
+    <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+      <a class="btn btn-primary btn-lg btn-block btn-icon-split" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+        <i class="fas fa-sign-out-alt    "></i>
+        {{ __('Keluar') }}
+      </a>
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+      </form>
+    </div>
+    @endauth
+      {{-- end of user sidebar--}}
+    </ul>
+    
+    
+  </aside>
+</div>
 <!-- End of Sidebar -->

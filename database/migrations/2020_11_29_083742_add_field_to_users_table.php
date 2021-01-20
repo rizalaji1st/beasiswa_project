@@ -29,12 +29,12 @@ class AddFieldToUsersTable extends Migration
             $table->string('status_ayah')->nullable();
             $table->string('pend_ayah')->nullable();
             $table->string('pekerjaan_ayah')->nullable();
-            $table->string('gaji_ayah')->nullable();
+            $table->string('penghasilan_ayah')->nullable();
             $table->string('nama_ibu')->nullable();
             $table->string('status_ibu')->nullable();
             $table->string('pend_ibu')->nullable();
             $table->string('pekerjaan_ibu')->nullable();
-            $table->string('gaji_ibu')->nullable();
+            $table->string('penghasilan_ibu')->nullable();
             $table->integer('jml_tanggungan')->nullable();
             $table->string('status_rumah')->nullable();
             $table->softDeletes();

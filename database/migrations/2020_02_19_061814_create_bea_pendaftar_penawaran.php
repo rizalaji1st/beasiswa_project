@@ -30,8 +30,8 @@ class CreateBeaPendaftarPenawaran extends Migration
             $table->string('pendidikan_ibu'); //Tidak Sekolah, SD/MI / Sederajat, SMP/MTs / Sederajat, SMA/MA / Sederajat, D1 / Sederajat, D2 / Sederajat, D3 / Sederajat, D4/S1 / Sederajat, S2/Sp1 / Sederajat
             $table->string('pekerjaan_ayah');//TIDAK BEKERJA, Lainnya, Petani, Wirausaha, Peg. Swasta, PNS, TNI / POLRI
             $table->string('pekerjaan_ibu');//TIDAK BEKERJA, Lainnya, Petani, Wirausaha, Peg. Swasta, PNS, TNI / POLRI
-            $table->integer('gaji_ayah');
-            $table->integer('gaji_ibu');
+            $table->integer('penghasilan_ayah');
+            $table->integer('penghasilan_ibu');
             $table->integer('jumlah_tanggungan');
             $table->integer('semester');
             $table->boolean('is_finalisasi')->nullable();
