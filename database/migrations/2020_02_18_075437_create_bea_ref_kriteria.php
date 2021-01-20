@@ -14,7 +14,7 @@ class CreateBeaRefKriteria extends Migration
     public function up()
     {
         Schema::create('bea_ref_kriteria', function (Blueprint $table) {
-            $table->bigIncrements('id_jenis_kriteria');
+            $table->string('id_jenis_kriteria')->unique();
             $table->string('nama_kriteria');
             $table->softDeletes();
             $table->timestamps();

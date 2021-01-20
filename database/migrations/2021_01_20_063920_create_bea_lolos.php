@@ -13,7 +13,7 @@ class CreateBeaLolos extends Migration
      */
     public function up()
     {
-        Schema::table('bea_lolos', function (Blueprint $table) {
+        Schema::create('bea_lolos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_penawaran');
             $table->foreign('id_penawaran')->references('id_penawaran')->on('bea_penawaran')->onDelete('cascade');
