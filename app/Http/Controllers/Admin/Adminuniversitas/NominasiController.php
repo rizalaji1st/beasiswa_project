@@ -39,7 +39,7 @@ class NominasiController extends Controller
      */
     public function index()
     { 
-        $beasiswas = Penawaran::orderBy('id_penawaran', 'ASC')->get();
+        $beasiswas = Penawaran::orderBy('id_penawaran', 'ASC')->get();;
                                                             //nama variabel => nama data
         return view('pages.admin.universitas.nominasi.index', ['beasiswas' => $beasiswas]);
         //dump('pages.admin.universitas.nominasi.index', ['beasiswas' => $beasiswas]);

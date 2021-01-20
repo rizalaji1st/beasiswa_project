@@ -21,11 +21,15 @@ class BeaLolos extends Model
         'status_ayah',
         'status_ibu',
         'status_rumah',
-        'gaji_ayah',
-        'gaji_ibu',
+        'penghasilan_ayah',
+        'penghasilan_ibu',
         'pekerjaan_ayah',
         'pekerjaan_ibu',
         'pendidikan_ayah',
         'pendidikan_ibu',
+<<<<<<< HEAD
+=======
+        'jumlah_tanggungan'
+>>>>>>> c055ac4e7041826aa436f939458d3cbabac13897
     ];
 }

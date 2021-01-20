@@ -3,7 +3,6 @@
 namespace App\Imports;
 
 use App\BeaLolos; 
-use App\PendaftarPenawaran; 
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class AdminUnivImport implements ToModel
@@ -17,8 +16,7 @@ class AdminUnivImport implements ToModel
     public function model(array $row)
     {
         return new BeaLolos([
-            'id' => $row[0],
-            'id_penawaran' =>$row[1],
+            'id_penawaran' => $row[1],
             'nama_prodi' => $row[2],
             'nim' => $row[3],
             'nama' => $row[4],
@@ -26,12 +24,15 @@ class AdminUnivImport implements ToModel
             'status_ayah' => $row[6],
             'status_ibu' => $row[7],
             'status_rumah' => $row[8],
-            'gaji_ayah' => $row[9],
-            'gaji_ibu' => $row[10],
+            'penghasilan_ayah' => $row[9],
+            'penghasilan_ibu' => $row[10],
             'pekerjaan_ayah' => $row[11],
             'pekerjaan_ibu' => $row[12],
             'pendidikan_ayah' => $row[13],
             'pendidikan_ibu' => $row[14],
-            ]);
-        }
+            'jumlah_tanggungan' => $row[15],
+        ]);
     }
+}
+
+
