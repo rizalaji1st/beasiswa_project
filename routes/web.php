@@ -19,7 +19,7 @@ Auth::routes();
 Route::namespace('Admin')
         ->prefix('admin')
         ->name('admin.')
-        ->middleware('can:manage-users')
+        //->middleware('can:manage-users')
         ->group(function(){
             Route::resource('/users', 'UserController', ['except' => ['store','show', 'create']]);
             Route::resource('/penawarans', 'Adminuniversitas\PenawaranController');
