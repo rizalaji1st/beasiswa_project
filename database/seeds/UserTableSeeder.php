@@ -17,7 +17,6 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-       
         // DB::table('users')->insert([
         //     'name' => Str::random(10),
         //     'email' => Str::random(10).'@gmail.com',
@@ -83,12 +82,12 @@ class UserTableSeeder extends Seeder
             'status_ayah' => 'meninggal',
             'pend_ayah' => 'SMP/MTs / Sederajat',
             'pekerjaan_ayah' =>'PNS',
-            'gaji_ayah' => '2000000',
+            'penghasilan_ayah' => '2000000',
             'nama_ibu' => 'Sumarni',
             'status_ibu' => 'hidup',
             'pend_ibu' => 'SMP/MTs/Sederajat',
             'pekerjaan_ibu'=>'wirausaha',
-            'gaji_ibu' => '1000000',
+            'penghasilan_ibu' => '1000000',
             'jml_tanggungan' => '3',
             'status_rumah' => 'Sendiri',
         ]);
@@ -110,12 +109,12 @@ class UserTableSeeder extends Seeder
             'status_ayah' => 'Cerai',
             'pend_ayah' => 'SMP/MTs / Sederajat',
             'pekerjaan_ayah' =>'Pedagang',
-            'gaji_ayah' => '700000',
+            'penghasilan_ayah' => '700000',
             'nama_ibu' => 'Sumarni',
             'status_ibu' => 'Hidup',
             'pend_ibu' => 'S1',
             'pekerjaan_ibu'=>'wirausaha',
-            'gaji_ibu' => '700000',
+            'penghasilan_ibu' => '700000',
             'jml_tanggungan' => '3',
             'status_rumah' => 'Sendiri',
         ]);
@@ -137,12 +136,12 @@ class UserTableSeeder extends Seeder
             'status_ayah' => 'Hidup',
             'pend_ayah' => 'S2',
             'pekerjaan_ayah' =>'',
-            'gaji_ayah' => '7000000',
+            'penghasilan_ayah' => '7000000',
             'nama_ibu' => 'Wati',
             'status_ibu' => 'Hidup',
             'pend_ibu' => 'S1',
             'pekerjaan_ibu'=>'wirausaha',
-            'gaji_ibu' => '2000000',
+            'penghasilan_ibu' => '2000000',
             'jml_tanggungan' => '3',
             'status_rumah' => 'Sendiri',
         ]);
@@ -164,12 +163,12 @@ class UserTableSeeder extends Seeder
             'status_ayah' => 'hidup',
             'pend_ayah' => 'S3',
             'pekerjaan_ayah' =>'Dosen',
-            'gaji_ayah' => '8000000',
+            'penghasilan_ayah' => '8000000',
             'nama_ibu' => 'Wanti',
             'status_ibu' => 'hidup',
             'pend_ibu' => 'SMP/MTs / Sederajat',
             'pekerjaan_ibu'=>'wirausaha',
-            'gaji_ibu' => '2000000',
+            'penghasilan_ibu' => '2000000',
             'jml_tanggungan' => '2',
             'status_rumah' => 'Sendiri',
             
@@ -193,12 +192,12 @@ class UserTableSeeder extends Seeder
             'status_ayah' => 'hidup',
             'pend_ayah' => 'S3',
             'pekerjaan_ayah' =>'Dosen',
-            'gaji_ayah' => '8000000',
+            'penghasilan_ayah' => '8000000',
             'nama_ibu' => 'Wanti',
             'status_ibu' => 'hidup',
             'pend_ibu' => 'SMP/MTs / Sederajat',
             'pekerjaan_ibu'=>'wirausaha',
-            'gaji_ibu' => '2000000',
+            'penghasilan_ibu' => '2000000',
             'jml_tanggungan' => '2',
             'status_rumah' => 'Sendiri',
             
