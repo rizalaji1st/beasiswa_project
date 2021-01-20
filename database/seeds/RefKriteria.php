@@ -15,21 +15,23 @@ class RefKriteria extends Seeder
     {
         //
         $kriteria = array(
-            'Status Ayah (STA)',
-            'Status Ibu (STI)',
-            'Status Rumah (SR)',
-            'Pendidikan Ayah (SPA)',
-            'Pendidikan Ibu (SPI)',
-            'Pekerjaan Ayah (SKA)',
-            'Pekerjaan Ibu (SKI)',
-            'Tanggungan',
-            'Penghasilan Ayah',
-            'Penghasilan Ibu',
-            'Penghasilan',
+            ['Status Ayah (STA)','STA'],
+            ['Status Ibu (STI)','STI'],
+            ['Status Rumah (SR)','SR'],
+            ['Pendidikan Ayah (SPA)','SPA'],
+            ['Pendidikan Ibu (SPI)','SPI'],
+            ['Pekerjaan Ayah (SKA)','SKA'],
+            ['Pekerjaan Ibu (SKI)','SKI'],
+            ['Tanggungan','T'],
+            ['Penghasilan Ayah','PA'],
+            ['Penghasilan Ibu','PI'],
+            ['Penghasilan','P'],
         );
+
         foreach ($kriteria as $item) {
             DB::table('bea_ref_kriteria')->insert([
-                'nama_kriteria' => $item,
+                'id_jenis_kriteria' => $item[0],
+                'nama_kriteria' => $item[1],
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);

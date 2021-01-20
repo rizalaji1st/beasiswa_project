@@ -51,13 +51,6 @@ class RefProdiSeeder extends Seeder
             '7',
             '7',
         );
-        foreach ($namaProdi as $item) {
-            DB::table('bea_ref_kriteria')->insert([
-                'nama_kriteria' => $item,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
-        }
         for($i=0; $i <10;$i++){
             DB::table('bea_ref_prodi')->insert([
                 'kode_prodi' => $kodeProdi[$i],
