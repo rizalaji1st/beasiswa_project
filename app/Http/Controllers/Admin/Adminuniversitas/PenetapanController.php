@@ -95,4 +95,4 @@ class PenetapanController extends Controller
 		return view('pages.admin.universitas.penetapan.index');
         }
 	}
-}
+
