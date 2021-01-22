@@ -13,6 +13,6 @@ class RefKriteria extends Model
     protected $fillable = [ 'id_jenis_kriteria' ,'nama_kriteria'];
 
     public function RefSkor(){
-        return $this->hasMany('App\References\RefSkor', 'id_jenis_kriteria');
+        return $this->hasMany('App\References\RefSkor', 'id_jenis_kriteria', 'id_jenis_kriteria');
     }
 }

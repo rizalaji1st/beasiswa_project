@@ -12,6 +12,6 @@ class RefSkor extends Model
     protected $fillable = [ 'id_jenis_kriteria' ,'nama_skor', 'skor'];
 
     public function RefKriteria(){
-        return $this->belongsTo('App\References\RefKriteria', 'id_jenis_kriteria');
+        return $this->belongsTo('App\References\RefKriteria', 'id_jenis_kriteria', 'id_jenis_kriteria');
     }
 }

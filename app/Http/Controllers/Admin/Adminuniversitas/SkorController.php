@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin\Adminuniversitas;
 
 use App\References\RefSkor;
+use App\References\RefKriteria;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 
 class SkorController extends Controller
 {
@@ -13,10 +15,16 @@ class SkorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        return $this->middleware('auth');
+    }
+
     public function index()
     {
+        $refKriterias = RefKriteria::all();
         $refSkor = RefSkor::all();
-        return view('pages.admin.universitas.skor.tambah_skor', ['skor'=>$refSkor]);
+        return view('pages.admin.universitas.skor.tambah_skor', compact('refKriterias', 'refSkor'));
     }
 
     /**
@@ -36,10 +44,16 @@ class SkorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        $kriteria = RefKriteria::all();
+        //$kriteria = RefKriteria::create($request->all());
+        // $kriteria->RefKriteria()->sync($request->input('id_jenis_kriteria', []));
+        // if($request->isMethod('post')){
+        //     return $request->roles;
+        // }
         RefSkor::create([
-            'id_skor'=>$request->id_skor,
-            'id_jenis_kriteria'=>$request->id_jenis_kriteria, 
+            //'id_skor'=>$request->id_skor,
+            'id_jenis_kriteria'=>$request->id_jenis_kriteria,
             'nama_skor'=>$request->nama_skor,
             'skor'=>$request->skor
         ]);
@@ -78,15 +92,15 @@ class SkorController extends Controller
     public function update(Request $request, RefSkor $refSkor)
     {
         $request->validate([
-            'id_skor'=>'required',
+            //'id_skor'=>'required',
             'id_jenis_kriteria' => 'required', 
             'nama_skor' => 'required',
             'skor'=>'required'
         ]);
 
-        RefSkor::where('id_skor', $refSkor->id_skor)
+        RefSkor::where('id_skor', $request->id_skor)
         ->update([
-            'id_skor'=>$request->id_skor,
+            //'id_skor'=>$request->id_skor,
             'id_jenis_kriteria' => $request->id_jenis_kriteria,
             'nama_skor' => $request->nama_skor,
             'skor'=>$request->skor
