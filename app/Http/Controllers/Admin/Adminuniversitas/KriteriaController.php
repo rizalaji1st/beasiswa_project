@@ -80,16 +80,12 @@ class KriteriaController extends Controller
      */
     public function update(Request $request, RefKriteria $refKriteria)
     {
-        $request->validate([
-            'id_jenis_kriteria' => 'required', 
-            'nama_kriteria' => 'required',
-        ]);
+        
 
         RefKriteria::where('id_jenis_kriteria', $refKriteria->id_jenis_kriteria)
-        ->update([
-            'id_jenis_kriteria' => $request->id_jenis_kriteria,
-            'nama_kriteria' => $request->nama_kriteria
-        ]);
+                    ->update([
+                        'nama_kriteria' => $request->nama_kriteria
+                    ]);
         return redirect(route('admin.kriteria.index'))->with('success', 'Data berhasil diubah');
 
     }
