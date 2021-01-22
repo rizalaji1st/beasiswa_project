@@ -78,6 +78,7 @@
                       <form action="{{route('admin.lampiran-penawaran.destroy',$lampiran->id_jenis_file)}}" method="POST" class="d-inline">
                         @method('Delete')
                         @csrf
+                        <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#lampiranUpdateModal{{$lampiran->id_jenis_file}}"><i class="fas fa-pencil-alt    "></i></button>
                         <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure ?')"><i class="fas fa-trash-alt"></i></button>
                       </form>
                     </td>
@@ -90,6 +91,49 @@
         </div>
     </div>
 
+@endsection
+@section('modal')
+  @foreach ($lampirans as $lampiran)    
+  <div class="modal fade" id="lampiranUpdateModal{{$lampiran->id_jenis_file}}" tabindex="-1" aria-labelledby="lampiranModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="lampiranModalLabel">Tambah lampiran</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        <form action="{{route('admin.lampiran-penawaran.update', $lampiran->id_jenis_file)}}" method="post">
+            @csrf
+            @method('PUT')
+            <input type="text" name="idLampiran" value="{{$lampiran->id_jenis_file}}" hidden></td>
+            <div class="form-group">
+                <label for="lampiran">Nama lampiran</label>
+                <input type="text" class="form-control" placeholder="Masukkan nama lampiran" name="lampiran" value="{{$lampiran->nama_jenis_file}}">
+            </div>
+            <div class="form-group">
+                <label for="roles">Jenis Lampiran</label>
+                <select class="custom-select form-control fstdropdown-select" name="roles"
+                    id="id_jenis_beasiswa" required>
+                    <option value="pendaftar"
+                    {{"pendaftar" == $lampiran->roles ? "selected":"" }}
+                    >Lampiran Pendaftar</option>
+                    <option value="penawaran"
+                    {{"penawaran" == $lampiran->roles ? "selected":"" }}
+                    >Lampiran Penawaran</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        </form>
+    </div>
+    </div>
+  </div>
+  @endforeach
 @endsection
 
 @push('addon-script')

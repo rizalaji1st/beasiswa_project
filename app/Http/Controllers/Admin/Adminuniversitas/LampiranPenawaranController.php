@@ -21,7 +21,8 @@ class LampiranPenawaranController extends Controller
     {
         //
         $lampirans = RefJenisFile::all();
-        return view('pages.admin.universitas.lampiran.penawaran', ['lampirans'=>$lampirans]);
+        return view('pages.admin.universitas.lampiran.index', ['lampirans'=>$lampirans]);
+        
     }
 
     /**
@@ -83,6 +84,10 @@ class LampiranPenawaranController extends Controller
     public function update(Request $request, RefJenisFile $refJenisFile)
     {
         //
+        RefJenisFile::where('id_jenis_file',$request->idLampiran)
+                    ->update(['nama_jenis_file'=>$request->lampiran,
+                            'roles'=>$request->roles]);
+        return redirect(route('admin.lampiran-penawaran.index'))->with('success','Data berhasil ditambahkan');
     }
 
     /**
