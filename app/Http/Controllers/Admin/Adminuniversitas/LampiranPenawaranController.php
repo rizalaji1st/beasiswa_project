@@ -46,7 +46,7 @@ class LampiranPenawaranController extends Controller
         RefJenisFile::create([
             'nama_jenis_file'=>$request->lampiran,
             'roles'=>$request->roles
-        ]);
+        ]); 
         return redirect(route('admin.lampiran-penawaran.index'))->with('success','Data berhasil ditambahkan');
 
         
