@@ -1,5 +1,6 @@
 <!-- General JS Scripts -->
-<script src="{{url('dashboard/modules/jquery.min.js')}}"></script>
+{{-- <script src="{{url('dashboard/modules/jquery.min.js')}}"></script> --}}
+
 <script src="{{url('dashboard/modules/popper.js')}}"></script>
 <script src="{{url('dashboard/modules/tooltip.js')}}"></script>
 <script src="{{url('dashboard/modules/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -13,6 +14,10 @@
 <script src="{{url('dashboard/modules/summernote/summernote-bs4.js')}}"></script>
 <script src="{{url('dashboard/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
 <script src="{{url('dashboard/vendor/fstdropdown/js/fstdropdown.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+
 
 <!-- Page Specific JS File -->
 <script src="{{url('dashboard/js/page/index.js')}}"></script>

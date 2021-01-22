@@ -30,8 +30,8 @@ class RefKriteria extends Seeder
 
         foreach ($kriteria as $item) {
             DB::table('bea_ref_kriteria')->insert([
-                'id_jenis_kriteria' => $item[0],
-                'nama_kriteria' => $item[1],
+                'id_jenis_kriteria' => $item[1],
+                'nama_kriteria' => $item[0],
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);

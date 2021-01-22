@@ -17,7 +17,7 @@ class CreateBeaSkor extends Migration
             $table->bigIncrements('id_skor');
             $table->string('id_jenis_kriteria');
             $table->foreign('id_jenis_kriteria')->references('id_jenis_kriteria')->on('bea_ref_kriteria')->onDelete('cascade');
-            $table->string('nama skor');
+            $table->string('nama_skor');
             $table->integer('skor');
             $table->timestamps();
         });
