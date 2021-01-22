@@ -25,6 +25,8 @@ Route::namespace('Admin')
             Route::resource('/penawarans', 'Adminuniversitas\PenawaranController');
             Route::resource('/verifikasi', 'Adminuniversitas\VerifikasiController');
             Route::resource('/lampiran-penawaran', 'Adminuniversitas\LampiranPenawaranController');
+            Route::resource('/kriteria', 'Adminuniversitas\KriteriaController');
+            Route::resource('/skor', 'Adminuniversitas\SkorController');
             // Route::put('/verifikasi/{id_pendaftar}', 'Adminuniversitas\VerifikasiController@verify');
             Route::resource('/nominasi', 'Adminuniversitas\NominasiController');
             Route::get('/nominasi/detail_skor/{id}', 'Adminuniversitas\NominasiController@detail_skor')->name('detail_skor');
