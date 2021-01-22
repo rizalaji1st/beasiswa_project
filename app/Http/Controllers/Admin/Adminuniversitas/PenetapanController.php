@@ -55,17 +55,43 @@ class PenetapanController extends Controller
     // menangkap file excel
     $file = $request->file('file');
 
-    // membuat nama file unik
-    $nama_file = rand().$file->getClientOriginalName();
+		// membuat nama file unik
+		$nama_file = rand().$file->getClientOriginalName();
 
-    // upload ke folder file_siswa di dalam folder public
-    $file->move('file_siswa',$nama_file);
+		// upload ke folder file_siswa di dalam folder public
+		$file->move('file_siswa',$nama_file);
 
-    // import data
-    Excel::import(new AdminUnivImport, public_path('/file_siswa/'.$nama_file));
+		// import data
+		Excel::import(new AdminUnivImport, public_path('/file_siswa/'.$nama_file));
 
-    // notifikasi dengan session
-    Session::flash('sukses','Data Siswa Berhasil Diimport!');
-        return redirect()->action([PenetapanController::class, 'index']);
+		// notifikasi dengan session
+		//Session::flash('sukses','Data Siswa Berhasil Diimport!');
+        
+        // $data = Excel::toArray(new AdminUnivImport, $request->file('file'));
+        // print_r($data);
+        // print_r($data[0]);
+
+        // foreach($data[0] as $key) {
+        //     $n = BeaLolos::find($key[0]);
+        //     $n->id_penawaran = $key[1];
+        //     $n->nama_prodi = $key[2];
+        //     $n->nama_fakultas = $key[3];
+        //     $n->nim = $key[4];
+        //     $n->nama = $key[5];
+        //     $n->semester = $key[6];
+        //     $n->status_ayah = $key[7];
+        //     $n->status_ibu = $key[8];
+        //     $n->status_rumah = $key[9];
+        //     $n->penghasilan_ayah = $key[10];
+        //     $n->penghasilan_ibu = $key[11];
+        //     $n->pekerjaan_ayah = $key[12];
+        //     $n->pekerjaan_ibu = $key[13];
+        //     $n->pendidikan_ayah = $key[14];
+        //     $n->pendidikan_ibu = $key[15];
+        //     $n->jumlah_tanggungan = $key[16];
+
+        // $n->save();
+		// alihkan halaman kembali
+		return view('pages.admin.universitas.penetapan.index');
         }
 	}

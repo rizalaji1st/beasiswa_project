@@ -75,6 +75,23 @@
     <span>Lampiran</span>
   </a>
 </li>
+
+<li class="nav-item dropdown @yield('status-penetapan')">
+      <a class="nav-link nav-link has-dropdown" href="#">
+        <i class="nav-icon fas fa-th-list"></i>
+        <span>Kriteria</span>
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <a class="nav-link @yield('status-penetapan')" href="{{route('admin.kriteria.index')}}">Tambah Kriteria</a>
+        </li>
+        <li>
+          <a class="nav-link @yield('status-penetapan')" href="{{route('admin.skor.index')}}">Tambah Skor</a></a>
+        </li>
+      </ul>
+    </li>
+
+
     <li class="nav-item dropdown @yield('status-penetapan')">
       <a class="nav-link nav-link has-dropdown" href="#">
         <i class="fas fa-hammer"></i>
@@ -100,7 +117,7 @@
     @auth
     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
       <a class="btn btn-primary btn-lg btn-block btn-icon-split" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();">
+                                    document.getElementById('logout-form').submit();">
         <i class="fas fa-sign-out-alt    "></i>
         {{ __('Keluar') }}
       </a>

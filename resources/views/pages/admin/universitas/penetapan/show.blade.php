@@ -29,8 +29,15 @@
                         <tr>
                             <th scope="col">No</th>
                             <td scope="col">Prodi</td>
+<<<<<<< HEAD
                             <td scope="col">NIM</td>
                             <td scope="col">Nama</td>
+=======
+                            <td scope="col">Fakultas</td>
+                            <td scope="col">NIM</td>
+                            <td scope="col">Nama</td>
+                            <td scope="col">Semester</td>
+>>>>>>> c055ac4e7041826aa436f939458d3cbabac13897
                             </tr>
                     </tbody>
                     <tbody>
@@ -38,8 +45,19 @@
                     <tr>
                     <th scope="row" class="text-center">{{$loop->iteration}}</th>
                         <td scope="col" class="text-center">{{$n->nama_prodi}}</td>
+<<<<<<< HEAD
                         <td scope="col" class="text-center">{{$n->nim}}</td>
                         <td scope="col" class="text-center">{{$n->nama}}</td>
+=======
+                        <td scope="col" class="text-center">{{$n->nama_fakultas}}</td>
+                        <td scope="col" class="text-center">{{$n->nim}}</td>
+                        <td scope="col" class="text-center">{{$n->nama}}</td>
+                        <td scope="col" class="text-center">{{$n->semester}}</td>
+                        <td scope="col" class="text-center">
+                        <a href="{{route('admin.penetapan.index')}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                            @method('Delete')
+                            @csrf
+>>>>>>> c055ac4e7041826aa436f939458d3cbabac13897
                         </form>
                         </td>
                     </tr>
