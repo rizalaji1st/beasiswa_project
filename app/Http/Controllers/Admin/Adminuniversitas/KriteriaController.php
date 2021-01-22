@@ -82,8 +82,9 @@ class KriteriaController extends Controller
     {
         
 
-        RefKriteria::where('id_jenis_kriteria', $refKriteria->id_jenis_kriteria)
+        RefKriteria::where('id_jenis_kriteria', $request->id_jenis_kriteria)
                     ->update([
+                        'id_jenis_kriteria' => $request->id_jenis_kriteria,
                         'nama_kriteria' => $request->nama_kriteria
                     ]);
         return redirect(route('admin.kriteria.index'))->with('success', 'Data berhasil diubah');

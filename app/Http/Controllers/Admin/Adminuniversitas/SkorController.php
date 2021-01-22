@@ -16,7 +16,6 @@ class SkorController extends Controller
     public function index()
     {
         $refSkor = RefSkor::all();
-        //return $kriteria;
         return view('pages.admin.universitas.skor.tambah_skor', ['skor'=>$refSkor]);
     }
 
