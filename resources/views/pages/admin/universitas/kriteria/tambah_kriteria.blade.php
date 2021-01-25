@@ -53,7 +53,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-            <table id="beasiswa" class="table table-bordered table-hover" width="100%" cellspacing="0" style="border:1px solid #e3e6f0">
+            <table id="kriteria-table" class="table table-bordered table-hover" width="100%" cellspacing="0" style="border:1px solid #e3e6f0">
                 <thead>
                 <tr>
                     <th scope="col" class="text-center">No</th>
@@ -135,7 +135,7 @@
 @push('addon-script')
     <script>
         $(document).ready(function() {
-            $('#beasiswa').DataTable();
+            $('#kriteria-table').DataTable();
         } );
     </script>
 @endpush
